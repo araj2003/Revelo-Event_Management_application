@@ -35,7 +35,11 @@ app.use(
   }),
 );
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:3000", "https://lynk-cx.onrender.com"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://lynk-cx.onrender.com",
+];
 
 app.use(
   cors({
@@ -56,7 +60,6 @@ app.use(express.json());
 // app.use(helmet());
 // app.use(cors());
 // app.use(xss());
-
 
 // routes
 app.use("/", express.static("../client/dist"));

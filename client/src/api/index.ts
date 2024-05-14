@@ -1,10 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import {
-  ProfileType,
-  SignInType,
-  SignUpType,
-} from "../types";
+import { ProfileType, SignInType, SignUpType } from "../types";
 import { logout } from "../store/userSlice";
 import store from "../store";
 
