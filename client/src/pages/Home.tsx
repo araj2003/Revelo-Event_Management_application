@@ -1,7 +1,13 @@
-import React from "react";
+import Header from "../component/Header/Header";
+import Sidebar from "../component/Sidebar/Sidebar";
 
 function Home() {
-  return <div>Home</div>;
+  return <div>
+    <Header />
+    <div className="app__body">
+      <Sidebar />
+    </div>
+  </div>;
 }
 
 export default Home;
