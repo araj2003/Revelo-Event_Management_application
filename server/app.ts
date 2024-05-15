@@ -19,7 +19,7 @@ import connectDB from "./db/connect";
 
 // // routers
 import authRouter from "./routes/auth";
-import urlRouter from "./routes/url";
+
 
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
@@ -38,7 +38,6 @@ app.use(
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "https://lynk-cx.onrender.com",
 ];
 
 app.use(
@@ -64,7 +63,7 @@ app.use(express.json());
 // routes
 app.use("/", express.static("../client/dist"));
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/url", urlRouter);
+
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);

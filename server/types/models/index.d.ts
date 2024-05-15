@@ -20,7 +20,7 @@ export interface IServer {
   serverName:string;
   users:mongoose.Types.ObjectId[];
   admin:mongoose.Types.ObjectId[];
-  chats:mongoose.Types.ObjectId[];
+  channels:mongoose.Types.ObjectId[];
 }
 
 export interface IChat{
@@ -40,5 +40,11 @@ export interface IMessage{
   content:string;
   readBy:mongoose.Types.ObjectId[];
   chat:mongoose.Types.ObjectId;
+}
+
+export interface IChannel{
+  _id?:mongoose.Types.ObjectId;
+  channelName:string;
+  chats:mongoose.Types.ObjectId[];
 }
 

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { IServer } from "../types/models";
 
 const serverSchema = new mongoose.Schema<IServer>({
+  //server == wedding
   serverName: {
     type:String,
     required:[true,"server name is required"]
@@ -15,9 +16,10 @@ const serverSchema = new mongoose.Schema<IServer>({
     type:mongoose.Schema.ObjectId,
     ref:'User'
   }],
-  chats: [{
+  //channels
+  channels: [{
     type:mongoose.Schema.ObjectId,
-    ref:'Chat'
+    ref:'Channel'
   }],
 });
 
