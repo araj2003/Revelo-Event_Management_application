@@ -11,8 +11,27 @@ import FileCopy from "@mui/icons-material/FileCopy";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import { ExpandMore } from "@mui/icons-material";
 import Add from "@mui/icons-material/Add";
+import { useState } from "react";
 
 const Sidebar = () => {
+  const [channels, setChannels] = useState([
+    {
+      id: 1,
+      channel: "Youtube 1",
+    },
+    {
+      id: 2,
+      channel: "Discord ",
+    },
+    {
+      id: 3,
+      channel: "Miro ",
+    },
+    {
+      id: 4,
+      channel: "figma ",
+    },
+  ]);
   return (
     <div className="sidebar">
       <div className="sidebar__header">
@@ -41,9 +60,12 @@ const Sidebar = () => {
       <hr />
       <SidebarOption Icon={ExpandMore} title="Channels" />
       <hr />
-      <SidebarOption Icon={Add}  title="Add Channel" />
+      <SidebarOption Icon={Add} title="Add Channel" />
       <hr />
       {/*  connect to db and list all the channels */}
+      {channels.map((channel) => (
+        <SidebarOption   key={channel.id} title={channel.channel} showIcon = {false} id={channel.id} />
+      ))}
     </div>
   );
 };

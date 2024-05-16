@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "./hooks";
 import { getUserData } from "./store/userSlice";
 import Loading from "./component/Loading";
 import Header from "./component/Header/Header";
-
 function App() {
   const dispatch = useAppDispatch();
   const { isDarkMode, loadingUser } = useAppSelector((state) => state.user);
@@ -40,7 +39,7 @@ function App() {
           toastClassName="bg-white text-gray-800 dark:bg-gray-800 dark:text-white"
           theme={isDarkMode ? "dark" : "light"}
         />
-        <RouterProvider router={router} />
+        <RouterProvider router={router} /> 
       </div>
     </>
   );
