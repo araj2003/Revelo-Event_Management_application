@@ -9,18 +9,20 @@ event:-
     get event
     add members (via link/email)
     cancel event
-    rsvp
     get all member 
     create admin
     remove from admin
     give role(only to vendors)
     
-
+    
     add subevent
 subevent:-
     get Subevent
     add members (via link)
     add channel
+    get member list
+    rsvp
+    name change 
     
 
 channel:-
