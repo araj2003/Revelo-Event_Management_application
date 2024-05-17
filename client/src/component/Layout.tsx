@@ -9,7 +9,7 @@ const Layout = () => {
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
   return (
     <div>
-      {!shouldHideNavbar && <Navbar />}
+      {/* {!shouldHideNavbar && <Navbar />} */}
       <div>
         <Outlet />
       </div>
