@@ -5,14 +5,12 @@ import { toast } from "react-toastify";
 
 const Layout = () => {
   const location = useLocation();
-  const hideNavbarRoutes = ["/verify", "/forgot-password"];
+  const hideNavbarRoutes = ["/verify", "/forgot-password","/"];
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
   return (
     <div>
-      {!shouldHideNavbar && <Navbar />}
-      <div
-        className={`${shouldHideNavbar ? "min-h-section-with-footer" : "min-h-section"} w-full flex justify-center bg-white dark:bg-gray-900 dark:text-white`}
-      >
+      {/* {!shouldHideNavbar && <Navbar />} */}
+      <div>
         <Outlet />
       </div>
     </div>

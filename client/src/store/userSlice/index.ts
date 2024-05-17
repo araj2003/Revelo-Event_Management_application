@@ -13,7 +13,7 @@ export interface LoginState {
 }
 
 const initialState: LoginState = {
-  loadingUser: true,
+  loadingUser: false ,
   token: localStorage.getItem("token") || "",
   isDarkMode:
     localStorage.getItem("isDarkMode") !== null
