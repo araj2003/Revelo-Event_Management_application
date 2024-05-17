@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { IServer } from "../types/models";
+import { ISubEvent } from "../types/models";
 
-const serverSchema = new mongoose.Schema<IServer>({
+const subEventSchema = new mongoose.Schema<ISubEvent>({
   //server == wedding
-  serverName: {
+  subEventName: {
     type:String,
     required:[true,"server name is required"]
   },
@@ -12,16 +12,16 @@ const serverSchema = new mongoose.Schema<IServer>({
     type:mongoose.Schema.ObjectId,
     ref:'User'
   }],
-  host: [{
+  admin: [{
     type:mongoose.Schema.ObjectId,
     ref:'User'
   }],
-  //subEvents
-  subEvents: [{
+  //channels
+  channels: [{
     type:mongoose.Schema.ObjectId,
-    ref:'SubEvent'
+    ref:'Channel'
   }],
 });
 
 
-module.exports = mongoose.model("Server", serverSchema);
+module.exports = mongoose.model("SubEvent", subEventSchema);

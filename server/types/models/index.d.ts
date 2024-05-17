@@ -19,8 +19,8 @@ export interface IServer {
   _id?:mongoose.Types.ObjectId;
   serverName:string;
   users:mongoose.Types.ObjectId[];
-  admin:mongoose.Types.ObjectId[];
-  channels:mongoose.Types.ObjectId[];
+  host:mongoose.Types.ObjectId[];
+  subEvents:mongoose.Types.ObjectId[];
 }
 
 export interface IChat{
@@ -48,3 +48,10 @@ export interface IChannel{
   chats:mongoose.Types.ObjectId[];
 }
 
+export interface ISubEvent {
+  _id?:mongoose.Types.ObjectId;
+  subEventName:string;
+  users:mongoose.Types.ObjectId[];
+  admin:mongoose.Types.ObjectId[];
+  channels:mongoose.Types.ObjectId[];
+}
