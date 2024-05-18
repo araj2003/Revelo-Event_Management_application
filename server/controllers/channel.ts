@@ -1,4 +1,4 @@
-import { Request, Response, response } from "express";
+import { Request, Response } from "express";
 import User from "../models/User"
 import eventSchemma from "../models/Server";
 import { BadRequestError, UnauthenticatedError } from "../errors";
