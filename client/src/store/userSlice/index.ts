@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 export interface LoginState {
   loadingUser: boolean;
-  token?: string;
+  isAuthenticated: boolean;
   isDarkMode: boolean;
   name?: string;
   profilePicture?: string;
@@ -13,8 +13,8 @@ export interface LoginState {
 }
 
 const initialState: LoginState = {
-  loadingUser: false ,
-  token: localStorage.getItem("token") || "",
+  loadingUser: false,
+  isAuthenticated: false,
   isDarkMode:
     localStorage.getItem("isDarkMode") !== null
       ? localStorage.getItem("isDarkMode") === "true"
@@ -33,23 +33,22 @@ const userSlice = createSlice({
       localStorage.setItem("isDarkMode", state.isDarkMode.toString());
     },
     SET_USER_DATA(state, action) {
-      const { token, name, isAdministrator, profilePicture } = action.payload;
-      // console.log(token, name, isAdministrator,profilePicture);
-      localStorage.setItem("token", token);
-      state.token = token;
+      const { name, isAdministrator, profilePicture } = action.payload;
+      // console.log(name, isAdministrator,profilePicture);
+      state.isAuthenticated = true;
       state.name = name;
       state.isAdministrator = isAdministrator;
       state.profilePicture = profilePicture;
-      // console.log(state.token, state.name, state.isAdministrator);
+      // console.log(state.name, state.isAdministrator);
     },
     SET_PROFILE_PICTURE(state, action) {
       state.profilePicture = action.payload;
     },
     LOGOUT(state) {
-      localStorage.removeItem("token");
-      state.token = "";
       state.name = "";
       state.isAdministrator = false;
+      state.isAuthenticated = false;
+      state.profilePicture = "";
     },
     SET_LOADING_USER_TRUE(state) {
       state.loadingUser = true;
@@ -69,7 +68,8 @@ export const signIn =
     }
     try {
       const data: any = await login(signInData);
-      if (data.token) {
+      console.log(data);
+      if (data.name) {
         dispatch(SET_USER_DATA(data));
       }
     } catch (error) {
@@ -86,8 +86,8 @@ export const signUp =
     }
     try {
       const data: any = await register(signUpData);
-      console.log(data);
-      if (data.token) {
+      
+      if (data.name) {
         dispatch(SET_USER_DATA(data));
       }
     } catch (error) {
@@ -97,12 +97,14 @@ export const signUp =
 
 export const getUserData = () => async (dispatch: Dispatch) => {
   try {
-    if (!localStorage.getItem("token")) {
-      dispatch(SET_LOADING_USER_FALSE());
-      return;
-    }
+    const isLoggedIn = document.cookie.split(";").some((cookie) => {
+      const [key, _value] = cookie.split("=");
+      if (key.trim() === "token") return true;
+      return false;
+    });
+    if (!isLoggedIn) return dispatch(SET_LOADING_USER_FALSE());
     const data: any = await getDetails();
-    if (data.token) {
+    if (data.name) {
       dispatch(SET_USER_DATA(data));
     }
   } catch (error) {

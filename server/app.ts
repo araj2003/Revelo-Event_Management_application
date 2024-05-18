@@ -8,6 +8,7 @@ import morgan from "morgan";
 // const xss = require('xss-clean');
 import cors from "cors";
 import rateLimiter from "express-rate-limit";
+import cookieParser from "cookie-parser";
 
 const app: Express = express();
 
@@ -24,7 +25,6 @@ import authRouter from "./routes/auth";
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
-import path from "path";
 
 app.set("trust proxy", 1);
 
@@ -55,6 +55,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(cookieParser())
 // extra packages
 // app.use(helmet());
 // app.use(cors());

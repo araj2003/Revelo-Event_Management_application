@@ -1,5 +1,5 @@
 import { Outlet, useLocation, Navigate } from "react-router-dom";
-import Navbar from "./Navbar.tsx";
+// import Navbar from "./Navbar.tsx";
 import { useAppSelector } from "../hooks";
 import { toast } from "react-toastify";
 
@@ -18,9 +18,9 @@ const Layout = () => {
 };
 
 const ProtectedRoute = () => {
-  const { token } = useAppSelector((state) => state.user);
+  const { isAuthenticated } = useAppSelector((state) => state.user);
 
-  if (!token) {
+  if (!isAuthenticated) {
     toast.error("You need to be logged in to access this page", {
       toastId: "protected-route",
     });
@@ -30,10 +30,10 @@ const ProtectedRoute = () => {
 };
 
 const AntiProtectedRoute = () => {
-  const { token } = useAppSelector((state) => state.user);
+  const { isAuthenticated } = useAppSelector((state) => state.user);
   // console.log(token);
 
-  if (token) return <Navigate to="/dashboard" />;
+  if (isAuthenticated) return <Navigate to="/dashboard" />;
   return <Outlet />;
 };
 

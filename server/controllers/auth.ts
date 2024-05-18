@@ -1,21 +1,36 @@
 import User from "../models/User";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, UnauthenticatedError } from "../errors";
-import { Request, Response } from "express";
+import { CookieOptions, Request, Response } from "express";
 import { IUser } from "../types/models";
 import { uploadProfileImage } from "../utils/cloudinary";
+
+const setTokenCookie = (res: Response, user: IUser) => {
+  const token = user.createJWT();
+  // stored as 30d
+  const JWT_LIFETIME = process.env.JWT_LIFETIME as string;
+  const options: CookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    expires: new Date(
+      Date.now() + parseInt(JWT_LIFETIME) * 24 * 60 * 60 * 1000,
+    ),
+  };
+  res.cookie("token", token, options);
+};
 
 const register = async (req: Request, res: Response) => {
   if (!req.body.name || !req.body.email || !req.body.password) {
     throw new BadRequestError("Please provide name, email and password");
   }
   const user: IUser = await User.create({ ...req.body });
-  const token = user.createJWT();
+
+  setTokenCookie(res, user);
+
   return res.status(StatusCodes.CREATED).json({
     name: user.name,
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
-    token,
     msg: "Registration successful",
   });
 };
@@ -34,13 +49,13 @@ const login = async (req: Request, res: Response) => {
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
+  
+  setTokenCookie(res, user);
 
-  const token = user.createJWT();
   return res.status(StatusCodes.OK).json({
     name: user.name,
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
-    token,
     msg: "Login successful",
   });
 };
@@ -53,12 +68,13 @@ const sendDetails = async (req: Request, res: Response) => {
   if (!user) {
     throw new UnauthenticatedError("Unauthorized");
   }
-  const token = user.createJWT();
+
+  setTokenCookie(res, user);
+
   return res.status(StatusCodes.OK).json({
     name: user.name,
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
-    token,
     msg: "User details sent",
   });
 };
