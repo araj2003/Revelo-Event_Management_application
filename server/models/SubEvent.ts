@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { ISubEvent } from "../types/models";
 
-const subEventSchema = new mongoose.Schema<ISubEvent>({
+const subEvent = new mongoose.Schema<ISubEvent>({
   //server == wedding
   subEventName: {
     type:String,
@@ -24,4 +24,5 @@ const subEventSchema = new mongoose.Schema<ISubEvent>({
 });
 
 
-module.exports = mongoose.model("SubEvent", subEventSchema);
+const subEventSchema = mongoose.model("SubEvent", subEvent);
+export default subEventSchema;

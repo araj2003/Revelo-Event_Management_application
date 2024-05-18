@@ -5,14 +5,14 @@ const router = express.Router();
 /*
 
 event:-
-    create event
-    get event
-    add members (via link/email)
+    create event ..
+    get event ..
+    add members (via link/email) last
     cancel event
     get all member 
-    create admin
-    remove from admin
-    give role(only to vendors)
+    create admin ..
+    remove from admin ..
+    give role(only to vendors) -last
     
     
     add subevent
@@ -27,6 +27,10 @@ subevent:-
 
 channel:-
     get channel
+    create channel
+    
+
+chats:- 
     create groups
     message in group(group id)
 

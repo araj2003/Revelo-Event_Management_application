@@ -24,4 +24,5 @@ const serverSchema = new mongoose.Schema<IServer>({
 });
 
 
-module.exports = mongoose.model("Server", serverSchema);
+const eventSchemma = mongoose.model("Server", serverSchema);
+export default eventSchemma;

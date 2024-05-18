@@ -10,7 +10,6 @@ const chatSchema = new mongoose.Schema<IChat>(
     chatTag:{
         type: String,
       trim: true,
-      required:[true,"tag is required"],
       default:"general"
     },
     isGroupChat: {
