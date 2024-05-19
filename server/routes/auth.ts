@@ -12,10 +12,12 @@ import {
   passwordChange,
   updateProfile,
   uploadProfilePicture,
+  logout,
 } from "../controllers/auth";
 
 router.post("/register", register);
 router.post("/login", login);
+router.get("/logout", logout);
 router.put("/password", authMiddleWare, passwordChange);
 router.get("/", authMiddleWare, sendDetails);
 router.get("/profile", authMiddleWare, profile);

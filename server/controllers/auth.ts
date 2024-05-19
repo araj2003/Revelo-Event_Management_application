@@ -79,6 +79,13 @@ const sendDetails = async (req: Request, res: Response) => {
   });
 };
 
+const logout = async (req: Request, res: Response) => {
+  res.clearCookie("token");
+  return res.status(StatusCodes.OK).json({
+    msg: "Logout successful",
+  });
+}
+
 const profile = async (req: Request, res: Response) => {
   const userId = req.user.userId;
 
@@ -147,6 +154,7 @@ const uploadProfilePicture = async (req: Request, res: Response) => {
 export {
   register,
   login,
+  logout,
   sendDetails,
   profile,
   passwordChange,

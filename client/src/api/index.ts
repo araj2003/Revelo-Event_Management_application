@@ -59,6 +59,7 @@ export const login = (signInData: SignInType) =>
 export const register = (signUpData: SignUpType) =>
   API.post("/auth/register", signUpData);
 export const getProfile = () => API.get("/auth/profile");
+export const signout = () => API.get("/auth/logout");
 export const updateProfile = (profileData: ProfileType) =>
   API.put("/auth/profile", profileData);
 export const uploadProfilePicture = (image: File) => {

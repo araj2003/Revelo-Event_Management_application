@@ -1,6 +1,6 @@
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import { SignInType, SignUpType } from "../../types";
-import { getDetails, login, register } from "../../api";
+import { getDetails, login, register, signout } from "../../api";
 import { toast } from "react-toastify";
 
 export interface LoginState {
@@ -86,7 +86,7 @@ export const signUp =
     }
     try {
       const data: any = await register(signUpData);
-      
+
       if (data.name) {
         dispatch(SET_USER_DATA(data));
       }
@@ -100,8 +100,7 @@ export const getUserData = () => async (dispatch: Dispatch) => {
     const data: any = await getDetails();
     if (data.name) {
       dispatch(SET_USER_DATA(data));
-    }
-    else {
+    } else {
       dispatch(SET_LOADING_USER_FALSE());
     }
   } catch (error) {
@@ -111,9 +110,12 @@ export const getUserData = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const logout = () => (dispatch: Dispatch) => {
+export const logout = () => async (dispatch: Dispatch) => {
   try {
-    dispatch(LOGOUT());
+    const data: any = await signout();
+    if (data.msg) {
+      dispatch(LOGOUT());
+    }
   } catch (error) {
     console.log(error);
   }
