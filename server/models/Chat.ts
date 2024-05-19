@@ -1,16 +1,15 @@
 import mongoose from "mongoose";
 import { IChat } from "../types/models";
 
-const chatSchema = new mongoose.Schema<IChat>(
+const chat = new mongoose.Schema<IChat>(
   {
     chatName: {
       type: String,
       trim: true,
     },
-    chatTag:{
-        type: String,
-      trim: true,
-      default:"general"
+    channelId:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Channel",
     },
     isGroupChat: {
       type: Boolean,
@@ -34,4 +33,5 @@ const chatSchema = new mongoose.Schema<IChat>(
   { timestamps: true },
 );
 
-module.exports = mongoose.model("Chat", chatSchema);
+const chatSchema = mongoose.model("Chat", chat);
+export default chatSchema
