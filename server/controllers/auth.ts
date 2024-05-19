@@ -12,6 +12,8 @@ const setTokenCookie = (res: Response, user: IUser) => {
   const options: CookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
+    domain: "localhost",
     expires: new Date(
       Date.now() + parseInt(JWT_LIFETIME) * 24 * 60 * 60 * 1000,
     ),
