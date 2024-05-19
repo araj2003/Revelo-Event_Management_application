@@ -14,9 +14,6 @@ importers:
 
   client:
     dependencies:
-      '@atlaskit/dropdown-menu':
-        specifier: ^12.10.2
-        version: 12.10.2(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@emotion/react':
         specifier: ^11.11.4
         version: 11.11.4(@types/react@18.3.2)(react@18.3.1)
@@ -207,130 +204,6 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@atlaskit/analytics-next-stable-react-context@1.0.1':
-    resolution: {integrity: sha512-iO6+hIp09dF4iAZQarVz3vKY1kM5Ij5CExYcK9jgc2q+OH8nv8n+BPFeJTdzGOGopmbUZn5Opj9pYQvge1Gr4Q==}
-    peerDependencies:
-      react: ^16.8.0
-
-  '@atlaskit/analytics-next@9.3.0':
-    resolution: {integrity: sha512-mR5CndP92k2gFl8sWu4DJZZEpEQ4bnp5Z3fWCZE1oySiOKK8iM+KzKH4FMCaSUGOhWW6/5VeuXCcXvaogaAmsA==}
-    peerDependencies:
-      react: ^16.8.0
-
-  '@atlaskit/app-provider@1.3.1':
-    resolution: {integrity: sha512-bIf6pAV2PSC5V5r03E2SGjNVmPK2Ly1D2hz3n43Av09fmMLWDumOP2yvPyhnLD2J13uxMnNzzZCX91koMg07tA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/button@17.14.2':
-    resolution: {integrity: sha512-aXa9K9bvYZPpKjARwzTmjCZqGxyzQdq+f6tFA4mMANgOz4gWmo/bBJq+W9rlX1XlcGTg0BnN8BkMEoC5TLkHZw==}
-    peerDependencies:
-      react: ^16.8.0
-
-  '@atlaskit/codemod-utils@4.2.4':
-    resolution: {integrity: sha512-ETeLShTnEpLvsEhm0wmIlC7toRPy9hrMGbttdsiKzyUeGQQ3VqBxvOOPZNA6Uvi0660Jjd3lS7n5u7R/Ku0OHg==}
-
-  '@atlaskit/css@0.1.0':
-    resolution: {integrity: sha512-FQfiLoYJrwTYhjSpa+RA8omPAPlJ5rl0OCJ0NAkMXRGx1o8ItNBW5EcRBwW0wUHaBOZ4oFS5EUshk185E/G/zQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/dropdown-menu@12.10.2':
-    resolution: {integrity: sha512-GFwD21+9W75za3Mp0gnKgchSoxQMAtJXu2gF2Ujeec/qbBiMPohU2sxQeYVRfYK7n16OK9rbDZmTYIeduz6z8w==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-      react-dom: ^16.8.0
-
-  '@atlaskit/ds-lib@2.3.1':
-    resolution: {integrity: sha512-DVUE3hYLhdEZy4NnsxqiCqKC5Ym3CM/DGRQlnSPcABFNL0N0FfTXso3pLpkJnMZBtEnd2pn13mPJ2VQlSISRuw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/focus-ring@1.4.0':
-    resolution: {integrity: sha512-YFsPMjvKcfDv/7koMXRk/VuT279tJovsXAD2rYwVAoLu2VlV1akA7n9O6qWjoFPqt5u/lS4WPvVH66CDLkfHiw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/icon@22.2.0':
-    resolution: {integrity: sha512-JCfdELO1TpBc7tT28549szIQJs5BnAXFJAjVwzJS+/L2VHx0sVqBTY72/4H7lNGoF7cBn3unRNMRhYZzDjahNA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/in-product-testing@0.2.4':
-    resolution: {integrity: sha512-xlxD+3oBh/fslkJk3TZYJ0yEK4LmRlywlZYNfYzyjXe7IrbhwAJbVknRTWsUhnQeUeIA3QlGL4+dulg0Bjbn5w==}
-
-  '@atlaskit/interaction-context@2.1.4':
-    resolution: {integrity: sha512-MTuHN8wLYBPADE83Q+9KF5BcKyMW9/FkmA+lB/XnHwYIL86sMPzMSTM0DPG7crq/JI0JM0jlyY3Xzz0Aba7G+A==}
-    peerDependencies:
-      react: ^16.8.0
-
-  '@atlaskit/layering@0.3.0':
-    resolution: {integrity: sha512-qCLXzrvul2P3k9y0zDfmnaIwsYwrQcecuux/pnucB6CFKApgW217kCnkYWSyErY81udgnvNMb4XEyOpRQe+WrQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/menu@2.3.0':
-    resolution: {integrity: sha512-LVvZOVSrX+ogXlTIgs1z855Fu5d/4eYmA//W3FZ/djKKJFuRBYckCYQWz42QpcUC3be7xXbkYeScFMHIZrxuJA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-      react-dom: ^16.8.0
-
-  '@atlaskit/motion@1.6.0':
-    resolution: {integrity: sha512-V93mLoB3uEma4O/+ivE+/EZBC8Mvn+lGtEXEDNL7opEDyCS/LkAlKxSN0je69RUzrulZHh1+5PTfOTvyMXyubQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/platform-feature-flags@0.2.5':
-    resolution: {integrity: sha512-0fD2aDxn2mE59D4acUhVib+YF2HDYuuPH50aYwpQdcV/CsVkAaJsMKy8WhWSulcRFeMYp72kfIfdy0qGdRB7Uw==}
-
-  '@atlaskit/popper@5.5.5':
-    resolution: {integrity: sha512-7wuaYQPe5RCAiz/X8uhDKyUQb3sXHR5D0hRERFzoq8Grmzg5/b5WxBkXj28FbpG0pOMPco2EO99vsJ6f31XlJQ==}
-    peerDependencies:
-      react: ^16.8.0
-
-  '@atlaskit/popup@1.17.0':
-    resolution: {integrity: sha512-dEtFELslro9ntUaIOx+DZpsKJGpQIhfcpaYB4/r2jGXdlaD/mgEI7Xp/FF1gnu9m/hRQjoqLoowJjwBjLHfhhA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-      react-dom: ^16.8.0
-
-  '@atlaskit/portal@4.5.0':
-    resolution: {integrity: sha512-YOjlpJ0kMLWutq5+DzXQuBkX8QKvyJVu19zgtpp76T7XGcayw6jTacICfQ/6n0v3D5C+lAGjkGXbUdcevgn+Bg==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-      react-dom: ^16.8.0
-
-  '@atlaskit/primitives@6.2.0':
-    resolution: {integrity: sha512-0y+47m85z880UFM1HSb6iv3o9TBMZDFerkhtVPzg+hQQqKYvvx6+N485q8GQmSoTg5UN7DqccCgK/CN0sucfEw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-
-  '@atlaskit/spinner@16.1.0':
-    resolution: {integrity: sha512-eFJpjLIP0OYb2DmY+ec0cypbRNj6X86qIDayvyqYeNzJUAhXXSEsli781fLJMC6RYtGd9MWw6e8CruoD05/rxg==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/theme@12.8.0':
-    resolution: {integrity: sha512-6c/M6DMYkNMTeWwFmtA3YwSbtf05UJu/qc0IIVLA8+S0znUviBCMITPLtcdIlzxfV+0ZR5iFATYP5hrlypaMnQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/tokens@1.48.0':
-    resolution: {integrity: sha512-r/sWsB8XuTxwYFiTKI1X002Q/TZwfqS9P6FoO6f4EfEPnC4ohdfoqmeaRjfdZl+dgMrpXGQGnX23mDCfaFR2mg==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
-  '@atlaskit/tooltip@18.4.0':
-    resolution: {integrity: sha512-zq3wts6BaBG4QRITjBvZHdCx7sgBQMnmWShHkVrOmbquJzmDZ36cVmH+E0n0nYkof+OCrLc0xYOpgicZe+uQhw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-      react-dom: ^16.8.0
-
-  '@atlaskit/visually-hidden@1.3.0':
-    resolution: {integrity: sha512-iOHCxRnhNV3gnqOHuyLOnsFibfHpr1T28XUPYZjtN9bDQbn1GdSDYLoIHnLK+2enqdILirsuUWi93mWM3dCCwg==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ~18.2.0
-
   '@babel/code-frame@7.24.2':
     resolution: {integrity: sha512-y5+tLQyV8pg3fsiln67BVLD1P13Eg4lh5RW9mF0zUuvLrv9uIQ4MCL+CRT+FTsBlBjcIan6PGsLcBN0m3ClUyQ==}
     engines: {node: '>=6.9.0'}
@@ -437,11 +310,6 @@ packages:
   '@babel/types@7.24.5':
     resolution: {integrity: sha512-6mQNsaLeXTw0nxYUYu+NSa4Hx4BlF1x1x8/PMFbiR+GBSr+2DkECc69b8hgy2frEodNcvPffeH8YfWd3LI6jhQ==}
     engines: {node: '>=6.9.0'}
-
-  '@compiled/react@0.17.1':
-    resolution: {integrity: sha512-1CzTOrwNHOUmz9QGYHv8R8J6ejUyaNYiaUN6/dIM0Wu3G5CIam0KgsqvRikfGPrTtBfAQYMmdI9ytzxUKYwJrg==}
-    peerDependencies:
-      react: '>= 16.12.0'
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -1282,9 +1150,6 @@ packages:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
 
-  bind-event-listener@3.0.0:
-    resolution: {integrity: sha512-PJvH288AWQhKs2v9zyfYdPzlPqf5bXbGMmhmUIY9x4dAUGIWgomO771oBQNwJnMQSnUIXhKu6sgzpBRXTlvb8Q==}
-
   body-parser@1.20.2:
     resolution: {integrity: sha512-ml9pReCu3M61kGlqoTm2umSXTlRTuGTx0bfYj+uIUKKYycG5NtSbeetV3faSU6R7ajOPw0g/J1PvK4qNy7s5bA==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
@@ -1658,9 +1523,6 @@ packages:
   flatted@3.3.1:
     resolution: {integrity: sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==}
 
-  focus-trap@2.4.6:
-    resolution: {integrity: sha512-vWZTPtBU6pBoyWZDRZJHkXsyP2ZCZBHE3DRVXnSVdQKH/mcDtu9S5Kz8CUDyIqpfZfLEyI9rjKJLnc4Y40BRBg==}
-
   follow-redirects@1.15.6:
     resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
     engines: {node: '>=4.0'}
@@ -1979,9 +1841,6 @@ packages:
   media-typer@0.3.0:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
-
-  memoize-one@6.0.0:
-    resolution: {integrity: sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw==}
 
   memory-pager@1.5.0:
     resolution: {integrity: sha512-ZS4Bp4r/Zoeq6+NLJpP+0Zzm0pR8whtGPf1XExKLJBAczGMnSi3It14OiNCStjQjM6NU1okjQGSxgEZN8eBYKg==}
@@ -2347,21 +2206,11 @@ packages:
     peerDependencies:
       react: ^18.3.1
 
-  react-fast-compare@3.2.2:
-    resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
-
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
-
-  react-popper@2.3.0:
-    resolution: {integrity: sha512-e1hj8lL3uM+sgSR4Lxzn5h1GxBlpa4CQz0XLF8kx4MDrDRWY0Ena4c97PUeSX9i5W3UAfDP0z0FXCTQkoXUl3Q==}
-    peerDependencies:
-      '@popperjs/core': ^2.0.0
-      react: ^16.8.0 || ^17 || ^18
-      react-dom: ^16.8.0 || ^17 || ^18
 
   react-redux@9.1.2:
     resolution: {integrity: sha512-0OA4dhM1W48l3uzmv6B7TXPCGmokUU4p1M44DGN2/D9a1FjVPukVjER1PcPX97jIg6aUeLq1XJo1IpfbgULn0w==}
@@ -2403,16 +2252,6 @@ packages:
     peerDependencies:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
-
-  react-uid@2.3.3:
-    resolution: {integrity: sha512-iNpDovcb9qBpBTo8iUgqRSQOS8GV3bWoNaTaUptHkXtAooXSo0OWe7vN6TqqB8x3x0bNBbQx96kkmSltQ5h9kQ==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
 
   react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
@@ -2609,9 +2448,6 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  tabbable@1.1.3:
-    resolution: {integrity: sha512-nOWwx35/JuDI4ONuF0ZTo6lYvI0fY0tZCH1ErzY2EXfu4az50ZyiUX8X073FLiZtmWUVlkRnuXsehjJgCw9tYg==}
-
   tailwindcss@3.4.3:
     resolution: {integrity: sha512-U7sxQk/n397Bmx4JHbJx/iSOOv5G+II3f1kpLpY2QeUv5DcPdcTsYLlusZfq1NthHS1c1cZoyFmmkex1rzke0A==}
     engines: {node: '>=14.0.0'}
@@ -2676,9 +2512,6 @@ packages:
       '@swc/wasm':
         optional: true
 
-  tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
-
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -2717,11 +2550,6 @@ packages:
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
-
-  use-memo-one@1.1.3:
-    resolution: {integrity: sha512-g66/K7ZQGYrI6dy8GLpVcMsBp4s17xNkYJVSMvTEevGy3nDxHOfE6z8BVE22+5G5x7t3+bhzrlTDB7ObrEE0cQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
   use-sync-external-store@1.2.2:
     resolution: {integrity: sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==}
@@ -2769,9 +2597,6 @@ packages:
         optional: true
       terser:
         optional: true
-
-  warning@4.0.3:
-    resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
 
   webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
@@ -2833,277 +2658,6 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
-
-  '@atlaskit/analytics-next-stable-react-context@1.0.1(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
-      tslib: 2.6.2
-
-  '@atlaskit/analytics-next@9.3.0(react@18.3.1)':
-    dependencies:
-      '@atlaskit/analytics-next-stable-react-context': 1.0.1(react@18.3.1)
-      '@atlaskit/platform-feature-flags': 0.2.5
-      '@babel/runtime': 7.24.5
-      prop-types: 15.8.1
-      react: 18.3.1
-      use-memo-one: 1.1.3(react@18.3.1)
-
-  '@atlaskit/app-provider@1.3.1(react@18.3.1)':
-    dependencies:
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      bind-event-listener: 3.0.0
-      react: 18.3.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@atlaskit/button@17.14.2(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@atlaskit/analytics-next': 9.3.0(react@18.3.1)
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@atlaskit/focus-ring': 1.4.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/icon': 22.2.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/interaction-context': 2.1.4(react@18.3.1)
-      '@atlaskit/primitives': 6.2.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/spinner': 16.1.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/theme': 12.8.0(react@18.3.1)
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@atlaskit/tooltip': 18.4.0(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@atlaskit/visually-hidden': 1.3.0(@types/react@18.3.2)(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      react: 18.3.1
-    transitivePeerDependencies:
-      - '@types/react'
-      - react-dom
-      - supports-color
-
-  '@atlaskit/codemod-utils@4.2.4':
-    dependencies:
-      '@babel/runtime': 7.24.5
-
-  '@atlaskit/css@0.1.0(react@18.3.1)':
-    dependencies:
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@compiled/react': 0.17.1(react@18.3.1)
-      react: 18.3.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@atlaskit/dropdown-menu@12.10.2(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@atlaskit/button': 17.14.2(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@atlaskit/codemod-utils': 4.2.4
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@atlaskit/icon': 22.2.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/layering': 0.3.0(react@18.3.1)
-      '@atlaskit/menu': 2.3.0(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@atlaskit/popup': 1.17.0(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@atlaskit/primitives': 6.2.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/spinner': 16.1.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/theme': 12.8.0(react@18.3.1)
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      bind-event-listener: 3.0.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    transitivePeerDependencies:
-      - '@types/react'
-      - supports-color
-
-  '@atlaskit/ds-lib@2.3.1(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.24.5
-      bind-event-listener: 3.0.0
-      react: 18.3.1
-
-  '@atlaskit/focus-ring@1.4.0(@types/react@18.3.2)(react@18.3.1)':
-    dependencies:
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      react: 18.3.1
-    transitivePeerDependencies:
-      - '@types/react'
-      - supports-color
-
-  '@atlaskit/icon@22.2.0(@types/react@18.3.2)(react@18.3.1)':
-    dependencies:
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      react: 18.3.1
-    transitivePeerDependencies:
-      - '@types/react'
-      - supports-color
-
-  '@atlaskit/in-product-testing@0.2.4':
-    dependencies:
-      '@babel/runtime': 7.24.5
-
-  '@atlaskit/interaction-context@2.1.4(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.24.5
-      react: 18.3.1
-
-  '@atlaskit/layering@0.3.0(react@18.3.1)':
-    dependencies:
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      bind-event-listener: 3.0.0
-      react: 18.3.1
-
-  '@atlaskit/menu@2.3.0(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@atlaskit/focus-ring': 1.4.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/platform-feature-flags': 0.2.5
-      '@atlaskit/primitives': 6.2.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/theme': 12.8.0(react@18.3.1)
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    transitivePeerDependencies:
-      - '@types/react'
-      - supports-color
-
-  '@atlaskit/motion@1.6.0(@types/react@18.3.2)(react@18.3.1)':
-    dependencies:
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      bind-event-listener: 3.0.0
-      react: 18.3.1
-    transitivePeerDependencies:
-      - '@types/react'
-
-  '@atlaskit/platform-feature-flags@0.2.5':
-    dependencies:
-      '@babel/runtime': 7.24.5
-
-  '@atlaskit/popper@5.5.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@atlaskit/in-product-testing': 0.2.4
-      '@babel/runtime': 7.24.5
-      '@popperjs/core': 2.11.8
-      react: 18.3.1
-      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-    transitivePeerDependencies:
-      - react-dom
-
-  '@atlaskit/popup@1.17.0(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@atlaskit/layering': 0.3.0(react@18.3.1)
-      '@atlaskit/platform-feature-flags': 0.2.5
-      '@atlaskit/popper': 5.5.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@atlaskit/portal': 4.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@atlaskit/theme': 12.8.0(react@18.3.1)
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      bind-event-listener: 3.0.0
-      focus-trap: 2.4.6
-      memoize-one: 6.0.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      tiny-invariant: 1.3.1
-    transitivePeerDependencies:
-      - '@types/react'
-      - supports-color
-
-  '@atlaskit/portal@4.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@atlaskit/theme': 12.8.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    transitivePeerDependencies:
-      - supports-color
-
-  '@atlaskit/primitives@6.2.0(@types/react@18.3.2)(react@18.3.1)':
-    dependencies:
-      '@atlaskit/analytics-next': 9.3.0(react@18.3.1)
-      '@atlaskit/app-provider': 1.3.1(react@18.3.1)
-      '@atlaskit/css': 0.1.0(react@18.3.1)
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@atlaskit/interaction-context': 2.1.4(react@18.3.1)
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@atlaskit/visually-hidden': 1.3.0(@types/react@18.3.2)(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      '@emotion/serialize': 1.1.4
-      bind-event-listener: 3.0.0
-      react: 18.3.1
-      tiny-invariant: 1.3.1
-    transitivePeerDependencies:
-      - '@types/react'
-      - supports-color
-
-  '@atlaskit/spinner@16.1.0(@types/react@18.3.2)(react@18.3.1)':
-    dependencies:
-      '@atlaskit/interaction-context': 2.1.4(react@18.3.1)
-      '@atlaskit/theme': 12.8.0(react@18.3.1)
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      react: 18.3.1
-    transitivePeerDependencies:
-      - '@types/react'
-      - supports-color
-
-  '@atlaskit/theme@12.8.0(react@18.3.1)':
-    dependencies:
-      '@atlaskit/codemod-utils': 4.2.4
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      react: 18.3.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@atlaskit/tokens@1.48.0(react@18.3.1)':
-    dependencies:
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@atlaskit/platform-feature-flags': 0.2.5
-      '@babel/runtime': 7.24.5
-      '@babel/traverse': 7.24.5
-      '@babel/types': 7.24.5
-      bind-event-listener: 3.0.0
-      react: 18.3.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@atlaskit/tooltip@18.4.0(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@atlaskit/analytics-next': 9.3.0(react@18.3.1)
-      '@atlaskit/ds-lib': 2.3.1(react@18.3.1)
-      '@atlaskit/motion': 1.6.0(@types/react@18.3.2)(react@18.3.1)
-      '@atlaskit/popper': 5.5.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@atlaskit/portal': 4.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@atlaskit/theme': 12.8.0(react@18.3.1)
-      '@atlaskit/tokens': 1.48.0(react@18.3.1)
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      bind-event-listener: 3.0.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-uid: 2.3.3(@types/react@18.3.2)(react@18.3.1)
-    transitivePeerDependencies:
-      - '@types/react'
-      - supports-color
-
-  '@atlaskit/visually-hidden@1.3.0(@types/react@18.3.2)(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.24.5
-      '@emotion/react': 11.11.4(@types/react@18.3.2)(react@18.3.1)
-      react: 18.3.1
-    transitivePeerDependencies:
-      - '@types/react'
 
   '@babel/code-frame@7.24.2':
     dependencies:
@@ -3246,11 +2800,6 @@ snapshots:
       '@babel/helper-string-parser': 7.24.1
       '@babel/helper-validator-identifier': 7.24.5
       to-fast-properties: 2.0.0
-
-  '@compiled/react@0.17.1(react@18.3.1)':
-    dependencies:
-      csstype: 3.1.3
-      react: 18.3.1
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -4030,8 +3579,6 @@ snapshots:
 
   binary-extensions@2.3.0: {}
 
-  bind-event-listener@3.0.0: {}
-
   body-parser@1.20.2:
     dependencies:
       bytes: 3.1.2
@@ -4477,10 +4024,6 @@ snapshots:
 
   flatted@3.3.1: {}
 
-  focus-trap@2.4.6:
-    dependencies:
-      tabbable: 1.1.3
-
   follow-redirects@1.15.6: {}
 
   foreground-child@3.1.1:
@@ -4763,8 +4306,6 @@ snapshots:
   make-error@1.3.6: {}
 
   media-typer@0.3.0: {}
-
-  memoize-one@6.0.0: {}
 
   memory-pager@1.5.0: {}
 
@@ -5073,19 +4614,9 @@ snapshots:
       react: 18.3.1
       scheduler: 0.23.2
 
-  react-fast-compare@3.2.2: {}
-
   react-is@16.13.1: {}
 
   react-is@18.3.1: {}
-
-  react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@popperjs/core': 2.11.8
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-fast-compare: 3.2.2
-      warning: 4.0.3
 
   react-redux@9.1.2(@types/react@18.3.2)(react@18.3.1)(redux@5.0.1):
     dependencies:
@@ -5124,13 +4655,6 @@ snapshots:
       prop-types: 15.8.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-
-  react-uid@2.3.3(@types/react@18.3.2)(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-      tslib: 2.6.2
-    optionalDependencies:
-      '@types/react': 18.3.2
 
   react@18.3.1:
     dependencies:
@@ -5369,8 +4893,6 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  tabbable@1.1.3: {}
-
   tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
@@ -5454,8 +4976,6 @@ snapshots:
     optionalDependencies:
       '@swc/core': 1.5.6
 
-  tslib@2.6.2: {}
-
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
@@ -5487,10 +5007,6 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  use-memo-one@1.1.3(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-
   use-sync-external-store@1.2.2(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -5511,10 +5027,6 @@ snapshots:
     optionalDependencies:
       '@types/node': 20.12.12
       fsevents: 2.3.3
-
-  warning@4.0.3:
-    dependencies:
-      loose-envify: 1.4.0
 
   webidl-conversions@7.0.0: {}
 
