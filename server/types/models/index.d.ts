@@ -26,7 +26,7 @@ export interface IServer {
 export interface IChat{
   _id?:mongoose.Types.ObjectId;
   chatName:string;
-  channelId:string;
+  channelId:mongoose.Types.ObjectId;
   isGroupChat:boolean;
   users:mongoose.Types.ObjectId[];
   latestMessage:mongoose.Types.ObjectId;
