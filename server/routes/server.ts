@@ -1,4 +1,6 @@
 import express from "express";
+import authMiddleWare from "../middleware/authentication";
+import upload from "../middleware/multer";
 
 
 const router = express.Router();
