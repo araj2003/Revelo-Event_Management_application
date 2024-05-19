@@ -21,7 +21,6 @@ import connectDB from "./db/connect";
 // // routers
 import authRouter from "./routes/auth";
 
-
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
@@ -35,10 +34,7 @@ app.use(
   }),
 );
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:3000",
-];
+const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
 
 app.use(
   cors({
@@ -51,11 +47,14 @@ app.use(
       }
       return callback(null, true);
     },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    optionsSuccessStatus: 204,
+    credentials: true,
   }),
 );
 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 // extra packages
 // app.use(helmet());
 // app.use(cors());
@@ -64,7 +63,6 @@ app.use(cookieParser())
 // routes
 app.use("/", express.static("../client/dist"));
 app.use("/api/v1/auth", authRouter);
-
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);

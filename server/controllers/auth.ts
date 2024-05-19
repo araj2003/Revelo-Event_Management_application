@@ -9,16 +9,14 @@ const setTokenCookie = (res: Response, user: IUser) => {
   const token = user.createJWT();
   // stored as 30d
   const JWT_LIFETIME = process.env.JWT_LIFETIME as string;
-  const options: CookieOptions = {
+  res.cookie("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "none",
-    domain: "localhost",
+    sameSite: "strict",
     expires: new Date(
       Date.now() + parseInt(JWT_LIFETIME) * 24 * 60 * 60 * 1000,
     ),
-  };
-  res.cookie("token", token, options);
+  });
 };
 
 const register = async (req: Request, res: Response) => {

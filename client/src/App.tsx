@@ -7,14 +7,14 @@ import router from "./component/Router";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { getUserData } from "./store/userSlice";
 import Loading from "./component/Loading";
-import Header from "./component/Header/Header";
+
 function App() {
   const dispatch = useAppDispatch();
   const { isDarkMode, loadingUser } = useAppSelector((state) => state.user);
 
-  // useEffect(() => {
-  //   dispatch(getUserData());
-  // }, []);
+  useEffect(() => {
+    dispatch(getUserData());
+  }, []);
 
   if (loadingUser)
     return (

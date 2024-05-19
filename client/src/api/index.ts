@@ -7,7 +7,7 @@ import store from "../store";
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const URL = `${BASE_URL ? BASE_URL : ""}/api/v1`;
 
-const API = axios.create({ baseURL: URL });
+const API = axios.create({ baseURL: URL, withCredentials: true});
 
 API.interceptors.request.use(
   function (config) {

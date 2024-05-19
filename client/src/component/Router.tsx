@@ -7,7 +7,6 @@ import ErrorAndRedirect from "../pages/ErrorAndRedirect";
 import { Layout, ProtectedRoute, AntiProtectedRoute } from "./Layout";
 import Chat from "../pages/Chat/Chat";
 
-
 const router = createBrowserRouter([
   {
     path: "/",

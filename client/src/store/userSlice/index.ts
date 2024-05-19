@@ -97,15 +97,12 @@ export const signUp =
 
 export const getUserData = () => async (dispatch: Dispatch) => {
   try {
-    const isLoggedIn = document.cookie.split(";").some((cookie) => {
-      const [key, _value] = cookie.split("=");
-      if (key.trim() === "token") return true;
-      return false;
-    });
-    if (!isLoggedIn) return dispatch(SET_LOADING_USER_FALSE());
     const data: any = await getDetails();
     if (data.name) {
       dispatch(SET_USER_DATA(data));
+    }
+    else {
+      dispatch(SET_LOADING_USER_FALSE());
     }
   } catch (error) {
     console.log(error);
