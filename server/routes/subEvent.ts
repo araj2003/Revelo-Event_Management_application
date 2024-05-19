@@ -4,12 +4,12 @@ import express from "express";
 const router = express.Router();
 
 import {
-    deleteEvent,
-    removeHost,
-    createEvent,
-    getEvent,
-    createHost
-} from "../controllers/event";
+    addAdmin,
+    getSubEvent,
+    createSubEvent,
+    removeAdmin,
+    deleteSubEvent
+} from "../controllers/subEvent";
 
 
 
@@ -17,20 +17,20 @@ import {
     //middleware (only host can do it)
 
 
-    //create event ..
-    router.post("/createEvent", createEvent);
+    //create subevent ..
+    router.post("/createSubEvent", createSubEvent);
     
-    //get event ..
-    router.get("/getEvent",  getEvent);
+    //get subevent ..
+    router.get("/getSubEvent",  getSubEvent);
     
     //create host ..
-    router.put("/createHost",createHost);
+    router.put("/addAdmin",addAdmin);
     
     //remove from host ..
-    router.put('removeHost',removeHost)
+    router.put('removeAdmin',removeAdmin)
     
-    //cancel event
-    router.delete('deleteEvent',deleteEvent)
+    //cancel subevent
+    router.delete('deleteSubEvent',deleteSubEvent)
 
 export default router;
 
