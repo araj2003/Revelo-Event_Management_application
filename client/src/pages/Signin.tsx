@@ -18,7 +18,7 @@ function Signin() {
   };
 
   return (
-    <section className="bg-white dark:bg-gray-900 min-h-section">
+    <section className=" min-h-screen">
       <div className="container flex items-center justify-center px-6 mx-auto min-h-section">
         <form className="w-full max-w-md" onSubmit={handleSubmit}>
           {/* <img
@@ -27,8 +27,20 @@ function Signin() {
             alt=""
           /> */}
 
-          <h1 className="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
-            sign in
+          <h1 className="mt-3 text-3xl font-bold   text-center text-gray-800 capitalize sm:text-5xl dark:text-black">
+            <div className="flex items-center justify-center pb-5">
+              <img
+                src="https://www.pngall.com/wp-content/uploads/13/Slack-Logo-PNG-Cutout.png"
+                alt="Slack Logo"
+                width={150}
+                height={150}
+              />
+            </div>
+            sign in to Slack
+          </h1>
+
+          <h1 className="mt-4 text-lg text-center text-gray-800">
+            We suggest using the email address you use at work.
           </h1>
 
           <div className="relative flex items-center mt-8">
@@ -55,7 +67,7 @@ function Signin() {
               onChange={(e) => {
                 setSignInValues({ ...signInValues, email: e.target.value });
               }}
-              className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full py-3 text-black bg-white border rounded-lg px-11  dark:text-black dark:border-gray-600 focus:border-purple-400 dark:focus:border-purple-400 focus:ring-purple-400 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Email address"
             />
           </div>
@@ -84,7 +96,7 @@ function Signin() {
               onChange={(e) => {
                 setSignInValues({ ...signInValues, password: e.target.value });
               }}
-              className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full px-10 py-3 text-black bg-white border rounded-lg  dark:text-black dark:border-gray-600 focus:border-purple-400 dark:focus:border-purple-400 focus:ring-purple-400 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Password"
             />
           </div>
@@ -98,7 +110,7 @@ function Signin() {
             />
             <label
               htmlFor="showPassword"
-              className="block ml-2 text-sm text-gray-700 dark:text-gray-300"
+              className="block ml-2 text-sm text-gray-700 dark:text-gray-500 "
             >
               Show password
             </label>
@@ -107,20 +119,38 @@ function Signin() {
 
           <a
             href="#"
-            className="text-sm text-blue-500 hover:underline dark:text-blue-400"
+            className="text-sm font-semibold text-purple-600  hover:underline"
           >
             Forgot your password?
           </a>
 
           <div className="mt-6">
-            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-purple-600 rounded-lg hover:bg-purple-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
               Sign in
             </button>
+
+            <div className="flex items-center justify-center my-4">
+              <hr className="flex-grow border-gray-300" />
+              <span className="px-2 text-gray-500">or</span>
+              <hr className="flex-grow border-gray-300" />
+            </div>
+
+            <div className="flex items-center justify-center pb-4">
+              <button className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-600 hover:border-slate-600 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-slate-900 hover:shadow transition duration-150">
+                <img
+                  className="w-10 h-6"
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  loading="lazy"
+                  alt="google logo"
+                />
+                <span>Sigin with Google</span>
+              </button>
+            </div>
 
             <div className="mt-2 text-center ">
               <Link
                 to="/signup"
-                className="text-sm text-blue-500 hover:underline dark:text-blue-400"
+                className="text-sm text-purple-600 font-semibold hover:underline"
               >
                 Don't have an account yet? Sign up
               </Link>
