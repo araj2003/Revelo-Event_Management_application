@@ -3,6 +3,7 @@ import User from "../models/User";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import Channel from "../models/Channel";
 import SubEvent from "../models/SubEvent";
+import { StatusCodes } from "http-status-codes";
 
 const createChannel = async (req: Request, res: Response) => {
   const { channelName, subEventId } = req.body;
@@ -33,7 +34,7 @@ const createChannel = async (req: Request, res: Response) => {
 
   await subEvent.save();
 
-  return res.status(500).json({
+  return res.status(StatusCodes.CREATED).json({
     channel: channel,
     subEvent: subEvent,
     msg: "new event created",
@@ -48,7 +49,7 @@ const getChannel = async (req: Request, res: Response) => {
     throw new BadRequestError("channel not found");
   }
 
-  return res.status(500).json({
+  return res.status(StatusCodes.OK).json({
     channel,
     msg: "list of all the channels",
   });

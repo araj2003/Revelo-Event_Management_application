@@ -7,7 +7,6 @@ const SubEventSchema = new mongoose.Schema<ISubEvent>({
     type: String,
     required: [true, "server name is required"],
   },
-
   users: [
     {
       type: mongoose.Schema.ObjectId,
