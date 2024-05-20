@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} 
+
 .min-h-section {
   min-height: calc(100vh - 5rem);
   height: 100%;
@@ -9,6 +17,27 @@
 .min-h-section-with-footer {
   min-height: calc(100vh - 5rem - 7.3rem);
   height: 100%;
+}
+
+
+
+@layer components {
+  .sidebar-icon {
+    @apply relative flex items-center justify-center 
+    h-12 w-12 mt-2 mb-2 mx-auto  
+  bg-gray-400 hover:bg-green-600 dark:bg-gray-800 
+  text-purple-500 hover:text-white
+    hover:rounded-xl rounded-3xl
+    transition-all duration-300 ease-linear
+    cursor-pointer shadow-lg ;
+  }
+
+
+  .sidebar-hr {
+    @apply bg-gray-200 dark:bg-gray-800 
+    border border-gray-200 dark:border-gray-800 rounded-full
+    mx-2;
+  }
 }
 
 @media screen and (max-width: 1024px) {
