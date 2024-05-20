@@ -7,7 +7,7 @@ import store from "../store";
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const URL = `${BASE_URL ? BASE_URL : ""}/api/v1`;
 
-const API = axios.create({ baseURL: URL, withCredentials: true});
+const API = axios.create({ baseURL: URL, withCredentials: true });
 
 API.interceptors.request.use(
   function (config) {
@@ -59,7 +59,7 @@ export const login = (signInData: SignInType) =>
 export const register = (signUpData: SignUpType) =>
   API.post("/auth/register", signUpData);
 export const signInGoogle = (tokenId: string) =>
-  API.post("/auth/sign-in/google", { tokenId })
+  API.post("/auth/sign-in/google", { tokenId });
 export const getProfile = () => API.get("/auth/profile");
 export const signout = () => API.get("/auth/logout");
 export const updateProfile = (profileData: ProfileType) =>

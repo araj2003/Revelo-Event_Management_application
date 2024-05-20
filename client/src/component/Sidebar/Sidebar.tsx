@@ -64,7 +64,12 @@ const Sidebar = () => {
       <hr />
       {/*  connect to db and list all the channels */}
       {channels.map((channel) => (
-        <SidebarOption   key={channel.id} title={channel.channel} showIcon = {false} id={channel.id} />
+        <SidebarOption
+          key={channel.id}
+          title={channel.channel}
+          showIcon={false}
+          id={channel.id}
+        />
       ))}
     </div>
   );

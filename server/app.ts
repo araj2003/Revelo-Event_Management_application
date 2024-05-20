@@ -21,13 +21,11 @@ import connectDB from "./db/connect";
 // // routers
 import authRouter from "./routes/auth";
 
-import eventRouter from "./routes/server"
+import eventRouter from "./routes/server";
 
-import subEventRouter from "./routes/subEvent"
+import subEventRouter from "./routes/subEvent";
 
-import channelRouter from "./routes/channel"
-
-
+import channelRouter from "./routes/channel";
 
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
@@ -74,8 +72,6 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/event", eventRouter);
 app.use("/api/v1/subEvent", subEventRouter);
 app.use("/api/v1/subEvent", channelRouter);
-
-
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);

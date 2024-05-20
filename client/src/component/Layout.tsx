@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const Layout = () => {
   const location = useLocation();
-  const hideNavbarRoutes = ["/verify", "/forgot-password","/"];
+  const hideNavbarRoutes = ["/verify", "/forgot-password", "/"];
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
   return (
     <div>

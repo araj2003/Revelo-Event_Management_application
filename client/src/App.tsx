@@ -39,7 +39,7 @@ function App() {
           toastClassName="bg-white text-gray-800 dark:bg-gray-800 dark:text-white"
           theme={isDarkMode ? "dark" : "light"}
         />
-        <RouterProvider router={router} /> 
+        <RouterProvider router={router} />
       </div>
     </>
   );
