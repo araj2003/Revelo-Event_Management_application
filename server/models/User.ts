@@ -42,6 +42,7 @@ const UserSchema = new mongoose.Schema<IUser>(
       type: String,
       required: [true, "role must be defined"],
       enum: [ "vendor", "regular"],
+      default:"regular"
     },
     //if vendor
     

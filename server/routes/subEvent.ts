@@ -1,18 +1,15 @@
 import express from "express";
-import authMiddleWare from "../middleware/authentication";
-import upload from "../middleware/multer";
 
 
 const router = express.Router();
 
 import {
-    deleteEvent,
-    removeHost,
-    createEvent,
-    getEvent,
-    createHost,
-    getAllEvent
-} from "../controllers/event";
+    addAdmin,
+    getSubEvent,
+    createSubEvent,
+    removeAdmin,
+    deleteSubEvent
+} from "../controllers/subEvent";
 
 
 
@@ -20,23 +17,20 @@ import {
     //middleware (only host can do it)
 
 
-    //create event ..
-    router.post("/createEvent",authMiddleWare, createEvent);
+    //create subevent ..
+    router.post("/createSubEvent", createSubEvent);
     
-    //get event ..
-    router.get("/getAllEvent", authMiddleWare, getAllEvent);
-    
-    
-    router.get("/getEvent",authMiddleWare,  getEvent);
+    //get subevent ..
+    router.get("/getSubEvent",  getSubEvent);
     
     //create host ..
-    router.put("/createHost",authMiddleWare,createHost);
+    router.put("/addAdmin",addAdmin);
     
     //remove from host ..
-    router.put('removeHost',authMiddleWare,removeHost)
+    router.put('removeAdmin',removeAdmin)
     
-    //cancel event
-    router.delete('deleteEvent',authMiddleWare,deleteEvent)
+    //cancel subevent
+    router.delete('deleteSubEvent',deleteSubEvent)
 
 export default router;
 

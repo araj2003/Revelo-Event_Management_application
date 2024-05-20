@@ -20,6 +20,8 @@ const createEvent = async(req: Request, res: Response) => {
         host:[userId]
     })
 
+    await event.save()
+
     if(!event){
         throw new BadRequestError("cannot create event");
 
@@ -35,8 +37,11 @@ const createEvent = async(req: Request, res: Response) => {
 }
 
 const getEvent =  async (req: Request, res: Response) => {
-    const eventId = req.body;
-    const event = await eventSchemma.findById(eventId)
+    const {eventId} = req.body;
+    const userId = req.user.userId;
+
+    console.log(eventId)
+    const event = await eventSchemma.find({_id:eventId,host:userId})
 
     if(!event){
         throw new BadRequestError("event not found");
@@ -49,6 +54,21 @@ const getEvent =  async (req: Request, res: Response) => {
 
 
 }
+
+const getAllEvent = async (req: Request, res: Response) => {
+    try {
+      const userId = req.user.userId;
+  
+      const events = await eventSchemma.find({host:userId})
+  
+      res.status(200).json({
+        events,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
 
 const createHost = async(req: Request,res:Response) => {
     const {hostId,eventId} = req.body
@@ -122,5 +142,6 @@ export{
     removeHost,
     createHost,
     getEvent,
-    createEvent
+    createEvent,
+    getAllEvent
 }

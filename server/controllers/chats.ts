@@ -63,8 +63,41 @@ const createSingleChat = async(req: Request, res: Response) => {
 
 }
 
-//create group
-const createGrupChat = async(req: Request, res: Response) => {
-    // const {}
-}
+//create group(add users from subevent id)
+// const createGrupChat = async(req: Request, res: Response) => {
+//     const {groupName,}
+//     if (!req.body.users || !req.body.name) {
+//         return res.status(400).send({
+//             message: "please fill the fields"
+//         });
+//     }
+
+//     var users = JSON.parse(req.body.users);
+//     if (users.length < 2) {
+//         return res.status(400).json("more than 2 users to form a group chat");
+//     }
+
+//     // Extract user IDs and add them to the array
+//     users.push(req.user.id);
+
+//     try {
+//         const groupChat = await Chat.create({
+//             chatName: req.body.name,
+//             users: users,
+//             isGroupChat: true,
+//             groupAdmin: req.user.id
+//         });
+
+//         const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
+//             .populate("users", "-password")
+//             .populate("groupAdmin", "-password");
+
+//         res.status(200).json(fullGroupChat);
+//     } catch (error) {
+//         res.status(500).json({
+//             msg: "cannot create group chat",
+//             error: error.message
+//         });
+//     }
+// }
 

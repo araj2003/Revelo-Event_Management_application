@@ -59,3 +59,9 @@ const getChannel =  async (req: Request, res: Response) => {
 
 
 }
+
+
+export {
+   getChannel,
+   createChannel
+  };
