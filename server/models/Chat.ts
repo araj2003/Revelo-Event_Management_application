@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { IChat } from "../types/models";
 
-const chat = new mongoose.Schema<IChat>(
+const ChatSchema = new mongoose.Schema<IChat>(
   {
     chatName: {
       type: String,
@@ -35,5 +35,5 @@ const chat = new mongoose.Schema<IChat>(
   { timestamps: true },
 );
 
-const chatSchema = mongoose.model("Chat", chat);
-export default chatSchema;
+const Chat = mongoose.model("Chat", ChatSchema);
+export default Chat;

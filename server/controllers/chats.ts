@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/User";
-import eventSchemma from "../models/Server";
-import chatSchema from "../models/Chat";
-import subEventSchema from "../models/SubEvent";
+import Chat from "../models/Chat";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 
 //single chat
@@ -14,14 +12,13 @@ const createSingleChat = async (req: Request, res: Response) => {
     throw new BadRequestError("user not found");
   }
 
-  var isChat = await chatSchema
-    .find({
-      isGroupChat: false,
-      $and: [
-        { users: { $elemMatch: { $eq: req.user.userId } } },
-        { users: { $elemMatch: { $eq: senderId } } },
-      ],
-    })
+  var isChat = await Chat.find({
+    isGroupChat: false,
+    $and: [
+      { users: { $elemMatch: { $eq: req.user.userId } } },
+      { users: { $elemMatch: { $eq: senderId } } },
+    ],
+  })
     .populate("users", "-password")
     .populate("latestMessage");
 
@@ -34,10 +31,11 @@ const createSingleChat = async (req: Request, res: Response) => {
       users: [req.user.userId, senderId],
     };
     try {
-      const createdChat = await chatSchema.create(chatData);
-      const fullChat = await chatSchema
-        .findOne({ _id: createdChat._id })
-        .populate("users", "-password");
+      const createdChat = await Chat.create(chatData);
+      const fullChat = await Chat.findOne({ _id: createdChat._id }).populate(
+        "users",
+        "-password",
+      );
 
       res.status(200).json({ fullChat, msg: "new chat created" });
     } catch (error) {

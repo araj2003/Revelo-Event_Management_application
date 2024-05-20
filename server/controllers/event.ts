@@ -1,7 +1,7 @@
 //create a event
 import { Request, Response, response } from "express";
 import User from "../models/User";
-import eventSchemma from "../models/Server";
+import Event from "../models/Server";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 
 const createEvent = async (req: Request, res: Response) => {
@@ -13,7 +13,7 @@ const createEvent = async (req: Request, res: Response) => {
     throw new BadRequestError("user not found");
   }
 
-  const event = new eventSchemma({
+  const event = new Event({
     serverName: serverName,
     users: [userId],
     host: [userId],
@@ -36,7 +36,7 @@ const getEvent = async (req: Request, res: Response) => {
   const userId = req.user.userId;
 
   console.log(eventId);
-  const event = await eventSchemma.find({ _id: eventId, host: userId });
+  const event = await Event.find({ _id: eventId, host: userId });
 
   if (!event) {
     throw new BadRequestError("event not found");
@@ -52,7 +52,7 @@ const getAllEvent = async (req: Request, res: Response) => {
   try {
     const userId = req.user.userId;
 
-    const events = await eventSchemma.find({ host: userId });
+    const events = await Event.find({ host: userId });
 
     res.status(200).json({
       events,
@@ -71,7 +71,7 @@ const createHost = async (req: Request, res: Response) => {
       status: "failure",
     });
   }
-  const event = await eventSchemma.findById(eventId);
+  const event = await Event.findById(eventId);
   if (!event) {
     throw new BadRequestError("event not found");
   }
@@ -91,7 +91,7 @@ const removeHost = async (req: Request, res: Response) => {
   if (!hostId || !eventId) {
     throw new BadRequestError("Please provide hostId and eventId");
   }
-  const event = await eventSchemma.findById(eventId);
+  const event = await Event.findById(eventId);
   if (!event) {
     throw new BadRequestError("event not found");
   }
@@ -111,12 +111,12 @@ const deleteEvent = async (req: Request, res: Response) => {
   if (!eventId) {
     throw new BadRequestError("Please provide eventId");
   }
-  const event = await eventSchemma.findById(eventId);
+  const event = await Event.findById(eventId);
   if (!event) {
     throw new BadRequestError("event not found");
   }
 
-  const responce = await eventSchemma.deleteOne({ _id: eventId });
+  const responce = await Event.deleteOne({ _id: eventId });
 
   return res.status(500).json({
     responce,

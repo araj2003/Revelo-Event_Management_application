@@ -2,7 +2,7 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 import { BadRequestError, UnauthenticatedError } from "../errors";
-import subEventSchema from "../models/SubEvent";
+import SubEvent from "../models/SubEvent";
 import { StatusCodes } from "http-status-codes";
 
 const createSubEvent = async (req: Request, res: Response) => {
@@ -14,7 +14,7 @@ const createSubEvent = async (req: Request, res: Response) => {
     throw new BadRequestError("user not found");
   }
 
-  const subEvent = new subEventSchema({
+  const subEvent = new SubEvent({
     subEventName,
     users: [userId],
     admin: [userId],
@@ -29,7 +29,7 @@ const createSubEvent = async (req: Request, res: Response) => {
 
 const getSubEvent = async (req: Request, res: Response) => {
   const subEventId = req.body;
-  const subEvent = await subEventSchema.findById(subEventId);
+  const subEvent = await SubEvent.findById(subEventId);
 
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");
@@ -46,7 +46,7 @@ const addAdmin = async (req: Request, res: Response) => {
   if (!adminId || !subEventId) {
     throw new BadRequestError("Please provide adminId and subEventId");
   }
-  const subEvent = await subEventSchema.findById(subEventId);
+  const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");
   }
@@ -62,7 +62,7 @@ const removeAdmin = async (req: Request, res: Response) => {
   if (!adminId || !subEventId) {
     throw new BadRequestError("Please provide adminId and subEventId");
   }
-  const subEvent = await subEventSchema.findById(subEventId);
+  const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");
   }
@@ -81,12 +81,12 @@ const deleteSubEvent = async (req: Request, res: Response) => {
   if (!subEventId) {
     throw new BadRequestError("Please provide subEventId");
   }
-  const subEvent = await subEventSchema.findById(subEventId);
+  const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");
   }
 
-  const response = await subEventSchema.deleteOne({ _id: subEvent._id });
+  const response = await SubEvent.deleteOne({ _id: subEvent._id });
 
   return res.status(StatusCodes.OK).json({
     response,

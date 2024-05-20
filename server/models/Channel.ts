@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 import { IChannel } from "../types/models";
 
-const channel = new mongoose.Schema<IChannel>(
+const ChannelSchema = new mongoose.Schema<IChannel>(
   {
     channelName: {
       type: String,
-      required: [true, "channel name required"],
+      required: [true, "Channel name required"],
     },
     chats: [
       {
@@ -18,5 +18,5 @@ const channel = new mongoose.Schema<IChannel>(
   { timestamps: true },
 );
 
-const channelSchema = mongoose.model("Channel", channel);
-export default channelSchema;
+const Channel = mongoose.model("Channel", ChannelSchema);
+export default Channel;
