@@ -7,7 +7,7 @@ const chat = new mongoose.Schema<IChat>(
       type: String,
       trim: true,
     },
-    channelId:{
+    channelId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Channel",
     },
@@ -25,13 +25,15 @@ const chat = new mongoose.Schema<IChat>(
       type: mongoose.Schema.ObjectId,
       ref: "Message",
     },
-    groupAdmin: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    }],
+    groupAdmin: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   { timestamps: true },
 );
 
 const chatSchema = mongoose.model("Chat", chat);
-export default chatSchema
+export default chatSchema;

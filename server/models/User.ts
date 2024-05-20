@@ -40,11 +40,10 @@ const UserSchema = new mongoose.Schema<IUser>(
     role: {
       type: String,
       required: [true, "role must be defined"],
-      enum: [ "vendor", "regular"],
-      default:"regular"
+      enum: ["vendor", "regular"],
+      default: "regular",
     },
     //if vendor
-    
   },
   { timestamps: true },
 );

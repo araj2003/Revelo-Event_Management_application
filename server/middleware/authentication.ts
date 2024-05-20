@@ -14,7 +14,7 @@ const convertToObjectId = (id: string) => {
 };
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.cookies.token
+  const token = req.cookies.token;
 
   if (!token) {
     throw new UnauthenticatedError("Authentication invalid");
