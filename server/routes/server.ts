@@ -10,7 +10,8 @@ import {
     removeHost,
     createEvent,
     getEvent,
-    createHost
+    createHost,
+    getAllEvent
 } from "../controllers/event";
 
 
@@ -20,19 +21,22 @@ import {
 
 
     //create event ..
-    router.post("/createEvent", createEvent);
+    router.post("/createEvent",authMiddleWare, createEvent);
     
     //get event ..
-    router.get("/getEvent",  getEvent);
+    router.get("/getAllEvent", authMiddleWare, getAllEvent);
+    
+    
+    router.get("/getEvent",authMiddleWare,  getEvent);
     
     //create host ..
-    router.put("/createHost",createHost);
+    router.put("/createHost",authMiddleWare,createHost);
     
     //remove from host ..
-    router.put('removeHost',removeHost)
+    router.put('removeHost',authMiddleWare,removeHost)
     
     //cancel event
-    router.delete('deleteEvent',deleteEvent)
+    router.delete('deleteEvent',authMiddleWare,deleteEvent)
 
 export default router;
 
