@@ -58,6 +58,8 @@ export const login = (signInData: SignInType) =>
   API.post("/auth/login", signInData);
 export const register = (signUpData: SignUpType) =>
   API.post("/auth/register", signUpData);
+export const signInGoogle = (tokenId: string) =>
+  API.post("/auth/sign-in/google", { tokenId })
 export const getProfile = () => API.get("/auth/profile");
 export const signout = () => API.get("/auth/logout");
 export const updateProfile = (profileData: ProfileType) =>

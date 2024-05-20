@@ -1,6 +1,6 @@
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import { SignInType, SignUpType } from "../../types";
-import { getDetails, login, register, signout } from "../../api";
+import { getDetails, login, register, signInGoogle, signout } from "../../api";
 import { toast } from "react-toastify";
 
 export interface LoginState {
@@ -119,6 +119,14 @@ export const logout = () => async (dispatch: Dispatch) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const loginGoogle = (token: string) => async (dispatch: any) => {
+  dispatch(SET_LOADING_USER_TRUE());
+  signInGoogle(token)
+    .then((_) => dispatch(getUserData()))
+    .catch((err) => console.log(err))
+    .finally(() => dispatch(SET_LOADING_USER_FALSE()));
 };
 
 export const {

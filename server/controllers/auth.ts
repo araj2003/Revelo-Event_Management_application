@@ -4,6 +4,8 @@ import { BadRequestError, UnauthenticatedError } from "../errors";
 import { CookieOptions, Request, Response } from "express";
 import { IUser } from "../types/models";
 import { uploadProfileImage } from "../utils/cloudinary";
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client();
 
 const setTokenCookie = (res: Response, user: IUser) => {
   const token = user.createJWT();
@@ -44,12 +46,18 @@ const login = async (req: Request, res: Response) => {
   if (!user) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
+
+  if (!user.password)
+    throw new UnauthenticatedError(
+      "Please login with Google.\nOr Reset Password.",
+    );
+
   // compare password
   const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
-  
+
   setTokenCookie(res, user);
 
   return res.status(StatusCodes.OK).json({
@@ -57,6 +65,40 @@ const login = async (req: Request, res: Response) => {
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
     msg: "Login successful",
+  });
+};
+
+const continueWithGoogle = async (req: Request, res: Response) => {
+  const tokenId = req.body.tokenId;
+
+  let payload: any = null;
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: tokenId,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    payload = ticket.getPayload();
+  } catch (error) {
+    console.log(error);
+    throw new BadRequestError("Invalid Token");
+  }
+
+  const { email, name, picture } = payload;
+  let user = await User.findOne({ email });
+  if (user) {
+  } else {
+    user = await User.create({
+      email,
+      name,
+      profileImage: picture,
+      status: "active",
+    });
+  }
+  setTokenCookie(res, user);
+  res.status(StatusCodes.CREATED).json({
+    success: true,
+    msg: "Google Login Successfully",
   });
 };
 
@@ -84,7 +126,7 @@ const logout = async (req: Request, res: Response) => {
   return res.status(StatusCodes.OK).json({
     msg: "Logout successful",
   });
-}
+};
 
 const profile = async (req: Request, res: Response) => {
   const userId = req.user.userId;
@@ -155,6 +197,7 @@ export {
   register,
   login,
   logout,
+  continueWithGoogle,
   sendDetails,
   profile,
   passwordChange,
