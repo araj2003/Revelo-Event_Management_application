@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/User";
 import Chat from "../models/Chat";
 import { BadRequestError, UnauthenticatedError } from "../errors";
+import { StatusCodes } from "http-status-codes";
 
 //single chat
 const createSingleChat = async (req: Request, res: Response) => {
@@ -37,7 +38,7 @@ const createSingleChat = async (req: Request, res: Response) => {
         "-password",
       );
 
-      res.status(200).json({ fullChat, msg: "new chat created" });
+      res.status(StatusCodes.CREATED).json({ fullChat, msg: "new chat created" });
     } catch (error) {
       res.json({
         msg: "error in creating new chat",

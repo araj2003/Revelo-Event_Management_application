@@ -3,6 +3,7 @@ import { Request, Response, response } from "express";
 import User from "../models/User";
 import Event from "../models/Server";
 import { BadRequestError, UnauthenticatedError } from "../errors";
+import { StatusCodes } from "http-status-codes";
 
 const createEvent = async (req: Request, res: Response) => {
   const { serverName } = req.body;
@@ -25,7 +26,7 @@ const createEvent = async (req: Request, res: Response) => {
     throw new BadRequestError("cannot create event");
   }
 
-  return res.status(500).json({
+  return res.status(StatusCodes.CREATED).json({
     event,
     msg: "new event created",
   });
@@ -42,7 +43,7 @@ const getEvent = async (req: Request, res: Response) => {
     throw new BadRequestError("event not found");
   }
 
-  return res.status(500).json({
+  return res.status(StatusCodes.OK).json({
     event,
     msg: "list of all the events",
   });
@@ -54,7 +55,7 @@ const getAllEvent = async (req: Request, res: Response) => {
 
     const events = await Event.find({ host: userId });
 
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       events,
     });
   } catch (err) {
@@ -76,7 +77,7 @@ const createHost = async (req: Request, res: Response) => {
     throw new BadRequestError("event not found");
   }
   event?.host?.push(hostId);
-  return res.status(500).json({
+  return res.status(StatusCodes.CREATED).json({
     event,
     msg: "new host is created",
   });
@@ -100,7 +101,7 @@ const removeHost = async (req: Request, res: Response) => {
 
   await event.save();
 
-  return res.status(500).json({
+  return res.status(StatusCodes.CREATED).json({
     event,
     msg: "host is removed",
   });
@@ -118,7 +119,7 @@ const deleteEvent = async (req: Request, res: Response) => {
 
   const responce = await Event.deleteOne({ _id: eventId });
 
-  return res.status(500).json({
+  return res.status(StatusCodes.OK).json({
     responce,
     msg: "event deleted successfully",
   });

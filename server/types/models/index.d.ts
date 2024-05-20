@@ -54,3 +54,14 @@ export interface ISubEvent {
   admin: mongoose.Types.ObjectId[];
   channels: mongoose.Types.ObjectId[];
 }
+
+export interface IServerInvite {
+  _id?: mongoose.Types.ObjectId;
+  eventId: mongoose.Types.ObjectId;
+  createdBy: mongoose.Types.ObjectId;
+  inviteCode: string;
+  expiryDate?: Date;
+  joinedUsers: mongoose.Types.ObjectId[];
+  oneTimeUse: Boolean;
+  expired: Boolean;
+}
