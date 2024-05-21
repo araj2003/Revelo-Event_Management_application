@@ -45,32 +45,25 @@ const getEvent = async (req: Request, res: Response) => {
 
   return res.status(StatusCodes.OK).json({
     event,
-    msg: "list of all the events",
+    msg: "event found",
   });
 };
 
 const getAllEvent = async (req: Request, res: Response) => {
-  try {
-    const userId = req.user.userId;
+  const userId = req.user.userId;
 
-    const events = await Event.find({ host: userId });
+  const events = await Event.find({ host: userId });
 
-    res.status(StatusCodes.OK).json({
-      events,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
-  }
+  res.status(StatusCodes.OK).json({
+    events,
+    msg: "list of all the events",
+  });
 };
 
 const createHost = async (req: Request, res: Response) => {
   const { hostId, eventId } = req.body;
   if (!hostId || !eventId) {
-    return res.status(400).json({
-      msg: "incomplete information",
-      status: "failure",
-    });
+    throw new BadRequestError("Please provide hostId and eventId");
   }
   const event = await Event.findById(eventId);
   if (!event) {
@@ -126,24 +119,26 @@ const deleteEvent = async (req: Request, res: Response) => {
 };
 
 const getAllSubEvent = async (req: Request, res: Response) => {
-    const { eventId } = req.body;
+  const { eventId } = req.body;
   const userId = req.user.userId;
 
   console.log(eventId);
-  const event = await Event.find({ _id: eventId, host: userId }).populate("subEvents");
+  const event = await Event.find({ _id: eventId, host: userId }).populate(
+    "subEvents",
+  );
 
   if (!event) {
     throw new BadRequestError("event not found");
   }
 
-  return res.status(500).json({
+  return res.status(StatusCodes.OK).json({
     event,
-    msg: "list of all the events",
+    msg: "subevents fetched successfully",
   });
-}
+};
 
 export {
-    getAllSubEvent,
+  getAllSubEvent,
   deleteEvent,
   removeHost,
   createHost,

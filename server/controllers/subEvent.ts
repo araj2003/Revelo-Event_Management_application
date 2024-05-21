@@ -9,7 +9,7 @@ import { StatusCodes } from "http-status-codes";
 import { IServer, ISubEvent } from "../types/models";
 
 const createSubEvent = async (req: Request, res: Response) => {
-  const { subEventName,eventId} = req.body;
+  const { subEventName, eventId } = req.body;
   const userId = req.user.userId;
   const user = await User.findById(userId);
 
@@ -17,39 +17,35 @@ const createSubEvent = async (req: Request, res: Response) => {
     throw new BadRequestError("user not found");
   }
 
-  const event : any = await Event.find({ _id: eventId, host: userId });
+  const event: any = await Event.find({ _id: eventId, host: userId });
 
-  if(!event){
+  if (!event) {
     throw new BadRequestError("event not found");
-
   }
-  
 
-  const subEvent : any = new SubEvent({
+  const subEvent: any = new SubEvent({
     subEventName,
     users: [userId],
     admin: [userId],
-    
   });
 
-  await subEvent.save()
+  await subEvent.save();
 
   const updatedEvent = await Event.findOneAndUpdate(
     { _id: eventId },
     { $push: { subEvents: subEvent._id } },
-    { new: true }
+    { new: true },
   );
 
-
   return res.status(StatusCodes.CREATED).json({
-    subEvent:subEvent,
-    updatedEvent:updatedEvent,
+    subEvent: subEvent,
+    updatedEvent: updatedEvent,
     msg: "New SubEvent created",
   });
 };
 
 const getSubEvent = async (req: Request, res: Response) => {
-  const {subEventId} = req.body;
+  const { subEventId } = req.body;
   const subEvent = await SubEvent.findById(subEventId);
 
   if (!subEvent) {
@@ -120,7 +116,10 @@ const getAllChannels = async (req: Request, res: Response) => {
   const userId = req.user.userId;
 
   console.log(subEventId);
-  const subEvent = await SubEvent.find({ _id: subEventId, users: userId }).populate("channels");
+  const subEvent = await SubEvent.find({
+    _id: subEventId,
+    users: userId,
+  }).populate("channels");
 
   if (!subEvent) {
     throw new BadRequestError("event not found");
@@ -130,8 +129,13 @@ const getAllChannels = async (req: Request, res: Response) => {
     subEvent,
     msg: "list of all the events",
   });
-}
+};
 
-
-
-export { getAllChannels,addAdmin, getSubEvent, createSubEvent, removeAdmin, deleteSubEvent };
+export {
+  getAllChannels,
+  addAdmin,
+  getSubEvent,
+  createSubEvent,
+  removeAdmin,
+  deleteSubEvent,
+};
