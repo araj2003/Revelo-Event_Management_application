@@ -27,7 +27,6 @@ const UserSchema = new mongoose.Schema<IUser>(
     },
     password: {
       type: String,
-      required: [true, "Please provide password"],
       minLength: [6, "Password must be at least 6 characters"],
     },
     isAdministrator: {
@@ -41,10 +40,10 @@ const UserSchema = new mongoose.Schema<IUser>(
     role: {
       type: String,
       required: [true, "role must be defined"],
-      enum: [ "vendor", "regular"],
+      enum: ["vendor", "regular"],
+      default: "regular",
     },
     //if vendor
-    
   },
   { timestamps: true },
 );

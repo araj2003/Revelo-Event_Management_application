@@ -1,21 +1,38 @@
 import User from "../models/User";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, UnauthenticatedError } from "../errors";
-import { Request, Response } from "express";
+import { CookieOptions, Request, Response } from "express";
 import { IUser } from "../types/models";
 import { uploadProfileImage } from "../utils/cloudinary";
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client();
+
+const setTokenCookie = (res: Response, user: IUser) => {
+  const token = user.createJWT();
+  // stored as 30d
+  const JWT_LIFETIME = process.env.JWT_LIFETIME as string;
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    expires: new Date(
+      Date.now() + parseInt(JWT_LIFETIME) * 24 * 60 * 60 * 1000,
+    ),
+  });
+};
 
 const register = async (req: Request, res: Response) => {
   if (!req.body.name || !req.body.email || !req.body.password) {
     throw new BadRequestError("Please provide name, email and password");
   }
   const user: IUser = await User.create({ ...req.body });
-  const token = user.createJWT();
+
+  setTokenCookie(res, user);
+
   return res.status(StatusCodes.CREATED).json({
     name: user.name,
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
-    token,
     msg: "Registration successful",
   });
 };
@@ -29,19 +46,59 @@ const login = async (req: Request, res: Response) => {
   if (!user) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
+
+  if (!user.password)
+    throw new UnauthenticatedError(
+      "Please login with Google.\nOr Reset Password.",
+    );
+
   // compare password
   const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
 
-  const token = user.createJWT();
+  setTokenCookie(res, user);
+
   return res.status(StatusCodes.OK).json({
     name: user.name,
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
-    token,
     msg: "Login successful",
+  });
+};
+
+const continueWithGoogle = async (req: Request, res: Response) => {
+  const tokenId = req.body.tokenId;
+
+  let payload: any = null;
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: tokenId,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    payload = ticket.getPayload();
+  } catch (error) {
+    console.log(error);
+    throw new BadRequestError("Invalid Token");
+  }
+
+  const { email, name, picture } = payload;
+  let user = await User.findOne({ email });
+  if (user) {
+  } else {
+    user = await User.create({
+      email,
+      name,
+      profileImage: picture,
+      status: "active",
+    });
+  }
+  setTokenCookie(res, user);
+  res.status(StatusCodes.CREATED).json({
+    success: true,
+    msg: "Google Login Successfully",
   });
 };
 
@@ -53,13 +110,21 @@ const sendDetails = async (req: Request, res: Response) => {
   if (!user) {
     throw new UnauthenticatedError("Unauthorized");
   }
-  const token = user.createJWT();
+
+  setTokenCookie(res, user);
+
   return res.status(StatusCodes.OK).json({
     name: user.name,
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
-    token,
     msg: "User details sent",
+  });
+};
+
+const logout = async (req: Request, res: Response) => {
+  res.clearCookie("token");
+  return res.status(StatusCodes.OK).json({
+    msg: "Logout successful",
   });
 };
 
@@ -131,6 +196,8 @@ const uploadProfilePicture = async (req: Request, res: Response) => {
 export {
   register,
   login,
+  logout,
+  continueWithGoogle,
   sendDetails,
   profile,
   passwordChange,

@@ -16,42 +16,52 @@ export interface IUser {
 }
 
 export interface IServer {
-  _id?:mongoose.Types.ObjectId;
-  serverName:string;
-  users:mongoose.Types.ObjectId[];
-  host:mongoose.Types.ObjectId[];
-  subEvents:mongoose.Types.ObjectId[];
+  _id?: mongoose.Types.ObjectId;
+  serverName: string;
+  users: mongoose.Types.ObjectId[];
+  host: mongoose.Types.ObjectId[];
+  subEvents: mongoose.Types.ObjectId[];
 }
 
-export interface IChat{
-  _id?:mongoose.Types.ObjectId;
-  chatName:string;
-  channelId:string;
-  isGroupChat:boolean;
-  users:mongoose.Types.ObjectId[];
-  latestMessage:mongoose.Types.ObjectId;
-  groupAdmin:mongoose.Types.ObjectId[];
-
+export interface IChat {
+  _id?: mongoose.Types.ObjectId;
+  chatName: string;
+  channelId: mongoose.Types.ObjectId;
+  isGroupChat: boolean;
+  users: mongoose.Types.ObjectId[];
+  latestMessage: mongoose.Types.ObjectId;
+  groupAdmin: mongoose.Types.ObjectId[];
 }
 
-export interface IMessage{
-  _id?:mongoose.Types.ObjectId;
-  sender:mongoose.Types.ObjectId;
-  content:string;
-  readBy:mongoose.Types.ObjectId[];
-  chat:mongoose.Types.ObjectId;
+export interface IMessage {
+  _id?: mongoose.Types.ObjectId;
+  sender: mongoose.Types.ObjectId;
+  content: string;
+  readBy: mongoose.Types.ObjectId[];
+  chat: mongoose.Types.ObjectId;
 }
 
-export interface IChannel{
-  _id?:mongoose.Types.ObjectId;
-  channelName:string;
-  chats:mongoose.Types.ObjectId[];
+export interface IChannel {
+  _id?: mongoose.Types.ObjectId;
+  channelName: string;
+  chats: mongoose.Types.ObjectId[];
 }
 
 export interface ISubEvent {
-  _id?:mongoose.Types.ObjectId;
-  subEventName:string;
-  users:mongoose.Types.ObjectId[];
-  admin:mongoose.Types.ObjectId[];
-  channels:mongoose.Types.ObjectId[];
+  _id?: mongoose.Types.ObjectId;
+  subEventName: string;
+  users: mongoose.Types.ObjectId[];
+  admin: mongoose.Types.ObjectId[];
+  channels: mongoose.Types.ObjectId[];
+}
+
+export interface IServerInvite {
+  _id?: mongoose.Types.ObjectId;
+  eventId: mongoose.Types.ObjectId;
+  createdBy: mongoose.Types.ObjectId;
+  inviteCode: string;
+  expiryDate?: Date;
+  joinedUsers: mongoose.Types.ObjectId[];
+  oneTimeUse: Boolean;
+  expired: Boolean;
 }

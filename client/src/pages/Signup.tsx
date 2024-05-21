@@ -141,8 +141,6 @@ function Signup() {
 
           {/* DropDown  */}
 
-  
-
           <div className="flex items-center mt-4">
             <input
               type="checkbox"

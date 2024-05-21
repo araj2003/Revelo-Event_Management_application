@@ -8,7 +8,6 @@ import { Layout, ProtectedRoute, AntiProtectedRoute } from "./Layout";
 import Chat from "../pages/Chat/Chat";
 import LandingPage from "./LandingPage/LandingPage";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,7 +22,6 @@ const router = createBrowserRouter([
             element: <Chat />,
           },
         ],
-        
       },
       {
         path:"/landing",
@@ -35,6 +33,10 @@ const router = createBrowserRouter([
         children: [
           {
             path: "profile",
+            element: <Profile />,
+          },
+          {
+            path: "dashboard",
             element: <Profile />,
           },
         ],

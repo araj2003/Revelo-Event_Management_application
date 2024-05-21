@@ -1,11 +1,11 @@
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import { SignInType, SignUpType } from "../../types";
-import { getDetails, login, register } from "../../api";
+import { getDetails, login, register, signInGoogle, signout } from "../../api";
 import { toast } from "react-toastify";
 
 export interface LoginState {
   loadingUser: boolean;
-  token?: string;
+  isAuthenticated: boolean;
   isDarkMode: boolean;
   name?: string;
   profilePicture?: string;
@@ -13,8 +13,8 @@ export interface LoginState {
 }
 
 const initialState: LoginState = {
-  loadingUser: false ,
-  token: localStorage.getItem("token") || "",
+  loadingUser: false,
+  isAuthenticated: false,
   isDarkMode:
     localStorage.getItem("isDarkMode") !== null
       ? localStorage.getItem("isDarkMode") === "true"
@@ -33,23 +33,22 @@ const userSlice = createSlice({
       localStorage.setItem("isDarkMode", state.isDarkMode.toString());
     },
     SET_USER_DATA(state, action) {
-      const { token, name, isAdministrator, profilePicture } = action.payload;
-      // console.log(token, name, isAdministrator,profilePicture);
-      localStorage.setItem("token", token);
-      state.token = token;
+      const { name, isAdministrator, profilePicture } = action.payload;
+      // console.log(name, isAdministrator,profilePicture);
+      state.isAuthenticated = true;
       state.name = name;
       state.isAdministrator = isAdministrator;
       state.profilePicture = profilePicture;
-      // console.log(state.token, state.name, state.isAdministrator);
+      // console.log(state.name, state.isAdministrator);
     },
     SET_PROFILE_PICTURE(state, action) {
       state.profilePicture = action.payload;
     },
     LOGOUT(state) {
-      localStorage.removeItem("token");
-      state.token = "";
       state.name = "";
       state.isAdministrator = false;
+      state.isAuthenticated = false;
+      state.profilePicture = "";
     },
     SET_LOADING_USER_TRUE(state) {
       state.loadingUser = true;
@@ -69,7 +68,8 @@ export const signIn =
     }
     try {
       const data: any = await login(signInData);
-      if (data.token) {
+      console.log(data);
+      if (data.name) {
         dispatch(SET_USER_DATA(data));
       }
     } catch (error) {
@@ -86,8 +86,8 @@ export const signUp =
     }
     try {
       const data: any = await register(signUpData);
-      console.log(data);
-      if (data.token) {
+
+      if (data.name) {
         dispatch(SET_USER_DATA(data));
       }
     } catch (error) {
@@ -97,13 +97,11 @@ export const signUp =
 
 export const getUserData = () => async (dispatch: Dispatch) => {
   try {
-    if (!localStorage.getItem("token")) {
-      dispatch(SET_LOADING_USER_FALSE());
-      return;
-    }
     const data: any = await getDetails();
-    if (data.token) {
+    if (data.name) {
       dispatch(SET_USER_DATA(data));
+    } else {
+      dispatch(SET_LOADING_USER_FALSE());
     }
   } catch (error) {
     console.log(error);
@@ -112,12 +110,23 @@ export const getUserData = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const logout = () => (dispatch: Dispatch) => {
+export const logout = () => async (dispatch: Dispatch) => {
   try {
-    dispatch(LOGOUT());
+    const data: any = await signout();
+    if (data.msg) {
+      dispatch(LOGOUT());
+    }
   } catch (error) {
     console.log(error);
   }
+};
+
+export const loginGoogle = (token: string) => async (dispatch: any) => {
+  dispatch(SET_LOADING_USER_TRUE());
+  signInGoogle(token)
+    .then((_) => dispatch(getUserData()))
+    .catch((err) => console.log(err))
+    .finally(() => dispatch(SET_LOADING_USER_FALSE()));
 };
 
 export const {

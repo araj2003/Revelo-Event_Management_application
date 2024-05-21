@@ -2,20 +2,21 @@ import mongoose from "mongoose";
 
 import { IChannel } from "../types/models";
 
-const channel = new mongoose.Schema<IChannel>(
+const ChannelSchema = new mongoose.Schema<IChannel>(
   {
-    channelName:{
-        type:String,
-        required:[true,"channel name required"]
+    channelName: {
+      type: String,
+      required: [true, "Channel name required"],
     },
-    chats:[{
-        type:mongoose.Types.ObjectId,
-        ref:'Chat',
-
-    }],
+    chats: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Chat",
+      },
+    ],
   },
   { timestamps: true },
 );
 
-const channelSchema = mongoose.model("Channel", channel);
-export default channelSchema;
+const Channel = mongoose.model("Channel", ChannelSchema);
+export default Channel;
