@@ -120,6 +120,6 @@ const getAllChats = async(req: Request, res: Response) => {
   }
 }
 
-export = {
+export  {
   createGrupChat,createSingleChat,getAllChats
 }

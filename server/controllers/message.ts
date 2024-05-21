@@ -21,10 +21,7 @@ const sendMessage = async(req: Request, res: Response) => {
         var message :any = await Message.create(newMessage)
         message = await message.populate("sender","name profilePicture email role")
         message = await message.populate("chat")
-        message = await User.populate(message,{
-            path:"chat.users",
-            select:"user_name email profile_pic"
-        })
+        
 
         await Chat.findByIdAndUpdate(chatId,{
             latestMessage:message
@@ -59,4 +56,4 @@ const getMessage = async(req: Request, res: Response) => {
     
 }
 
-export = {sendMessage,getMessage}
+export  {sendMessage,getMessage}

@@ -1,29 +1,29 @@
-// import express from "express";
-// import authMiddleWare from "../middleware/authentication";
+import express from "express";
+import authMiddleWare from "../middleware/authentication";
 
-// const router = express.Router();
+const router = express.Router();
 
-// import {
-//     createGrupChat,
-//     createSingleChat,
-//     getAllChats,
+import {
+    createGrupChat,
+    createSingleChat,
+    getAllChats,
     
-//   } from "../controllers/chats";
+  } from "../controllers/chats";
 
-// //middleware (only host can do it)
+//middleware (only host can do it)
 
-// //create subevent ..
-// router.post("/createGrupChat",authMiddleWare ,createGrupChat);
+//create subevent ..
+router.post("/createGrupChat",authMiddleWare ,createGrupChat);
 
-// //get subevent ..
-// router.post("/createSingleChat",authMiddleWare , createSingleChat);
-
-
-
-// //get all channels
-// router.get("/getAllChats",authMiddleWare, getAllChats);
+//get subevent ..
+router.post("/createSingleChat",authMiddleWare , createSingleChat);
 
 
 
+//get all channels
+router.get("/getAllChats",authMiddleWare, getAllChats);
 
-// export default router;
+
+
+
+export default router;
