@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Event from "../models/Server";
-import SubEvent from "../models/SubEvent";
+// import SubEvent from "../models/SubEvent";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 import ServerInvite from "../models/ServerInvite";
@@ -104,3 +104,5 @@ const joinInvite = async (req: Request, res: Response) => {
     msg: "invite joined",
   });
 };
+
+export { createInvite, getInvite, getAllInvites, joinInvite };

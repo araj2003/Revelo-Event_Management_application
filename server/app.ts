@@ -27,6 +27,8 @@ import subEventRouter from "./routes/subEvent";
 
 import channelRouter from "./routes/channel";
 
+import inviteRouter from "./routes/invite";
+
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
@@ -72,6 +74,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/event", eventRouter);
 app.use("/api/v1/subEvent", subEventRouter);
 app.use("/api/v1/channel", channelRouter);
+app.use("/api/v1/invite", inviteRouter);
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);
