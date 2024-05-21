@@ -4,6 +4,7 @@ import { BadRequestError, UnauthenticatedError } from "../errors";
 import Channel from "../models/Channel";
 import SubEvent from "../models/SubEvent";
 import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 
 const createChannel = async (req: Request, res: Response) => {
   const { channelName, subEventId } = req.body;

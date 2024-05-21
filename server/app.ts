@@ -29,6 +29,8 @@ import channelRouter from "./routes/channel";
 
 import inviteRouter from "./routes/invite";
 
+import inviteRouter from "./routes/invite";
+
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
