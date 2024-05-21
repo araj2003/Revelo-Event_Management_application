@@ -124,7 +124,25 @@ const deleteEvent = async (req: Request, res: Response) => {
   });
 };
 
+const getAllSubEvent = async (req: Request, res: Response) => {
+    const { eventId } = req.body;
+  const userId = req.user.userId;
+
+  console.log(eventId);
+  const event = await Event.find({ _id: eventId, host: userId }).populate("subEvents");
+
+  if (!event) {
+    throw new BadRequestError("event not found");
+  }
+
+  return res.status(500).json({
+    event,
+    msg: "list of all the events",
+  });
+}
+
 export {
+    getAllSubEvent,
   deleteEvent,
   removeHost,
   createHost,

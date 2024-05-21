@@ -71,7 +71,7 @@ app.use("/", express.static("../client/dist"));
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/event", eventRouter);
 app.use("/api/v1/subEvent", subEventRouter);
-app.use("/api/v1/subEvent", channelRouter);
+app.use("/api/v1/channel", channelRouter);
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);

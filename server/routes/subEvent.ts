@@ -1,4 +1,5 @@
 import express from "express";
+import authMiddleWare from "../middleware/authentication";
 
 const router = express.Router();
 
@@ -8,24 +9,31 @@ import {
   createSubEvent,
   removeAdmin,
   deleteSubEvent,
+    getAllChannels
 } from "../controllers/subEvent";
 
 //middleware (only host can do it)
 
 //create subevent ..
-router.post("/createSubEvent", createSubEvent);
+router.post("/createSubEvent",authMiddleWare ,createSubEvent);
 
 //get subevent ..
-router.get("/getSubEvent", getSubEvent);
+router.get("/getSubEvent",authMiddleWare , getSubEvent);
 
 //create host ..
-router.put("/addAdmin", addAdmin);
+router.put("/addAdmin", authMiddleWare ,addAdmin);
 
 //remove from host ..
-router.put("removeAdmin", removeAdmin);
+router.put("removeAdmin", authMiddleWare ,removeAdmin);
 
 //cancel subevent
-router.delete("deleteSubEvent", deleteSubEvent);
+router.delete("deleteSubEvent",authMiddleWare , deleteSubEvent);
+
+//get all channels
+router.get("/getAllChannels",authMiddleWare, getAllChannels);
+
+
+
 
 export default router;
 
