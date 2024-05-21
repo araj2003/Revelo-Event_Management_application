@@ -27,7 +27,8 @@
     "react-toastify": "^10.0.5",
     "slate": "^0.103.0",
     "slate-history": "^0.66.0",
-    "slate-react": "^0.104.0"
+    "slate-react": "^0.104.0",
+    "react-icons": "^4.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.2",

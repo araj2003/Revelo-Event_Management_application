@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import ErrorAndRedirect from "../pages/ErrorAndRedirect";
 import { Layout, ProtectedRoute, AntiProtectedRoute } from "./Layout";
 import Chat from "../pages/Chat/Chat";
+import LandingPage from "./LandingPage/LandingPage";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             element: <Chat />,
           },
         ],
+      },
+      {
+        path:"/landing",
+        element: <LandingPage />,
       },
       {
         path: "/",
