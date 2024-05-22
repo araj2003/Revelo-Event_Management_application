@@ -9,7 +9,6 @@ import Chat from "../pages/Chat/Chat";
 import LandingPage from "./LandingPage/LandingPage";
 import { ModalProvider } from "@/providers/modal-provider";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,7 +23,6 @@ const router = createBrowserRouter([
             element: <Chat />,
           },
         ],
-        
       },
       {
         path:"/test",
@@ -40,6 +38,10 @@ const router = createBrowserRouter([
         children: [
           {
             path: "profile",
+            element: <Profile />,
+          },
+          {
+            path: "dashboard",
             element: <Profile />,
           },
         ],

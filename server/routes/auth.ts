@@ -7,15 +7,19 @@ const router = express.Router();
 import {
   login,
   register,
+  continueWithGoogle,
   sendDetails,
   profile,
   passwordChange,
   updateProfile,
   uploadProfilePicture,
+  logout,
 } from "../controllers/auth";
 
 router.post("/register", register);
 router.post("/login", login);
+router.route("/sign-in/google").post(continueWithGoogle);
+router.get("/logout", logout);
 router.put("/password", authMiddleWare, passwordChange);
 router.get("/", authMiddleWare, sendDetails);
 router.get("/profile", authMiddleWare, profile);

@@ -1,18 +1,17 @@
-import './ChatInput.css'
-import SendIcon from '@mui/icons-material/Send';
-
+import "./ChatInput.css";
+import SendIcon from "@mui/icons-material/Send";
 
 const ChatInput = () => {
   return (
-    <div className='chatInput'>
-      <form >
+    <div className="chatInput">
+      <form>
         <input type="text" />
         <button type="submit">
           <SendIcon />
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default ChatInput
+export default ChatInput;

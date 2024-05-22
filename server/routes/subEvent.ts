@@ -1,40 +1,39 @@
 import express from "express";
 import authMiddleWare from "../middleware/authentication";
-import upload from "../middleware/multer";
 
 const router = express.Router();
 
 import {
-  deleteEvent,
-  removeHost,
-  createEvent,
-  getEvent,
-  createHost,
-  getAllEvent,
-  getAllSubEvent
-} from "../controllers/event";
+  addAdmin,
+  getSubEvent,
+  createSubEvent,
+  removeAdmin,
+  deleteSubEvent,
+    getAllChannels
+} from "../controllers/subEvent";
 
 //middleware (only host can do it)
 
-//create event ..
-router.post("/createEvent", authMiddleWare, createEvent);
+//create subevent ..
+router.post("/createSubEvent",authMiddleWare ,createSubEvent);
 
-//get event ..
-router.get("/getAllEvent", authMiddleWare, getAllEvent);
-
-router.get("/getEvent", authMiddleWare, getEvent);
+//get subevent ..
+router.get("/getSubEvent",authMiddleWare , getSubEvent);
 
 //create host ..
-router.put("/createHost", authMiddleWare, createHost);
+router.put("/addAdmin", authMiddleWare ,addAdmin);
 
 //remove from host ..
-router.put("removeHost", authMiddleWare, removeHost);
+router.put("removeAdmin", authMiddleWare ,removeAdmin);
 
-//cancel event
-router.delete("deleteEvent", authMiddleWare, deleteEvent);
+//cancel subevent
+router.delete("deleteSubEvent",authMiddleWare , deleteSubEvent);
 
-//get all subevents
-router.get("/getAllSubEvent",authMiddleWare, getAllSubEvent);
+//get all channels
+router.get("/getAllChannels",authMiddleWare, getAllChannels);
+
+
+
 
 export default router;
 

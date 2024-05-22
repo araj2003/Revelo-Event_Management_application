@@ -14,11 +14,13 @@ const convertToObjectId = (id: string) => {
 };
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw new UnauthenticatedError("Not logged in");
+  const token = req.cookies.token;
+
+  if (!token) {
+    throw new UnauthenticatedError("Authentication invalid");
   }
-  const token = authHeader.split(" ")[1];
+  console.log(token);
+
   const payload = jwt.verify(
     token,
     process.env.JWT_SECRET ?? "secret-string",

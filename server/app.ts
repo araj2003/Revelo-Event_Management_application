@@ -8,6 +8,7 @@ import morgan from "morgan";
 // const xss = require('xss-clean');
 import cors from "cors";
 import rateLimiter from "express-rate-limit";
+import cookieParser from "cookie-parser";
 
 const app: Express = express();
 
@@ -20,11 +21,19 @@ import connectDB from "./db/connect";
 // // routers
 import authRouter from "./routes/auth";
 
+import eventRouter from "./routes/server";
+
+import subEventRouter from "./routes/subEvent";
+
+import channelRouter from "./routes/channel";
+
+import inviteRouter from "./routes/invite";
+
+import inviteRouter from "./routes/invite";
 
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
-import path from "path";
 
 app.set("trust proxy", 1);
 
@@ -35,10 +44,7 @@ app.use(
   }),
 );
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:3000",
-];
+const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
 
 app.use(
   cors({
@@ -51,10 +57,14 @@ app.use(
       }
       return callback(null, true);
     },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    optionsSuccessStatus: 204,
+    credentials: true,
   }),
 );
 
 app.use(express.json());
+app.use(cookieParser());
 // extra packages
 // app.use(helmet());
 // app.use(cors());
@@ -63,7 +73,10 @@ app.use(express.json());
 // routes
 app.use("/", express.static("../client/dist"));
 app.use("/api/v1/auth", authRouter);
-
+app.use("/api/v1/event", eventRouter);
+app.use("/api/v1/subEvent", subEventRouter);
+app.use("/api/v1/channel", channelRouter);
+app.use("/api/v1/invite", inviteRouter);
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);

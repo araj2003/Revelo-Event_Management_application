@@ -24,11 +24,11 @@ const Chat = () => {
       userImage: "userImage",
     },
     {
-        message: "almost done",
-        time: ": Thursday, 16th May 2024 11:12:00",
-        user:"Araj",
-        userImage: "userImage",
-    }
+      message: "almost done",
+      time: ": Thursday, 16th May 2024 11:12:00",
+      user: "Araj",
+      userImage: "userImage",
+    },
   ]);
   return (
     <div className="chat">
@@ -46,7 +46,7 @@ const Chat = () => {
         </div>
       </div>
       <div className="chat__messages">
-        {channelMessages.map(({message,time,user,userImage}) => (
+        {channelMessages.map(({ message, time, user, userImage }) => (
           <Message
             message={message}
             time={time}
@@ -55,8 +55,8 @@ const Chat = () => {
           />
         ))}
       </div>
-        <ChatInput />
-        {/* <Editor /> */}
+      <ChatInput />
+      {/* <Editor /> */}
     </div>
   );
 };

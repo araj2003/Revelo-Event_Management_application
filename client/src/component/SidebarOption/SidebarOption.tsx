@@ -6,7 +6,7 @@ const SidebarOption = ({
   Icon,
   title,
   id,
-  addChanneloption = false,
+  addChanneloption = true,
   showIcon = true,
 }) => {
   const navigate = useNavigate();
@@ -22,7 +22,6 @@ const SidebarOption = ({
   const addchannel = () => {
     const channelName = prompt("Please enter the channel name");
     if (channelName) {
-      
     }
   };
 
