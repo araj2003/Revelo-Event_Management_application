@@ -60,7 +60,7 @@ const Sidebar = () => {
       <hr />
       <SidebarOption Icon={ExpandMore} title="Channels" />
       <hr />
-      <SidebarOption Icon={Add} title="Add Channel" />
+      <SidebarOption Icon={Add} title="Add Channel" addChanneloption={true} />
       <hr />
       {/*  connect to db and list all the channels */}
       {channels.map((channel) => (
