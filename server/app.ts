@@ -20,15 +20,9 @@ import connectDB from "./db/connect";
 
 // // routers
 import authRouter from "./routes/auth";
-
 import eventRouter from "./routes/server";
-
 import subEventRouter from "./routes/subEvent";
-
 import channelRouter from "./routes/channel";
-
-import inviteRouter from "./routes/invite";
-
 import inviteRouter from "./routes/invite";
 
 // // error handler

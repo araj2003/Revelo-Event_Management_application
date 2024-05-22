@@ -19,7 +19,6 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
   if (!token) {
     throw new UnauthenticatedError("Authentication invalid");
   }
-  console.log(token);
 
   const payload = jwt.verify(
     token,
