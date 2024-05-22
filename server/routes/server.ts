@@ -20,9 +20,9 @@ import {
 router.post("/createEvent", authMiddleWare, createEvent);
 
 //get event ..
-router.get("/getAllEvent", authMiddleWare, getAllEvent);
+router.get("/all", authMiddleWare, getAllEvent);
 
-router.get("/getEvent", authMiddleWare, getEvent);
+router.get("/:id", authMiddleWare, getEvent);
 
 //create host ..
 router.put("/createHost", authMiddleWare, createHost);
@@ -33,8 +33,8 @@ router.put("removeHost", authMiddleWare, removeHost);
 //cancel event
 router.delete("deleteEvent", authMiddleWare, deleteEvent);
 
-//get all subevents
-router.get("/getAllSubEvent",authMiddleWare, getAllSubEvent);
+//get all subevents of an event
+router.get("/:id/subevents", authMiddleWare, getAllSubEvent);
 
 export default router;
 

@@ -33,7 +33,7 @@ const createEvent = async (req: Request, res: Response) => {
 };
 
 const getEvent = async (req: Request, res: Response) => {
-  const { eventId } = req.body;
+  const { id: eventId } = req.params;
   const userId = req.user.userId;
 
   console.log(eventId);
@@ -119,12 +119,12 @@ const deleteEvent = async (req: Request, res: Response) => {
 };
 
 const getAllSubEvent = async (req: Request, res: Response) => {
-  const { eventId } = req.body;
+  const { id: eventId } = req.params;
   const userId = req.user.userId;
 
   console.log(eventId);
   const event = await Event.find({ _id: eventId, host: userId }).populate(
-    "subEvents",
+    "SubEvent",
   );
 
   if (!event) {

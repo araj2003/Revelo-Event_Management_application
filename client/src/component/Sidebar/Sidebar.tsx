@@ -11,9 +11,11 @@ import FileCopy from "@mui/icons-material/FileCopy";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import { ExpandMore } from "@mui/icons-material";
 import Add from "@mui/icons-material/Add";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getSubEvents } from "../../api";
 
-const Sidebar = () => {
+const Sidebar = ({eventId}:{eventId:string}) => {
+  const [subEvents, setSubEvents] = useState([]);
   const [channels, setChannels] = useState([
     {
       id: 1,
@@ -32,6 +34,8 @@ const Sidebar = () => {
       channel: "figma ",
     },
   ]);
+
+
   return (
     <div className="sidebar">
       <div className="sidebar__header">
