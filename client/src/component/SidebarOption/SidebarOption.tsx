@@ -1,6 +1,7 @@
 import "./SidebarOption.css";
 import { useNavigate } from "react-router-dom";
 
+
 const SidebarOption = ({
   Icon,
   title,
@@ -20,10 +21,10 @@ const SidebarOption = ({
 
   const addchannel = () => {
     const channelName = prompt("Please enter the channel name");
-
     if (channelName) {
     }
   };
+
 
   return (
     <div
@@ -39,6 +40,8 @@ const SidebarOption = ({
           {title}
         </h3>
       )}
+
+
     </div>
   );
 };
