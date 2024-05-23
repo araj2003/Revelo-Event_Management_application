@@ -33,7 +33,6 @@ import groupRouter from "./routes/group";
 
 import calenderRouter from "./routes/calender";
 
-
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
@@ -85,7 +84,6 @@ app.use("/api/v1/meeting", meetingRouter);
 app.use("/api/v1/group", groupRouter);
 app.use("/api/v1/calender", calenderRouter);
 
-
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
@@ -105,59 +103,52 @@ const start = async () => {
       console.log(`Server is listening on port ${port}...`),
     );
 
-    
+    // sockets-
 
-
-    // sockets- 
-
-    const io = new Server(server,{
+    const io = new Server(server, {
       pingTimeout: 60000,
-      cors:{
-        origin:"http://localhost:3000"
-      }
-    })
+      cors: {
+        origin: "http://localhost:3000",
+      },
+    });
 
-    io.on("connection",(socket: any) => {
-      console.log("socket connection established",socket.id)
-      socket.on("setup",(userData : any) => {
-        socket.join(userData._id)
-        socket.emit("connected")
-      })
+    io.on("connection", (socket: any) => {
+      console.log("socket connection established", socket.id);
+      socket.on("setup", (userData: any) => {
+        socket.join(userData._id);
+        socket.emit("connected");
+      });
 
-      socket.on("join-chat",(room : any) => {
-        socket.join(room)
-        console.log("user joined room",room)
-      })
+      socket.on("join-chat", (room: any) => {
+        socket.join(room);
+        console.log("user joined room", room);
+      });
 
-      socket.on("new-message",(newMessageRecieved:any) => {
-        var chat = newMessageRecieved.chat
-        chat.users.forEach((user:any) => {
-          if(user._id == newMessageRecieved.sender._id){
+      socket.on("new-message", (newMessageRecieved: any) => {
+        var chat = newMessageRecieved.chat;
+        chat.users.forEach((user: any) => {
+          if (user._id == newMessageRecieved.sender._id) {
             return;
           }
-          socket.in(user._id).emit("message-received",newMessageRecieved)
+          socket.in(user._id).emit("message-received", newMessageRecieved);
         });
-      })
+      });
 
-      socket.on("typing",(room:any) => {
-        socket.in(room).emit("typing")
-      })
-      
-      
-      socket.on("stop-typing",(room:any) => {
-        socket.in("room").emit("stop-typing")
-      })
+      socket.on("typing", (room: any) => {
+        socket.in(room).emit("typing");
+      });
 
+      socket.on("stop-typing", (room: any) => {
+        socket.in("room").emit("stop-typing");
+      });
 
-      socket.off("setup",(userData:any) => {
-        console.log("user disconnected")
-        socket.leave(userData._id)
-      })
-    })
-    
-
+      socket.off("setup", (userData: any) => {
+        console.log("user disconnected");
+        socket.leave(userData._id);
+      });
+    });
   } catch (error) {
-    console.log(error); 
+    console.log(error);
   }
 };
 

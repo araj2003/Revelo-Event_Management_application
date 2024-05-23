@@ -26,14 +26,14 @@ const SubEventSchema = new mongoose.Schema<ISubEvent>({
       ref: "Channel",
     },
   ],
-  subEventDate:{
-    type:Date,
-    required:[true,"please provide date"]
+  subEventDate: {
+    type: Date,
+    required: [true, "please provide date"],
   },
-  subEventTime:{
-    type:Date,
-    required:[true,"please provide time"]
-  }
+  subEventTime: {
+    type: Date,
+    required: [true, "please provide time"],
+  },
 });
 
 const SubEvent = mongoose.model("SubEvent", SubEventSchema);

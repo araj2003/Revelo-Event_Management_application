@@ -9,33 +9,31 @@ import {
   createSubEvent,
   removeAdmin,
   deleteSubEvent,
-    getAllChannels,
-    updateSubEvent
+  getAllChannels,
+  updateSubEvent,
 } from "../controllers/subEvent";
 
 //middleware (only host can do it)
 
 //create subevent ..
-router.post("/createSubEvent",authMiddleWare ,createSubEvent);
+router.post("/createSubEvent", authMiddleWare, createSubEvent);
 
 //get subevent ..
-router.get("/getSubEvent",authMiddleWare , getSubEvent);
+router.get("/getSubEvent", authMiddleWare, getSubEvent);
 
 //create host ..
-router.put("/addAdmin", authMiddleWare ,addAdmin);
+router.put("/addAdmin", authMiddleWare, addAdmin);
 
 //remove from host ..
-router.put("removeAdmin", authMiddleWare ,removeAdmin);
+router.put("removeAdmin", authMiddleWare, removeAdmin);
 
 //cancel subevent
-router.delete("deleteSubEvent",authMiddleWare , deleteSubEvent);
+router.delete("deleteSubEvent", authMiddleWare, deleteSubEvent);
 
 //get all channels
-router.get("/getAllChannels",authMiddleWare, getAllChannels);
+router.get("/getAllChannels", authMiddleWare, getAllChannels);
 
-router.get("/updateSubEvent",authMiddleWare, updateSubEvent);
-
-
+router.get("/updateSubEvent", authMiddleWare, updateSubEvent);
 
 export default router;
 
