@@ -32,7 +32,7 @@ const createChannel = async (req: Request, res: Response) => {
   const updatedSubEvent = await SubEvent.findOneAndUpdate(
     { _id: subEventId },
     { $push: { channels: channel._id } },
-    { new: true }
+    { new: true },
   );
 
   return res.status(StatusCodes.CREATED).json({
@@ -43,7 +43,7 @@ const createChannel = async (req: Request, res: Response) => {
 };
 
 const getChannel = async (req: Request, res: Response) => {
-  const {channelId} = req.body;
+  const { channelId } = req.body;
   const channel = await Channel.findById(channelId);
 
   if (!channel) {

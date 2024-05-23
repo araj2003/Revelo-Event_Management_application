@@ -1,17 +1,17 @@
 import "./SidebarOption.css";
 import { useNavigate } from "react-router-dom";
-import {ModalProvider} from "@/providers/modal-provider";
-import { useState } from "react";
+import { ModalProvider } from "@/providers/modal-provider";
+import { useModal } from "@/hooks/user-modal";
 
 const SidebarOption = ({
   Icon,
   title,
   id,
-  addChanneloption = true,
+  addChanneloption = false,
   showIcon = true,
 }) => {
+  const { onOpen, onClose, type } = useModal();
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const selectChannel = () => {
     if (id) {
       navigate(`/room/${id}`);
@@ -21,32 +21,31 @@ const SidebarOption = ({
   };
 
   const addchannel = () => {
-    setIsModalOpen(true);
-    
-
+    onOpen("createServer");
   };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
 
   return (
-    <div
-      className="sidebarOption"
-      onClick={addChanneloption ? addchannel : selectChannel}
-    >
-      {showIcon && Icon && <Icon className="sidebarOption__icon" />}
-      {Icon ? (
-        <h3>{title}</h3>
-      ) : (
-        <h3 className="sidebarOption__channel">
-          <span className="sidebarOption__hash">#</span>
-          {title}
-        </h3>
-      )}
-      {isModalOpen && <ModalProvider/>}
-    </div>
+    <>
+      <div
+        className="sidebarOption"
+        onClick={addChanneloption ? addchannel : selectChannel}
+      >
+        {showIcon && Icon && <Icon className="sidebarOption__icon" />}
+        {Icon ? (
+          <h3>{title}</h3>
+        ) : (
+          <h3 className="sidebarOption__channel">
+            <span className="sidebarOption__hash">#</span>
+            {title}
+          </h3>
+        )}
+      </div>
+      {
+        addChanneloption && (
+          <ModalProvider/>
+        )
+      }
+    </>
   );
 };
 

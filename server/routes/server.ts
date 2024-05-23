@@ -11,7 +11,7 @@ import {
   getEvent,
   createHost,
   getAllEvent,
-  getAllSubEvent
+  getAllSubEvent,
 } from "../controllers/event";
 
 //middleware (only host can do it)
@@ -34,7 +34,7 @@ router.put("removeHost", authMiddleWare, removeHost);
 router.delete("deleteEvent", authMiddleWare, deleteEvent);
 
 //get all subevents
-router.get("/getAllSubEvent",authMiddleWare, getAllSubEvent);
+router.get("/getAllSubEvent", authMiddleWare, getAllSubEvent);
 
 export default router;
 

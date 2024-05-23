@@ -8,9 +8,9 @@ import { getChannel, createChannel } from "../controllers/channel";
 //middleware (only host can do it)
 
 //create Channel ..
-router.post("/createChannel",authMiddleWare, createChannel);
+router.post("/createChannel", authMiddleWare, createChannel);
 
 //get Channel ..
-router.get("/getChannel",authMiddleWare, getChannel);
+router.get("/getChannel", authMiddleWare, getChannel);
 
 export default router;
