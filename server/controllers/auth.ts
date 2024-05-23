@@ -103,8 +103,6 @@ const continueWithGoogle = async (req: Request, res: Response) => {
 };
 
 const sendDetails = async (req: Request, res: Response) => {
-  // waut 2 seconds
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const userId = req.user.userId;
   const user = await User.findById(userId);
   if (!user) {
