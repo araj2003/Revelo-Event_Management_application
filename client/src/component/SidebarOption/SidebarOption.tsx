@@ -1,6 +1,7 @@
 import "./SidebarOption.css";
 import { useNavigate } from "react-router-dom";
-
+import {ModalProvider} from "@/providers/modal-provider";
+import { useState } from "react";
 
 const SidebarOption = ({
   Icon,
@@ -10,7 +11,7 @@ const SidebarOption = ({
   showIcon = true,
 }) => {
   const navigate = useNavigate();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const selectChannel = () => {
     if (id) {
       navigate(`/room/${id}`);
@@ -20,9 +21,13 @@ const SidebarOption = ({
   };
 
   const addchannel = () => {
-    const channelName = prompt("Please enter the channel name");
-    if (channelName) {
-    }
+    setIsModalOpen(true);
+    
+
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
 
@@ -40,8 +45,7 @@ const SidebarOption = ({
           {title}
         </h3>
       )}
-
-
+      {isModalOpen && <ModalProvider/>}
     </div>
   );
 };

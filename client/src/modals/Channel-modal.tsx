@@ -94,7 +94,7 @@ const ChannelModal = () => {
               />
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-6">
-              <Button variant="primary" disabled={isLoading}>
+              <Button variant="primary" disabled={isLoading} className="bg-blue-400">
                 Create Channel
               </Button>
             </DialogFooter>

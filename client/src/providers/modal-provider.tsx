@@ -12,7 +12,7 @@ export const ModalProvider = ()=>{
     }
     return  (
         <>
-            <ChannelModal />
+            <ChannelModal/>
         </>
     )
 }
