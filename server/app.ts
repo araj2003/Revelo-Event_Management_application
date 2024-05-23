@@ -29,7 +29,12 @@ import channelRouter from "./routes/channel";
 
 import inviteRouter from "./routes/invite";
 
-import inviteRouter from "./routes/invite";
+import meetingRouter from "./routes/meeting";
+
+import groupRouter from "./routes/group";
+
+import calenderRouter from "./routes/calender";
+
 
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
@@ -77,6 +82,10 @@ app.use("/api/v1/event", eventRouter);
 app.use("/api/v1/subEvent", subEventRouter);
 app.use("/api/v1/channel", channelRouter);
 app.use("/api/v1/invite", inviteRouter);
+app.use("/api/v1/meeting", meetingRouter);
+app.use("/api/v1/group", groupRouter);
+app.use("/api/v1/calender", calenderRouter);
+
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);

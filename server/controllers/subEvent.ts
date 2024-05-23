@@ -9,7 +9,7 @@ import { StatusCodes } from "http-status-codes";
 import { IServer, ISubEvent } from "../types/models";
 
 const createSubEvent = async (req: Request, res: Response) => {
-  const { subEventName, eventId } = req.body;
+  const { subEventName, eventId ,subEventDate,subEventTime} = req.body;
   const userId = req.user.userId;
   const user = await User.findById(userId);
 
@@ -27,6 +27,8 @@ const createSubEvent = async (req: Request, res: Response) => {
     subEventName,
     users: [userId],
     admin: [userId],
+    subEventDate:subEventDate,
+    subEventTime:subEventTime
   });
 
   await subEvent.save();
@@ -131,6 +133,24 @@ const getAllChannels = async (req: Request, res: Response) => {
   });
 };
 
+const updateSubEvent = async(req: Request, res: Response) => {
+  const { subEventId } = req.params;
+    const updatedSubEvent = req.body;
+
+    // Find the sub-event by its ID and update it
+    const updatedSubEventData = await SubEvent.findByIdAndUpdate(
+      subEventId,
+      updatedSubEvent,
+      { new: true }
+    );
+
+    if (!updatedSubEventData) {
+      throw new BadRequestError("subevent cannot be updated");
+    }
+
+    res.status(200).json({updatedSubEventData,msg:"subevent updated"});
+}
+
 export {
   getAllChannels,
   addAdmin,
@@ -138,4 +158,5 @@ export {
   createSubEvent,
   removeAdmin,
   deleteSubEvent,
+  updateSubEvent
 };
