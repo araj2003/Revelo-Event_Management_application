@@ -5,8 +5,26 @@ import { IoIosMore } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { getAllEvent } from "../../api";
 
+const defaultEvents = [
+  {
+    _id: "1",
+    name: "Event 1",
+    description: "Event 1 Description",
+  },
+  {
+    _id: "2",
+    name: "Event 2",
+    description: "Event 2 Description",
+  },
+  {
+    _id: "3",
+    name: "Event 3",
+    description: "Event 3 Description",
+  },
+];
+
 const SideBarIcon = () => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(defaultEvents);
 
   useEffect(() => {
     const fetchAllEvents = async () => {

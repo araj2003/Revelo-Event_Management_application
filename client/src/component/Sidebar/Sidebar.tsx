@@ -14,8 +14,26 @@ import Add from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import { getSubEvents } from "../../api";
 
-const Sidebar = ({eventId}:{eventId:string}) => {
-  const [subEvents, setSubEvents] = useState([]);
+const defaultSubEvents = [
+  {
+    _id: "1",
+    name: "Sub Event 1",
+    description: "Sub Event 1 Description",
+  },
+  {
+    _id: "2",
+    name: "Sub Event 2",
+    description: "Sub Event 2 Description",
+  },
+  {
+    _id: "3",
+    name: "Sub Event 3",
+    description: "Sub Event 3 Description",
+  },
+];
+
+const Sidebar = ({ eventId }: { eventId: string }) => {
+  const [subEvents, setSubEvents] = useState(defaultSubEvents);
   const [channels, setChannels] = useState([
     {
       id: 1,
@@ -35,6 +53,21 @@ const Sidebar = ({eventId}:{eventId:string}) => {
     },
   ]);
 
+  useEffect(() => {
+    eventId = "1";
+    const fetchAllSubEvents = async () => {
+      try {
+        const data: any = await getSubEvents(eventId);
+        console.log(data);
+        if (data.subEvents) {
+          setSubEvents(data.subEvents);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchAllSubEvents();
+  });
 
   return (
     <div className="sidebar">
