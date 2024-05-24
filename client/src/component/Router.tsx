@@ -7,7 +7,6 @@ import ErrorAndRedirect from "../pages/ErrorAndRedirect";
 import { Layout, ProtectedRoute, AntiProtectedRoute } from "./Layout";
 import Chat from "../pages/Chat/Chat";
 import LandingPage from "./LandingPage/LandingPage";
-import { ModalProvider } from "@/providers/modal-provider";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +22,6 @@ const router = createBrowserRouter([
             element: <Chat />,
           },
         ],
-      },
-      {
-        path:"/test",
-        element:  <ModalProvider />,
       },
       {
         path:"/landing",

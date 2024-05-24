@@ -1,4 +1,5 @@
 import ChannelModal from "../modals/Channel-modal";
+import CreateEventModal from "@/modals/Create-Event-modal";
 import { useState, useEffect } from "react";
 
 export const ModalProvider = () => {
@@ -13,6 +14,7 @@ export const ModalProvider = () => {
   return (
     <>
       <ChannelModal />
+      <CreateEventModal />  
     </>
   );
 };

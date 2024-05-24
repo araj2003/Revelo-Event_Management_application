@@ -4,6 +4,9 @@
   max-width: 260px;
   color: #fff;
   flex: 0.3;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .sidebar__header {

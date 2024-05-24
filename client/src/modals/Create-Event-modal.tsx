@@ -31,10 +31,8 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const ChannelModal = () => {
+const CreateEventModal = () => {
   const { isOpen, onClose, type } = useModal();
-
-  // const isModalOpen = isOpen;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -58,10 +56,10 @@ const ChannelModal = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl  text-center font-bold">
-            Create a channel
+            Create an Event
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Channels are where your members communicate. They’re best when
+            Event are where your members communicate. They’re best when
             organized around a topic.
           </DialogDescription>
         </DialogHeader>
@@ -78,7 +76,7 @@ const ChannelModal = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
-                      Channel Name
+                      Event Name
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -95,7 +93,7 @@ const ChannelModal = () => {
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-6">
               <Button variant="primary" disabled={isLoading} className="bg-purple-500">
-                Create Channel
+                Create Event
               </Button>
             </DialogFooter>
           </form>
@@ -105,4 +103,4 @@ const ChannelModal = () => {
   );
 };
 
-export default ChannelModal;
+export default CreateEventModal;

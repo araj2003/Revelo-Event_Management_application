@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      scale:{
+        '125':'1.25',
+      },
       fontFamily: {
         robo: ["Roboto"],
         popi: ["Poppins"],

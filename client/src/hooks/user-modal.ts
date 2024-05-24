@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ModalType = "createServer";
+export type ModalType = "createServer  | createEvent";
 
 interface Modalstore {
   type: ModalType | null;
