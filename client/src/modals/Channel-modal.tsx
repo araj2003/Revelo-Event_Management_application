@@ -20,7 +20,6 @@ import {
 } from "../components/ui/form";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-
 import { useModal } from "@/hooks/user-modal";
 
 const formSchema = z.object({
@@ -43,6 +42,7 @@ const ChannelModal = () => {
     },
   });
 
+  const isModalOpen = isOpen && type === "createChannel";
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: FormValues) => {
     console.log(values);
@@ -54,7 +54,7 @@ const ChannelModal = () => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
+    <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl  text-center font-bold">
@@ -94,7 +94,7 @@ const ChannelModal = () => {
               />
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-6">
-              <Button variant="primary" disabled={isLoading} className="bg-purple-500">
+              <Button disabled={isLoading} className="bg-purple-500">
                 Create Channel
               </Button>
             </DialogFooter>

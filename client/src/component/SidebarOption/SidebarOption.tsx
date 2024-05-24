@@ -9,6 +9,12 @@ const SidebarOption = ({
   id,
   addChanneloption = false,
   showIcon = true,
+}:{
+  Icon:any,
+  title:string,
+  id:number,
+  addChanneloption:boolean,
+  showIcon:boolean
 }) => {
   const { onOpen, onClose, type } = useModal();
   const navigate = useNavigate();
@@ -21,7 +27,7 @@ const SidebarOption = ({
   };
 
   const addchannel = () => {
-    onOpen("createServer");
+    onOpen("createChannel");
   };
 
   return (
