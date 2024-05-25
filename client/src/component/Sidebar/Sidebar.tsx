@@ -54,20 +54,21 @@ const Sidebar = ({ eventId }: { eventId: string }) => {
   ]);
 
   useEffect(() => {
-    eventId = "1";
+    eventId = "664b2b8a05eea2de292c2bd8";
     const fetchAllSubEvents = async () => {
       try {
         const data: any = await getSubEvents(eventId);
         console.log(data);
         if (data.subEvents) {
           setSubEvents(data.subEvents);
+          console.log(data.subEvents);
         }
       } catch (error) {
         console.log(error);
       }
     };
     fetchAllSubEvents();
-  });
+  },[]);
 
   return (
     <div className="sidebar">
@@ -99,6 +100,16 @@ const Sidebar = ({ eventId }: { eventId: string }) => {
       <hr />
       <SidebarOption Icon={Add} title="Add Channel" />
       <hr />
+      {
+        subEvents.map((subEvent) => (
+          <SidebarOption
+            key={subEvent._id}
+            title={subEvent.subEventName}
+            showIcon={false}
+            id={subEvent._id}
+          />
+        ))
+      }
       {/*  connect to db and list all the channels */}
       {channels.map((channel) => (
         <SidebarOption

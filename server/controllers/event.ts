@@ -124,7 +124,7 @@ const getAllSubEvent = async (req: Request, res: Response) => {
 
   console.log(eventId);
   const event = await Event.find({ _id: eventId, host: userId }).populate(
-    "SubEvent",
+    "subEvents"
   );
 
   if (!event) {
@@ -132,7 +132,8 @@ const getAllSubEvent = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    event,
+    event:event[0],
+    subEvents: event[0].subEvents,
     msg: "subevents fetched successfully",
   });
 };
