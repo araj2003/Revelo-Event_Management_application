@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "./hooks";
 import { getUserData } from "./store/userSlice";
 import Loading from "./component/Loading";
 import Header from "./component/Header/Header";
+import { EventProvider } from "./context/EventContext";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -27,20 +28,22 @@ function App() {
   return (
     <>
       <div className={isDarkMode ? "dark" : ""}>
-        <ToastContainer
-          position="top-center"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          pauseOnHover
-          toastClassName="bg-white text-gray-800 dark:bg-gray-800 dark:text-white"
-          theme={isDarkMode ? "dark" : "light"}
-        />
-        <RouterProvider router={router} />
+        <EventProvider>
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable
+            pauseOnHover
+            toastClassName="bg-white text-gray-800 dark:bg-gray-800 dark:text-white"
+            theme={isDarkMode ? "dark" : "light"}
+          />
+          <RouterProvider router={router} />
+        </EventProvider>
       </div>
     </>
   );

@@ -11,29 +11,12 @@ import FileCopy from "@mui/icons-material/FileCopy";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import { ExpandMore } from "@mui/icons-material";
 import Add from "@mui/icons-material/Add";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getSubEvents } from "../../api";
+import { EventContext } from "@/context/EventContext";
 
-const defaultSubEvents = [
-  {
-    _id: "1",
-    name: "Sub Event 1",
-    description: "Sub Event 1 Description",
-  },
-  {
-    _id: "2",
-    name: "Sub Event 2",
-    description: "Sub Event 2 Description",
-  },
-  {
-    _id: "3",
-    name: "Sub Event 3",
-    description: "Sub Event 3 Description",
-  },
-];
-
-const Sidebar = ({ eventId }: { eventId: string }) => {
-  const [subEvents, setSubEvents] = useState(defaultSubEvents);
+const Sidebar = () => {
+  const { eventId, subEvents, setSubEvents } = useContext(EventContext);
   const [channels, setChannels] = useState([
     {
       id: 1,
@@ -54,7 +37,7 @@ const Sidebar = ({ eventId }: { eventId: string }) => {
   ]);
 
   useEffect(() => {
-    eventId = "664b2b8a05eea2de292c2bd8";
+    // eventId = "664b2b8a05eea2de292c2bd8";
     const fetchAllSubEvents = async () => {
       try {
         const data: any = await getSubEvents(eventId);

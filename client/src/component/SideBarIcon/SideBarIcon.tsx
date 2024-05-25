@@ -3,35 +3,17 @@ import { FaFire } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { IoIosMore } from "react-icons/io";
 import { useModal } from "@/hooks/user-modal";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAllEvent } from "../../api";
-
-const defaultEvents = [
-  {
-    _id: "1",
-    name: "Event 1",
-    description: "Event 1 Description",
-  },
-  {
-    _id: "2",
-    name: "Event 2",
-    description: "Event 2 Description",
-  },
-  {
-    _id: "3",
-    name: "Event 3",
-    description: "Event 3 Description",
-  },
-];
+import { EventContext } from "@/context/EventContext";
 
 const SideBarIcon = () => {
+  const { events, setEvents } = useContext(EventContext);
   const { onOpen } = useModal();
 
   const addServer = () => {
     onOpen("createEvent");
   };
-
-  const [events, setEvents] = useState(defaultEvents);
 
   useEffect(() => {
     const fetchAllEvents = async () => {
@@ -39,6 +21,7 @@ const SideBarIcon = () => {
         const data: any = await getAllEvent();
         console.log(data);
         if (data.events) {
+          console.log('abcd');
           setEvents(data.events);
         }
       } catch (error) {
@@ -47,6 +30,7 @@ const SideBarIcon = () => {
     };
     fetchAllEvents();
   }, []);
+
   return (
     <div className="w-20 bg-slack space-y-3">
       {/* <Divider /> */}
@@ -57,6 +41,9 @@ const SideBarIcon = () => {
           </span>
         }
       />
+      {events?.map((event: any) => (
+        <SideBar key={event._id} icon={<IoHome size="22" />} />
+      ))}
       <SideBar
         icon={
           <span className="transition-transform duration-300 ease-in hover:scale-125">
@@ -80,7 +67,9 @@ const SideBarIcon = () => {
   );
 };
 
-const SideBar = ({ icon }:{icon:any}) => <div className="sidebar-icon">{icon}</div>;
+const SideBar = ({ icon }: { icon: any }) => (
+  <div className="sidebar-icon">{icon}</div>
+);
 
 const Divider = () => <hr className="sidebar-hr" />;
 
