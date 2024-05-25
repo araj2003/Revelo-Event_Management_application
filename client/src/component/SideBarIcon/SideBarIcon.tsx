@@ -2,6 +2,7 @@ import { BsPlus, BsFillLightningFill } from "react-icons/bs";
 import { FaFire } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { IoIosMore } from "react-icons/io";
+import { useModal } from "@/hooks/user-modal";
 import { useEffect, useState } from "react";
 import { getAllEvent } from "../../api";
 
@@ -24,6 +25,12 @@ const defaultEvents = [
 ];
 
 const SideBarIcon = () => {
+  const { onOpen } = useModal();
+
+  const addServer = () => {
+    onOpen("createEvent");
+  };
+
   const [events, setEvents] = useState(defaultEvents);
 
   useEffect(() => {
@@ -41,26 +48,39 @@ const SideBarIcon = () => {
     fetchAllEvents();
   }, []);
   return (
-    <div className="w-20 bg-slack">
-      <SideBar icon={<IoHome size="22" />} />
-      {
-        events.map((event: any) => (
-          <SideBar key={event._id} icon={<IoHome size="22" />} />
-        ))
-      }
-      <SideBar icon={<FaFire size="28" />} />
-      <Divider />
-      <SideBar icon={<BsPlus size="32" />} />
-      <SideBar icon={<BsFillLightningFill size="20" />} />
-      <Divider />
-      <SideBar icon={<IoIosMore size="22" />} />
+    <div className="w-20 bg-slack space-y-3">
+      {/* <Divider /> */}
+      <SideBar
+        icon={
+          <span className="transition-transform duration-300 ease-in hover:scale-125">
+            <IoHome size="22" />
+          </span>
+        }
+      />
+      <SideBar
+        icon={
+          <span className="transition-transform duration-300 ease-in hover:scale-125">
+            <IoIosMore size="22" />
+          </span>
+        }
+      />
+      <div className="absolute bottom-0 ml-4">
+        <SideBar
+          icon={
+            <span
+              className="transition-transform duration-300 ease-in hover:scale-125"
+              onClick={addServer}
+            >
+              <BsPlus size="32" />
+            </span>
+          }
+        />
+      </div>
     </div>
   );
 };
 
-const SideBar = ({ icon }: { icon: React.ReactNode }) => (
-  <div className="sidebar-icon">{icon}</div>
-);
+const SideBar = ({ icon }:{icon:any}) => <div className="sidebar-icon">{icon}</div>;
 
 const Divider = () => <hr className="sidebar-hr" />;
 

@@ -9,9 +9,9 @@ const ServerInviteSchema = new mongoose.Schema<IServerInvite>(
       required: true,
     },
     createdBy: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true,
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: true,
     },
     inviteCode: {
       type: String,

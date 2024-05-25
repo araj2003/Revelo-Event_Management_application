@@ -98,7 +98,7 @@ const Sidebar = ({ eventId }: { eventId: string }) => {
       <hr />
       <SidebarOption Icon={ExpandMore} title="Channels" />
       <hr />
-      <SidebarOption Icon={Add} title="Add Channel" />
+      <SidebarOption Icon={Add} title="Add Channel" addChanneloption={true} />
       <hr />
       {
         subEvents.map((subEvent) => (

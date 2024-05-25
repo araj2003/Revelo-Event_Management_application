@@ -11,7 +11,7 @@ import {
   getEvent,
   createHost,
   getAllEvent,
-  getAllSubEvent
+  getAllSubEvent,
 } from "../controllers/event";
 
 //middleware (only host can do it)

@@ -2,7 +2,12 @@ import express from "express";
 
 const router = express.Router();
 
-import { createInvite, getInvite, getAllInvites, joinInvite } from "../controllers/invite";
+import {
+  createInvite,
+  getInvite,
+  getAllInvites,
+  joinInvite,
+} from "../controllers/invite";
 //middleware (only host can do it)
 
 router.post("/create", createInvite);
