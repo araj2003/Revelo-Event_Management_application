@@ -16,7 +16,7 @@ import { getSubEvents } from "../../api";
 import { EventContext } from "@/context/EventContext";
 
 const Sidebar = () => {
-  const { eventId, subEvents, setSubEvents } = useContext(EventContext);
+  const { eventId, subEvents, setSubEvents,setEvent,event} = useContext(EventContext);
   const [channels, setChannels] = useState([
     {
       id: 1,
@@ -38,11 +38,13 @@ const Sidebar = () => {
 
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
+    console.log(event)
     const fetchAllSubEvents = async () => {
       try {
         const data: any = await getSubEvents(eventId);
         console.log(data);
-        if (data.subEvents) {
+        if (data.event) {
+          setEvent(data.event)
           setSubEvents(data.subEvents);
           console.log(data.subEvents);
         }
@@ -51,7 +53,10 @@ const Sidebar = () => {
       }
     };
     fetchAllSubEvents();
-  },[]);
+
+
+
+  },[eventId]);
 
   return (
     <div className="sidebar">

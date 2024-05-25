@@ -17,15 +17,24 @@ import {
   FormLabel,
   FormMessage,
   FormItem,
+  
 } from "../components/ui/form";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 
 import { useModal } from "@/hooks/user-modal";
+import axios from "axios";
+import { createEvent } from "@/api";
+import { useContext, useState } from "react";
+
+import { EventContext } from "@/context/EventContext";
 
 const formSchema = z.object({
-  channelName: z.string().min(1, {
+  serverName: z.string().min(1, {
     message: "Channel name is required",
+  }),
+  description:z.string().min(6, {
+    message: "description is required",
   }),
 });
 
@@ -37,21 +46,26 @@ const CreateEventModal = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      channelName: "",
+      serverName: "",
+      description:""
     },
   });
 
   const isModalOpen = isOpen && type === "createEvent";
   const isLoading = form.formState.isSubmitting;
+
   const onSubmit = async (values: FormValues) => {
     console.log(values);
+    const response:any = await createEvent(values)
+    console.log(response)
   };
 
   const handleClose = () => {
     form.reset();
     onClose();
   };
-  console.log('a');
+  // console.log('a');
+  
   return (
     <>
       <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -73,10 +87,12 @@ const CreateEventModal = () => {
 </div> */}
                 <FormField
                   control={form.control}
-                  name={"channelName"}
+                  name={"serverName"}
                   // channelName="name"
                   render={({ field }) => (
+                    <>
                     <FormItem>
+
                       <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
                         Event Name
                       </FormLabel>
@@ -87,11 +103,45 @@ const CreateEventModal = () => {
                           placeholder="Enter Event name"
                           {...field}
                         />
+                        
+                      </FormControl>
+                      <FormMessage />
+
+                    </FormItem>
+                   
+
+                    </>
+                    
+                  )}
+                />
+
+                  <FormField
+                  control={form.control}
+                  name={"description"}
+                  // channelName="name"
+                  render={({ field }) => (
+                    <>
+                    
+                    <FormItem>
+                    <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
+                        Description
+                      </FormLabel>
+                      <FormControl>
+                        <textarea
+                          disabled={isLoading}
+                          className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                          placeholder="Enter descrption"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
+
+                    </>
+                    
                   )}
                 />
+
               </div>
               <DialogFooter className="bg-gray-100 px-6 py-6">
                 <Button

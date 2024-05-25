@@ -46,7 +46,7 @@ export const EventProvider: any = ({ children }: { children: any }) => {
   const [eventId, setEventId] = useState("664b2b8a05eea2de292c2bd8");
   const [subEventId, setSubEventId] = useState(null);
   const [channelId, setChannelId] = useState(null);
-  const [events, setEvents] = useState(defaultEvents);
+  const [event, setEvent] = useState(defaultEvents);
   const [subEvents, setSubEvents] = useState<any[]>(defaultSubEvents);
 
   return (
@@ -58,8 +58,8 @@ export const EventProvider: any = ({ children }: { children: any }) => {
         setSubEventId,
         channelId,
         setChannelId,
-        events,
-        setEvents,
+        event,
+        setEvent,
         subEvents,
         setSubEvents,
       }}
