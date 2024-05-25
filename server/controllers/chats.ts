@@ -41,7 +41,7 @@ const createSingleChat = async (req: Request, res: Response) => {
 };
 
 // create group(add users from subevent id)
-const createGrupChat = async (req: Request, res: Response) => {
+const createGroupChat = async (req: Request, res: Response) => {
   const { groupName, allUsers, channelId } = req.body;
   if (!groupName || !allUsers) {
     throw new BadRequestError("Please provide group name and users");
@@ -95,4 +95,4 @@ const getAllChats = async (req: Request, res: Response) => {
     });
 };
 
-export { createGrupChat, createSingleChat, getAllChats };
+export { createGroupChat, createSingleChat, getAllChats };

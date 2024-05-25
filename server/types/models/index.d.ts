@@ -53,6 +53,8 @@ export interface ISubEvent {
   users: mongoose.Types.ObjectId[];
   admin: mongoose.Types.ObjectId[];
   channels: mongoose.Types.ObjectId[];
+  subEventDate: Date;
+  subEventTime: Date;
 }
 
 export interface IServerInvite {
@@ -64,4 +66,13 @@ export interface IServerInvite {
   joinedUsers: mongoose.Types.ObjectId[];
   oneTimeUse: Boolean;
   expired: Boolean;
+}
+
+export interface IMeeting {
+  _id?: mongoose.Types.ObjectId;
+  channelId: mongoose.Types.ObjectId;
+  topic: string;
+  startDate: Date;
+  startTime: Date;
+  description: string;
 }

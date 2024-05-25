@@ -4,7 +4,7 @@ import authMiddleWare from "../middleware/authentication";
 const router = express.Router();
 
 import {
-  createGrupChat,
+  createGroupChat,
   createSingleChat,
   getAllChats,
 } from "../controllers/chats";
@@ -12,7 +12,7 @@ import {
 //middleware (only host can do it)
 
 //create subevent ..
-router.post("/createGrupChat", authMiddleWare, createGrupChat);
+router.post("/createGroupChat", authMiddleWare, createGroupChat);
 
 //get subevent ..
 router.post("/createSingleChat", authMiddleWare, createSingleChat);

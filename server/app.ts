@@ -3,6 +3,7 @@ dotenv.config();
 import "express-async-errors";
 import express, { Express } from "express";
 import morgan from "morgan";
+import { Server } from "socket.io";
 // extra security
 // const helmet = require('helmet');
 // const xss = require('xss-clean');
@@ -23,11 +24,19 @@ import authRouter from "./routes/auth";
 import eventRouter from "./routes/server";
 import subEventRouter from "./routes/subEvent";
 import channelRouter from "./routes/channel";
+
 import inviteRouter from "./routes/invite";
+
+import meetingRouter from "./routes/meeting";
+
+import groupRouter from "./routes/group";
+
+import calenderRouter from "./routes/calender";
 
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
+import { Socket } from "dgram";
 
 app.set("trust proxy", 1);
 
@@ -71,6 +80,9 @@ app.use("/api/v1/event", eventRouter);
 app.use("/api/v1/subEvent", subEventRouter);
 app.use("/api/v1/channel", channelRouter);
 app.use("/api/v1/invite", inviteRouter);
+app.use("/api/v1/meeting", meetingRouter);
+app.use("/api/v1/group", groupRouter);
+app.use("/api/v1/calender", calenderRouter);
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);
@@ -87,9 +99,54 @@ const start = async () => {
       return;
     }
     await connectDB(mongoUri);
-    app.listen(port, () =>
+    const server = app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`),
     );
+
+    // sockets-
+
+    const io = new Server(server, {
+      pingTimeout: 60000,
+      cors: {
+        origin: "http://localhost:3000",
+      },
+    });
+
+    io.on("connection", (socket: any) => {
+      console.log("socket connection established", socket.id);
+      socket.on("setup", (userData: any) => {
+        socket.join(userData._id);
+        socket.emit("connected");
+      });
+
+      socket.on("join-chat", (room: any) => {
+        socket.join(room);
+        console.log("user joined room", room);
+      });
+
+      socket.on("new-message", (newMessageRecieved: any) => {
+        var chat = newMessageRecieved.chat;
+        chat.users.forEach((user: any) => {
+          if (user._id == newMessageRecieved.sender._id) {
+            return;
+          }
+          socket.in(user._id).emit("message-received", newMessageRecieved);
+        });
+      });
+
+      socket.on("typing", (room: any) => {
+        socket.in(room).emit("typing");
+      });
+
+      socket.on("stop-typing", (room: any) => {
+        socket.in("room").emit("stop-typing");
+      });
+
+      socket.off("setup", (userData: any) => {
+        console.log("user disconnected");
+        socket.leave(userData._id);
+      });
+    });
   } catch (error) {
     console.log(error);
   }
