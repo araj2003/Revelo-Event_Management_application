@@ -10,11 +10,11 @@ const SidebarOption = ({
   addChanneloption = false,
   showIcon = true,
 }:{
-  Icon:any,
+  Icon?:any,
   title:string,
   id:number,
-  addChanneloption:boolean,
-  showIcon:boolean
+  addChanneloption?:boolean,
+  showIcon?:boolean
 }) => {
   const { onOpen, onClose, type } = useModal();
   const navigate = useNavigate();

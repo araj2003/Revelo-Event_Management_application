@@ -22,18 +22,18 @@ const Sidebar = () => {
       id: 1,
       channel: "Youtube 1",
     },
-    {
-      id: 2,
-      channel: "Discord ",
-    },
-    {
-      id: 3,
-      channel: "Miro ",
-    },
-    {
-      id: 4,
-      channel: "figma ",
-    },
+    // {
+    //   id: 2,
+    //   channel: "Discord ",
+    // },
+    // {
+    //   id: 3,
+    //   channel: "Miro ",
+    // },
+    // {
+    //   id: 4,
+    //   channel: "figma ",
+    // },
   ]);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const Sidebar = () => {
       }
     };
     fetchAllSubEvents();
-  },[]);
+  }, []);
 
   return (
     <div className="sidebar">
@@ -67,7 +67,7 @@ const Sidebar = () => {
       </div>
       <SidebarOption Icon={InsertComment} title="Threads" />
       <hr />
-      <SidebarOption Icon={Inbox} title="Mentions & Reactions" />
+      {/* <SidebarOption Icon={Inbox} title="Mentions & Reactions" />
       <hr />
       <SidebarOption Icon={Drafts} title="Saved items" />
       <hr />
@@ -81,18 +81,22 @@ const Sidebar = () => {
       <hr />
       <SidebarOption Icon={ExpandMore} title="Channels" />
       <hr />
-      <SidebarOption Icon={Add} title="Add Channel" addChanneloption={true} />
-      <hr />
-      {
-        subEvents.map((subEvent) => (
+      <SidebarOption Icon={Add} title="Add Channel" addChanneloption={true} /> */}
+      {/* <hr /> */}
+      {subEvents.map((subEvent: any) => (
+        <>
+          {/* <div onClick={() => console.log("clicked")}> */}
           <SidebarOption
             key={subEvent._id}
             title={subEvent.subEventName}
-            showIcon={false}
+            showIcon={true}
+            Icon={ExpandMore}
             id={subEvent._id}
           />
-        ))
-      }
+          <hr />
+          {/* </div> */}
+        </>
+      ))}
       {/*  connect to db and list all the channels */}
       {channels.map((channel) => (
         <SidebarOption

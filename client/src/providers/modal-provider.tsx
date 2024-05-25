@@ -1,5 +1,5 @@
 import { useModal } from "@/hooks/user-modal";
-import ChannelModal from "../modals/Channel-modal";
+import ChannelModal from "../modals/SubEventModal";
 import CreateEventModal from "@/modals/Create-Event-modal";
 import { useState, useEffect } from "react";
 

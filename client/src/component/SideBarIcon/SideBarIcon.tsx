@@ -41,8 +41,11 @@ const SideBarIcon = () => {
           </span>
         }
       />
+      {
+
+      }
       {events?.map((event: any) => (
-        <SideBar key={event._id} icon={<IoHome size="22" />} />
+        <SideBar key={event._id} icon={event.serverName.charAt(0)} />
       ))}
       <SideBar
         icon={
