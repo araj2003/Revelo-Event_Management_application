@@ -84,7 +84,7 @@ const CreateEventModal = () => {
                         <Input
                           disabled={isLoading}
                           className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                          placeholder="Enter Channel name"
+                          placeholder="Enter Event name"
                           {...field}
                         />
                       </FormControl>
@@ -95,6 +95,7 @@ const CreateEventModal = () => {
               </div>
               <DialogFooter className="bg-gray-100 px-6 py-6">
                 <Button
+                  variant={null}  
                   disabled={isLoading}
                   className="bg-purple-500"
                 >
