@@ -26,7 +26,7 @@ import { EventContext } from "@/context/EventContext";
 import { useContext, useEffect, useState } from "react";
 import { createInvite } from "@/api";
 import { toast } from "react-toastify";
-
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 const formSchema = z.object({});
 
 type FormValues = z.infer<typeof formSchema>;
@@ -96,12 +96,12 @@ const MembersModal = () => {
                     <span className="text-zinc-500">{member.name[0]}</span>
                   </div>
                   <div>
-                    <p className="text-lg font-bold">{member.name}</p>
-                    <p className="text-zinc-500">{member.email}</p>
+                    <p className="text-md font-bold">{member.name}</p>
+                    <p className="text-zinc-500 text-sm">{member.email}</p>
                   </div>
                 </div>
                 <Button variant="text" className="text-red-500">
-                  Remove
+                  <PersonRemoveIcon className="ml-2" />
                 </Button>
               </div>
             ))}
