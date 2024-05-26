@@ -114,7 +114,7 @@ const deleteSubEvent = async (req: Request, res: Response) => {
 };
 
 const getAllChannels = async (req: Request, res: Response) => {
-  const { subEventId } = req.body;
+  const { subEventId } = req.params;
   const userId = req.user.userId;
 
   console.log(subEventId);
@@ -127,7 +127,7 @@ const getAllChannels = async (req: Request, res: Response) => {
     throw new BadRequestError("event not found");
   }
 
-  return res.status(500).json({
+  return res.status(200).json({
     subEvent,
     msg: "list of all the events",
   });

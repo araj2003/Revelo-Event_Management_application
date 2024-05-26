@@ -48,7 +48,7 @@ export const EventProvider: any = ({ children }: { children: any }) => {
   const [channelId, setChannelId] = useState(null);
   const [event, setEvent] = useState(defaultEvents);
   const [subEvents, setSubEvents] = useState<any[]>(defaultSubEvents);
-
+  
   return (
     <EventContext.Provider
       value={{
