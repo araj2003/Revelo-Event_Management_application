@@ -7,9 +7,11 @@ import Event from "../models/Server";
 
 import { StatusCodes } from "http-status-codes";
 import { IServer, ISubEvent } from "../types/models";
+import mongoose from "mongoose";
 
 const createSubEvent = async (req: Request, res: Response) => {
   const { subEventName, eventId, subEventDate, subEventTime } = req.body;
+  console.log(subEventName)
   const userId = req.user.userId;
   const user = await User.findById(userId);
 
@@ -24,7 +26,7 @@ const createSubEvent = async (req: Request, res: Response) => {
   }
 
   const subEvent: any = new SubEvent({
-    subEventName,
+    subEventName:subEventName,
     users: [userId],
     admin: [userId],
     subEventDate: subEventDate,
@@ -151,6 +153,47 @@ const updateSubEvent = async (req: Request, res: Response) => {
   res.status(200).json({ updatedSubEventData, msg: "subevent updated" });
 };
 
+const addUsersToSubEvent = async (req: Request, res: Response) => {
+  const {subEventId} = req.params
+
+  const {  userIds } = req.body;
+  const subEvent = await SubEvent.findById(subEventId)
+  if (!subEvent) {
+    throw new BadRequestError('SubEvent not found');
+  }
+  const usersToAdd = userIds.map((userId: string) => new mongoose.Types.ObjectId(userId));
+
+
+  const newUsersToAdd = usersToAdd.filter((userId:any) => !subEvent.users.includes(userId));
+
+  subEvent.users.push(...newUsersToAdd);
+  await subEvent.save();
+
+  return res.status(200).json({ subEvent, msg: 'Users added to subEvent' });
+
+
+} 
+
+const removeUsersFromSubEvent = async (req: Request, res: Response) => {
+  const {subEventId} = req.params
+  const {  userIds } = req.body;
+
+  // Find the subEvent
+  const subEvent = await SubEvent.findById(subEventId);
+  if (!subEvent) {
+    throw new BadRequestError('SubEvent not found');
+  }
+
+  // Convert string user IDs to ObjectId instances
+  const usersToRemove = userIds.map((userId: string) => new mongoose.Types.ObjectId(userId));
+
+
+  subEvent.users = subEvent.users.filter((userId) => !usersToRemove.includes(userId));
+  await subEvent.save();
+
+  return res.status(200).json({ subEvent, msg: 'Users removed from subEvent' });
+}
+
 export {
   getAllChannels,
   addAdmin,
@@ -159,4 +202,6 @@ export {
   removeAdmin,
   deleteSubEvent,
   updateSubEvent,
+  addUsersToSubEvent,
+  removeUsersFromSubEvent 
 };

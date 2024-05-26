@@ -99,6 +99,7 @@ const Sidebar = () => {
             showIcon={true}
             Icon={ExpandMore}
             id={subEvent._id}
+            
           />
           <hr />
           {/* </div> */}
@@ -117,6 +118,9 @@ const Sidebar = () => {
       ))}
       <Button size="default" className="mt-4" onClick={openInviteMemberModal}>
         Invite Member
+      </Button>
+      <Button size="default" className="mt-4" onClick={openInviteMemberModal}>
+        add member
       </Button>
     </div>
   );
