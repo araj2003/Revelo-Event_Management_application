@@ -21,6 +21,8 @@ import {
 } from "../components/ui/form";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
+import { Textarea } from "@/components/ui/textarea"
+
 
 import { useModal } from "@/hooks/user-modal";
 import axios from "axios";
@@ -82,9 +84,6 @@ const CreateEventModal = () => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <div className="space-y-8 px-6">
-                {/* <div className='flex -items-center justify-center text-center'>
-
-</div> */}
                 <FormField
                   control={form.control}
                   name={"serverName"}
@@ -114,34 +113,35 @@ const CreateEventModal = () => {
                     
                   )}
                 />
-
-                  <FormField
+                <FormField
                   control={form.control}
                   name={"description"}
                   // channelName="name"
                   render={({ field }) => (
                     <>
-                    
                     <FormItem>
-                    <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
+
+                      <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
                         Description
                       </FormLabel>
                       <FormControl>
-                        <textarea
+                        <Textarea
                           disabled={isLoading}
                           className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                          placeholder="Enter descrption"
+                          placeholder="Description of the event"
                           {...field}
                         />
+                        
                       </FormControl>
                       <FormMessage />
+
                     </FormItem>
+                   
 
                     </>
                     
                   )}
                 />
-
               </div>
               <DialogFooter className="bg-gray-100 px-6 py-6">
                 <Button
