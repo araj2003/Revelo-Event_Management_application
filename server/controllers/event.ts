@@ -124,9 +124,9 @@ const deleteEvent = async (req: Request, res: Response) => {
 const getAllSubEvent = async (req: Request, res: Response) => {
   const { id: eventId } = req.params;
   const userId = req.user.userId;
-  console.log(userId);
+  // console.log(userId);
 
-  console.log(eventId);
+  // console.log(eventId);
   const event = await Event.find({
     $and: [{ _id: eventId }, { $or: [{ host: userId }, { users: userId }] }],
   }).populate("subEvents");
