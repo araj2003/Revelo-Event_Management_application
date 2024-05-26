@@ -31,12 +31,12 @@ const formSchema = z.object({
   description: z.string().min(1, {
     message: "Subevent description is required",
   }),
-  startDate: z.date().min(new Date(), {
-    message: "Start date is required",
+  startDate: z.string().refine((date) => {
+    return new Date(date) > new Date();
   }),
-  endDate: z.date().min(new Date(), {
-    message: "End date is required",
-  }),
+  endDate: z.string().refine((date) => {
+    return new Date(date) > new Date();
+  })
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -50,8 +50,8 @@ const SubEventModal = () => {
     defaultValues: {
       name: "",
       description: "",
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: "",
+      endDate: "",
     },
   });
 
@@ -59,6 +59,8 @@ const SubEventModal = () => {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: FormValues) => {
     console.log(values);
+    
+
   };
 
   const handleClose = () => {
@@ -109,7 +111,7 @@ const SubEventModal = () => {
                 name={"description"}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
+                    <FormLabel className="uppereact-hook-formrcase text-zinc-500 font-bold text-xs">
                       Description
                     </FormLabel>
                     <FormControl>

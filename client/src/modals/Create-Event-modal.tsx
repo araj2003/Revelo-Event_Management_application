@@ -23,11 +23,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 
 import { useModal } from "@/hooks/user-modal";
-import axios from "axios";
 import { createEvent } from "@/api";
-import { useContext, useState } from "react";
-
-import { EventContext } from "@/context/EventContext";
 
 const formSchema = z.object({
   serverName: z.string().min(1, {
