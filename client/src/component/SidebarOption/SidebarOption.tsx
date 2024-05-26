@@ -18,7 +18,7 @@ const SidebarOption = ({
   addChanneloption?:boolean,
   showIcon?:boolean
 }) => {
-  const { onOpen, onClose, type } = useModal();
+  const { onOpen } = useModal();
   const { subEventId } = useContext(EventContext);
   const [open,setOpen] = useState(false)
   const [channels,setChannels] = useState<any>([])
@@ -32,7 +32,7 @@ const SidebarOption = ({
   };
 
   const addchannel = () => {
-    onOpen("createChannel");
+    onOpen("createSubevent");
   };
 
   console.log(channels)
@@ -66,11 +66,6 @@ const SidebarOption = ({
         {channel[0]?.channelName}
       </h4>
         })
-      }
-      {
-        addChanneloption && (
-          <ModalProvider/>
-        )
       }
     </>
   );

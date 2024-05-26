@@ -14,9 +14,12 @@ import Add from "@mui/icons-material/Add";
 import { useContext, useEffect, useState } from "react";
 import { getSubEvents } from "../../api";
 import { EventContext } from "@/context/EventContext";
+import { Button } from "@/components/ui/button";
+import { useModal } from "@/hooks/user-modal";
 
 const Sidebar = () => {
   const { eventId, subEvents, setSubEvents,setEvent,event} = useContext(EventContext);
+  const { onOpen } = useModal();
   const [channels, setChannels] = useState([
     {
       id: 1,
@@ -36,6 +39,10 @@ const Sidebar = () => {
     // },
   ]);
 
+  const openInviteMemberModal = () => {
+    onOpen("inviteMember");
+  }
+
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
     console.log(event)
@@ -53,9 +60,6 @@ const Sidebar = () => {
       }
     };
     fetchAllSubEvents();
-
-
-
   },[eventId]);
 
   return (
@@ -111,6 +115,9 @@ const Sidebar = () => {
           id={channel.id}
         />
       ))}
+      <Button size="default" className="mt-4" onClick={openInviteMemberModal}>
+        Invite Member
+      </Button>
     </div>
   );
 };
