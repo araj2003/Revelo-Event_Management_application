@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import Event from "../models/Server";
 // import SubEvent from "../models/SubEvent";
-import { BadRequestError, UnauthenticatedError } from "../errors";
+import { BadRequestError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 import ServerInvite from "../models/ServerInvite";
 import mongoose from "mongoose";
 
 const createInvite = async (req: Request, res: Response) => {
-  const { eventId, oneTimeUse, expiryDateb } = req.body;
+  let { eventId, oneTimeUse, expiryDateb } = req.body;
+  oneTimeUse= false;
+  expiryDateb = null;
   const userId = req.user.userId;
   const event = await Event.findById(eventId);
   if (!event) {

@@ -55,7 +55,7 @@ const SubEventModal = () => {
     },
   });
 
-  const isModalOpen = isOpen && type === "createChannel";
+  const isModalOpen = isOpen && type === "createSubevent";
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: FormValues) => {
     console.log(values);

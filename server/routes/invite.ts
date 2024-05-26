@@ -1,4 +1,5 @@
 import express from "express";
+import authMiddleWare from "../middleware/authentication";
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ import {
 } from "../controllers/invite";
 //middleware (only host can do it)
 
-router.post("/create", createInvite);
+router.post("/create", authMiddleWare, createInvite);
 router.post("/get", getInvite);
 router.post("/getAll", getAllInvites);
 router.post("/join", joinInvite);

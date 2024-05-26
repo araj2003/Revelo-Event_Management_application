@@ -81,3 +81,6 @@ export const createEvent = (eventData: any) => API.post("/event/createEvent", ev
 export const getEvent = (eventId: string) => API.get(`/event/${eventId}`);
 export const getAllEvent = () => API.get("/event/all");
 export const getSubEvents = (eventId: string) => API.get(`/event/${eventId}/subevents`);
+
+/* Invite API */
+export const createInvite = (inviteData: any) => API.post("/invite/create", inviteData);

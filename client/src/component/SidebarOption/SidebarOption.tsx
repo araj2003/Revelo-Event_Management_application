@@ -16,7 +16,7 @@ const SidebarOption = ({
   addChanneloption?:boolean,
   showIcon?:boolean
 }) => {
-  const { onOpen, onClose, type } = useModal();
+  const { onOpen } = useModal();
   const navigate = useNavigate();
   const selectChannel = () => {
     if (id) {
@@ -27,7 +27,7 @@ const SidebarOption = ({
   };
 
   const addchannel = () => {
-    onOpen("createChannel");
+    onOpen("createSubevent");
   };
 
   return (
@@ -46,11 +46,6 @@ const SidebarOption = ({
           </h3>
         )}
       </div>
-      {
-        addChanneloption && (
-          <ModalProvider/>
-        )
-      }
     </>
   );
 };

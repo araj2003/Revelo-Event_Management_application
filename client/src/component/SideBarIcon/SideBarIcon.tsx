@@ -7,8 +7,6 @@ import { useContext, useEffect, useState } from "react";
 import { getAllEvent } from "../../api";
 import { EventContext } from "@/context/EventContext";
 
-
-
 const SideBarIcon = () => {
   const [events,setEvents] = useState([])
   const { eventId,setEventId } = useContext(EventContext);
@@ -80,7 +78,7 @@ const SideBarIcon = () => {
   );
 };
 const SideBar = ({ icon ,id,setEventId}: { icon: any ,id:string,setEventId?:any}) => {
-  console.log(id)
+  // console.log(id)
   return(
   <div className="sidebar-icon" onClick={() => setEventId(id)}>{icon}</div>
   );
