@@ -35,7 +35,7 @@ const SidebarOption = ({
     onOpen("createSubevent");
   };
 
-  console.log(channels)
+  // console.log(channels)
 
   return (
     <>
@@ -60,7 +60,7 @@ const SidebarOption = ({
       {
         channels.map((channel:any) => {
           // <h4>{channel?.channelName}</h4>
-          {console.log(channel)}
+          // {console.log(channel)}
           <h4 className="sidebarOption__channel">
         <span className="sidebarOption__hash">#</span>
         {channel[0]?.channelName}
