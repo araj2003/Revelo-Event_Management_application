@@ -45,6 +45,10 @@ const Sidebar = () => {
     onOpen("inviteMember");
   };
 
+  const openMembersModal = () => {
+    onOpen("members");
+  };
+
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
     console.log(event);
@@ -102,7 +106,7 @@ const Sidebar = () => {
             Icon={isOpen ? ExpandLess : ExpandMore}
             id={subEvent._id}
             onClick={() => setIsOpen(!isOpen)}
-            type = "subevent"
+            type="subevent"
           />
           <hr />
           {/* </div> */}
@@ -119,9 +123,14 @@ const Sidebar = () => {
           id={channel.id}
         />
       ))}
-      <Button size="default" className="mt-4" onClick={openInviteMemberModal}>
-        Invite Member
-      </Button>
+      <div className="flex flex-col ">
+        <Button size="default" className="mt-4" onClick={openInviteMemberModal}>
+          Invite Member
+        </Button>
+        <Button size="default" className="mt-4" onClick={openMembersModal}>
+          Manage Members
+        </Button>
+      </div>
     </div>
   );
 };

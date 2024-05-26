@@ -1,6 +1,5 @@
 import "./SidebarOption.css";
 import { useNavigate } from "react-router-dom";
-import { ModalProvider } from "@/providers/modal-provider";
 import { useModal } from "@/hooks/user-modal";
 import { useContext, useState } from "react";
 import { EventContext } from "@/context/EventContext";
