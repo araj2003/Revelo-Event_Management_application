@@ -11,6 +11,7 @@ export interface IUser {
   createdAt?: Date;
   updatedAt?: Date;
   role?: string;
+  joinedEvents: mongoose.Types.ObjectId[];
   createJWT: () => string;
   comparePassword: (candidatePassword: string) => Promise<Boolean>;
 }

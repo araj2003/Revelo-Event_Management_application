@@ -82,7 +82,7 @@ const InviteMemberModal = () => {
                 disabled={true}
                 className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                 placeholder="Copy invite link"
-                value={`http://localhost:3000/join/${inviteCode}`}
+                value={`${window.location.origin}/join/${inviteCode}`}
               />
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-6">
@@ -91,7 +91,7 @@ const InviteMemberModal = () => {
                 disabled={isLoading}
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `http://localhost:3000/join/${inviteCode}`
+                    `${window.location.origin}/join/${inviteCode}`
                   );
                   toast.success("Invite link copied to clipboard");
                 }}

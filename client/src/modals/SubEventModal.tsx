@@ -23,13 +23,10 @@ import { Input } from "../components/ui/input";
 import { useModal } from "@/hooks/user-modal";
 import { EventContext } from "@/context/EventContext";
 import { useContext } from "react";
-import { Button } from "@/components/ui/button";
+import { createSubEvent } from "@/api";
+// import { EventContext } from "@/context/EventContext";
 
-
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// const {eventId} = useContext(EventContext)
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -38,11 +35,11 @@ const formSchema = z.object({
   description: z.string().min(1, {
     message: "Subevent description is required",
   }),
-  startDate: z.date().min(new Date(), {
-    message: "Start date is required",
+  startDate: z.string().refine((date) => {
+    return new Date(date) > new Date();
   }),
-  endDate: z.date().min(new Date(), {
-    message: "End date is required",
+  endDate: z.string().refine((date) => {
+    return new Date(date) > new Date();
   }),
 });
 
@@ -57,15 +54,24 @@ const SubEventModal = () => {
     defaultValues: {
       name: "",
       description: "",
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: "",
+      endDate: "",
     },
   });
 
   const isModalOpen = isOpen && type === "createSubevent";
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: FormValues) => {
-    console.log(values);
+    // console.log(values);
+    const data = {
+      subEventName : values.name,
+      subEventDate : values.startDate,
+      subEventTime: values.endDate,
+      eventId:eventId
+    }
+    console.log(data)
+    const result = await createSubEvent(data)
+    console.log(result)
   };
 
   const handleClose = () => {
@@ -116,7 +122,7 @@ const SubEventModal = () => {
                 name={"description"}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
+                    <FormLabel className="uppereact-hook-formrcase text-zinc-500 font-bold text-xs">
                       Description
                     </FormLabel>
                     <FormControl>

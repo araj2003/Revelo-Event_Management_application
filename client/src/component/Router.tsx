@@ -7,6 +7,7 @@ import ErrorAndRedirect from "../pages/ErrorAndRedirect";
 import { Layout, ProtectedRoute, AntiProtectedRoute } from "./Layout";
 import Chat from "../pages/Chat/Chat";
 import LandingPage from "./LandingPage/LandingPage";
+import AcceptInvite from "./AcceptInvite";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path:"/landing",
+        path: "/landing",
         element: <LandingPage />,
       },
       {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
           {
             path: "dashboard",
             element: <Profile />,
+          },
+          {
+            path: "join/:inviteId",
+            element: <AcceptInvite />,
           },
         ],
       },

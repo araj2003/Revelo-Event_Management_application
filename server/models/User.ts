@@ -43,6 +43,15 @@ const UserSchema = new mongoose.Schema<IUser>(
       enum: ["vendor", "regular"],
       default: "regular",
     },
+    joinedEvents: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Event",
+        },
+      ],
+      default: [],
+    },
     //if vendor
   },
   { timestamps: true },

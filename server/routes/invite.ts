@@ -14,6 +14,6 @@ import {
 router.post("/create", authMiddleWare, createInvite);
 router.post("/get", getInvite);
 router.post("/getAll", getAllInvites);
-router.post("/join", joinInvite);
+router.post("/join", authMiddleWare, joinInvite);
 
 export default router;
