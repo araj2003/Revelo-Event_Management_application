@@ -5,7 +5,7 @@ const SubEventSchema = new mongoose.Schema<ISubEvent>({
   //server == wedding
   subEventName: {
     type: String,
-    required: [true, "server name is required"],
+    required: [true, "subEvent name is required"],
   },
   users: [
     {
