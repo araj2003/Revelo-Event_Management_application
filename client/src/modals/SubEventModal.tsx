@@ -24,6 +24,7 @@ import { useModal } from "@/hooks/user-modal";
 import { EventContext } from "@/context/EventContext";
 import { useContext } from "react";
 import { createSubEvent } from "@/api";
+import { Button } from "../components/ui/button";
 // import { EventContext } from "@/context/EventContext";
 
 // const {eventId} = useContext(EventContext)
@@ -47,7 +48,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const SubEventModal = () => {
   const { isOpen, onClose, type } = useModal();
-  const { eventId } = useContext(EventContext);
+  const { eventId,fetchAllSubEvents } = useContext(EventContext);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -72,6 +73,12 @@ const SubEventModal = () => {
     console.log(data)
     const result = await createSubEvent(data)
     console.log(result)
+    if (result) {
+      form.reset();
+      onClose();
+      fetchAllSubEvents();
+      // handleClose();
+    }
   };
 
   const handleClose = () => {

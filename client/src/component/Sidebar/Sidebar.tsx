@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/user-modal";
 
 const Sidebar = () => {
-  const { eventId, subEvents, setSubEvents, setEvent, event } =
+  const { eventId, subEvents, setSubEvents, setEvent, event,fetchAllSubEvents } =
     useContext(EventContext);
   const { onOpen } = useModal();
   const [isOpen, setIsOpen] = useState(false);
@@ -49,22 +49,10 @@ const Sidebar = () => {
     onOpen("members");
   };
 
+
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
     console.log(event);
-    const fetchAllSubEvents = async () => {
-      try {
-        const data: any = await getSubEvents(eventId);
-        console.log(data);
-        if (data.event) {
-          setEvent(data.event);
-          setSubEvents(data.subEvents);
-          console.log(data.subEvents);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
     fetchAllSubEvents();
   }, [eventId]);
 
