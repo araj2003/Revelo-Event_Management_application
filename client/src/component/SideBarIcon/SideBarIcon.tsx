@@ -7,8 +7,11 @@ import { useContext, useEffect, useState } from "react";
 import { getAllEvent } from "../../api";
 import { EventContext } from "@/context/EventContext";
 
+
+
 const SideBarIcon = () => {
-  const { events, setEvents } = useContext(EventContext);
+  const [events,setEvents] = useState([])
+  const { eventId,setEventId } = useContext(EventContext);
   const { onOpen } = useModal();
 
   const addServer = () => {
@@ -31,6 +34,12 @@ const SideBarIcon = () => {
     fetchAllEvents();
   }, []);
 
+  
+  
+  // const {eventId,setEventId,events,setEvents} = useContext(EventContext)
+  
+  const [selectedEvent,setSelectedEvent] = useState("")
+
   return (
     <div className="w-20 bg-slack space-y-3">
       {/* <Divider /> */}
@@ -45,7 +54,7 @@ const SideBarIcon = () => {
 
       }
       {events?.map((event: any) => (
-        <SideBar key={event._id} icon={event.serverName.charAt(0)} />
+        <SideBar key={event._id} icon={event.serverName.charAt(0)} setEventId={setEventId} id = {event._id}/>
       ))}
       <SideBar
         icon={
@@ -53,6 +62,7 @@ const SideBarIcon = () => {
             <IoIosMore size="22" />
           </span>
         }
+        
       />
       <div className="absolute bottom-0 ml-4">
         <SideBar
@@ -69,10 +79,12 @@ const SideBarIcon = () => {
     </div>
   );
 };
-
-const SideBar = ({ icon }: { icon: any }) => (
-  <div className="sidebar-icon">{icon}</div>
-);
+const SideBar = ({ icon ,id,setEventId}: { icon: any ,id:string,setEventId?:any}) => {
+  console.log(id)
+  return(
+  <div className="sidebar-icon" onClick={() => setEventId(id)}>{icon}</div>
+  );
+}
 
 const Divider = () => <hr className="sidebar-hr" />;
 

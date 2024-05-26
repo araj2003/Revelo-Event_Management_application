@@ -6,7 +6,7 @@ import { BadRequestError, UnauthenticatedError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 
 const createEvent = async (req: Request, res: Response) => {
-  const { serverName } = req.body;
+  const { serverName,description } = req.body;
   const userId = req.user.userId;
   const user = await User.findById(userId);
 
@@ -16,6 +16,7 @@ const createEvent = async (req: Request, res: Response) => {
 
   const event = new Event({
     serverName: serverName,
+    description:description,
     users: [userId],
     host: [userId],
   });
