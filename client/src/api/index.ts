@@ -84,6 +84,7 @@ export const getSubEvents = (eventId: string) => API.get(`/event/${eventId}/sube
 
 /* Invite API */
 export const createInvite = (inviteData: any) => API.post("/invite/create", inviteData);
+export const acceptInvite = (inviteId:string) => API.post("/invite/join", {inviteCode:inviteId});
 
 /* subEvent API */
 export const getAllChannels = (subEventId: any) => API.get(`/subEvent/${subEventId}/getAllChannels`)

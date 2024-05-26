@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import Event from "../models/Server";
 // import SubEvent from "../models/SubEvent";
-import { BadRequestError } from "../errors";
+import { BadRequestError, UnauthenticatedError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 import ServerInvite from "../models/ServerInvite";
 import mongoose from "mongoose";
+import User from "../models/User";
 
 const createInvite = async (req: Request, res: Response) => {
   let { eventId, oneTimeUse, expiryDateb } = req.body;
@@ -76,6 +77,7 @@ const joinInvite = async (req: Request, res: Response) => {
   const { inviteCode } = req.body;
   const userId = req.user.userId;
 
+  console.log(inviteCode);
   const invite = await ServerInvite.findOne({ inviteCode });
 
   if (!invite) {
@@ -94,6 +96,23 @@ const joinInvite = async (req: Request, res: Response) => {
     await invite.save();
     throw new BadRequestError("invite expired");
   }
+
+  const event = await Event.findById(invite.eventId);
+  if (!event) {
+    throw new BadRequestError("event not found");
+  }
+  const userAlreadyJoined = event.users.includes(userId);
+  if (userAlreadyJoined) {
+    throw new BadRequestError("user already joined");
+  }
+  event.users.push(userId);
+  await event.save();
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new UnauthenticatedError("user not found");
+  }
+  user.joinedEvents.push(invite.eventId);
+  await user.save();
 
   invite.joinedUsers.push(userId);
   if (invite.oneTimeUse) {

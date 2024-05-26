@@ -6,7 +6,7 @@ import { BadRequestError, UnauthenticatedError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 
 const createEvent = async (req: Request, res: Response) => {
-  const { serverName,description } = req.body;
+  const { serverName, description } = req.body;
   const userId = req.user.userId;
   const user = await User.findById(userId);
 
@@ -16,7 +16,7 @@ const createEvent = async (req: Request, res: Response) => {
 
   const event = new Event({
     serverName: serverName,
-    description:description,
+    description: description,
     users: [userId],
     host: [userId],
   });
@@ -53,7 +53,9 @@ const getEvent = async (req: Request, res: Response) => {
 const getAllEvent = async (req: Request, res: Response) => {
   const userId = req.user.userId;
 
-  const events = await Event.find({ host: userId });
+  const events = await Event.find({
+    $or: [{ host: userId }, { users: userId }],
+  });
 
   res.status(StatusCodes.OK).json({
     events,
@@ -122,18 +124,19 @@ const deleteEvent = async (req: Request, res: Response) => {
 const getAllSubEvent = async (req: Request, res: Response) => {
   const { id: eventId } = req.params;
   const userId = req.user.userId;
+  console.log(userId);
 
   console.log(eventId);
-  const event = await Event.find({ _id: eventId, host: userId }).populate(
-    "subEvents"
-  );
+  const event = await Event.find({
+    $and: [{ _id: eventId }, { $or: [{ host: userId }, { users: userId }] }],
+  }).populate("subEvents");
 
-  if (!event) {
+  if (!event || event.length === 0) {
     throw new BadRequestError("event not found");
   }
 
   return res.status(StatusCodes.OK).json({
-    event:event[0],
+    event: event[0],
     subEvents: event[0].subEvents,
     msg: "subevents fetched successfully",
   });

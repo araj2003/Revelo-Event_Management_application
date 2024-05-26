@@ -19,7 +19,7 @@ const Layout = () => {
 
 const ProtectedRoute = () => {
   const { isAuthenticated } = useAppSelector((state) => state.user);
-
+  
   if (!isAuthenticated) {
     toast.error("You need to be logged in to access this page", {
       toastId: "protected-route",
