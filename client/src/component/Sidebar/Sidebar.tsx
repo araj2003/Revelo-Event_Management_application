@@ -70,9 +70,9 @@ const Sidebar = () => {
         </div>
         <CreateIcon />
       </div>
-      <SidebarOption Icon={InsertComment} title="Threads" />
+      {/* <SidebarOption Icon={InsertComment} title="Threads" />
       <hr />
-      {/* <SidebarOption Icon={Inbox} title="Mentions & Reactions" />
+      <SidebarOption Icon={Inbox} title="Mentions & Reactions" />
       <hr />
       <SidebarOption Icon={Drafts} title="Saved items" />
       <hr />
@@ -85,9 +85,7 @@ const Sidebar = () => {
       <SidebarOption Icon={ExpandLess} title="Show less" />
       <hr />
       <SidebarOption Icon={ExpandMore} title="Channels" />
-      <hr />
-      <SidebarOption Icon={Add} title="Add Channel" addChanneloption={true} /> */}
-      {/* <hr /> */}
+      <hr /> */}
       {subEvents.map((subEvent: any) => (
         <>
           {/* <div onClick={() => console.log("clicked")}> */}
@@ -102,6 +100,8 @@ const Sidebar = () => {
           {/* </div> */}
         </>
       ))}
+      <SidebarOption Icon={Add} title="Add Subevent" addChanneloption={true} />
+      <hr />
       {/*  connect to db and list all the channels */}
       {channels.map((channel) => (
         <SidebarOption
