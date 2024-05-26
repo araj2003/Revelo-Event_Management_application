@@ -18,8 +18,10 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/user-modal";
 
 const Sidebar = () => {
-  const { eventId, subEvents, setSubEvents,setEvent,event} = useContext(EventContext);
+  const { eventId, subEvents, setSubEvents, setEvent, event } =
+    useContext(EventContext);
   const { onOpen } = useModal();
+  const [isOpen, setIsOpen] = useState(false);
   const [channels, setChannels] = useState([
     {
       id: 1,
@@ -41,17 +43,17 @@ const Sidebar = () => {
 
   const openInviteMemberModal = () => {
     onOpen("inviteMember");
-  }
+  };
 
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
-    console.log(event)
+    console.log(event);
     const fetchAllSubEvents = async () => {
       try {
         const data: any = await getSubEvents(eventId);
         console.log(data);
         if (data.event) {
-          setEvent(data.event)
+          setEvent(data.event);
           setSubEvents(data.subEvents);
           console.log(data.subEvents);
         }
@@ -60,7 +62,7 @@ const Sidebar = () => {
       }
     };
     fetchAllSubEvents();
-  },[eventId]);
+  }, [eventId]);
 
   return (
     <div className="sidebar">
@@ -97,8 +99,10 @@ const Sidebar = () => {
             key={subEvent._id}
             title={subEvent.subEventName}
             showIcon={true}
-            Icon={ExpandMore}
+            Icon={isOpen ? ExpandLess : ExpandMore}
             id={subEvent._id}
+            onClick={() => setIsOpen(!isOpen)}
+            type = "subevent"
           />
           <hr />
           {/* </div> */}
