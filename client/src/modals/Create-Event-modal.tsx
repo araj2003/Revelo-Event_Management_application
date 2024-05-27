@@ -132,10 +132,7 @@ const CreateEventModal = () => {
                       <FormMessage />
 
                     </FormItem>
-                   
-
                     </>
-                    
                   )}
                 />
               </div>
