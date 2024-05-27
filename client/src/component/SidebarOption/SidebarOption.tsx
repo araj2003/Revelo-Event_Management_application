@@ -15,16 +15,16 @@ const SidebarOption = ({
 }: {
   Icon?: any;
   title: string;
-  id: number;
+  id?: number;
   addChanneloption?: boolean;
   showIcon?: boolean;
   type?: string;
 }) => {
   const { onOpen } = useModal();
-  const { subEventId } = useContext(EventContext);
+  // const { subEventId } = useContext(EventContext);
   const [open, setOpen] = useState(false);
   const [channels, setChannels] = useState<any>([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const selectChannel = async () => {
     setOpen(!open);
     if (open) {
@@ -54,9 +54,9 @@ const SidebarOption = ({
       >
         {showIcon && type == "subevent" ? (
           open ? (
-            <ExpandMore className="sidebarOption__icon" />
-          ) : (
             <ExpandLess className="sidebarOption__icon" />
+          ) : (
+            <ExpandMore className="sidebarOption__icon" />
           )
         ) : (
           Icon && <Icon className="sidebarOption__icon" />

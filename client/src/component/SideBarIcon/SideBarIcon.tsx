@@ -10,7 +10,7 @@ import "./SideBarIcon.css";
 
 const SideBarIcon = () => {
   const [events, setEvents] = useState([]);
-  const { eventId, setEventId } = useContext(EventContext);
+  const { setEventId } = useContext(EventContext);
   const { onOpen } = useModal();
 
   const addServer = () => {
@@ -35,7 +35,7 @@ const SideBarIcon = () => {
 
   // const {eventId,setEventId,events,setEvents} = useContext(EventContext)
 
-  const [selectedEvent, setSelectedEvent] = useState("");
+  // const [selectedEvent, setSelectedEvent] = useState("");
 
   return (
     <div className="  flex  flex-col w-20 bg-slack space-y-3 ">
@@ -48,7 +48,6 @@ const SideBarIcon = () => {
             </span>
           }
         />
-        {}
         {events?.map((event: any) => (
           <SideBar
             key={event._id}
@@ -86,12 +85,19 @@ const SideBar = ({
   setEventId,
 }: {
   icon: any;
-  id: string;
+  id?: string;
   setEventId?: any;
 }) => {
   // console.log(id)
   return (
-    <div className="sidebar-icon" onClick={() => setEventId(id)}>
+    <div
+      className="sidebar-icon"
+      onClick={() => {
+        if (setEventId) {
+          setEventId(id);
+        }
+      }}
+    >
       {icon}
     </div>
   );

@@ -2,40 +2,39 @@ import Avatar from "@mui/material/Avatar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SearchIcon from "@mui/icons-material/Search";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import { useState,useEffect } from "react";
-import { Input } from "@/components/ui/input"
+import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/input";
 
 import "./Header.css";
 import { searchUsers } from "@/api";
 
 const Header = () => {
-  const [input,setInput] = useState("")
-  const [data, setData] = useState<{}[]>([])
+  const [input, setInput] = useState("");
+  const [data, setData] = useState<any>([]);
   const [timeoutId, setTimeoutId] = useState<ReturnType<
     typeof setTimeout
-  > | null>(null)
+  > | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       searchUsers(input)
-        .then((response : any) => {
-          console.log(response)
-          setData(response)
+        .then((response: any) => {
+          console.log(response);
+          setData(response.users);
         })
-        .catch((error:any) => console.error(error.response))
-    }
+        .catch((error: any) => console.error(error.response));
+    };
 
     if (input.length >= 3) {
-      if (timeoutId) clearTimeout(timeoutId)
-      const id = setTimeout(fetchData, 500)
-      setTimeoutId(id)
+      if (timeoutId) clearTimeout(timeoutId);
+      const id = setTimeout(fetchData, 500);
+      setTimeoutId(id);
     }
-  }, [input])
-
+  }, [input]);
 
   const handleInputChange = (e) => {
-    setInput(e.target.value.toLowerCase())
-  }
+    setInput(e.target.value.toLowerCase());
+  };
 
   return (
     <div className="header ">
@@ -44,16 +43,27 @@ const Header = () => {
         {/* <AccessTimeIcon /> */}
         {/* header left */}
       </div>
-      <div className="header__search ">
- 
-        <Input placeholder="Search for User" className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0" />
-        <SearchIcon className="mt-2 ml-4 cursor-pointer" />
-        {/* <input 
+      <div>
+        <div className="header__search ">
+          <Input
+            placeholder="Search for User"
+            value={input}
+            onChange={handleInputChange}
+            className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+          />
+          <SearchIcon className="mt-2 ml-4 cursor-pointer" />
+          {/* <input 
           placeholder="Search for a user " 
           value={input} 
           onChange={handleInputChange}
           autoFocus
         /> */}
+        </div>
+        <div className="header__searchResults">
+          {data.map((user: any) => (
+            <div key={user.id}>{user.name}</div>
+          ))}
+        </div>
       </div>
 
       <div className="header__left ">

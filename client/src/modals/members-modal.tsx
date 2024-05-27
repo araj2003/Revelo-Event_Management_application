@@ -5,27 +5,26 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "../components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormLabel,
-  FormMessage,
-  FormItem,
-} from "../components/ui/form";
+// import {
+//   Form,
+//   FormControl,
+//   FormField,
+//   FormLabel,
+//   FormMessage,
+//   FormItem,
+// } from "../components/ui/form";
 import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
+// import { Input } from "../components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 import { useModal } from "@/hooks/user-modal";
-import { EventContext } from "@/context/EventContext";
-import { useContext, useEffect, useState } from "react";
-import { createInvite } from "@/api";
-import { toast } from "react-toastify";
+// import { EventContext } from "@/context/EventContext";
+// import { useContext, useEffect, useState } from "react";
+// import { createInvite } from "@/api";
+// import { toast } from "react-toastify";
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 const formSchema = z.object({});
 
@@ -34,7 +33,6 @@ type FormValues = z.infer<typeof formSchema>;
 const MembersModal = () => {
   const { isOpen, onClose, type } = useModal();
   
-
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {},
@@ -100,7 +98,7 @@ const MembersModal = () => {
                     <p className="text-zinc-500 text-sm">{member.email}</p>
                   </div>
                 </div>
-                <Button variant="text" className="text-red-500">
+                <Button variant={null} className="text-red-500">
                   <PersonRemoveIcon className="ml-2" />
                 </Button>
               </div>

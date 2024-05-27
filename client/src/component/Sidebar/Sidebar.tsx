@@ -1,15 +1,13 @@
 import "./Sidebar.css";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+// import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import CreateIcon from "@mui/icons-material/Create";
 import SidebarOption from "../SidebarOption/SidebarOption";
-import InsertComment from "@mui/icons-material/InsertComment";
-import Inbox from "@mui/icons-material/Inbox";
-import Drafts from "@mui/icons-material/Drafts";
-import PeopleAlt from "@mui/icons-material/PeopleAlt";
-import Apps from "@mui/icons-material/Apps";
-import FileCopy from "@mui/icons-material/FileCopy";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import { ExpandMore } from "@mui/icons-material";
+// import InsertComment from "@mui/icons-material/InsertComment";
+// import Inbox from "@mui/icons-material/Inbox";
+// import Drafts from "@mui/icons-material/Drafts";
+// import PeopleAlt from "@mui/icons-material/PeopleAlt";
+// import Apps from "@mui/icons-material/Apps";
+// import FileCopy from "@mui/icons-material/FileCopy";
 import Add from "@mui/icons-material/Add";
 import { useContext, useEffect, useState } from "react";
 import { getSubEvents } from "../../api";
@@ -21,7 +19,6 @@ const Sidebar = () => {
   const { eventId, subEvents, setSubEvents, setEvent, event,fetchAllSubEvents } =
     useContext(EventContext);
   const { onOpen } = useModal();
-  const [isOpen, setIsOpen] = useState(false);
   const [channels, setChannels] = useState([
     {
       id: 1,
@@ -60,10 +57,9 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="sidebar__header">
         <div className="sidebar__info">
-          <h2>Sahil The Developer</h2>
+          <h2>{event?.serverName}</h2>
           <h3>
-            <FiberManualRecordIcon />
-            Mohd Sahil
+            {event?.description}
           </h3>
         </div>
         <CreateIcon />
@@ -91,9 +87,7 @@ const Sidebar = () => {
             key={subEvent._id}
             title={subEvent.subEventName}
             showIcon={true}
-            Icon={isOpen ? ExpandLess : ExpandMore}
             id={subEvent._id}
-            onClick={() => setIsOpen(!isOpen)}
             type="subevent"
           />
           <hr />
@@ -112,10 +106,10 @@ const Sidebar = () => {
         />
       ))}
       <div className="flex flex-col ">
-        <Button size="default" className="mt-4" onClick={openInviteMemberModal}>
+        <Button size="default" className="m-4" onClick={openInviteMemberModal}>
           Invite Member
         </Button>
-        <Button size="default" className="mt-4" onClick={openMembersModal}>
+        <Button size="default" className="m-4" onClick={openMembersModal}>
           Manage Members
         </Button>
       </div>
