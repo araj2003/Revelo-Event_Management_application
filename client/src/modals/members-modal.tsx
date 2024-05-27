@@ -33,25 +33,24 @@ const formSchema = z.object({});
 type FormValues = z.infer<typeof formSchema>;
 
 const MembersModal = () => {
-  const { isOpen, onClose, type,subEventId } = useModal();
+  const { isOpen, onClose, type, subEventId } = useModal();
 
- const {eventId} = useContext(EventContext)
+  const { eventId } = useContext(EventContext);
 
- 
- const form = useForm({
-   resolver: zodResolver(formSchema),
-   defaultValues: {},
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {},
   });
-  
+
   const isModalOpen = isOpen && type === "members";
   useEffect(() => {
     const getUsers = async () => {
       const response = await getMembersNotInSubEvent(eventId, subEventId);
       console.log(response);
     };
-    getUsers();
+    if (isModalOpen && subEventId) getUsers();
   }, [isModalOpen]);
-  
+
   const handleClose = () => {
     form.reset();
     onClose();
