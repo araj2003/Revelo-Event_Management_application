@@ -194,6 +194,36 @@ const removeUsersFromSubEvent = async (req: Request, res: Response) => {
   return res.status(200).json({ subEvent, msg: 'Users removed from subEvent' });
 }
 
+const getUsersNotInSubEvent = async (req: Request, res: Response) => {
+  
+    const eventId = req.params.eventId;
+    const subEventId = req.params.subEventId;
+
+    // Find the event by its ID and populate the users field
+    const event = await Event.findById(eventId).populate('users');
+
+    // Find the subevent by its ID and populate the users field
+    const subEvent = await SubEvent.findById(subEventId).populate('users');
+
+    if (!event || !subEvent) {
+      throw new BadRequestError("Event or SubEvent not found")
+    }
+
+    // Get the user IDs from the event
+    const eventUserIds = event.users.map((user) => user._id.toString());
+
+    // Get the user IDs from the subevent
+    const subEventUserIds = subEvent.users.map((user) => user._id.toString());
+
+    // Find users present in the event but not in the subevent
+    const usersNotInSubEvent = event.users.filter(
+      (user) => !subEventUserIds.includes(user._id.toString())
+    );
+
+    return res.status(200).json({usersNotInSubEvent,msg:"users you want to add in subevebnt"});
+   
+};
+
 export {
   getAllChannels,
   addAdmin,
@@ -203,5 +233,6 @@ export {
   deleteSubEvent,
   updateSubEvent,
   addUsersToSubEvent,
-  removeUsersFromSubEvent 
+  removeUsersFromSubEvent,
+  getUsersNotInSubEvent
 };

@@ -13,6 +13,7 @@ import {
   updateSubEvent,
   addUsersToSubEvent,
   removeUsersFromSubEvent,
+  getUsersNotInSubEvent
 } from "../controllers/subEvent";
 
 //middleware (only host can do it)
@@ -40,6 +41,9 @@ router.get("/updateSubEvent", authMiddleWare, updateSubEvent);
 router.post("/addUsers/:subEventId", authMiddleWare, addUsersToSubEvent);
 
 router.delete("/removeUsers/:subEventId", authMiddleWare, removeUsersFromSubEvent);
+
+router.get("/getMembersNotInSubEvent/:eventId/:subEventId", authMiddleWare, getUsersNotInSubEvent);
+
 
 export default router;
 
