@@ -26,13 +26,29 @@ import { useModal } from "@/hooks/user-modal";
 // import { createInvite } from "@/api";
 // import { toast } from "react-toastify";
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import { getMembersNotInSubEvent } from "@/api";
+
 const formSchema = z.object({});
+
 
 type FormValues = z.infer<typeof formSchema>;
 
 const MembersModal = () => {
   const { isOpen, onClose, type } = useModal();
   
+  const {subEventId,eventId} = useContext(EventContext)
+  console.log(subEventId)
+  console.log(eventId)
+
+  useEffect(() => {
+    const getUsers = async() => {
+      const response = await getMembersNotInSubEvent(eventId,subEventId)
+      console.log(response)
+    }
+    getUsers()
+  },[])
+
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {},

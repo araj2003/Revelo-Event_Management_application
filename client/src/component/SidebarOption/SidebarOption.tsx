@@ -69,10 +69,11 @@ const SidebarOption = ({
               <span className="sidebarOption__hash">#</span>
               {title}
             </h3>
+            {open && <button>add member</button>}
           </>
         )}
       </div>
-      {channels.map((channel: any) => {
+      {open && channels.map((channel: any) => {
         // <h4>{channel?.channelName}</h4>
         // {console.log(channel)}
         <h4 className="sidebarOption__channel">
