@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { EventContext } from "@/context/EventContext";
 import { getAllChannels } from "@/api";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
+
 const SidebarOption = ({
   Icon,
   title,
@@ -15,7 +16,7 @@ const SidebarOption = ({
 }: {
   Icon?: any;
   title: string;
-  id?: number;
+  id?: any;
   addChanneloption?: boolean;
   showIcon?: boolean;
   type?: string;
@@ -46,6 +47,9 @@ const SidebarOption = ({
   };
   // console.log(channels);
 
+  const openMembersModal = (subEventId:string) => {
+    onOpen("members",subEventId);
+  };
   return (
     <>
       <div
@@ -69,7 +73,7 @@ const SidebarOption = ({
               <span className="sidebarOption__hash">#</span>
               {title}
             </h3>
-            {open && <button>add member</button>}
+            {!open && <button onClick={() => openMembersModal(id)}>Add Member</button>}
           </>
         )}
       </div>

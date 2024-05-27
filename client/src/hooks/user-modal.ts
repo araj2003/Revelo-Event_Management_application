@@ -5,15 +5,17 @@ export type ModalType = "createSubevent"  | "createEvent" | "inviteMember" | "me
 interface Modalstore {
   type: ModalType | null;
   isOpen: boolean;
-  onOpen: (type: ModalType) => void;
+  onOpen: (type: ModalType,subEventId?:string) => void;
   onClose: () => void;
+  subEventId?:string;
 }
 
 export const useModal = create<Modalstore>((set) => ({
   type: null,
   isOpen: false,
-  onOpen: (type) => {
-    set({ type, isOpen: true });
+  subEventId:"",
+  onOpen: (type,subEventId) => {
+    set({ type,subEventId, isOpen: true });
   },
   onClose: () => {
     set({ type: null, isOpen: false });

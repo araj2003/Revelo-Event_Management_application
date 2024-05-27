@@ -203,29 +203,29 @@ const getUsersNotInSubEvent = async (req: Request, res: Response) => {
   const subEventId = req.params.subEventId;
 
   // Find the event by its ID and populate the users field
-  const event = await Event.findById(eventId).populate("users");
+  const event = await Event.findById(eventId)
 
   // Find the subevent by its ID and populate the users field
-  const subEvent = await SubEvent.findById(subEventId).populate("users");
+  const subEvent = await SubEvent.findById(subEventId)
 
   if (!event || !subEvent) {
     throw new BadRequestError("Event or SubEvent not found");
   }
 
   // Get the user IDs from the event
-  const eventUserIds = event.users.map((user) => user._id.toString());
+  const eventUserIds = event.users.map((user) => user._id);
 
   // Get the user IDs from the subevent
-  const subEventUserIds = subEvent.users.map((user) => user._id.toString());
+  const subEventUserIds = subEvent.users.map((user) => user._id);
 
   // Find users present in the event but not in the subevent
   const usersNotInSubEvent = event.users.filter(
-    (user) => !subEventUserIds.includes(user._id.toString()),
+    (user) => !subEventUserIds.includes(user._id),
   );
-
+  const array = await User.find({_id:{$in:usersNotInSubEvent}})
   return res
     .status(200)
-    .json({ usersNotInSubEvent, msg: "users you want to add in subevebnt" });
+    .json({ usersNotInSubEvent:array, msg: "users you want to add in subevebnt" });
 };
 
 export {

@@ -42,9 +42,7 @@ const Sidebar = () => {
     onOpen("inviteMember");
   };
 
-  const openMembersModal = () => {
-    onOpen("members");
-  };
+ 
 
 
   useEffect(() => {
@@ -109,9 +107,7 @@ const Sidebar = () => {
         <Button size="default" className="m-4" onClick={openInviteMemberModal}>
           Invite Member
         </Button>
-        <Button size="default" className="m-4" onClick={openMembersModal}>
-          Manage Members
-        </Button>
+        
       </div>
     </div>
   );
