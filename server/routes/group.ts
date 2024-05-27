@@ -8,7 +8,7 @@ import {
   createSingleChat,
   getAllChats,
   getSingleChat,
-  getGroupChat
+  getGroupChat,
 } from "../controllers/chats";
 
 //middleware (only host can do it)
@@ -27,6 +27,5 @@ router.get("/getSingleChats", authMiddleWare, getSingleChat);
 
 //get group chats
 router.get("/getGroupChats", authMiddleWare, getGroupChat);
-
 
 export default router;

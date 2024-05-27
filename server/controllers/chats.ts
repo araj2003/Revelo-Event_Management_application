@@ -96,33 +96,39 @@ const getAllChats = async (req: Request, res: Response) => {
 };
 
 const getSingleChat = async (req: Request, res: Response) => {
-    const userId = req.user.userId;
-    if(!userId){
-      throw new BadRequestError("please provide user")
-    }
-    const nonGroupChats = await Chat.find({
-      isGroupChat: false,
-      users: userId,
-    })
-      .populate('users', '-password') 
-      .populate('latestMessage') 
+  const userId = req.user.userId;
+  if (!userId) {
+    throw new BadRequestError("please provide user");
+  }
+  const nonGroupChats = await Chat.find({
+    isGroupChat: false,
+    users: userId,
+  })
+    .populate("users", "-password")
+    .populate("latestMessage");
 
-    return res.status(200).json({nonGroupChats,msg:"list of single chats"});
-}
+  return res.status(200).json({ nonGroupChats, msg: "list of single chats" });
+};
 
 const getGroupChat = async (req: Request, res: Response) => {
   const userId = req.user.userId;
-  if(!userId){
-    throw new BadRequestError("please provide user")
+  if (!userId) {
+    throw new BadRequestError("please provide user");
   }
   const GroupChats = await Chat.find({
     isGroupChat: true,
     users: userId,
   })
-    .populate('users', '-password') 
-    .populate('latestMessage') 
-    .populate('channelId');
-  return res.status(200).json({GroupChats,msg:"list of group chats"});
-}
+    .populate("users", "-password")
+    .populate("latestMessage")
+    .populate("channelId");
+  return res.status(200).json({ GroupChats, msg: "list of group chats" });
+};
 
-export { createGroupChat, createSingleChat, getAllChats ,getSingleChat,getGroupChat};
+export {
+  createGroupChat,
+  createSingleChat,
+  getAllChats,
+  getSingleChat,
+  getGroupChat,
+};

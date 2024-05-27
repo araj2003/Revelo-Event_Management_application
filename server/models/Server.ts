@@ -7,10 +7,10 @@ const ServerSchema = new mongoose.Schema<IServer>({
     type: String,
     required: [true, "server name is required"],
   },
-  description:{
+  description: {
     type: String,
     required: [true, "server name is required"],
-    default: "No description provided"
+    default: "No description provided",
   },
   users: [
     {
