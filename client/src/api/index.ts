@@ -93,5 +93,7 @@ export const getAllChannels = (subEventId: any) => API.get(`/subEvent/${subEvent
 export const addMembers = (subEventId:any,userIds:any) => API.put(`/subEvent/addUsers/${subEventId}`,userIds)
 export const removeMembers = (subEventId:any,userIds:any) => API.put(`/subEvent/removeUsers/${subEventId}`,userIds)
 
+//search users
+export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
 
 

@@ -44,7 +44,7 @@ const SidebarOption = ({
     }
     setOpen(!open);
   };
-  console.log(channels);
+  // console.log(channels);
 
   return (
     <>
@@ -52,7 +52,15 @@ const SidebarOption = ({
         className="sidebarOption"
         onClick={addChanneloption ? addchannel : selectChannel}
       >
-        {showIcon && type=='subevent'?(open?<ExpandMore  className="sidebarOption__icon"/>:<ExpandLess  className="sidebarOption__icon"/>):( Icon &&  <Icon className="sidebarOption__icon" />)}
+        {showIcon && type == "subevent" ? (
+          open ? (
+            <ExpandMore className="sidebarOption__icon" />
+          ) : (
+            <ExpandLess className="sidebarOption__icon" />
+          )
+        ) : (
+          Icon && <Icon className="sidebarOption__icon" />
+        )}
         {Icon ? (
           <h3>{title}</h3>
         ) : (
@@ -66,9 +74,7 @@ const SidebarOption = ({
       </div>
       {channels.map((channel: any) => {
         // <h4>{channel?.channelName}</h4>
-        {
-          console.log(channel);
-        }
+        // {console.log(channel)}
         <h4 className="sidebarOption__channel">
           <span className="sidebarOption__hash">#</span>
           {channel[0]?.channelName}

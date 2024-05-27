@@ -142,6 +142,25 @@ const getAllSubEvent = async (req: Request, res: Response) => {
   });
 };
 
+const searchUser = async (req: Request, res: Response) => {
+  const { query } = req.query;
+  console.log(query)
+  if (!query) {
+    throw new BadRequestError("query not found")
+  }
+
+  
+    const users = await User.find({
+      $or: [
+        { name: { $regex: query, $options: 'i' } },
+        { email: { $regex: query, $options: 'i' } },
+      ],
+    });
+
+    return res.status(200).json({ users,msg:"list of searched users" });
+
+}
+
 export {
   getAllSubEvent,
   deleteEvent,
@@ -150,4 +169,5 @@ export {
   getEvent,
   createEvent,
   getAllEvent,
+  searchUser
 };
