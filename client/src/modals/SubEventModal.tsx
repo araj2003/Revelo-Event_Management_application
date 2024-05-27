@@ -189,7 +189,7 @@ const SubEventModal = () => {
               <Button
                 variant={null}
                 disabled={isLoading}
-                className="bg-purple-500"
+                className="bg-purple-500 text-white"
               >
                 Create Subevent
               </Button>

@@ -39,11 +39,11 @@ const Chat = () => {
             <StarBorderIcon />
           </h4>
         </div>
-        <div className="chat__headerRight">
+        {/* <div className="chat__headerRight">
           <p>
             <InfoIcon /> Details
           </p>
-        </div>
+        </div> */}
       </div>
       <div className="chat__messages">
         {channelMessages.map(({ message, time, user, userImage }) => (
