@@ -93,6 +93,8 @@ export const getAllChannels = (subEventId: any) => API.get(`/subEvent/${subEvent
 export const addMember = (subEventId:any,userId:any) => API.patch(`/subEvent/addUser/${subEventId}`,{userId})
 export const removeMembers = (subEventId:any,userIds:any) => API.put(`/subEvent/removeUsers/${subEventId}`,userIds)
 export const getMembersNotInSubEvent = (eventId:any,subEventId:any) => API.get(`/subEvent/getMembersNotInSubEvent/${eventId}/${subEventId}`)
+export const addChannelInSubEvent = (channelData:any) => API.post(`/channel/createChannel`,channelData)
+
 //search users
 export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
 

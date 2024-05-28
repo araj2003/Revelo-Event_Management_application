@@ -4,6 +4,7 @@ import CreateEventModal from "@/modals/Create-Event-modal";
 import { useState, useEffect } from "react";
 import InviteMemberModal from "@/modals/InviteMemberModal";
 import MembersModal from "@/modals/members-modal";
+import AddChannelModal from "@/modals/AddChannelModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -22,6 +23,7 @@ export const ModalProvider = () => {
       <CreateEventModal />
       <InviteMemberModal />
       <MembersModal />
+      <AddChannelModal />
     </>
   );
 };
