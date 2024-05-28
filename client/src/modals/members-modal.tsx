@@ -5,35 +5,37 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "../components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormLabel,
-  FormMessage,
-  FormItem,
-} from "../components/ui/form";
+// import {
+//   Form,
+//   FormControl,
+//   FormField,
+//   FormLabel,
+//   FormMessage,
+//   FormItem,
+// } from "../components/ui/form";
 import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area"
+// import { Input } from "../components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { useModal } from "@/hooks/user-modal";
 import { EventContext } from "@/context/EventContext";
-import { useContext, useEffect, useState } from "react";
-import { createInvite } from "@/api";
-import { toast } from "react-toastify";
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import { useContext, useEffect } from "react";
+// import { createInvite } from "@/api";
+// import { toast } from "react-toastify";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import { addMember, getMembersNotInSubEvent } from "@/api";
+
 const formSchema = z.object({});
 
 type FormValues = z.infer<typeof formSchema>;
 
 const MembersModal = () => {
-  const { isOpen, onClose, type } = useModal();
-  
+  const { isOpen, onClose, type, subEventId } = useModal();
+
+  const { eventId } = useContext(EventContext);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -42,40 +44,58 @@ const MembersModal = () => {
 
   const isModalOpen = isOpen && type === "members";
 
+  const [data,setData] = useState([])
+  useEffect(() => {
+    const getUsers = async () => {
+      const response :any = await getMembersNotInSubEvent(eventId, subEventId);
+      console.log(response?.usersNotInSubEvent);
+      setData(response?.usersNotInSubEvent)
+    };
+    if (isModalOpen && subEventId) getUsers();
+  }, [isModalOpen]);
 
   const handleClose = () => {
     form.reset();
     onClose();
   };
-
+  
   const server = {
     members: [
       {
         name: "John Doe",
-        email: "email@gmaill.com"
+        email: "email@gmaill.com",
       },
       {
         name: "Jane Doe",
-        email: "font@gmail.conm"
+        email: "font@gmail.conm",
       },
       {
         name: "John Smith",
-        email: "asdsa@gmail.com"
+        email: "asdsa@gmail.com",
       },
       {
         name: "Jane Smith",
-        email: "abcd.efg"
+        email: "abcd.efg",
       },
       {
         name: "Jane Smith",
-        email: "abcd.efg"
+        email: "abcd.efg",
       },
       {
         name: "Jane Smith",
-        email: "abcd.efg"
+        email: "abcd.efg",
       },
     ],
   };
+
+  const handleChange = async(userId:any) => {
+    console.log(userId)
+    const response :any= await addMember(subEventId,userId)
+    console.log(response)
+    if(response.msg){
+      setData((prev) => prev.filter((user :any) => user._id !== userId))
+    }
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -84,28 +104,28 @@ const MembersModal = () => {
           <DialogTitle className="text-2xl  text-center font-bold">
             Manage Members
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+          {/* <DialogDescription className="text-center text-zinc-500">
             Static Data with 4 members
-          </DialogDescription>
+          </DialogDescription> */}
         </DialogHeader>
-          <ScrollArea className="mt-8 max-h-[420px] pr-6">
-            {server.members.map((member) => (
-              <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center">
-                    <span className="text-zinc-500">{member.name[0]}</span>
-                  </div>
-                  <div>
-                    <p className="text-md font-bold">{member.name}</p>
-                    <p className="text-zinc-500 text-sm">{member.email}</p>
-                  </div>
+        <ScrollArea className="mt-8 max-h-[420px] pr-6">
+          {data?.map((member:any) => (
+            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
+              <div className="flex items-center space-x-4">
+                <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center">
+                  <span className="text-zinc-500">{member?.name[0]}</span>
                 </div>
-                <Button variant="text" className="text-red-500">
-                  <PersonRemoveIcon className="ml-2" />
-                </Button>
+                <div>
+                  <p className="text-md font-bold">{member?.name}</p>
+                  <p className="text-zinc-500 text-sm">{member?.email}</p>
+                </div>
               </div>
-            ))}
-            </ScrollArea>
+              <Button variant={null} className="text-red-500" onClick={() => handleChange(member?._id)}>
+                <PersonRemoveIcon className="ml-2" />
+              </Button>
+            </div>
+          ))}
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

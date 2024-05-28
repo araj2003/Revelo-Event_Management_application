@@ -11,7 +11,7 @@ import mongoose from "mongoose";
 
 const createSubEvent = async (req: Request, res: Response) => {
   const { subEventName, eventId, subEventDate, subEventTime } = req.body;
-  console.log(subEventName)
+  console.log(subEventName);
   const userId = req.user.userId;
   const user = await User.findById(userId);
 
@@ -26,7 +26,7 @@ const createSubEvent = async (req: Request, res: Response) => {
   }
 
   const subEvent: any = new SubEvent({
-    subEventName:subEventName,
+    subEventName: subEventName,
     users: [userId],
     admin: [userId],
     subEventDate: subEventDate,
@@ -153,46 +153,77 @@ const updateSubEvent = async (req: Request, res: Response) => {
   res.status(200).json({ updatedSubEventData, msg: "subevent updated" });
 };
 
-const addUsersToSubEvent = async (req: Request, res: Response) => {
-  const {subEventId} = req.params
+const addUserToSubEvent = async (req: Request, res: Response) => {
+  const { subEventId } = req.params;
+  console.log(subEventId)
 
-  const {  userIds } = req.body;
-  const subEvent = await SubEvent.findById(subEventId)
+  const { userId } = req.body;
+  console.log(userId)
+  const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
-    throw new BadRequestError('SubEvent not found');
+    throw new BadRequestError("SubEvent not found");
   }
-  const usersToAdd = userIds.map((userId: string) => new mongoose.Types.ObjectId(userId));
+  if(subEvent.users.includes(userId)){
+    throw new BadRequestError("user already present")
+  }
+  subEvent.users.push(userId)
+  console.log(subEvent)
+  await subEvent.save()
 
-
-  const newUsersToAdd = usersToAdd.filter((userId:any) => !subEvent.users.includes(userId));
-
-  subEvent.users.push(...newUsersToAdd);
-  await subEvent.save();
-
-  return res.status(200).json({ subEvent, msg: 'Users added to subEvent' });
-
-
-} 
+  return res.status(200).json({ subEvent, msg: "User added to subEvent" });
+};
 
 const removeUsersFromSubEvent = async (req: Request, res: Response) => {
-  const {subEventId} = req.params
-  const {  userIds } = req.body;
+  const { subEventId } = req.params;
+  const { userIds } = req.body;
 
   // Find the subEvent
   const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
-    throw new BadRequestError('SubEvent not found');
+    throw new BadRequestError("SubEvent not found");
   }
 
   // Convert string user IDs to ObjectId instances
-  const usersToRemove = userIds.map((userId: string) => new mongoose.Types.ObjectId(userId));
+  const usersToRemove = userIds.map(
+    (userId: string) => new mongoose.Types.ObjectId(userId),
+  );
 
-
-  subEvent.users = subEvent.users.filter((userId) => !usersToRemove.includes(userId));
+  subEvent.users = subEvent.users.filter(
+    (userId) => !usersToRemove.includes(userId),
+  );
   await subEvent.save();
 
-  return res.status(200).json({ subEvent, msg: 'Users removed from subEvent' });
-}
+  return res.status(200).json({ subEvent, msg: "Users removed from subEvent" });
+};
+
+const getUsersNotInSubEvent = async (req: Request, res: Response) => {
+  const eventId = req.params.eventId;
+  const subEventId = req.params.subEventId;
+
+  // Find the event by its ID and populate the users field
+  const event = await Event.findById(eventId);
+
+  // Find the subevent by its ID and populate the users field
+  const subEvent = await SubEvent.findById(subEventId);
+
+  if (!event || !subEvent) {
+    throw new BadRequestError("Event or SubEvent not found");
+  }
+
+  // Get the user IDs from the event
+  const eventUserIds = event.users.map((user) => user._id.toString());
+  // Get the user IDs from the subevent
+  const subEventUserIds = subEvent.users.map((user) => user._id.toString());
+  // Find users present in the event but not in the subevent
+  const usersNotInSubEvent = eventUserIds.filter(
+    (userId) => !subEventUserIds.includes(userId),
+  );
+  const array = await User.find({ _id: { $in: usersNotInSubEvent } });
+  return res.status(200).json({
+    usersNotInSubEvent: array,
+    msg: "users you want to add in subevebnt",
+  });
+};
 
 export {
   getAllChannels,
@@ -202,6 +233,7 @@ export {
   removeAdmin,
   deleteSubEvent,
   updateSubEvent,
-  addUsersToSubEvent,
-  removeUsersFromSubEvent 
+  addUserToSubEvent,
+  removeUsersFromSubEvent,
+  getUsersNotInSubEvent,
 };

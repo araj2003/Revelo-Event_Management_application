@@ -22,7 +22,7 @@ export interface IServer {
   users: mongoose.Types.ObjectId[];
   host: mongoose.Types.ObjectId[];
   subEvents: mongoose.Types.ObjectId[];
-  description:string;
+  description: string;
 }
 
 export interface IChat {

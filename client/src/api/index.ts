@@ -90,8 +90,10 @@ export const acceptInvite = (inviteId:string) => API.post("/invite/join", {invit
 /* subEvent API */
 export const createSubEvent = (subEventData:any) => API.post("/subEvent/createSubEvent",subEventData)
 export const getAllChannels = (subEventId: any) => API.get(`/subEvent/${subEventId}/getAllChannels`)
-export const addMembers = (subEventId:any,userIds:any) => API.put(`/subEvent/addUsers/${subEventId}`,userIds)
+export const addMember = (subEventId:any,userId:any) => API.patch(`/subEvent/addUser/${subEventId}`,{userId})
 export const removeMembers = (subEventId:any,userIds:any) => API.put(`/subEvent/removeUsers/${subEventId}`,userIds)
-
+export const getMembersNotInSubEvent = (eventId:any,subEventId:any) => API.get(`/subEvent/getMembersNotInSubEvent/${eventId}/${subEventId}`)
+//search users
+export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
 
 

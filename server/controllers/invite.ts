@@ -9,7 +9,7 @@ import User from "../models/User";
 
 const createInvite = async (req: Request, res: Response) => {
   let { eventId, oneTimeUse, expiryDateb } = req.body;
-  oneTimeUse= false;
+  oneTimeUse = false;
   expiryDateb = null;
   const userId = req.user.userId;
   const event = await Event.findById(eventId);
