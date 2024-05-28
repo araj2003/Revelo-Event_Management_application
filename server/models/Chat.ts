@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { IChat } from "../types/models";
 
-const ChatSchema = new mongoose.Schema<IChat>(
+export const ChatSchema = new mongoose.Schema<IChat>(
   {
     chatName: {
       type: String,

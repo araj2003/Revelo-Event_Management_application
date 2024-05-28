@@ -20,10 +20,10 @@ const Sidebar = () => {
     useContext(EventContext);
   const { onOpen } = useModal();
   const [channels, setChannels] = useState([
-    {
-      id: 1,
-      channel: "Youtube 1",
-    },
+    // {
+    //   id: 1,
+    //   channel: "Youtube 1",
+    // },
     // {
     //   id: 2,
     //   channel: "Discord ",

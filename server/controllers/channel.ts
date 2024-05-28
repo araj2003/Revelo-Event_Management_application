@@ -7,8 +7,9 @@ import { StatusCodes } from "http-status-codes";
 
 const createChannel = async (req: Request, res: Response) => {
   const { channelName, subEventId } = req.body;
+  console.log(req.body);
   if (!channelName || !subEventId) {
-    throw new BadRequestError("Please provide hostId and eventId");
+    throw new BadRequestError("Please provide subevent id and channel name");
   }
 
   const userId = req.user.userId;
@@ -32,7 +33,7 @@ const createChannel = async (req: Request, res: Response) => {
   const updatedSubEvent = await SubEvent.findOneAndUpdate(
     { _id: subEventId },
     { $push: { channels: channel._id } },
-    { new: true },
+    { new: true }
   );
 
   return res.status(StatusCodes.CREATED).json({

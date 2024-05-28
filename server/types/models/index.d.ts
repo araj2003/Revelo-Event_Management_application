@@ -46,7 +46,7 @@ export interface IMessage {
 export interface IChannel {
   _id?: mongoose.Types.ObjectId;
   channelName: string;
-  chats: mongoose.Types.ObjectId[];
+  chat: IChat;
 }
 
 export interface ISubEvent {

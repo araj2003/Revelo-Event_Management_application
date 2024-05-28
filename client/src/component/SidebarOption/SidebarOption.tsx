@@ -60,8 +60,9 @@ const SidebarOption = ({
   const openMembersModal = (subEventId: string) => {
     onOpen("members", subEventId);
   };
-  const addChannel = (subEventId: string) => {
-    onOpen("addChannel", subEventId);
+
+  const addChannelModal = (subEventId: string) => {
+    onOpen("addChannel", subEventId, fetchChannels);
   };
   return (
     <>
@@ -93,7 +94,7 @@ const SidebarOption = ({
                 <button onClick={() => openMembersModal(id)}>
                   <PeopleIcon fontSize="small" />
                 </button>
-                <button onClick={() => openMembersModal(id)}>
+                <button onClick={() => addChannelModal(id)}>
                   <AddCommentIcon fontSize="small"/>
                 </button>
               </div>
@@ -102,7 +103,7 @@ const SidebarOption = ({
         )}
       </div>
       {open && (
-        <div className="sidebarOption">
+        <div className="flex flex-col text-sm items-center mx-2">
           {console.log(channels, "asdfghjkl")}
           {channels.length > 0 ? (
             channels.map((channel: any) => {
@@ -111,7 +112,7 @@ const SidebarOption = ({
                 console.log(channel);
               }
               return (
-                <h4 className="sidebarOption__channel bg-[#ffffff0e] w-full mr-3 mb-1 rounded-lg">
+                <h4 className="sidebarOption__channel bg-[#ffffff0e] hover:bg-[#ffffff52] cursor-pointer w-[99%] mx-2 mr-4 mb-2 rounded-lg">
                   <span className="sidebarOption__hash">#</span>
                   {channel?.channelName}
                 </h4>
