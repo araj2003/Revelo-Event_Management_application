@@ -26,7 +26,7 @@ import { useContext, useEffect, useState } from "react";
 // import { createInvite } from "@/api";
 // import { toast } from "react-toastify";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import { getMembersNotInSubEvent } from "@/api";
+import { addMember, getMembersNotInSubEvent } from "@/api";
 
 const formSchema = z.object({});
 
@@ -43,10 +43,13 @@ const MembersModal = () => {
   });
 
   const isModalOpen = isOpen && type === "members";
+
+  const [data,setData] = useState([])
   useEffect(() => {
     const getUsers = async () => {
-      const response = await getMembersNotInSubEvent(eventId, subEventId);
-      console.log(response);
+      const response :any = await getMembersNotInSubEvent(eventId, subEventId);
+      console.log(response?.usersNotInSubEvent);
+      setData(response?.usersNotInSubEvent)
     };
     if (isModalOpen && subEventId) getUsers();
   }, [isModalOpen]);
@@ -55,7 +58,7 @@ const MembersModal = () => {
     form.reset();
     onClose();
   };
-
+  
   const server = {
     members: [
       {
@@ -85,6 +88,15 @@ const MembersModal = () => {
     ],
   };
 
+  const handleChange = async(userId:any) => {
+    console.log(userId)
+    const response :any= await addMember(subEventId,userId)
+    console.log(response)
+    if(response.msg){
+      setData((prev) => prev.filter((user :any) => user._id !== userId))
+    }
+  }
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
@@ -92,23 +104,23 @@ const MembersModal = () => {
           <DialogTitle className="text-2xl  text-center font-bold">
             Manage Members
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+          {/* <DialogDescription className="text-center text-zinc-500">
             Static Data with 4 members
-          </DialogDescription>
+          </DialogDescription> */}
         </DialogHeader>
         <ScrollArea className="mt-8 max-h-[420px] pr-6">
-          {server.members.map((member) => (
+          {data?.map((member:any) => (
             <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
               <div className="flex items-center space-x-4">
                 <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center">
-                  <span className="text-zinc-500">{member.name[0]}</span>
+                  <span className="text-zinc-500">{member?.name[0]}</span>
                 </div>
                 <div>
-                  <p className="text-md font-bold">{member.name}</p>
-                  <p className="text-zinc-500 text-sm">{member.email}</p>
+                  <p className="text-md font-bold">{member?.name}</p>
+                  <p className="text-zinc-500 text-sm">{member?.email}</p>
                 </div>
               </div>
-              <Button variant={null} className="text-red-500">
+              <Button variant={null} className="text-red-500" onClick={() => handleChange(member?._id)}>
                 <PersonRemoveIcon className="ml-2" />
               </Button>
             </div>

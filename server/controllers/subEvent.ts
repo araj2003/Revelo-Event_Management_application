@@ -153,26 +153,24 @@ const updateSubEvent = async (req: Request, res: Response) => {
   res.status(200).json({ updatedSubEventData, msg: "subevent updated" });
 };
 
-const addUsersToSubEvent = async (req: Request, res: Response) => {
+const addUserToSubEvent = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
+  console.log(subEventId)
 
-  const { userIds } = req.body;
+  const { userId } = req.body;
+  console.log(userId)
   const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");
   }
-  const usersToAdd = userIds.map(
-    (userId: string) => new mongoose.Types.ObjectId(userId),
-  );
+  if(subEvent.users.includes(userId)){
+    throw new BadRequestError("user already present")
+  }
+  subEvent.users.push(userId)
+  console.log(subEvent)
+  await subEvent.save()
 
-  const newUsersToAdd = usersToAdd.filter(
-    (userId: any) => !subEvent.users.includes(userId),
-  );
-
-  subEvent.users.push(...newUsersToAdd);
-  await subEvent.save();
-
-  return res.status(200).json({ subEvent, msg: "Users added to subEvent" });
+  return res.status(200).json({ subEvent, msg: "User added to subEvent" });
 };
 
 const removeUsersFromSubEvent = async (req: Request, res: Response) => {
@@ -235,7 +233,7 @@ export {
   removeAdmin,
   deleteSubEvent,
   updateSubEvent,
-  addUsersToSubEvent,
+  addUserToSubEvent,
   removeUsersFromSubEvent,
   getUsersNotInSubEvent,
 };
