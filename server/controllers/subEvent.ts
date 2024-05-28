@@ -120,7 +120,7 @@ const getAllChannels = async (req: Request, res: Response) => {
   const userId = req.user.userId;
 
   console.log(subEventId);
-  const subEvent = await SubEvent.find({
+  const subEvent = await SubEvent.findOne({
     _id: subEventId,
     users: userId,
   }).populate("channels");

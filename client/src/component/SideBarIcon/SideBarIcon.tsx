@@ -4,12 +4,15 @@ import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import { IoHome } from "react-icons/io5";
 import { IoIosMore } from "react-icons/io";
 import { useModal } from "@/hooks/user-modal";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getAllEvent } from "../../api";
 import { EventContext } from "@/context/EventContext";
 import "./SideBarIcon.css";
 
-const SideBarIcon = ({setIsDm,isDm}) => {
+const SideBarIcon = ({setIsDm,isDm}:{
+  setIsDm:React.Dispatch<React.SetStateAction<boolean>>,
+  isDm:boolean
+}) => {
   const [events, setEvents] = useState([]);
   const { setEventId } = useContext(EventContext);
   const { onOpen } = useModal();

@@ -25,17 +25,17 @@ module.exports = {
         popi: ["Poppins"],
       },
       colors: {
-        slack: "#3f0f40",
+        slack: "var(--slack-color)",
         slack_dark:"#2C0A2C",
         primary: "#541554",
         secondary: "#F4EDE4",
         primaryDark: "#4a154b",
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
+      // borderRadius: {
+        // lg: "var(--radius)",
+        // md: "calc(var(--radius) - 2px)",
+        // sm: "calc(var(--radius) - 4px)",
+      // },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

@@ -42,7 +42,7 @@ app.set("trust proxy", 1);
 
 app.use(
   rateLimiter({
-    windowMs: 15 * 60 * 1000, //15 minutes
+    windowMs: 5 * 60 * 1000, //5 minutes
     max: 300,
   }),
 );

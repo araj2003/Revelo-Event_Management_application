@@ -7,7 +7,7 @@ import { useState } from "react";
 import DirectMessages from "@/component/DirectMessages/DirectMessages";
 
 function Home() {
-  const [isDm, setIsDm] = useState(true);
+  const [isDm, setIsDm] = useState(false);
   return (
     <div>
       <Header />
