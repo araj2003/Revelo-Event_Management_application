@@ -18,11 +18,16 @@ import {
   FormMessage,
   FormItem,
 } from "../components/ui/form";
-import { Button } from "../components/ui/button";
+// import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { useModal } from "@/hooks/user-modal";
 import { EventContext } from "@/context/EventContext";
 import { useContext } from "react";
+import { createSubEvent } from "@/api";
+import { Button } from "../components/ui/button";
+// import { EventContext } from "@/context/EventContext";
+
+// const {eventId} = useContext(EventContext)
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -36,14 +41,14 @@ const formSchema = z.object({
   }),
   endDate: z.string().refine((date) => {
     return new Date(date) > new Date();
-  })
+  }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 const SubEventModal = () => {
   const { isOpen, onClose, type } = useModal();
-  const { eventId } = useContext(EventContext);
+  const { eventId,fetchAllSubEvents } = useContext(EventContext);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -58,9 +63,22 @@ const SubEventModal = () => {
   const isModalOpen = isOpen && type === "createSubevent";
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: FormValues) => {
-    console.log(values);
-    
-
+    // console.log(values);
+    const data = {
+      subEventName : values.name,
+      subEventDate : values.startDate,
+      subEventTime: values.endDate,
+      eventId:eventId
+    }
+    console.log(data)
+    const result = await createSubEvent(data)
+    console.log(result)
+    if (result) {
+      form.reset();
+      onClose();
+      fetchAllSubEvents();
+      // handleClose();
+    }
   };
 
   const handleClose = () => {
@@ -171,7 +189,7 @@ const SubEventModal = () => {
               <Button
                 variant={null}
                 disabled={isLoading}
-                className="bg-purple-500"
+                className="bg-purple-500 text-white"
               >
                 Create Subevent
               </Button>

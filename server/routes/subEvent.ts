@@ -11,6 +11,9 @@ import {
   deleteSubEvent,
   getAllChannels,
   updateSubEvent,
+  addUserToSubEvent,
+  removeUsersFromSubEvent,
+  getUsersNotInSubEvent,
 } from "../controllers/subEvent";
 
 //middleware (only host can do it)
@@ -34,6 +37,20 @@ router.delete("deleteSubEvent", authMiddleWare, deleteSubEvent);
 router.get("/:subEventId/getAllChannels", authMiddleWare, getAllChannels);
 
 router.get("/updateSubEvent", authMiddleWare, updateSubEvent);
+
+router.patch("/addUser/:subEventId", authMiddleWare, addUserToSubEvent);
+
+router.delete(
+  "/removeUsers/:subEventId",
+  authMiddleWare,
+  removeUsersFromSubEvent,
+);
+
+router.get(
+  "/getMembersNotInSubEvent/:eventId/:subEventId",
+  authMiddleWare,
+  getUsersNotInSubEvent,
+);
 
 export default router;
 

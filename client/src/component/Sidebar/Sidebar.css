@@ -9,6 +9,7 @@
   scrollbar-width: none;  /* Firefox */
 }
 
+
 .sidebar__header {
   display: flex;
   border-bottom: 1px solid #49274b;

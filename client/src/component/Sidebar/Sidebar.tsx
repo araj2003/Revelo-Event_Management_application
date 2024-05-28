@@ -1,15 +1,13 @@
 import "./Sidebar.css";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+// import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import CreateIcon from "@mui/icons-material/Create";
 import SidebarOption from "../SidebarOption/SidebarOption";
-import InsertComment from "@mui/icons-material/InsertComment";
-import Inbox from "@mui/icons-material/Inbox";
-import Drafts from "@mui/icons-material/Drafts";
-import PeopleAlt from "@mui/icons-material/PeopleAlt";
-import Apps from "@mui/icons-material/Apps";
-import FileCopy from "@mui/icons-material/FileCopy";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import { ExpandMore } from "@mui/icons-material";
+// import InsertComment from "@mui/icons-material/InsertComment";
+// import Inbox from "@mui/icons-material/Inbox";
+// import Drafts from "@mui/icons-material/Drafts";
+// import PeopleAlt from "@mui/icons-material/PeopleAlt";
+// import Apps from "@mui/icons-material/Apps";
+// import FileCopy from "@mui/icons-material/FileCopy";
 import Add from "@mui/icons-material/Add";
 import { useContext, useEffect, useState } from "react";
 import { getSubEvents } from "../../api";
@@ -18,7 +16,8 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/user-modal";
 
 const Sidebar = () => {
-  const { eventId, subEvents, setSubEvents,setEvent,event} = useContext(EventContext);
+  const { eventId, subEvents, setSubEvents, setEvent, event,fetchAllSubEvents } =
+    useContext(EventContext);
   const { onOpen } = useModal();
   const [channels, setChannels] = useState([
     {
@@ -41,35 +40,24 @@ const Sidebar = () => {
 
   const openInviteMemberModal = () => {
     onOpen("inviteMember");
-  }
+  };
+
+ 
+
 
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
-    console.log(event)
-    const fetchAllSubEvents = async () => {
-      try {
-        const data: any = await getSubEvents(eventId);
-        console.log(data);
-        if (data.event) {
-          setEvent(data.event)
-          setSubEvents(data.subEvents);
-          console.log(data.subEvents);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    console.log(event);
     fetchAllSubEvents();
-  },[eventId]);
+  }, [eventId]);
 
   return (
     <div className="sidebar">
       <div className="sidebar__header">
         <div className="sidebar__info">
-          <h2>Sahil The Developer</h2>
+          <h2>{event?.serverName}</h2>
           <h3>
-            <FiberManualRecordIcon />
-            Mohd Sahil
+            {event?.description}
           </h3>
         </div>
         <CreateIcon />
@@ -97,13 +85,13 @@ const Sidebar = () => {
             key={subEvent._id}
             title={subEvent.subEventName}
             showIcon={true}
-            Icon={ExpandMore}
             id={subEvent._id}
+            type="subevent"
           />
           <hr />
           {/* </div> */}
         </>
-      ))}
+      ))} 
       <SidebarOption Icon={Add} title="Add Subevent" addChanneloption={true} />
       <hr />
       {/*  connect to db and list all the channels */}
@@ -115,9 +103,12 @@ const Sidebar = () => {
           id={channel.id}
         />
       ))}
-      <Button size="default" className="mt-4" onClick={openInviteMemberModal}>
-        Invite Member
-      </Button>
+      <div className="flex flex-col ">
+        <Button size="default" className="m-4" onClick={openInviteMemberModal}>
+          Invite Member
+        </Button>
+        
+      </div>
     </div>
   );
 };

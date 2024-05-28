@@ -4,6 +4,7 @@ import { ProfileType, SignInType, SignUpType } from "../types";
 import { logout } from "../store/userSlice";
 import store from "../store";
 
+
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const URL = `${BASE_URL ? BASE_URL : ""}/api/v1`;
 
@@ -87,4 +88,12 @@ export const createInvite = (inviteData: any) => API.post("/invite/create", invi
 export const acceptInvite = (inviteId:string) => API.post("/invite/join", {inviteCode:inviteId});
 
 /* subEvent API */
+export const createSubEvent = (subEventData:any) => API.post("/subEvent/createSubEvent",subEventData)
 export const getAllChannels = (subEventId: any) => API.get(`/subEvent/${subEventId}/getAllChannels`)
+export const addMember = (subEventId:any,userId:any) => API.patch(`/subEvent/addUser/${subEventId}`,{userId})
+export const removeMembers = (subEventId:any,userIds:any) => API.put(`/subEvent/removeUsers/${subEventId}`,userIds)
+export const getMembersNotInSubEvent = (eventId:any,subEventId:any) => API.get(`/subEvent/getMembersNotInSubEvent/${eventId}/${subEventId}`)
+//search users
+export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
+
+

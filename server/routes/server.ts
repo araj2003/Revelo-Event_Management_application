@@ -12,6 +12,7 @@ import {
   createHost,
   getAllEvent,
   getAllSubEvent,
+  searchUser,
 } from "../controllers/event";
 
 //middleware (only host can do it)
@@ -35,6 +36,9 @@ router.delete("deleteEvent", authMiddleWare, deleteEvent);
 
 //get all subevents of an event
 router.get("/:id/subevents", authMiddleWare, getAllSubEvent);
+
+//search user
+router.get("/users/search", authMiddleWare, searchUser);
 
 export default router;
 

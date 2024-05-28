@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-
+import { getSubEvents } from "../api";
 // Create the context
 export const EventContext = createContext<any>(null);
 
@@ -48,6 +48,19 @@ export const EventProvider: any = ({ children }: { children: any }) => {
   const [channelId, setChannelId] = useState(null);
   const [event, setEvent] = useState(defaultEvents);
   const [subEvents, setSubEvents] = useState<any[]>(defaultSubEvents);
+  const fetchAllSubEvents = async () => {
+    try {
+      const data: any = await getSubEvents(eventId);
+      console.log(data);
+      if (data.event) {
+        setEvent(data.event);
+        setSubEvents(data.subEvents);
+        console.log(data.subEvents);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   
   return (
     <EventContext.Provider
@@ -62,6 +75,7 @@ export const EventProvider: any = ({ children }: { children: any }) => {
         setEvent,
         subEvents,
         setSubEvents,
+        fetchAllSubEvents,
       }}
     >
       {children}

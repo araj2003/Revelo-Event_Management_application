@@ -95,7 +95,7 @@ const InviteMemberModal = () => {
                   );
                   toast.success("Invite link copied to clipboard");
                 }}
-                className="bg-purple-500"
+                className="bg-purple-500 text-white"
               >
                 Copy Invite Link
               </Button>

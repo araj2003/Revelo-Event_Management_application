@@ -7,6 +7,8 @@ import {
   createGroupChat,
   createSingleChat,
   getAllChats,
+  getSingleChat,
+  getGroupChat,
 } from "../controllers/chats";
 
 //middleware (only host can do it)
@@ -19,5 +21,11 @@ router.post("/createSingleChat", authMiddleWare, createSingleChat);
 
 //get all channels
 router.get("/getAllChats", authMiddleWare, getAllChats);
+
+//get Single chats
+router.get("/getSingleChats", authMiddleWare, getSingleChat);
+
+//get group chats
+router.get("/getGroupChats", authMiddleWare, getGroupChat);
 
 export default router;
