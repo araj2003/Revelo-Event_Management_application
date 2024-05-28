@@ -91,7 +91,7 @@ const Sidebar = () => {
           <hr />
           {/* </div> */}
         </>
-      ))}
+      ))} 
       <SidebarOption Icon={Add} title="Add Subevent" addChanneloption={true} />
       <hr />
       {/*  connect to db and list all the channels */}

@@ -8,7 +8,7 @@ import { Layout, ProtectedRoute, AntiProtectedRoute } from "./Layout";
 import Chat from "../pages/Chat/Chat";
 import LandingPage from "./LandingPage/LandingPage";
 import AcceptInvite from "./AcceptInvite";
-
+import DirectMessages from "./DirectMessages/DirectMessages";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +23,10 @@ const router = createBrowserRouter([
             element: <Chat />,
           },
         ],
+      },
+      {
+        path: "/test",
+        element: <DirectMessages />,
       },
       {
         path: "/landing",
