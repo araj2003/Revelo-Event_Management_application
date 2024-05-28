@@ -9,6 +9,7 @@ import Chat from "../pages/Chat/Chat";
 import LandingPage from "./LandingPage/LandingPage";
 import AcceptInvite from "./AcceptInvite";
 import DirectMessages from "./DirectMessages/DirectMessages";
+import Calender from "./calender/Calender";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +28,9 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <DirectMessages />,
+      },{
+        path: "/calender",
+        element: <Calender />,
       },
       {
         path: "/landing",

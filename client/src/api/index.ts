@@ -82,6 +82,7 @@ export const createEvent = (eventData: any) => API.post("/event/createEvent", ev
 export const getEvent = (eventId: string) => API.get(`/event/${eventId}`);
 export const getAllEvent = () => API.get("/event/all");
 export const getSubEvents = (eventId: string) => API.get(`/event/${eventId}/subevents`);
+export const getAllEvents = () => API.get("/event/all")
 
 /* Invite API */
 export const createInvite = (inviteData: any) => API.post("/invite/create", inviteData);
@@ -96,4 +97,9 @@ export const getMembersNotInSubEvent = (eventId:any,subEventId:any) => API.get(`
 //search users
 export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
 
+
+
+//chats:-
+export const getSingleChat = () => API.get("/group/getSingleChats")
+export const getGroupChat = () => API.get("getGroupChats")
 
