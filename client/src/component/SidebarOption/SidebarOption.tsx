@@ -1,8 +1,10 @@
 import "./SidebarOption.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useModal } from "@/hooks/user-modal";
-import { useContext, useState } from "react";
-import { EventContext } from "@/context/EventContext";
+import PeopleIcon from "@mui/icons-material/People";
+import AddCommentIcon from '@mui/icons-material/AddComment';
+import { useContext, useEffect, useState } from "react";
+// import { EventContext } from "@/context/EventContext";
 import { getAllChannels } from "@/api";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
@@ -27,19 +29,27 @@ const SidebarOption = ({
   const [channels, setChannels] = useState<any>([]);
   // const navigate = useNavigate();
   const selectChannel = async () => {
-    setOpen(!open);
-    if (open) {
-      const response: any = await getAllChannels(id);
-      setChannels(response?.subEvent[0]?.channels);
+    if (type == "subevent") {
+      setOpen(!open);
     }
   };
 
-  const addchannel = () => {
+  useEffect(() => {
+    const fetchChannels = async () => {
+      const response: any = await getAllChannels(id);
+      if (response.subEvent) setChannels(response.subEvent?.channels);
+    };
+    if (type === "subevent" && open) {
+      fetchChannels();
+    }
+  }, [open]);
+
+  const addSubevent = () => {
     onOpen("createSubevent");
   };
   const handleClick = () => {
     if (addChanneloption) {
-      addchannel();
+      addSubevent();
     } else {
       selectChannel();
     }
@@ -47,14 +57,17 @@ const SidebarOption = ({
   };
   // console.log(channels);
 
-  const openMembersModal = (subEventId:string) => {
-    onOpen("members",subEventId);
+  const openMembersModal = (subEventId: string) => {
+    onOpen("members", subEventId);
+  };
+  const addChannel = (subEventId: string) => {
+    onOpen("addChannel", subEventId);
   };
   return (
     <>
       <div
         className="sidebarOption"
-        onClick={addChanneloption ? addchannel : selectChannel}
+        onClick={addChanneloption ? addSubevent : selectChannel}
       >
         {showIcon && type == "subevent" ? (
           open ? (
@@ -69,22 +82,46 @@ const SidebarOption = ({
           <h3>{title}</h3>
         ) : (
           <>
-            <h3 className="sidebarOption__channel">
-              <span className="sidebarOption__hash">#</span>
-              {title}
-            </h3>
-            {!open && <button onClick={() => openMembersModal(id)}>Add Member</button>}
+            <div className="flex w-full justify-between mr-4">
+              <h3 className="sidebarOption__channel">
+                {type !== "subevent" && (
+                  <span className="sidebarOption__hash">#</span>
+                )}
+                {title}
+              </h3>
+              <div className="flex gap-2">
+                <button onClick={() => openMembersModal(id)}>
+                  <PeopleIcon fontSize="small" />
+                </button>
+                <button onClick={() => openMembersModal(id)}>
+                  <AddCommentIcon fontSize="small"/>
+                </button>
+              </div>
+            </div>
           </>
         )}
       </div>
-      {open && channels.map((channel: any) => {
-        // <h4>{channel?.channelName}</h4>
-        // {console.log(channel)}
-        <h4 className="sidebarOption__channel">
-          <span className="sidebarOption__hash">#</span>
-          {channel[0]?.channelName}
-        </h4>;
-      })}
+      {open && (
+        <div className="sidebarOption">
+          {console.log(channels, "asdfghjkl")}
+          {channels.length > 0 ? (
+            channels.map((channel: any) => {
+              // <h4>{channel?.channelName}</h4>
+              {
+                console.log(channel);
+              }
+              return (
+                <h4 className="sidebarOption__channel bg-[#ffffff0e] w-full mr-3 mb-1 rounded-lg">
+                  <span className="sidebarOption__hash">#</span>
+                  {channel?.channelName}
+                </h4>
+              );
+            })
+          ) : (
+            <h4>No Channels</h4>
+          )}
+        </div>
+      )}
     </>
   );
 };

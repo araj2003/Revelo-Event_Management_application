@@ -60,7 +60,7 @@ const Chat = () => {
         <ChatInput />
         {/* <Editor /> */}
       </div>
-      <UserList />
+      {/* <UserList /> */}
     </>
   );
 };
