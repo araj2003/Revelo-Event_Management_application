@@ -22,7 +22,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { useModal } from "@/hooks/user-modal";
 import { EventContext } from "@/context/EventContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 // import { createInvite } from "@/api";
 // import { toast } from "react-toastify";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";

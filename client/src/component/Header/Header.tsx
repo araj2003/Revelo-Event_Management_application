@@ -1,5 +1,4 @@
 import Avatar from "@mui/material/Avatar";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SearchIcon from "@mui/icons-material/Search";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { useState, useEffect } from "react";
@@ -30,9 +29,12 @@ const Header = () => {
       const id = setTimeout(fetchData, 500);
       setTimeoutId(id);
     }
+    else {
+      setData([]);
+    }
   }, [input]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     setInput(e.target.value.toLowerCase());
   };
 
@@ -43,8 +45,8 @@ const Header = () => {
         {/* <AccessTimeIcon /> */}
         {/* header left */}
       </div>
-      <div>
-        <div className="header__search ">
+      <div className="header__middle">
+        <div className="header__search">
           <Input
             placeholder="Search for User"
             value={input}
@@ -59,11 +61,16 @@ const Header = () => {
           autoFocus
         /> */}
         </div>
-        <div className="header__searchResults">
-          {data.map((user: any) => (
-            <div key={user.id}>{user.name}</div>
-          ))}
-        </div>
+        {data.length>0 && (
+          <>
+          <div className="header__searchResults">
+          {data.length} users found
+            {data.map((user: any) => (
+              <div key={user.id} className="bg-gray-50 border-gray-600 border-[0.5px]">{user.name}</div>
+            ))}
+          </div>
+        </>
+        )}
       </div>
 
       <div className="header__left ">
