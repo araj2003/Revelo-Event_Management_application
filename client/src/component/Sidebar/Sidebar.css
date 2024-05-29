@@ -1,6 +1,6 @@
 .sidebar {
   background-color: var(--slack-color);
-  border-top: 1px solid #49274b;
+  border-top: 0.25px solid var(--slack-btn);
   max-width: 260px;
   color: var(--slack-text);
   flex: 0.3;
@@ -12,7 +12,7 @@
 
 .sidebar__header {
   display: flex;
-  border-bottom: 1px solid #49274b;
+  border-bottom: 0.25px solid var(--slack-btn);
   padding: 13px;
   padding-bottom: 10px;
 }

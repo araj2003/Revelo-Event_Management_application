@@ -22,9 +22,9 @@ const defaultUsers = [
 
 function UserList() {
   return (
-    <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full max-w-md p-4 bg-slack text-slack_text border border-gray-200 rounded-lg shadow sm:p-8 dark:border-gray-700">
       <div className="flex items-center justify-between mb-4">
-        <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
+        <h5 className="text-xl font-bold leading-none ">
           Event Members
         </h5>
         {/* <a
@@ -50,7 +50,7 @@ function UserList() {
                   />
                 </div>
                 <div className="flex-1 min-w-0 ms-4">
-                  <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                  <p className="text-sm font-medium truncate ">
                     {user.name}
                   </p>
                   <p className="text-sm text-gray-500 truncate dark:text-gray-400">
