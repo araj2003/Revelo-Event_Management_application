@@ -95,10 +95,10 @@ export const addMember = (subEventId:any,userId:any) => API.patch(`/subEvent/add
 export const removeMembers = (subEventId:any,userIds:any) => API.put(`/subEvent/removeUsers/${subEventId}`,userIds)
 export const getMembersNotInSubEvent = (eventId:any,subEventId:any) => API.get(`/subEvent/getMembersNotInSubEvent/${eventId}/${subEventId}`)
 export const addChannelInSubEvent = (channelData:any) => API.post(`/channel/createChannel`,channelData)
+export const addRSVP = (subEventId:any, rsvpData:any) => API.post(`/subEvent/addRSVP/${subEventId}`,rsvpData)
 
 //search users
 export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
-
 
 
 //chats:-

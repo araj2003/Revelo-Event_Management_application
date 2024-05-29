@@ -8,6 +8,7 @@ import Event from "../models/Server";
 import { StatusCodes } from "http-status-codes";
 import { IServer, ISubEvent } from "../types/models";
 import mongoose from "mongoose";
+import { uploadRSVPImage } from "../utils/cloudinary";
 
 const createSubEvent = async (req: Request, res: Response) => {
   const { subEventName, eventId, subEventDate, subEventTime } = req.body;
@@ -225,6 +226,59 @@ const getUsersNotInSubEvent = async (req: Request, res: Response) => {
   });
 };
 
+const addRSVP = async (req: Request, res: Response) => {
+  const { subEventId } = req.params;
+  const {title,description} = req.body;
+  if(!title || !description){
+    throw new BadRequestError("Please provide title and description")
+  }
+  const userId = req.user.userId;
+  const subEvent = await SubEvent.findById(subEventId);
+  if (!subEvent) {
+    throw new BadRequestError("SubEvent not found");
+  }
+  console.log(subEvent)
+  if(subEvent.rsvp?.title){
+    throw new BadRequestError("RSVP already present")
+  }
+  if(!subEvent.admin.includes(userId)){
+    throw new BadRequestError("You are not an admin")
+  }
+  const cloudinary_url = await uploadRSVPImage(req);
+  subEvent.rsvp = {
+    title,
+    description,
+    image: cloudinary_url,
+    userIds: {
+      accepted: [],
+      rejected: [],
+    },
+  };
+  await subEvent.save();
+  return res.status(200).json({ subEvent, msg: "RSVP added" });
+}
+
+const acceptRejectRSVP = async (req: Request, res: Response) => {
+  const { subEventId } = req.params;
+  const { userId, status } = req.body;
+  const subEvent = await SubEvent.findById(subEventId);
+  if (!subEvent) {
+    throw new BadRequestError("SubEvent not found");
+  }
+  if (!subEvent.rsvp) {
+    throw new BadRequestError("RSVP not found");
+  }
+  if (status === "accept") {
+    subEvent.rsvp.userIds.accepted.push(userId);
+  } else if (status === "reject") {
+    subEvent.rsvp.userIds.rejected.push(userId);
+  } else {
+    throw new BadRequestError("Invalid status");
+  }
+  await subEvent.save();
+  return res.status(200).json({ subEvent, msg: "RSVP updated" });
+}
+
 export {
   getAllChannels,
   addAdmin,
@@ -236,4 +290,6 @@ export {
   addUserToSubEvent,
   removeUsersFromSubEvent,
   getUsersNotInSubEvent,
+  addRSVP,
+  acceptRejectRSVP,
 };

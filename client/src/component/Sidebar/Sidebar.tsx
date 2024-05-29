@@ -42,9 +42,6 @@ const Sidebar = () => {
     onOpen("inviteMember");
   };
 
- 
-
-
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
     console.log(event);
@@ -104,7 +101,7 @@ const Sidebar = () => {
         />
       ))}
       <div className="flex flex-col ">
-        <Button size="default" className="m-4" onClick={openInviteMemberModal}>
+        <Button className="m-4" onClick={openInviteMemberModal}>
           Invite Member
         </Button>
         
