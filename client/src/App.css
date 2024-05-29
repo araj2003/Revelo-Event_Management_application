@@ -1,10 +1,12 @@
 body {
-  --slack-color: #31263E;
+  --slack-color: #2d3142;
   --slack-text: #fff;
-  --slack-btn: #44355B;
+  --slack-btn: #4f5d75;
+  --slack-secondary: #4f5d75;
 }
 
 .app__body {
   display: flex;
+  /* background-color: var(--slack-secondary); */
   height: calc(100vh - 60px);
 }

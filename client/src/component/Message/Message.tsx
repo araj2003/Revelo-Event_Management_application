@@ -4,7 +4,8 @@ const Message = ({ message, user, time, userImage }) => {
   return (
     <div className="message">
       <img
-        src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
+        src={`https://ui-avatars.com/api/?name=${user}`}
+        className="rounded-full h-8 w-8 object-cover"
         alt="user LOGO"
       />
       <div className="message__info">
@@ -12,7 +13,7 @@ const Message = ({ message, user, time, userImage }) => {
           {user}
           <span className="message__time">{time}</span>
         </h4>
-        <p>Message : {message} </p>
+        <p>{message} </p>
       </div>
     </div>
   );

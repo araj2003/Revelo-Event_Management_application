@@ -33,34 +33,36 @@ const Chat = () => {
   ]);
   return (
     <>
-      <div className="chat">
-        <div className="chat__header">
-          <div className="chat__headerLeft">
-            <h4 className="chat_channelName">
-              <strong>#General</strong>
-              <StarBorderIcon />
-            </h4>
-          </div>
-          {/* <div className="chat__headerRight">
+      {/* <div className="bg-black"> */}
+        <div className="chat">
+          <div className="chat__header">
+            <div className="chat__headerLeft">
+              <h4 className="chat_channelName text-white">
+                <strong># General</strong>
+                {/* <StarBorderIcon /> */}
+              </h4>
+            </div>
+            {/* <div className="chat__headerRight">
             <p>
-              <InfoIcon /> Details
+            <InfoIcon /> Details
             </p>
           </div> */}
+          </div>
+          <div className="chat__messages">
+            {channelMessages.map(({ message, time, user, userImage }) => (
+              <Message
+                message={message}
+                time={time}
+                user={user}
+                userImage={userImage}
+              />
+            ))}
+          </div>
+          <ChatInput />
+          {/* <Editor /> */}
         </div>
-        <div className="chat__messages">
-          {channelMessages.map(({ message, time, user, userImage }) => (
-            <Message
-              message={message}
-              time={time}
-              user={user}
-              userImage={userImage}
-            />
-          ))}
-        </div>
-        <ChatInput />
-        {/* <Editor /> */}
-      </div>
-      <UserList />
+        {/* <UserList /> */}
+      {/* </div> */}
     </>
   );
 };

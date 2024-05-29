@@ -1,4 +1,6 @@
 .chat {
+  background-color: var(--slack-secondary);
+  /* color: var(); */
   flex: 0.7;
   flex-grow: 1;
   overflow-y: scroll;
@@ -10,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  border-bottom: 1px solid #e0e0e0;
+  /* border-bottom: 1px solid #e0e0e0; */
 }
 
 .chat__channelName {

@@ -1,9 +1,9 @@
 .sidebar {
   background-color: var(--slack-color);
   border-top: 0.25px solid var(--slack-btn);
-  max-width: 260px;
+  width: 260px;
   color: var(--slack-text);
-  flex: 0.3;
+  /* flex: 0.3; */
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */

@@ -73,7 +73,7 @@ const Header = () => {
         )}
       </div>
 
-      <div className="header__left ">
+      <div className="">
         <HelpOutlineIcon />
         {/* header right */}
       </div>
