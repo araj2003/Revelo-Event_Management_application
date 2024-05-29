@@ -25,7 +25,7 @@ import { EventContext } from "@/context/EventContext";
 import { useContext, useEffect, useState } from "react";
 // import { createInvite } from "@/api";
 // import { toast } from "react-toastify";
-import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { addMember, getMembersNotInSubEvent } from "@/api";
 
 const formSchema = z.object({});
@@ -123,10 +123,9 @@ const MembersModal = () => {
                 </div>
                 <Button
                   variant={null}
-                  className="text-red-500"
                   onClick={() => handleChange(member?._id)}
                 >
-                  <PersonRemoveIcon className="ml-2" />
+                  <PersonAddIcon className="ml-2" />
                 </Button>
               </div>
             ))
