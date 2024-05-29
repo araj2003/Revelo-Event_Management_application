@@ -62,8 +62,9 @@ const SidebarOption = ({
   };
 
   const addChannelModal = (subEventId: string) => {
-    onOpen("addChannel", subEventId, fetchChannels);
+    onOpen("addChannel", subEventId);
   };
+  
   return (
     <>
       <div
