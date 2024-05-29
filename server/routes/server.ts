@@ -13,6 +13,8 @@ import {
   getAllEvent,
   getAllSubEvent,
   searchUser,
+  getEventMembers,
+  getMyEvent,
 } from "../controllers/event";
 
 //middleware (only host can do it)
@@ -39,6 +41,10 @@ router.get("/:id/subevents", authMiddleWare, getAllSubEvent);
 
 //search user
 router.get("/users/search", authMiddleWare, searchUser);
+
+router.get('/:id/members', authMiddleWare, getEventMembers);
+
+router.get('/my', authMiddleWare, getMyEvent);
 
 export default router;
 
