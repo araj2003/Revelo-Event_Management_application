@@ -10,6 +10,8 @@ import LandingPage from "./LandingPage/LandingPage";
 import AcceptInvite from "./AcceptInvite";
 import DirectMessages from "./DirectMessages/DirectMessages";
 import Calender from "./calender/Calender";
+import MyEvents from "@/pages/MyEvents";
+import FloorPlan from "@/pages/FloorPlan";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,10 +30,8 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <DirectMessages />,
-      },{
-        path: "/calender",
-        element: <Calender />,
       },
+      
       {
         path: "/landing",
         element: <LandingPage />,
@@ -45,8 +45,20 @@ const router = createBrowserRouter([
             element: <Profile />,
           },
           {
-            path: "dashboard",
+            path: "myProfile",
             element: <Profile />,
+          },
+          {
+            path: "/calender",
+            element: <Calender />,
+          },
+          {
+            path: "/myEvents",
+            element: <MyEvents />,
+          },
+          {
+            path: "/floorPlan",
+            element: <FloorPlan />,
           },
           {
             path: "join/:inviteId",
