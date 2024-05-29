@@ -1,5 +1,7 @@
 body {
-  --slack-color: #3f0f40;
+  --slack-color: #2d3142;
+  --slack-text: #fff;
+  --slack-btn: #4f5d75;
 }
 
 .app__body {

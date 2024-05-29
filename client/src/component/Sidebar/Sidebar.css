@@ -2,7 +2,7 @@
   background-color: var(--slack-color);
   border-top: 1px solid #49274b;
   max-width: 260px;
-  color: #fff;
+  color: var(--slack-text);
   flex: 0.3;
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
@@ -50,6 +50,8 @@
 }
 
 .sidebar > hr {
+  border: none;
   margin: 10px 0px;
-  border: 1px solid #49274b;
+  /* border: 1px solid var(--slack-text); */
+  /* border: 1px solid #49274b; */
 }

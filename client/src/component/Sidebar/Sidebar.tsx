@@ -95,16 +95,16 @@ const Sidebar = () => {
       <SidebarOption Icon={Add} title="Add Subevent" addChanneloption={true} />
       <hr />
       {/*  connect to db and list all the channels */}
-      {channels.map((channel) => (
+      {channels.map((channel:any) => (
         <SidebarOption
-          key={channel.id}
+          key={channel._id}
           title={channel.channel}
           showIcon={false}
-          id={channel.id}
+          id={channel._id}
         />
       ))}
       <div className="flex flex-col ">
-        <Button size="default" className="m-4" onClick={openInviteMemberModal}>
+        <Button size="default" className="bg-slack_btn m-4" variant={null} onClick={openInviteMemberModal}>
           Invite Member
         </Button>
         

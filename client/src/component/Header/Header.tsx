@@ -51,7 +51,7 @@ const Header = () => {
             placeholder="Search for User"
             value={input}
             onChange={handleInputChange}
-            className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+            className="border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
           />
           <SearchIcon className="mt-2 ml-4 cursor-pointer" />
           {/* <input 
