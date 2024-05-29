@@ -33,8 +33,10 @@
     "is-hotkey": "^0.2.0",
     "jodit-react": "^4.1.2",
     "lucide-react": "^0.378.0",
+    "moment": "^2.30.1",
     "qrcode.react": "^3.1.0",
     "react": "^18.3.1",
+    "react-big-calendar": "^1.12.2",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.51.4",
@@ -53,6 +55,7 @@
   "devDependencies": {
     "@types/node": "^20.12.10",
     "@types/react": "^18.3.2",
+    "@types/react-big-calendar": "^1.8.9",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
