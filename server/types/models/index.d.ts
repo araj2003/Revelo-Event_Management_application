@@ -57,6 +57,15 @@ export interface ISubEvent {
   channels: mongoose.Types.ObjectId[];
   subEventDate: Date;
   subEventTime: Date;
+  rsvp?: {
+    title: string;
+    description: string;
+    image: string;
+    userIds: {
+      accepted: mongoose.Types.ObjectId[];
+      rejected: mongoose.Types.ObjectId[];
+    };
+  };
 }
 
 export interface IServerInvite {

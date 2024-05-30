@@ -19,7 +19,7 @@ const uploadProfileImage = async (req: Request) => {
   const result = await cloudinary.uploader.upload(
     `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`,
     {
-      folder: "link-shortener/profile-images",
+      folder: "event-manager/profile-images",
       public_id: userId,
       overwrite: true,
       format: "webp",
@@ -29,4 +29,19 @@ const uploadProfileImage = async (req: Request) => {
   return result.secure_url;
 };
 
-export { uploadProfileImage };
+const uploadRSVPImage = async (req: Request, subEventId:any) => {
+  const { file } = req;
+  if (!file) throw new BadRequestError("Please provide an image file");
+  const result = await cloudinary.uploader.upload(
+    `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`,
+    {
+      folder: "event-manager/rsvp-images",
+      public_id: subEventId.toString(),
+      overwrite: false,
+      format: "webp",
+    },
+  );
+  return result.secure_url;
+}
+
+export { uploadProfileImage, uploadRSVPImage };

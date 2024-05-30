@@ -10,7 +10,7 @@ import SidebarOption from "../SidebarOption/SidebarOption";
 // import FileCopy from "@mui/icons-material/FileCopy";
 import Add from "@mui/icons-material/Add";
 import { useContext, useEffect, useState } from "react";
-import { getSubEvents } from "../../api";
+// import { getSubEvents } from "../../api";
 import { EventContext } from "@/context/EventContext";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/user-modal";
@@ -41,9 +41,6 @@ const Sidebar = () => {
   const openInviteMemberModal = () => {
     onOpen("inviteMember");
   };
-
- 
-
 
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
@@ -87,6 +84,7 @@ const Sidebar = () => {
             showIcon={true}
             id={subEvent._id}
             type="subevent"
+            subEvent={subEvent}
           />
           <hr />
           {/* </div> */}
@@ -104,7 +102,7 @@ const Sidebar = () => {
         />
       ))}
       <div className="flex flex-col ">
-        <Button size="default" className="m-4" onClick={openInviteMemberModal}>
+        <Button className="m-4" onClick={openInviteMemberModal}>
           Invite Member
         </Button>
         

@@ -100,12 +100,14 @@ export const addChannelInSubEvent = (channelData:any) => API.post(`/channel/crea
 export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
 
 
-
 //chats:-
 export const getSingleChat = () => API.get("/group/getSingleChats")
 export const getGroupChat = () => API.get("getGroupChats")
 
-//channels:-
+//rsvp
+export const acceptRejectRsvp = (subEventId:any,status:any) => API.put(`/subEvent/acceptRejectRSVP/${subEventId}`,{status:status});
+export const hasAccepted = (subEventId:any) => API.get(`/subEvent/hasAccepted/${subEventId}`)
+export const addRSVP = (subEventId:any, rsvpData:any) => API.post(`/subEvent/addRSVP/${subEventId}`,rsvpData)//channels:-
 export const getSingleChannel = (channelId:any) => API.get(`/channel/getChannel/${channelId}`)
 
 //message:-
