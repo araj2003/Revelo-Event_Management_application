@@ -9,6 +9,7 @@ import { getUserData } from "./store/userSlice";
 import Loading from "./component/Loading";
 // import Header from "./component/Header/Header";
 import { EventProvider } from "./context/EventContext";
+import { ChatProvider } from "./context/ChatContext";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ function App() {
     <>
       <div className={isDarkMode ? "dark" : ""}>
         <EventProvider>
+          <ChatProvider>
           <ToastContainer
             position="top-center"
             autoClose={2000}
@@ -43,6 +45,7 @@ function App() {
             theme={isDarkMode ? "dark" : "light"}
           />
           <RouterProvider router={router} />
+          </ChatProvider>
         </EventProvider>
       </div>
     </>

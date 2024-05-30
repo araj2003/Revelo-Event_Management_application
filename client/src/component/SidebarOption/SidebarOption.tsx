@@ -10,6 +10,7 @@ import { getAllChannels } from "@/api";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { PlusIcon } from "lucide-react";
 import RsvpIcon from "@mui/icons-material/Rsvp";
+import { ChatContext } from "@/context/ChatContext";
 
 const SidebarOption = ({
   Icon,
@@ -30,10 +31,11 @@ const SidebarOption = ({
 }) => {
   const { onOpen } = useModal();
   // const { subEventId } = useContext(EventContext);
+  const { selectSingleChannel } = useContext(ChatContext);
   const [open, setOpen] = useState(false);
   const [channels, setChannels] = useState<any>([]);
   // const navigate = useNavigate();
-  const selectChannel = async () => {
+  const selectSubEvent = async () => {
     if (type == "subevent") {
       setOpen(!open);
     }
@@ -56,7 +58,7 @@ const SidebarOption = ({
     if (addChanneloption) {
       addSubevent();
     } else {
-      selectChannel();
+      selectSubEvent();
     }
     setOpen(!open);
   };
@@ -81,7 +83,7 @@ const SidebarOption = ({
     <>
       <div
         className="sidebarOption"
-        onClick={addChanneloption ? addSubevent : selectChannel}
+        onClick={addChanneloption ? addSubevent : selectSubEvent}
       >
         {showIcon && type == "subevent" ? (
           open ? (
@@ -141,11 +143,14 @@ const SidebarOption = ({
           {channels.length > 0 ? (
             channels.map((channel: any) => {
               // <h4>{channel?.channelName}</h4>
-              {
-                console.log(channel);
-              }
+              // {
+              //   console.log(channel);
+              // }
               return (
-                <h4 className="sidebarOption__channel bg-[#ffffff0e] hover:bg-[#ffffff52] cursor-pointer w-[99%] mx-2 mr-4 mb-2 rounded-lg">
+                <h4
+                  onClick={() => selectSingleChannel(channel._id)}
+                  className="sidebarOption__channel bg-[#ffffff0e] hover:bg-[#ffffff52] cursor-pointer w-[99%] mx-2 mr-4 mb-2 rounded-lg"
+                >
                   <span className="sidebarOption__hash">#</span>
                   {channel?.channelName}
                 </h4>

@@ -6,11 +6,11 @@ import Message from "../models/Message";
 
 const sendMessage = async (req: Request, res: Response) => {
   const { content, chatId } = req.body;
-
+  console.log(req.body)
   if (!content || !chatId) {
-    throw new BadRequestError("Please provide complete imformation");
+    throw new BadRequestError("Please provide the content and chatId");
   }
-
+  
   var newMessage = {
     sender: req.user.userId,
     content: content,
@@ -18,18 +18,15 @@ const sendMessage = async (req: Request, res: Response) => {
   };
 
   try {
-    var message: any = await Message.create(newMessage);
-    message = await message.populate(
-      "sender",
-      "name profilePicture email role",
-    );
-    message = await message.populate("chat");
-
-    await Chat.findByIdAndUpdate(chatId, {
-      latestMessage: message,
+    const message = await Message.create(newMessage);
+    const populatedMessage = await Message.populate(message, {
+      path: "sender readBy chat",
+      model: "User",
     });
 
-    return res.status(200).json(message);
+    await populatedMessage.save();
+    await Chat.findByIdAndUpdate(chatId, { latestMessage: populatedMessage });
+    return res.status(200).json(populatedMessage);
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -42,7 +39,7 @@ const sendMessage = async (req: Request, res: Response) => {
 
 const getMessage = async (req: Request, res: Response) => {
   try {
-    const { id: chatId } = req.params;
+    const {chatId } = req.params;
 
     var messages = await Message.find({ chat: chatId })
       .populate("sender", "user_name profile_pic email")

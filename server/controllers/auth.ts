@@ -31,6 +31,7 @@ const register = async (req: Request, res: Response) => {
 
   return res.status(StatusCodes.CREATED).json({
     name: user.name,
+    id:user._id,
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
     msg: "Registration successful",
@@ -62,6 +63,7 @@ const login = async (req: Request, res: Response) => {
 
   return res.status(StatusCodes.OK).json({
     name: user.name,
+    id:user._id,
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
     msg: "Login successful",
@@ -98,6 +100,10 @@ const continueWithGoogle = async (req: Request, res: Response) => {
   setTokenCookie(res, user);
   res.status(StatusCodes.CREATED).json({
     success: true,
+    name: user.name,
+    id:user._id,
+    isAdministrator: user.isAdministrator ?? false,
+    profilePicture: user.profilePicture,
     msg: "Google Login Successfully",
   });
 };
@@ -113,6 +119,7 @@ const sendDetails = async (req: Request, res: Response) => {
 
   return res.status(StatusCodes.OK).json({
     name: user.name,
+    id:user._id,
     isAdministrator: user.isAdministrator ?? false,
     profilePicture: user.profilePicture,
     msg: "User details sent",
