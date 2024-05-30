@@ -3,10 +3,13 @@ import "./SidebarOption.css";
 import { useModal } from "@/hooks/user-modal";
 import PeopleIcon from "@mui/icons-material/People";
 import AddCommentIcon from "@mui/icons-material/AddComment";
+import { Button } from "@/components/ui/button";
 import { useContext, useEffect, useState } from "react";
 // import { EventContext } from "@/context/EventContext";
 import { getAllChannels } from "@/api";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { PlusIcon } from "lucide-react";
+import RsvpIcon from "@mui/icons-material/Rsvp";
 import { ChatContext } from "@/context/ChatContext";
 
 const SidebarOption = ({
@@ -16,6 +19,7 @@ const SidebarOption = ({
   addChanneloption = false,
   showIcon = true,
   type,
+  subEvent,
 }: {
   Icon?: any;
   title: string;
@@ -23,6 +27,7 @@ const SidebarOption = ({
   addChanneloption?: boolean;
   showIcon?: boolean;
   type?: string;
+  subEvent: any;
 }) => {
   const { onOpen } = useModal();
   // const { subEventId } = useContext(EventContext);
@@ -58,6 +63,9 @@ const SidebarOption = ({
     setOpen(!open);
   };
   // console.log(channels);
+  const openAddRSVPModal = (subEventId: string) => {
+    onOpen("addRSVP", subEventId);
+  };
 
   const openMembersModal = (subEventId: string) => {
     onOpen("members", subEventId);
@@ -66,6 +74,10 @@ const SidebarOption = ({
   const addChannelModal = (subEventId: string) => {
     onOpen("addChannel", subEventId);
   };
+
+  const openShowRSVPModal = (subEventId: string) => {
+    onOpen("showRSVP", subEventId, subEvent);
+  }
 
   return (
     <>
@@ -107,7 +119,27 @@ const SidebarOption = ({
       </div>
       {open && type === "subevent" && (
         <div className="flex flex-col text-sm items-center mx-2">
-          {/* {console.log(channels, "asdfghjkl")} */}
+          {subEvent?.rsvp.title ? (
+            <button
+              // size={null}
+              className="h-10 mx-2 px-2 mr-4 flex items-center  justify-start gap-2  mb-2 bg-[#ffffff0e] cursor-pointer w-[99%] rounded-lg hover:bg-[#ffffff52]"
+              onClick={() => openShowRSVPModal(id)}
+            >
+              <RsvpIcon/>
+              <h4>RSVP</h4>
+            </button>
+          ) : (
+            <button
+              // size={null}
+              className="h-10 mx-2 px-2 mr-4 flex items-center  justify-start gap-2  mb-2 bg-[#ffffff0e] cursor-pointer w-[99%] rounded-lg hover:bg-[#ffffff52]"
+              onClick={() => openAddRSVPModal(id)}
+            >
+              <PlusIcon size={16} />
+              {/* <RsvpIcon/> */}
+              <h4>Add RSVP</h4>
+            </button>
+          )}
+          {console.log(channels, "asdfghjkl")}
           {channels.length > 0 ? (
             channels.map((channel: any) => {
               // <h4>{channel?.channelName}</h4>
