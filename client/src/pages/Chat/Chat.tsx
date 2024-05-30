@@ -12,28 +12,35 @@ import { ChatContext } from "@/context/ChatContext";
 import { getMessage, getSingleChannel, sentMessage } from "@/api";
 import "../../component/ChatInput/ChatInput.css";
 import SendIcon from "@mui/icons-material/Send";
+import AllMessages from "./AllMessages";
+import ScrollableFeed from "react-scrollable-feed";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import io from "socket.io-client";
+const ENDPOINT = "http://localhost:3000"; 
+var socket, selectedChatCompare;
+
 
 const Chat = () => {
   const { roomId } = useParams<{ roomId: string }>();
   const [roomDetails, setRoomDetails] = useState(null);
   const [messages, setMessages] = useState<any>([]);
-
-  const [newMessage,setNewMessage] = useState("")
+  const { userId } = useAppSelector((state) => state.user);
+  const [newMessage, setNewMessage] = useState("");
 
   const { selectChannel, channelId } = useContext(ChatContext);
-  const [data, setData] = useState<any>([]);//channel data
-  const [chatId,setChatId] = useState<any>("")
+  const [data, setData] = useState<any>([]); //channel data
+  const [chatId, setChatId] = useState<any>("");
   // const [channelMessages,setChannelMessages] = useState<any>([])
   useEffect(() => {
     const getChannel = async () => {
       const response: any = await getSingleChannel(channelId);
       console.log(response);
-      setMessages(response?.messages)
+      setMessages(response?.messages);
       setData(response?.channel);
       // console.log(data?.chat?._id)
-      setChatId(response.channel?.chatId)
+      setChatId(response.channel?.chatId);
     };
-    if (selectChannel&&channelId) {
+    if (selectChannel && channelId) {
       getChannel();
     }
   }, [selectChannel, channelId]);
@@ -50,26 +57,37 @@ const Chat = () => {
   //   fetchMessages()
   // },[selectChannel])
 
-  const sendMessage = async(e:any) => {
-    e.preventDefault()
-    if(newMessage){
+  const sendMessage = async (e: any) => {
+    e.preventDefault();
+    if (newMessage) {
       try {
-        const response2 = await sentMessage(newMessage,chatId)
-        console.log(response2)
-        setNewMessage("")
-        setMessages([...messages,data])
+        const response2 = await sentMessage(newMessage, chatId);
+        console.log(response2);
+        setNewMessage("");
+        setMessages([...messages, data]);
       } catch (error) {
-          console.log(error)
+        console.log(error);
       }
     }
-  }
+  };
 
-  const typingHandler = (e:any) => {
-    setNewMessage(e.target.value)
-  }
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", userId);
+    // socket.on("connected", () => setSocketConnected(true));
+    // socket.on("typing", () => setIsTyping(true));
+    // socket.on("stop typing", () => setIsTyping(false));
+
+    // eslint-disable-next-line
+  }, []);
+
+  const typingHandler = (e: any) => {
+    setNewMessage(e.target.value);
+  };
   // console.log(newMessage)
-  console.log(messages)
-  if(!channelId||!chatId) return <div>Click a channel to show its chats</div>
+  console.log(messages);
+  if (!channelId || !chatId)
+    return <div>Click a channel to show its chats</div>;
   return (
     <>
       <div className="chat">
@@ -87,7 +105,17 @@ const Chat = () => {
           </div> */}
         </div>
         <div className="chat__messages">
-          //all messages
+          <ScrollableFeed>
+            {messages?.map((message: any, index: number) => (
+              <Message
+                key={index}
+                message={message?.content}
+                user={message?.sender?.name} 
+                time={message?.updatedAt} 
+                userImage={message?.sender?.profilePicture} 
+              />
+            ))}
+          </ScrollableFeed>
         </div>
         <div className="chatInput">
           <form onSubmit={sendMessage}>

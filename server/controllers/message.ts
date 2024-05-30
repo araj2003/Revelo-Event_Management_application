@@ -18,18 +18,15 @@ const sendMessage = async (req: Request, res: Response) => {
   };
 
   try {
-    var message: any = await Message.create(newMessage);
-    message = await message.populate(
-      "sender",
-      "name profilePicture email role",
-    );
-    message = await message.populate("chat");
-    message.save()
-    await Chat.findByIdAndUpdate(chatId, {
-      latestMessage: message,
+    const message = await Message.create(newMessage);
+    const populatedMessage = await Message.populate(message, {
+      path: "sender readBy chat",
+      model: "User",
     });
 
-    return res.status(200).json(message);
+    await populatedMessage.save();
+    await Chat.findByIdAndUpdate(chatId, { latestMessage: populatedMessage });
+    return res.status(200).json(populatedMessage);
   } catch (error) {
     console.log(error);
     return res.status(500).json({

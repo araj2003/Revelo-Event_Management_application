@@ -118,8 +118,8 @@ const start = async () => {
 
     io.on("connection", (socket: any) => {
       console.log("socket connection established", socket.id);
-      socket.on("setup", (userData: any) => {
-        socket.join(userData._id);
+      socket.on("setup", (userId: any) => {
+        socket.join(userId);
         socket.emit("connected");
       });
 
