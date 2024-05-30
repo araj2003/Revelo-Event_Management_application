@@ -10,7 +10,7 @@ import SidebarOption from "../SidebarOption/SidebarOption";
 // import FileCopy from "@mui/icons-material/FileCopy";
 import Add from "@mui/icons-material/Add";
 import { useContext, useEffect, useState } from "react";
-import { getSubEvents } from "../../api";
+// import { getSubEvents } from "../../api";
 import { EventContext } from "@/context/EventContext";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/user-modal";

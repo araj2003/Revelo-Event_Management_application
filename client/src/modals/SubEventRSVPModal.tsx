@@ -25,6 +25,7 @@ import { EventContext } from "@/context/EventContext";
 import { useContext, useState } from "react";
 import { addRSVP, createSubEvent } from "@/api";
 import { Button } from "../components/ui/button";
+import { toast } from "react-toastify";
 // import { EventContext } from "@/context/EventContext";
 
 // const {eventId} = useContext(EventContext)
@@ -67,6 +68,7 @@ const SubEventRSVPModal = () => {
     const result = await addRSVP(subEventId, formData);
     console.log(result)
     if (result) {
+      toast.success("RSVP sent to all guests' email.");
       form.reset();
       onClose();
       fetchAllSubEvents();

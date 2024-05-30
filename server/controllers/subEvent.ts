@@ -9,6 +9,7 @@ import { StatusCodes } from "http-status-codes";
 import { IServer, ISubEvent } from "../types/models";
 import mongoose from "mongoose";
 import { uploadRSVPImage } from "../utils/cloudinary";
+import sendMail from "../utils/sendMail";
 
 const createSubEvent = async (req: Request, res: Response) => {
   const { subEventName, eventId, subEventDate, subEventTime } = req.body;
@@ -255,6 +256,19 @@ const addRSVP = async (req: Request, res: Response) => {
     },
   };
   await subEvent.save();
+
+  // send email to all users
+  const users = await User.find({ _id: { $in: subEvent.users } });
+  users.forEach(async (user) => {
+    sendMail({
+      from: process.env.SMTP_EMAIL_USER,
+      to: user.email,
+      subject: `RSVP for ${subEvent.subEventName}`,
+      text: `Please RSVP for the event ${subEvent.subEventName}.`,
+    });
+  });
+
+
   return res.status(200).json({ subEvent, msg: "RSVP added" });
 }
 
