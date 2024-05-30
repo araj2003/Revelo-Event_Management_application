@@ -6,6 +6,7 @@ import InviteMemberModal from "@/modals/InviteMemberModal";
 import MembersModal from "@/modals/members-modal";
 import AddChannelModal from "@/modals/AddChannelModal";
 import SubEventRSVPModal from "@/modals/SubEventRSVPModal";
+import ShowRSVPModal from "@/modals/ShowRSVPModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -26,6 +27,7 @@ export const ModalProvider = () => {
       <MembersModal />
       <AddChannelModal />
       <SubEventRSVPModal />
+      <ShowRSVPModal />
     </>
   );
 };

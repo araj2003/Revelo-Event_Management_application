@@ -84,6 +84,7 @@ const Sidebar = () => {
             showIcon={true}
             id={subEvent._id}
             type="subevent"
+            subEvent={subEvent}
           />
           <hr />
           {/* </div> */}
