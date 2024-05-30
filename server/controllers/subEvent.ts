@@ -260,7 +260,8 @@ const addRSVP = async (req: Request, res: Response) => {
 
 const acceptRejectRSVP = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
-  const { userId, status } = req.body;
+  const { status } = req.body;
+  const userId = req.user.userId; 
   const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");

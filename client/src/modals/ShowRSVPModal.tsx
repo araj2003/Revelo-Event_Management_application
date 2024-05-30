@@ -23,7 +23,7 @@ import { Input } from "../components/ui/input";
 import { useModal } from "@/hooks/user-modal";
 import { EventContext } from "@/context/EventContext";
 import { useContext, useState } from "react";
-import { addRSVP, createSubEvent } from "@/api";
+import { acceptRejectRsvp, addRSVP, createSubEvent } from "@/api";
 import { Button } from "../components/ui/button";
 // import { EventContext } from "@/context/EventContext";
 
@@ -36,7 +36,10 @@ const ShowRSVPModal = () => {
 
   const isModalOpen = isOpen && type === "showRSVP";
 
-  const handleClose = () => {
+  const handleClose = async(e:any) => {
+    // console.log(e.target.value)
+    const response = await acceptRejectRsvp(subEventId,e.target.value) 
+    console.log(response)
     onClose();
   };
 
@@ -63,8 +66,8 @@ const ShowRSVPModal = () => {
           className="w-[30rem] object-cover mx-auto rounded-lg"
         />
         <div>
-          <Button className="bg-green-600" variant={null} onClick={handleClose}>Accept</Button>
-          <Button className="bg-red-500" variant={null} onClick={handleClose}>Deny</Button>
+          <Button className="bg-green-600" variant={null} onClick={(e) => handleClose(e)} value = {"accept"}>Accept</Button>
+          <Button className="bg-red-500" variant={null} onClick={(e) => handleClose(e)} value={"reject"}>Deny</Button>
         </div>
       </DialogContent>
     </Dialog>
