@@ -105,6 +105,6 @@ export const getSingleChat = () => API.get("/group/getSingleChats")
 export const getGroupChat = () => API.get("getGroupChats")
 
 //rsvp
-export const acceptRejectRsvp = (subEventId:any,status:any) => API.put(`/subEvent/acceptRejectRSVP/${subEventId}`,{status:status
-})
+export const acceptRejectRsvp = (subEventId:any,status:any) => API.put(`/subEvent/acceptRejectRSVP/${subEventId}`,{status:status});
+export const hasAccepted = (subEventId:any) => API.get(`/subEvent/hasAccepted/${subEventId}`)
 export const addRSVP = (subEventId:any, rsvpData:any) => API.post(`/subEvent/addRSVP/${subEventId}`,rsvpData)

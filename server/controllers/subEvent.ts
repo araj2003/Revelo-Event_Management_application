@@ -244,7 +244,7 @@ const addRSVP = async (req: Request, res: Response) => {
   if(!subEvent.admin.includes(userId)){
     throw new BadRequestError("You are not an admin")
   }
-  const cloudinary_url = await uploadRSVPImage(req);
+  const cloudinary_url = await uploadRSVPImage(req,subEvent._id);
   subEvent.rsvp = {
     title,
     description,
@@ -269,6 +269,12 @@ const acceptRejectRSVP = async (req: Request, res: Response) => {
   if (!subEvent.rsvp) {
     throw new BadRequestError("RSVP not found");
   }
+  subEvent.rsvp.userIds.accepted = subEvent.rsvp.userIds.accepted.filter(
+    (id) => id.toString() !== userId.toString(),
+  );
+  subEvent.rsvp.userIds.rejected = subEvent.rsvp.userIds.rejected.filter(
+    (id) => id.toString() !== userId.toString(),
+  );
   if (status === "accept") {
     subEvent.rsvp.userIds.accepted.push(userId);
   } else if (status === "reject") {
@@ -278,6 +284,21 @@ const acceptRejectRSVP = async (req: Request, res: Response) => {
   }
   await subEvent.save();
   return res.status(200).json({ subEvent, msg: "RSVP updated" });
+}
+
+const hasAcceptedRSVP = async (req: Request, res: Response) => {
+  const { subEventId } = req.params;
+  const userId = req.user.userId;
+  const subEvent = await SubEvent.findById(subEventId);
+  if (!subEvent) {
+    throw new BadRequestError("SubEvent not found");
+  }
+  if (!subEvent.rsvp) {
+    throw new BadRequestError("RSVP not found");
+  }
+  const hasAccepted = subEvent.rsvp.userIds.accepted.includes(userId);
+  const hasRejected = subEvent.rsvp.userIds.rejected.includes(userId);
+  return res.status(200).json({ status:hasAccepted?"accept":hasRejected?"reject":"pending", msg: "RSVP status" });
 }
 
 export {
@@ -293,4 +314,5 @@ export {
   getUsersNotInSubEvent,
   addRSVP,
   acceptRejectRSVP,
+  hasAcceptedRSVP
 };

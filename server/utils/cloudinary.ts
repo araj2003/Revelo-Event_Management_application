@@ -29,15 +29,14 @@ const uploadProfileImage = async (req: Request) => {
   return result.secure_url;
 };
 
-const uploadRSVPImage = async (req: Request) => {
+const uploadRSVPImage = async (req: Request, subEventId:any) => {
   const { file } = req;
   if (!file) throw new BadRequestError("Please provide an image file");
-  const userId = req.user.userId.toString();
   const result = await cloudinary.uploader.upload(
     `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`,
     {
       folder: "event-manager/rsvp-images",
-      public_id: userId,
+      public_id: subEventId.toString(),
       overwrite: false,
       format: "webp",
     },

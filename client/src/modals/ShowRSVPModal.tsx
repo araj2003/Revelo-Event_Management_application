@@ -1,29 +1,15 @@
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { useForm } from "react-hook-form";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "../components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormLabel,
-  FormMessage,
-  FormItem,
-} from "../components/ui/form";
 // import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { useModal } from "@/hooks/user-modal";
-import { EventContext } from "@/context/EventContext";
-import { useContext, useState } from "react";
-import { acceptRejectRsvp, addRSVP, createSubEvent } from "@/api";
+import { useContext, useEffect, useState } from "react";
+import { acceptRejectRsvp, hasAccepted } from "@/api";
 import { Button } from "../components/ui/button";
 // import { EventContext } from "@/context/EventContext";
 
@@ -31,17 +17,33 @@ import { Button } from "../components/ui/button";
 
 const ShowRSVPModal = () => {
   const { isOpen, onClose, type, subEventId, subEvent } = useModal();
-  const [image, setImage] = useState<File | null>(null);
+  const [accepted, setAccepted] = useState(null);
   // const { eventId, fetchAllSubEvents } = useContext(EventContext);
 
   const isModalOpen = isOpen && type === "showRSVP";
+  console.log(type);
 
-  const handleClose = async(e:any) => {
-    // console.log(e.target.value)
-    const response = await acceptRejectRsvp(subEventId,e.target.value) 
-    console.log(response)
+  const handleReq = async (e: any) => {
+    const response = await acceptRejectRsvp(subEventId, e.target.value);
+    console.log(response);
+    setAccepted(e.target.value);
+  };
+
+  const handleClose = async (e: any) => {
     onClose();
   };
+
+  useEffect(() => {
+    if (subEvent?.rsvp) {
+      const hasAcceptedRSVP = async () => {
+        const response: any = await hasAccepted(subEventId);
+        console.log(response);
+        setAccepted(response.status);
+      };
+      hasAcceptedRSVP();
+    }
+  }, [subEvent,isModalOpen]);
+  console.log(accepted)
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -65,9 +67,35 @@ const ShowRSVPModal = () => {
           alt="rsvp"
           className="w-[30rem] object-cover mx-auto rounded-lg"
         />
-        <div>
-          <Button className="bg-green-600" variant={null} onClick={(e) => handleClose(e)} value = {"accept"}>Accept</Button>
-          <Button className="bg-red-500" variant={null} onClick={(e) => handleClose(e)} value={"reject"}>Deny</Button>
+        <div className="ml-4 mb-4 gap-4">
+          {!accepted || accepted === "pending" ? (
+            <>
+              <Button
+                className={`bg-green-600`}
+                variant={null}
+                onClick={handleReq}
+                value={"accept"}
+              >
+                Accept
+              </Button>
+              <Button
+                className="bg-red-500"
+                variant={null}
+                onClick={handleReq}
+                value={"reject"}
+              >
+                Deny
+              </Button>
+            </>
+          ) : accepted === "accept" ? (
+            <Button className="bg-green-600" variant={null}>
+              Accepted
+            </Button>
+          ) : accepted === "reject" ? (
+            <Button className="bg-red-500" variant={null}>
+              Rejected
+            </Button>
+          ) : <h2>Loading...</h2>}
         </div>
       </DialogContent>
     </Dialog>
