@@ -2,6 +2,7 @@ import "./Sidebar.css";
 // import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import CreateIcon from "@mui/icons-material/Create";
 import SidebarOption from "../SidebarOption/SidebarOption";
+import EventIcon from "@mui/icons-material/Event";
 // import InsertComment from "@mui/icons-material/InsertComment";
 // import Inbox from "@mui/icons-material/Inbox";
 // import Drafts from "@mui/icons-material/Drafts";
@@ -16,8 +17,14 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/user-modal";
 
 const Sidebar = () => {
-  const { eventId, subEvents, setSubEvents, setEvent, event,fetchAllSubEvents } =
-    useContext(EventContext);
+  const {
+    eventId,
+    subEvents,
+    setSubEvents,
+    setEvent,
+    event,
+    fetchAllSubEvents,
+  } = useContext(EventContext);
   const { onOpen } = useModal();
   const [channels, setChannels] = useState([
     // {
@@ -53,11 +60,13 @@ const Sidebar = () => {
       <div className="sidebar__header">
         <div className="sidebar__info">
           <h2>{event?.serverName}</h2>
-          <h3>
-            {event?.description}
-          </h3>
+          <h3>{event?.description}</h3>
         </div>
         <CreateIcon />
+      </div>
+      <div onClick={()=>{onOpen("showCalendar")}} className="m-2 mr-3 p-2 rounded-lg cursor-pointer text-sm flex justify-start gap-4 bg-[#00000039]">
+        Calendar
+        <EventIcon fontSize="small" />
       </div>
       {/* <SidebarOption Icon={InsertComment} title="Threads" />
       <hr />
@@ -89,7 +98,7 @@ const Sidebar = () => {
           <hr />
           {/* </div> */}
         </>
-      ))} 
+      ))}
       <SidebarOption Icon={Add} title="Add Subevent" addChanneloption={true} />
       <hr />
       {/*  connect to db and list all the channels */}
@@ -105,7 +114,6 @@ const Sidebar = () => {
         <Button className="m-4" onClick={openInviteMemberModal}>
           Invite Member
         </Button>
-        
       </div>
     </div>
   );

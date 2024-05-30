@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ModalType = "createSubevent"  | "createEvent" | "inviteMember" | "members" | "addChannel" | "addRSVP" | "showRSVP";
+export type ModalType = "createSubevent"  | "createEvent" | "inviteMember" | "members" | "addChannel" | "addRSVP" | "showRSVP" | "showCalendar";
 
 interface Modalstore {
   type: ModalType | null;
