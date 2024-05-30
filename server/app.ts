@@ -38,7 +38,6 @@ import messageRouter from "./routes/message";
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
-import { Socket } from "dgram";
 
 app.set("trust proxy", 1);
 
@@ -112,7 +111,7 @@ const start = async () => {
     const io = new Server(server, {
       pingTimeout: 60000,
       cors: {
-        origin: "http://localhost:3000",
+        origin: ["http://localhost:3000", "http://localhost:5173"]
       },
     });
 
