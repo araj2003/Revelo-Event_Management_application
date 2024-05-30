@@ -24,6 +24,7 @@ const Sidebar = () => {
     setEvent,
     event,
     fetchAllSubEvents,
+    role,
   } = useContext(EventContext);
   const { onOpen } = useModal();
   const [channels, setChannels] = useState([
@@ -64,7 +65,12 @@ const Sidebar = () => {
         </div>
         <CreateIcon />
       </div>
-      <div onClick={()=>{onOpen("showCalendar")}} className="m-2 mr-3 p-2 rounded-lg cursor-pointer text-sm flex justify-start gap-4 bg-[#00000039]">
+      <div
+        onClick={() => {
+          onOpen("showCalendar");
+        }}
+        className="m-2 mr-3 p-2 rounded-lg cursor-pointer text-sm flex justify-start gap-4 bg-[#00000039]"
+      >
         Calendar
         <EventIcon fontSize="small" />
       </div>
@@ -99,10 +105,18 @@ const Sidebar = () => {
           {/* </div> */}
         </>
       ))}
-      <SidebarOption Icon={Add} title="Add Subevent" addChanneloption={true} />
-      <hr />
+      {role === "host" && (
+        <>
+          <SidebarOption
+            Icon={Add}
+            title="Add Subevent"
+            addChanneloption={true}
+          />
+          <hr />
+        </>
+      )}
       {/*  connect to db and list all the channels */}
-      {channels.map((channel) => (
+      {channels.map((channel: any) => (
         <SidebarOption
           key={channel.id}
           title={channel.channel}
@@ -110,11 +124,13 @@ const Sidebar = () => {
           id={channel.id}
         />
       ))}
-      <div className="flex flex-col ">
-        <Button className="m-4" onClick={openInviteMemberModal}>
-          Invite Member
-        </Button>
-      </div>
+      {role === "host" && (
+        <div className="flex flex-col ">
+          <Button className="m-4" onClick={openInviteMemberModal}>
+            Invite Member
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

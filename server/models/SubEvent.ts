@@ -38,15 +38,15 @@ const SubEventSchema = new mongoose.Schema<ISubEvent>({
   rsvp: {
     title: {
       type: String,
-      required: true,
+      // required: true,
     },
     description: {
       type: String,
-      required: true,
+      // required: true,
     },
     image: {
       type: String,
-      required: true,
+      // required: true,
     },
     userIds: {
       accepted: [

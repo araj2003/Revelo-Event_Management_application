@@ -129,7 +129,7 @@ const getAllChannels = async (req: Request, res: Response) => {
   }).populate("channels");
 
   if (!subEvent) {
-    throw new BadRequestError("event not found");
+    throw new BadRequestError("You are not a part of this subevent");
   }
 
   return res.status(200).json({

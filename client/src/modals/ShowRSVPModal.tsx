@@ -21,7 +21,6 @@ const ShowRSVPModal = () => {
   // const { eventId, fetchAllSubEvents } = useContext(EventContext);
 
   const isModalOpen = isOpen && type === "showRSVP";
-  console.log(type);
 
   const handleReq = async (e: any) => {
     const response = await acceptRejectRsvp(subEventId, e.target.value);
@@ -43,7 +42,6 @@ const ShowRSVPModal = () => {
       hasAcceptedRSVP();
     }
   }, [subEvent,isModalOpen]);
-  console.log(accepted)
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>

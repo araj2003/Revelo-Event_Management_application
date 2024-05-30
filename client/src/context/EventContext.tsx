@@ -47,6 +47,7 @@ export const EventProvider: any = ({ children }: { children: any }) => {
   const [subEventId, setSubEventId] = useState(null);
   const [channelId, setChannelId] = useState(null);
   const [event, setEvent] = useState(defaultEvents);
+  const [role, setRole] = useState(null);
   const [subEvents, setSubEvents] = useState<any[]>(defaultSubEvents);
   const fetchAllSubEvents = async () => {
     try {
@@ -54,8 +55,9 @@ export const EventProvider: any = ({ children }: { children: any }) => {
       console.log(data);
       if (data.event) {
         setEvent(data.event);
+        setRole(data.role);
         setSubEvents(data.subEvents);
-        console.log(data.subEvents);
+        // console.log(data.subEvents);
       }
     } catch (error) {
       console.log(error);
@@ -76,6 +78,7 @@ export const EventProvider: any = ({ children }: { children: any }) => {
         subEvents,
         setSubEvents,
         fetchAllSubEvents,
+        role,
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import User from "../models/User";
 import Event from "../models/Server";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import { StatusCodes } from "http-status-codes";
+import { ISubEvent } from "../types/models";
 
 const createEvent = async (req: Request, res: Response) => {
   const { serverName, description } = req.body;
@@ -57,8 +58,22 @@ const getAllEvent = async (req: Request, res: Response) => {
     $or: [{ host: userId }, { users: userId }],
   });
 
+  // role vendor, host or user
+  const role = events.map((event) => {
+    if (event.host.includes(userId)) {
+      return "host";
+    }
+    if (event.users.includes(userId)) {
+      return "user";
+    }
+    if (event.vendors.includes(userId)) {
+      return "vendor";
+    }
+  });
+
   res.status(StatusCodes.OK).json({
     events,
+    role,
     msg: "list of all the events",
   });
 };
@@ -135,9 +150,38 @@ const getAllSubEvent = async (req: Request, res: Response) => {
     throw new BadRequestError("event not found");
   }
 
+  // only get subevents which the user is part of as user host or vendor
+  const subEvents = event[0].subEvents.filter((subEvent: any) => {
+    if (
+      subEvent.admin.some((admin:any) => admin.toString()===userId.toString()) ||
+      subEvent.users.some((user:any) => user.toString()===userId.toString())
+      // subEvent.vendors.includes(userId)
+    ) {
+      return subEvent;
+    }
+  });
+
+  console.log(subEvents);
+
+  // role vendor, host or user
+  const role = event.map((event) => {
+    if (event.host.includes(userId)) {
+      return "host";
+    }
+    if (event.users.includes(userId)) {
+      return "user";
+    }
+    if (event.vendors.includes(userId)) {
+      return "vendor";
+    }
+  });
+
+  console.log(role[0]);
+
   return res.status(StatusCodes.OK).json({
     event: event[0],
-    subEvents: event[0].subEvents,
+    role: role[0],
+    subEvents,
     msg: "subevents fetched successfully",
   });
 };
