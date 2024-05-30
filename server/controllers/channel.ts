@@ -60,9 +60,8 @@ const getChannel = async (req: Request, res: Response) => {
   if (!channel) {
     throw new BadRequestError("channel not found");
   }
-  console.log(channel.chatId)
-  const messages = await Message.find({chat:channel.chatId}).sort({ createdAt: 1 });
-  const msg = await Message.find({})
+  // console.log(channel.chatId)
+  const messages = await Message.find({chat:channel.chatId}).populate("sender").sort({ createdAt: 1 });
   // console.log(msg)
   return res.status(StatusCodes.OK).json({
     channel,

@@ -127,14 +127,9 @@ const start = async () => {
         console.log("user joined room", room);
       });
 
-      socket.on("new-message", (newMessageRecieved: any) => {
-        var chat = newMessageRecieved.chat;
-        chat.users.forEach((user: any) => {
-          if (user._id == newMessageRecieved.sender._id) {
-            return;
-          }
-          socket.in(user._id).emit("message-received", newMessageRecieved);
-        });
+      socket.on("new-message", (newMessageRecieved: any, chatId:any) => {
+        // console.log(newMessageRecieved,abc);
+        socket.in(chatId).emit("message-received", newMessageRecieved);
       });
 
       socket.on("typing", (room: any) => {

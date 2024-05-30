@@ -16,9 +16,8 @@ import AllMessages from "./AllMessages";
 import ScrollableFeed from "react-scrollable-feed";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import io from "socket.io-client";
-const ENDPOINT = "http://localhost:3000"; 
-var socket:any, selectedChatCompare;
-
+const ENDPOINT = "http://localhost:3000";
+var socket: any, selectedChatCompare;
 
 const Chat = () => {
   const { roomId } = useParams<{ roomId: string }>();
@@ -40,7 +39,7 @@ const Chat = () => {
       setData(response?.channel);
       // console.log(data?.chat?._id)
       setChatId(response.channel?.chatId);
-      socket.emit("join chat", response.channel?.chatId);
+      socket.emit("join-chat", response.channel?.chatId);
     };
     if (selectChannel && channelId) {
       getChannel();
@@ -66,8 +65,8 @@ const Chat = () => {
         const response2 = await sentMessage(newMessage, chatId);
         console.log(response2);
         setNewMessage("");
-        socket.emit("new message", response2);
-        setMessages([...messages, data]);
+        socket.emit("new-message", response2, chatId);
+        setMessages([...messages, response2]);
       } catch (error) {
         console.log(error);
       }
@@ -75,31 +74,33 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    socket = io(ENDPOINT);
-    socket.emit("setup", userId);
-    
-    socket.on("connected", () => setSocketConnected(true));
-    // socket.on("typing", () => setIsTyping(true));
-    // socket.on("stop typing", () => setIsTyping(false));
+    if (!socketConnected) {
+      socket = io(ENDPOINT);
+      socket.emit("setup", userId);
 
-    // eslint-disable-next-line
+      socket.on("connected", () => setSocketConnected(true));
+      // socket.on("typing", () => setIsTyping(true));
+      // socket.on("stop typing", () => setIsTyping(false));
+      // socket.on("message recieved", (newMessageRecieved:any) => {
+      // eslint-disable-next-line
+      socket.on("message-received", (newMessageRecieved: any) => {
+        console.log(newMessageRecieved);
+        console.log(messages);
+        setMessages((prev: any) => {
+          console.log(prev);
+          return [...prev, newMessageRecieved];
+        });
+      });
+    }
   }, []);
 
-  useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved:any) => {
-  
-        setMessages([...messages, newMessageRecieved]);
-      })
-  });
-
-
+  // useEffect(() => {});
 
   const typingHandler = (e: any) => {
-
     setNewMessage(e.target.value);
   };
   // console.log(newMessage)
-  console.log(messages);
+  // console.log(messages);
   if (!channelId || !chatId)
     return <div>Click a channel to show its chats</div>;
   return (
@@ -124,8 +125,8 @@ const Chat = () => {
               <Message
                 key={index}
                 message={message?.content}
-                sender={message?.sender} 
-                time={message?.updatedAt} 
+                sender={message?.sender}
+                time={message?.updatedAt}
                 userImage={message?.sender?.profilePicture}
                 userId={userId}
               />
