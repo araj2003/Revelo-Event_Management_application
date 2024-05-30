@@ -2,11 +2,12 @@ import "./SidebarOption.css";
 // import { useNavigate } from "react-router-dom";
 import { useModal } from "@/hooks/user-modal";
 import PeopleIcon from "@mui/icons-material/People";
-import AddCommentIcon from '@mui/icons-material/AddComment';
+import AddCommentIcon from "@mui/icons-material/AddComment";
 import { useContext, useEffect, useState } from "react";
 // import { EventContext } from "@/context/EventContext";
 import { getAllChannels } from "@/api";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { ChatContext } from "@/context/ChatContext";
 
 const SidebarOption = ({
   Icon,
@@ -25,10 +26,11 @@ const SidebarOption = ({
 }) => {
   const { onOpen } = useModal();
   // const { subEventId } = useContext(EventContext);
+  const { selectSingleChannel } = useContext(ChatContext);
   const [open, setOpen] = useState(false);
   const [channels, setChannels] = useState<any>([]);
   // const navigate = useNavigate();
-  const selectChannel = async () => {
+  const selectSubEvent = async () => {
     if (type == "subevent") {
       setOpen(!open);
     }
@@ -51,7 +53,7 @@ const SidebarOption = ({
     if (addChanneloption) {
       addSubevent();
     } else {
-      selectChannel();
+      selectSubEvent();
     }
     setOpen(!open);
   };
@@ -64,12 +66,12 @@ const SidebarOption = ({
   const addChannelModal = (subEventId: string) => {
     onOpen("addChannel", subEventId);
   };
-  
+
   return (
     <>
       <div
         className="sidebarOption"
-        onClick={addChanneloption ? addSubevent : selectChannel}
+        onClick={addChanneloption ? addSubevent : selectSubEvent}
       >
         {showIcon && type == "subevent" ? (
           open ? (
@@ -96,24 +98,27 @@ const SidebarOption = ({
                   <PeopleIcon fontSize="small" />
                 </button>
                 <button onClick={() => addChannelModal(id)}>
-                  <AddCommentIcon fontSize="small"/>
+                  <AddCommentIcon fontSize="small" />
                 </button>
               </div>
             </div>
           </>
         )}
       </div>
-      {open && (
+      {open && type === "subevent" && (
         <div className="flex flex-col text-sm items-center mx-2">
-          {console.log(channels, "asdfghjkl")}
+          {/* {console.log(channels, "asdfghjkl")} */}
           {channels.length > 0 ? (
             channels.map((channel: any) => {
               // <h4>{channel?.channelName}</h4>
-              {
-                console.log(channel);
-              }
+              // {
+              //   console.log(channel);
+              // }
               return (
-                <h4 className="sidebarOption__channel bg-[#ffffff0e] hover:bg-[#ffffff52] cursor-pointer w-[99%] mx-2 mr-4 mb-2 rounded-lg">
+                <h4
+                  onClick={() => selectSingleChannel(channel._id)}
+                  className="sidebarOption__channel bg-[#ffffff0e] hover:bg-[#ffffff52] cursor-pointer w-[99%] mx-2 mr-4 mb-2 rounded-lg"
+                >
                   <span className="sidebarOption__hash">#</span>
                   {channel?.channelName}
                 </h4>

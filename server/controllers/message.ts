@@ -8,7 +8,7 @@ const sendMessage = async (req: Request, res: Response) => {
   const { content, chatId } = req.body;
   console.log(req.body)
   if (!content || !chatId) {
-    throw new BadRequestError("Please provide complete imformation");
+    throw new BadRequestError("Please provide the content and chatId");
   }
   
   var newMessage = {

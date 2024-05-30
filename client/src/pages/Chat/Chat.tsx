@@ -31,12 +31,12 @@ const Chat = () => {
       setMessages(response?.messages)
       setData(response?.channel);
       // console.log(data?.chat?._id)
-      setChatId(data?.chat?._id)
+      setChatId(response.channel?.chatId)
     };
-    if (selectChannel) {
+    if (selectChannel&&channelId) {
       getChannel();
     }
-  }, [selectChannel]);
+  }, [selectChannel, channelId]);
 
   // const fetchMessages = async() => {
   //   if(selectChannel){
@@ -54,7 +54,7 @@ const Chat = () => {
     e.preventDefault()
     if(newMessage){
       try {
-        const response2 = await sentMessage(newMessage,data?.chat?._id)
+        const response2 = await sentMessage(newMessage,chatId)
         console.log(response2)
         setNewMessage("")
         setMessages([...messages,data])
@@ -69,6 +69,7 @@ const Chat = () => {
   }
   // console.log(newMessage)
   console.log(messages)
+  if(!channelId||!chatId) return <div>Click a channel to show its chats</div>
   return (
     <>
       <div className="chat">

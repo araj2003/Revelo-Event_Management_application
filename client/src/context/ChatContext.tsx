@@ -5,8 +5,15 @@ export const ChatContext = createContext<any>(null);
 
 export const ChatProvider: any = ({ children }: { children: any }) => {
     const [selectChannel,setSelectedChanel] = useState<boolean>(true)
-    const [channelId,setChannelId] = useState<any>("6655cff389ac6083403aa073")
+    const [channelId,setChannelId] = useState<any>("")
     const [singleChat,setSingleChat] = useState<boolean>(false)
+
+    const selectSingleChannel = async(channelId:string) => {
+      setChannelId(channelId)
+      setSelectedChanel(true)
+      console.log(channelId,"channelId")
+    }
+
     return (
       <ChatContext.Provider
         value={{
@@ -15,7 +22,8 @@ export const ChatProvider: any = ({ children }: { children: any }) => {
             channelId,
             setChannelId,
             singleChat,
-            setSingleChat
+            setSingleChat,
+            selectSingleChannel
         }}
       >
         {children}
