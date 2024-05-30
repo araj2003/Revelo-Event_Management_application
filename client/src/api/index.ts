@@ -105,3 +105,12 @@ export const searchUsers = (searchUser:any) => API.get(`/event/users/search?quer
 export const getSingleChat = () => API.get("/group/getSingleChats")
 export const getGroupChat = () => API.get("getGroupChats")
 
+//channels:-
+export const getSingleChannel = (channelId:any) => API.get(`/channel/getChannel/${channelId}`)
+
+//message:-
+export const sentMessage = (content:any,chatId:any) => API.post(`/message/sendMessage`,{
+  content:content,chatId:chatId
+})
+
+export const getMessage = (chatId:any) => API.get(`/message/getMessage/${chatId}`)

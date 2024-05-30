@@ -33,6 +33,8 @@ import groupRouter from "./routes/group";
 
 import calenderRouter from "./routes/calender";
 
+import messageRouter from "./routes/message";
+
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
@@ -83,6 +85,8 @@ app.use("/api/v1/invite", inviteRouter);
 app.use("/api/v1/meeting", meetingRouter);
 app.use("/api/v1/group", groupRouter);
 app.use("/api/v1/calender", calenderRouter);
+app.use("/api/v1/message", messageRouter);
+
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);

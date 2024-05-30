@@ -6,11 +6,11 @@ import Message from "../models/Message";
 
 const sendMessage = async (req: Request, res: Response) => {
   const { content, chatId } = req.body;
-
+  console.log(req.body)
   if (!content || !chatId) {
     throw new BadRequestError("Please provide complete imformation");
   }
-
+  
   var newMessage = {
     sender: req.user.userId,
     content: content,
@@ -24,7 +24,7 @@ const sendMessage = async (req: Request, res: Response) => {
       "name profilePicture email role",
     );
     message = await message.populate("chat");
-
+    message.save()
     await Chat.findByIdAndUpdate(chatId, {
       latestMessage: message,
     });
@@ -42,7 +42,7 @@ const sendMessage = async (req: Request, res: Response) => {
 
 const getMessage = async (req: Request, res: Response) => {
   try {
-    const { id: chatId } = req.params;
+    const {chatId } = req.params;
 
     var messages = await Message.find({ chat: chatId })
       .populate("sender", "user_name profile_pic email")

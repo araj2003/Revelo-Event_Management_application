@@ -4,7 +4,8 @@ import User from "../models/User";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import SubEvent from "../models/SubEvent";
 import Event from "../models/Server";
-
+import Channel from "../models/Channel";
+import Chat from "../models/Chat";
 import { StatusCodes } from "http-status-codes";
 import { IServer, ISubEvent } from "../types/models";
 import mongoose from "mongoose";
@@ -155,20 +156,32 @@ const updateSubEvent = async (req: Request, res: Response) => {
 
 const addUserToSubEvent = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
-  console.log(subEventId)
-
   const { userId } = req.body;
-  console.log(userId)
+
   const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");
   }
-  if(subEvent.users.includes(userId)){
-    throw new BadRequestError("user already present")
+
+  if (subEvent.users.includes(userId)) {
+    throw new BadRequestError("User already present");
   }
-  subEvent.users.push(userId)
-  console.log(subEvent)
-  await subEvent.save()
+
+  subEvent.users.push(userId);
+
+  
+  const channels = await Channel.find({ _id: { $in: subEvent.channels } });
+
+
+  for (const channel of channels) {
+    const chat = await Chat.findById(channel.chatId);
+    if (chat) {
+      chat.users.push(userId);
+      await chat.save();
+    }
+  }
+
+  await subEvent.save();
 
   return res.status(200).json({ subEvent, msg: "User added to subEvent" });
 };

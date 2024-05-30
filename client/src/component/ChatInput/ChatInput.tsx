@@ -2,10 +2,14 @@ import "./ChatInput.css";
 import SendIcon from "@mui/icons-material/Send";
 
 const ChatInput = () => {
+  
+  const sendMessage = () => {
+
+  }
   return (
     <div className="chatInput">
-      <form>
-        <input type="text" />
+      <form onKeyDown={sendMessage}>
+        <input type="text" placeholder="Enter a message" />
         <button type="submit">
           <SendIcon />
         </button>

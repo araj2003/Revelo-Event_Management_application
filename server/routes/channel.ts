@@ -11,6 +11,6 @@ import { getChannel, createChannel } from "../controllers/channel";
 router.post("/createChannel", authMiddleWare, createChannel);
 
 //get Channel ..
-router.get("/getChannel", authMiddleWare, getChannel);
+router.get("/getChannel/:channelId", authMiddleWare, getChannel);
 
 export default router;
