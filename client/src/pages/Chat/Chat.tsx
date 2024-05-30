@@ -17,7 +17,7 @@ import ScrollableFeed from "react-scrollable-feed";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import io from "socket.io-client";
 const ENDPOINT = "http://localhost:3000"; 
-var socket, selectedChatCompare;
+var socket:any, selectedChatCompare;
 
 
 const Chat = () => {
@@ -30,6 +30,7 @@ const Chat = () => {
   const { selectChannel, channelId } = useContext(ChatContext);
   const [data, setData] = useState<any>([]); //channel data
   const [chatId, setChatId] = useState<any>("");
+  const [socketConnected, setSocketConnected] = useState<Boolean>(false);
   // const [channelMessages,setChannelMessages] = useState<any>([])
   useEffect(() => {
     const getChannel = async () => {
@@ -39,6 +40,7 @@ const Chat = () => {
       setData(response?.channel);
       // console.log(data?.chat?._id)
       setChatId(response.channel?.chatId);
+      socket.emit("join chat", response.channel?.chatId);
     };
     if (selectChannel && channelId) {
       getChannel();
@@ -64,6 +66,7 @@ const Chat = () => {
         const response2 = await sentMessage(newMessage, chatId);
         console.log(response2);
         setNewMessage("");
+        socket.emit("new message", response2);
         setMessages([...messages, data]);
       } catch (error) {
         console.log(error);
@@ -74,14 +77,25 @@ const Chat = () => {
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", userId);
-    // socket.on("connected", () => setSocketConnected(true));
+    
+    socket.on("connected", () => setSocketConnected(true));
     // socket.on("typing", () => setIsTyping(true));
     // socket.on("stop typing", () => setIsTyping(false));
 
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    socket.on("message recieved", (newMessageRecieved:any) => {
+  
+        setMessages([...messages, newMessageRecieved]);
+      })
+  });
+
+
+
   const typingHandler = (e: any) => {
+
     setNewMessage(e.target.value);
   };
   // console.log(newMessage)
@@ -110,9 +124,10 @@ const Chat = () => {
               <Message
                 key={index}
                 message={message?.content}
-                user={message?.sender?.name} 
+                sender={message?.sender} 
                 time={message?.updatedAt} 
-                userImage={message?.sender?.profilePicture} 
+                userImage={message?.sender?.profilePicture}
+                userId={userId}
               />
             ))}
           </ScrollableFeed>

@@ -1,7 +1,22 @@
 import "./Message.css";
 
-const Message = ({ message, user, time, userImage }) => {
+const Message = ({ message, sender, time, userImage,userId }) => {
   return (
+    sender?._id != userId ? (
+      <div className="message">
+      <img
+        src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
+        alt="user LOGO"
+      />
+      <div className="message__info">
+        <h4>
+          {sender?.name}
+          <span className="message__time">{time}</span>
+        </h4>
+        <p>Message : {message} </p>
+      </div>
+    </div>
+    ):(
     <div className="message">
       <img
         src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png"
@@ -9,12 +24,12 @@ const Message = ({ message, user, time, userImage }) => {
       />
       <div className="message__info">
         <h4>
-          {user}
+          {sender?.name}
           <span className="message__time">{time}</span>
         </h4>
         <p>Message : {message} </p>
       </div>
-    </div>
+    </div>)
   );
 };
 
