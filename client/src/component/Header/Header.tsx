@@ -6,6 +6,10 @@ import { Input } from "@/components/ui/input";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import "./Header.css";
 import { searchUsers } from "@/api";
+import { useModal } from "@/hooks/user-modal";
+import MessageIcon from '@mui/icons-material/Message';
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
+
 
 const Header = () => {
   const [input, setInput] = useState("");
@@ -14,7 +18,7 @@ const Header = () => {
   const [timeoutId, setTimeoutId] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
-
+  const {onOpen} = useModal() 
   useEffect(() => {
     const fetchData = async () => {
       searchUsers(input)
@@ -37,7 +41,9 @@ const Header = () => {
   const handleInputChange = (e: any) => {
     setInput(e.target.value.toLowerCase());
   };
-
+  const openMeetingModal = (userId:string) => {
+    onOpen("meetingModal",null,null,userId)
+  }
   return (
     <div className="header ">
       <div className="header__left ">
@@ -66,11 +72,21 @@ const Header = () => {
             <div className="header__searchResults">
               {data.length} users found
               {data.map((user: any) => (
+                <div className="flex">
                 <div
-                  key={user.id}
+                  key={user._id}
                   className="bg-gray-50 border-gray-600 border-[0.5px]"
                 >
                   {user.name}
+                </div>
+                <button>
+                <MessageIcon/>
+                </button>
+                
+                <button onClick={() => openMeetingModal(user._id)}>
+                <EditCalendarIcon />
+                </button>
+                
                 </div>
               ))}
             </div>

@@ -116,3 +116,12 @@ export const sentMessage = (content:any,chatId:any) => API.post(`/message/sendMe
 })
 
 export const getMessage = (chatId:any) => API.get(`/message/getMessage/${chatId}`)
+
+//meeting
+export const createMeeting = (meetingData:any) => API.post(`/meeting/createMeeting`,{meetingData})
+
+export const getMeeting = (meetingId:any) => API.post(`/meeting/getMeeting/${meetingId}`)
+
+export const updateMeeting = () => API.post(`/meeting/updateMeeting`)
+
+export const getUserMeeting = (userId:any) => API.get(`/meeting/getUserMeeting/${userId}`)

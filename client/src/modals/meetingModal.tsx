@@ -60,7 +60,7 @@ const ScheduleMeeting = () => {
     },
   });
 
-  const isModalOpen = isOpen && type === "createEvent";
+  const isModalOpen = isOpen && type === "meetingModal";
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: FormValues) => {
@@ -74,6 +74,7 @@ const ScheduleMeeting = () => {
     onClose();
   };
   // console.log('a');
+  console.log(type,"abcd")
   
   return (
     <>
