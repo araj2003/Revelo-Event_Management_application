@@ -98,6 +98,7 @@ export const addChannelInSubEvent = (channelData:any) => API.post(`/channel/crea
 
 //search users
 export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
+export const searchVendorRoll = (subroll:any) => API.get(`/event/vendor/searchVendor?query=${subroll}`)
 
 
 //chats:-

@@ -14,6 +14,7 @@ import {
   getAllSubEvent,
   searchUser,
 } from "../controllers/event";
+import { searchVendorRoll } from "../controllers/vendor";
 
 //middleware (only host can do it)
 
@@ -39,6 +40,9 @@ router.get("/:id/subevents", authMiddleWare, getAllSubEvent);
 
 //search user
 router.get("/users/search", authMiddleWare, searchUser);
+
+router.get("/vendor/searchVendor", authMiddleWare, searchVendorRoll);
+
 
 export default router;
 
