@@ -6,9 +6,9 @@ import Message from "../models/Message";
 import Meeting from "../models/meeting";
 
 const createMeeting = async (req: Request, res: Response) => {
-  const meetingData = req.body;
-
-  if (!meetingData) {
+  const {meetingData} = req.body;
+  // console.log(meetingData)
+  if (!meetingData) { 
     throw new BadRequestError("Please provide complete imformation");
   }
 

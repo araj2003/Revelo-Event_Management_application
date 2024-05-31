@@ -25,7 +25,7 @@ import { Textarea } from "@/components/ui/textarea"
 
 
 import { useModal } from "@/hooks/user-modal";
-import { createEvent } from "@/api";
+import { createEvent, createMeeting } from "@/api";
 
 const formSchema :any = z.object({
 //   serverName: z.string().min(1, {
@@ -48,7 +48,7 @@ const formSchema :any = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const ScheduleMeeting = () => {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type,meetingUserId} = useModal();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -65,8 +65,13 @@ const ScheduleMeeting = () => {
 
   const onSubmit = async (values: FormValues) => {
     console.log(values);
-    // const response:any = await createEvent(values)
-    // console.log(response)
+    
+    const meetingData = values;
+    const guestId = meetingUserId;
+    const updatedMeetingData = { ...meetingData, guestId };
+  
+    const response = await createMeeting(updatedMeetingData);
+    console.log(response);
   };
 
   const handleClose = () => {
