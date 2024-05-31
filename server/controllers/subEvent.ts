@@ -4,10 +4,13 @@ import User from "../models/User";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import SubEvent from "../models/SubEvent";
 import Event from "../models/Server";
-
+import Channel from "../models/Channel";
+import Chat from "../models/Chat";
 import { StatusCodes } from "http-status-codes";
 import { IServer, ISubEvent } from "../types/models";
 import mongoose from "mongoose";
+import { uploadRSVPImage } from "../utils/cloudinary";
+import sendMail from "../utils/sendMail";
 
 const createSubEvent = async (req: Request, res: Response) => {
   const { subEventName, eventId, subEventDate, subEventTime } = req.body;
@@ -126,7 +129,7 @@ const getAllChannels = async (req: Request, res: Response) => {
   }).populate("channels");
 
   if (!subEvent) {
-    throw new BadRequestError("event not found");
+    throw new BadRequestError("You are not a part of this subevent");
   }
 
   return res.status(200).json({
@@ -155,20 +158,32 @@ const updateSubEvent = async (req: Request, res: Response) => {
 
 const addUserToSubEvent = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
-  console.log(subEventId)
-
   const { userId } = req.body;
-  console.log(userId)
+
   const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");
   }
-  if(subEvent.users.includes(userId)){
-    throw new BadRequestError("user already present")
+
+  if (subEvent.users.includes(userId)) {
+    throw new BadRequestError("User already present");
   }
-  subEvent.users.push(userId)
-  console.log(subEvent)
-  await subEvent.save()
+
+  subEvent.users.push(userId);
+
+  
+  const channels = await Channel.find({ _id: { $in: subEvent.channels } });
+
+
+  for (const channel of channels) {
+    const chat = await Chat.findById(channel.chatId);
+    if (chat) {
+      chat.users.push(userId);
+      await chat.save();
+    }
+  }
+
+  await subEvent.save();
 
   return res.status(200).json({ subEvent, msg: "User added to subEvent" });
 };
@@ -225,6 +240,94 @@ const getUsersNotInSubEvent = async (req: Request, res: Response) => {
   });
 };
 
+const addRSVP = async (req: Request, res: Response) => {
+  const { subEventId } = req.params;
+  const {title,description} = req.body;
+  if(!title || !description){
+    throw new BadRequestError("Please provide title and description")
+  }
+  const userId = req.user.userId;
+  const subEvent = await SubEvent.findById(subEventId);
+  if (!subEvent) {
+    throw new BadRequestError("SubEvent not found");
+  }
+  console.log(subEvent)
+  if(subEvent.rsvp?.title){
+    throw new BadRequestError("RSVP already present")
+  }
+  if(!subEvent.admin.includes(userId)){
+    throw new BadRequestError("You are not an admin")
+  }
+  const cloudinary_url = await uploadRSVPImage(req,subEvent._id);
+  subEvent.rsvp = {
+    title,
+    description,
+    image: cloudinary_url,
+    userIds: {
+      accepted: [],
+      rejected: [],
+    },
+  };
+  await subEvent.save();
+
+  // send email to all users
+  const users = await User.find({ _id: { $in: subEvent.users } });
+  users.forEach(async (user) => {
+    sendMail({
+      from: process.env.SMTP_EMAIL_USER,
+      to: user.email,
+      subject: `RSVP for ${subEvent.subEventName}`,
+      text: `Please RSVP for the event ${subEvent.subEventName}.`,
+    });
+  });
+
+
+  return res.status(200).json({ subEvent, msg: "RSVP added" });
+}
+
+const acceptRejectRSVP = async (req: Request, res: Response) => {
+  const { subEventId } = req.params;
+  const { status } = req.body;
+  const userId = req.user.userId; 
+  const subEvent = await SubEvent.findById(subEventId);
+  if (!subEvent) {
+    throw new BadRequestError("SubEvent not found");
+  }
+  if (!subEvent.rsvp) {
+    throw new BadRequestError("RSVP not found");
+  }
+  subEvent.rsvp.userIds.accepted = subEvent.rsvp.userIds.accepted.filter(
+    (id) => id.toString() !== userId.toString(),
+  );
+  subEvent.rsvp.userIds.rejected = subEvent.rsvp.userIds.rejected.filter(
+    (id) => id.toString() !== userId.toString(),
+  );
+  if (status === "accept") {
+    subEvent.rsvp.userIds.accepted.push(userId);
+  } else if (status === "reject") {
+    subEvent.rsvp.userIds.rejected.push(userId);
+  } else {
+    throw new BadRequestError("Invalid status");
+  }
+  await subEvent.save();
+  return res.status(200).json({ subEvent, msg: "RSVP updated" });
+}
+
+const hasAcceptedRSVP = async (req: Request, res: Response) => {
+  const { subEventId } = req.params;
+  const userId = req.user.userId;
+  const subEvent = await SubEvent.findById(subEventId);
+  if (!subEvent) {
+    throw new BadRequestError("SubEvent not found");
+  }
+  if (!subEvent.rsvp) {
+    throw new BadRequestError("RSVP not found");
+  }
+  const hasAccepted = subEvent.rsvp.userIds.accepted.includes(userId);
+  const hasRejected = subEvent.rsvp.userIds.rejected.includes(userId);
+  return res.status(200).json({ status:hasAccepted?"accept":hasRejected?"reject":"pending", msg: "RSVP status" });
+}
+
 export {
   getAllChannels,
   addAdmin,
@@ -236,4 +339,7 @@ export {
   addUserToSubEvent,
   removeUsersFromSubEvent,
   getUsersNotInSubEvent,
+  addRSVP,
+  acceptRejectRSVP,
+  hasAcceptedRSVP
 };

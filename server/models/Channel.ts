@@ -10,26 +10,25 @@ const ChannelSchema = new mongoose.Schema<IChannel>(
       type: String,
       required: [true, "Channel name required"],
     },
-    chat: {
-      type: ChatSchema,
-      default: {
-        isGroupChat: true,
-        users: [],
-        groupAdmin: [],
+    chatId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"Chat"
       },
     },
-  },
-  { timestamps: true },
+  
+  { timestamps: true }
 );
 
 const preSave = async function (this: any, next: (err?: Error) => void) {
-  if (this.chat === undefined) {
+  if (this.chatId === undefined) {
     const chat = new Chat({
       chatName: this.channelName,
       channelId: this._id,
       isGroupChat: true,
     });
-    this.chat = chat;
+    await chat.save()
+    console.log(chat)
+    this.chatId = chat._id;
   }
   next();
 }

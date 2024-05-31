@@ -2,6 +2,7 @@ import "./Sidebar.css";
 // import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import CreateIcon from "@mui/icons-material/Create";
 import SidebarOption from "../SidebarOption/SidebarOption";
+import EventIcon from "@mui/icons-material/Event";
 // import InsertComment from "@mui/icons-material/InsertComment";
 // import Inbox from "@mui/icons-material/Inbox";
 // import Drafts from "@mui/icons-material/Drafts";
@@ -10,14 +11,21 @@ import SidebarOption from "../SidebarOption/SidebarOption";
 // import FileCopy from "@mui/icons-material/FileCopy";
 import Add from "@mui/icons-material/Add";
 import { useContext, useEffect, useState } from "react";
-import { getSubEvents } from "../../api";
+// import { getSubEvents } from "../../api";
 import { EventContext } from "@/context/EventContext";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/user-modal";
 
 const Sidebar = () => {
-  const { eventId, subEvents, setSubEvents, setEvent, event,fetchAllSubEvents } =
-    useContext(EventContext);
+  const {
+    eventId,
+    subEvents,
+    setSubEvents,
+    setEvent,
+    event,
+    fetchAllSubEvents,
+    role,
+  } = useContext(EventContext);
   const { onOpen } = useModal();
   const [channels, setChannels] = useState([
     // {
@@ -42,9 +50,6 @@ const Sidebar = () => {
     onOpen("inviteMember");
   };
 
- 
-
-
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
     console.log(event);
@@ -56,11 +61,18 @@ const Sidebar = () => {
       <div className="sidebar__header">
         <div className="sidebar__info">
           <h2>{event?.serverName}</h2>
-          <h3>
-            {event?.description}
-          </h3>
+          <h3>{event?.description}</h3>
         </div>
         <CreateIcon />
+      </div>
+      <div
+        onClick={() => {
+          onOpen("showCalendar");
+        }}
+        className="m-2 mr-3 p-2 rounded-lg cursor-pointer text-sm flex justify-start gap-4 bg-[#00000039]"
+      >
+        Calendar
+        <EventIcon fontSize="small" />
       </div>
       {/* <SidebarOption Icon={InsertComment} title="Threads" />
       <hr />
@@ -87,15 +99,24 @@ const Sidebar = () => {
             showIcon={true}
             id={subEvent._id}
             type="subevent"
+            subEvent={subEvent}
           />
           <hr />
           {/* </div> */}
         </>
-      ))} 
-      <SidebarOption Icon={Add} title="Add Subevent" addChanneloption={true} />
-      <hr />
+      ))}
+      {role === "host" && (
+        <>
+          <SidebarOption
+            Icon={Add}
+            title="Add Subevent"
+            addChanneloption={true}
+          />
+          <hr />
+        </>
+      )}
       {/*  connect to db and list all the channels */}
-      {channels.map((channel) => (
+      {channels.map((channel: any) => (
         <SidebarOption
           key={channel.id}
           title={channel.channel}
@@ -103,12 +124,13 @@ const Sidebar = () => {
           id={channel.id}
         />
       ))}
-      <div className="flex flex-col ">
-        <Button size="default" className="m-4" onClick={openInviteMemberModal}>
-          Invite Member
-        </Button>
-        
-      </div>
+      {role === "host" && (
+        <div className="flex flex-col ">
+          <Button className="m-4" onClick={openInviteMemberModal}>
+            Invite Member
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

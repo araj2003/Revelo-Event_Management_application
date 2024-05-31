@@ -23,6 +23,7 @@ export interface IServer {
   host: mongoose.Types.ObjectId[];
   subEvents: mongoose.Types.ObjectId[];
   description: string;
+  vendors: mongoose.Types.ObjectId[];
 }
 
 export interface IChat {
@@ -46,7 +47,7 @@ export interface IMessage {
 export interface IChannel {
   _id?: mongoose.Types.ObjectId;
   channelName: string;
-  chat: IChat;
+  chatId: mongoose.Types.ObjectId;
 }
 
 export interface ISubEvent {
@@ -57,6 +58,15 @@ export interface ISubEvent {
   channels: mongoose.Types.ObjectId[];
   subEventDate: Date;
   subEventTime: Date;
+  rsvp?: {
+    title: string;
+    description: string;
+    image: string;
+    userIds: {
+      accepted: mongoose.Types.ObjectId[];
+      rejected: mongoose.Types.ObjectId[];
+    };
+  };
 }
 
 export interface IServerInvite {

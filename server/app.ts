@@ -33,10 +33,11 @@ import groupRouter from "./routes/group";
 
 import calenderRouter from "./routes/calender";
 
+import messageRouter from "./routes/message";
+
 // // error handler
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
-import { Socket } from "dgram";
 
 app.set("trust proxy", 1);
 
@@ -83,6 +84,8 @@ app.use("/api/v1/invite", inviteRouter);
 app.use("/api/v1/meeting", meetingRouter);
 app.use("/api/v1/group", groupRouter);
 app.use("/api/v1/calender", calenderRouter);
+app.use("/api/v1/message", messageRouter);
+
 
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);
@@ -108,14 +111,14 @@ const start = async () => {
     const io = new Server(server, {
       pingTimeout: 60000,
       cors: {
-        origin: "http://localhost:3000",
+        origin: ["http://localhost:3000", "http://localhost:5173"]
       },
     });
 
     io.on("connection", (socket: any) => {
       console.log("socket connection established", socket.id);
-      socket.on("setup", (userData: any) => {
-        socket.join(userData._id);
+      socket.on("setup", (userId: any) => {
+        socket.join(userId);
         socket.emit("connected");
       });
 
@@ -124,14 +127,9 @@ const start = async () => {
         console.log("user joined room", room);
       });
 
-      socket.on("new-message", (newMessageRecieved: any) => {
-        var chat = newMessageRecieved.chat;
-        chat.users.forEach((user: any) => {
-          if (user._id == newMessageRecieved.sender._id) {
-            return;
-          }
-          socket.in(user._id).emit("message-received", newMessageRecieved);
-        });
+      socket.on("new-message", (newMessageRecieved: any, chatId:any) => {
+        // console.log(newMessageRecieved,abc);
+        socket.in(chatId).emit("message-received", newMessageRecieved);
       });
 
       socket.on("typing", (room: any) => {

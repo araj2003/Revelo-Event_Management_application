@@ -2,42 +2,114 @@ import { useParams } from "react-router-dom";
 import "./Chat.css";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import InfoIcon from "@mui/icons-material/Info";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Message from "../../component/Message/Message";
 import ChatInput from "../../component/ChatInput/ChatInput";
 import Editor from "../../component/Editor/Editor";
 import UserList from "@/component/UserList";
+import { useContext } from "react";
+import { ChatContext } from "@/context/ChatContext";
+import { getMessage, getSingleChannel, sentMessage } from "@/api";
+import "../../component/ChatInput/ChatInput.css";
+import SendIcon from "@mui/icons-material/Send";
+import AllMessages from "./AllMessages";
+import ScrollableFeed from "react-scrollable-feed";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import io from "socket.io-client";
+const ENDPOINT = "http://localhost:3000";
+var socket: any, selectedChatCompare;
 
 const Chat = () => {
   const { roomId } = useParams<{ roomId: string }>();
   const [roomDetails, setRoomDetails] = useState(null);
-  const [channelMessages, setChannelMessages] = useState([
-    {
-      message: "Hi",
-      time: ": Thursday, 16th May 2024 11:00:00",
-      user: "Sahil",
-      userImage: "userImage",
-    },
-    {
-      message: "Kitna kaam hua",
-      time: ": Thursday, 16th May 2024 11:10:00",
-      user: "Lakshya",
-      userImage: "userImage",
-    },
-    {
-      message: "almost done",
-      time: ": Thursday, 16th May 2024 11:12:00",
-      user: "Araj",
-      userImage: "userImage",
-    },
-  ]);
+  const [messages, setMessages] = useState<any>([]);
+  const { userId } = useAppSelector((state) => state.user);
+  const [newMessage, setNewMessage] = useState("");
+
+  const { selectChannel, channelId } = useContext(ChatContext);
+  const [data, setData] = useState<any>([]); //channel data
+  const [chatId, setChatId] = useState<any>("");
+  const [socketConnected, setSocketConnected] = useState<Boolean>(false);
+  // const [channelMessages,setChannelMessages] = useState<any>([])
+  useEffect(() => {
+    const getChannel = async () => {
+      const response: any = await getSingleChannel(channelId);
+      console.log(response);
+      setMessages(response?.messages);
+      setData(response?.channel);
+      // console.log(data?.chat?._id)
+      setChatId(response.channel?.chatId);
+      socket.emit("join-chat", response.channel?.chatId);
+    };
+    if (selectChannel && channelId) {
+      getChannel();
+    }
+  }, [selectChannel, channelId]);
+
+  // const fetchMessages = async() => {
+  //   if(selectChannel){
+  //     const response:any = await getMessage(data?.chat?._id)
+  //     console.log(response)
+  //     setMessages(response);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   fetchMessages()
+  // },[selectChannel])
+
+  const sendMessage = async (e: any) => {
+    e.preventDefault();
+    if (newMessage) {
+      try {
+        const response2 = await sentMessage(newMessage, chatId);
+        console.log(response2);
+        setNewMessage("");
+        socket.emit("new-message", response2, chatId);
+        setMessages([...messages, response2]);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!socketConnected) {
+      socket = io(ENDPOINT);
+      socket.emit("setup", userId);
+
+      socket.on("connected", () => setSocketConnected(true));
+      // socket.on("typing", () => setIsTyping(true));
+      // socket.on("stop typing", () => setIsTyping(false));
+      // socket.on("message recieved", (newMessageRecieved:any) => {
+      // eslint-disable-next-line
+      socket.on("message-received", (newMessageRecieved: any) => {
+        console.log(newMessageRecieved);
+        console.log(messages);
+        setMessages((prev: any) => {
+          console.log(prev);
+          return [...prev, newMessageRecieved];
+        });
+      });
+    }
+  }, []);
+
+  // useEffect(() => {});
+
+  const typingHandler = (e: any) => {
+    setNewMessage(e.target.value);
+  };
+  // console.log(newMessage)
+  // console.log(messages);
+  if (!channelId || !chatId)
+    return <div>Click a channel to show its chats</div>;
   return (
     <>
       <div className="chat">
         <div className="chat__header">
           <div className="chat__headerLeft">
             <h4 className="chat_channelName">
-              <strong>#General</strong>
+              <strong>{data?.channelName}</strong>
               <StarBorderIcon />
             </h4>
           </div>
@@ -48,16 +120,32 @@ const Chat = () => {
           </div> */}
         </div>
         <div className="chat__messages">
-          {channelMessages.map(({ message, time, user, userImage }) => (
-            <Message
-              message={message}
-              time={time}
-              user={user}
-              userImage={userImage}
-            />
-          ))}
+          <ScrollableFeed>
+            {messages?.map((message: any, index: number) => (
+              <Message
+                key={index}
+                message={message?.content}
+                sender={message?.sender}
+                time={message?.updatedAt}
+                userImage={message?.sender?.profilePicture}
+                userId={userId}
+              />
+            ))}
+          </ScrollableFeed>
         </div>
-        <ChatInput />
+        <div className="chatInput">
+          <form onSubmit={sendMessage}>
+            <input
+              type="text"
+              placeholder="Enter a message"
+              onChange={(e) => typingHandler(e)}
+              value={newMessage}
+            />
+            <button type="submit">
+              <SendIcon />
+            </button>
+          </form>
+        </div>
         {/* <Editor /> */}
       </div>
       {/* <UserList /> */}

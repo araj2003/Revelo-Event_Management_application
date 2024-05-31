@@ -11,6 +11,6 @@ import { sendMessage, getMessage } from "../controllers/message";
 router.post("/sendMessage", authMiddleWare, sendMessage);
 
 //get message ..
-router.get("/getMessage", authMiddleWare, getMessage);
+router.get("/getMessage/:chatId", authMiddleWare, getMessage);
 
 export default router;

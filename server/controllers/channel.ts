@@ -4,6 +4,8 @@ import { BadRequestError, UnauthenticatedError } from "../errors";
 import Channel from "../models/Channel";
 import SubEvent from "../models/SubEvent";
 import { StatusCodes } from "http-status-codes";
+import Message from "../models/Message";
+import Chat from "../models/Chat";
 
 const createChannel = async (req: Request, res: Response) => {
   const { channelName, subEventId } = req.body;
@@ -22,13 +24,20 @@ const createChannel = async (req: Request, res: Response) => {
   if (!subEvent) {
     throw new BadRequestError("subEvent not found");
   }
-
-  const channel: any = new Channel({ channelName });
+//users
+  const channel: any = new Channel({ 
+    channelName:channelName,
+   });
   if (!channel) {
     throw new BadRequestError("cannot create channel");
   }
-
+  
   await channel.save();
+  const chatId = channel.chatId
+  const chat:any= await Chat.findById(chatId)
+  chat.users = subEvent.users
+  chat.groupAdmin = subEvent.admin
+  await chat.save();
 
   const updatedSubEvent = await SubEvent.findOneAndUpdate(
     { _id: subEventId },
@@ -44,15 +53,19 @@ const createChannel = async (req: Request, res: Response) => {
 };
 
 const getChannel = async (req: Request, res: Response) => {
-  const { channelId } = req.body;
-  const channel = await Channel.findById(channelId);
+  const { channelId } = req.params;
+  const channel :any= await Channel.findById(channelId);
+  // const channel :any= await Channel.findById(channelId).populate("chatId");
 
   if (!channel) {
     throw new BadRequestError("channel not found");
   }
-
+  // console.log(channel.chatId)
+  const messages = await Message.find({chat:channel.chatId}).populate("sender").sort({ createdAt: 1 });
+  // console.log(msg)
   return res.status(StatusCodes.OK).json({
     channel,
+    messages,
     msg: "list of all the channels",
   });
 };

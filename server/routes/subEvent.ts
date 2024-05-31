@@ -14,8 +14,11 @@ import {
   addUserToSubEvent,
   removeUsersFromSubEvent,
   getUsersNotInSubEvent,
+  addRSVP,
+  acceptRejectRSVP,
+  hasAcceptedRSVP,
 } from "../controllers/subEvent";
-
+import upload from "../middleware/multer";
 //middleware (only host can do it)
 
 //create subevent ..
@@ -51,6 +54,16 @@ router.get(
   authMiddleWare,
   getUsersNotInSubEvent,
 );
+
+router.post(
+  "/addRSVP/:subEventId",
+  authMiddleWare,
+  upload.single("rsvpImage"),
+  addRSVP,
+);
+
+router.put("/acceptRejectRSVP/:subEventId", authMiddleWare, acceptRejectRSVP);
+router.get("/hasAccepted/:subEventId", authMiddleWare, hasAcceptedRSVP);
 
 export default router;
 
