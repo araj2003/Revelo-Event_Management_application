@@ -13,6 +13,8 @@ import {
   getAllEvent,
   getAllSubEvent,
   searchUser,
+  getEventMembers,
+  getMyEvent,
 } from "../controllers/event";
 import { searchVendorRoll } from "../controllers/vendor";
 
@@ -41,7 +43,13 @@ router.get("/:id/subevents", authMiddleWare, getAllSubEvent);
 //search user
 router.get("/users/search", authMiddleWare, searchUser);
 
+
 router.get("/vendor/searchVendor", authMiddleWare, searchVendorRoll);
+
+
+router.get('/:id/members', authMiddleWare, getEventMembers);
+
+router.get('/my', authMiddleWare, getMyEvent);
 
 
 export default router;

@@ -26,7 +26,8 @@ import { useContext, useEffect, useState } from "react";
 // import { createInvite } from "@/api";
 // import { toast } from "react-toastify";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { addMember, getMembersNotInSubEvent } from "@/api";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import { addMember, getMembersNotInSubEvent, removeMember } from "@/api";
 
 const formSchema = z.object({});
 
@@ -44,12 +45,16 @@ const MembersModal = () => {
 
   const isModalOpen = isOpen && type === "members";
 
-  const [data, setData] = useState([]);
+  const [membersNotInSubEvent, setMembersNotInSubevent] = useState<any>([]);
+  const [membersInSubEvent, setMembersInSubevent] = useState<any>([]);
   useEffect(() => {
     const getUsers = async () => {
       const response: any = await getMembersNotInSubEvent(eventId, subEventId);
       console.log(response?.usersNotInSubEvent);
-      setData(response?.usersNotInSubEvent);
+      if (response?.usersNotInSubEvent) {
+        setMembersNotInSubevent(response?.usersNotInSubEvent);
+        setMembersInSubevent(response?.usersInSubEvent);
+      }
     };
     if (isModalOpen && subEventId) getUsers();
   }, [isModalOpen]);
@@ -88,12 +93,34 @@ const MembersModal = () => {
     ],
   };
 
-  const handleChange = async (userId: any) => {
+  const handleAddMember = async (userId: any) => {
     console.log(userId);
     const response: any = await addMember(subEventId, userId);
     console.log(response);
     if (response.msg) {
-      setData((prev) => prev.filter((user: any) => user._id !== userId));
+      // remove user from not in subevent and add to in subevent
+      const user = membersNotInSubEvent.find(
+        (user: any) => user._id === userId
+      );
+      setMembersNotInSubevent((prev: any) =>
+        prev.filter((user: any) => user._id !== userId)
+      );
+      setMembersInSubevent((prev: any) => [...prev, user]);
+    }
+  };
+
+  const handleRemoveMember = async (userId: any) => {
+    console.log(userId);
+    const response: any = await removeMember(subEventId, userId);
+    console.log(response);
+    // console.log(response.);
+    if (response.msg) {
+      // remove user from not in subevent and add to in subevent
+      const user = membersInSubEvent.find((user: any) => user._id === userId);
+      setMembersInSubevent((prev: any) =>
+        prev.filter((user: any) => user._id !== userId)
+      );
+      setMembersNotInSubevent((prev: any) => [...prev, user]);
     }
   };
 
@@ -109,31 +136,64 @@ const MembersModal = () => {
           </DialogDescription> */}
         </DialogHeader>
         <ScrollArea className="mt-8 max-h-[420px] pr-6">
-          {data.length > 0 ? (
-            data?.map((member: any) => (
-              <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center">
-                    <span className="text-zinc-500">{member?.name[0]}</span>
+          <div className="mb-4">
+            <h2 className="text-lg font-bold px-6 py-4">Current Members</h2>
+            {membersInSubEvent.length > 0 ? (
+              membersInSubEvent?.map((member: any) => (
+                <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center">
+                      <span className="text-zinc-500">{member?.name[0]}</span>
+                    </div>
+                    <div>
+                      <p className="text-md font-bold">{member?.name}</p>
+                      <p className="text-zinc-500 text-sm">{member?.email}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-md font-bold">{member?.name}</p>
-                    <p className="text-zinc-500 text-sm">{member?.email}</p>
-                  </div>
+                  <Button
+                    variant={null}
+                    onClick={() => handleRemoveMember(member?._id)}
+                  >
+                    <PersonRemoveIcon className="ml-2" />
+                  </Button>
                 </div>
-                <Button
-                  variant={null}
-                  onClick={() => handleChange(member?._id)}
-                >
-                  <PersonAddIcon className="ml-2" />
-                </Button>
+              ))
+            ) : (
+              <div className="flex items-center ml-8">
+                <p className="text-zinc-500">No members have been added</p>
               </div>
-            ))
-          ) : (
-            <div className="flex items-center justify-center h-32">
-              <p className="text-zinc-500">No members to show</p>
-            </div>
-          )}
+            )}
+          </div>
+          <div className="mb-4">
+            <h2 className="text-lg font-bold px-6 py-4">
+              Add Members in SubEvent
+            </h2>
+            {membersNotInSubEvent.length > 0 ? (
+              membersNotInSubEvent?.map((member: any) => (
+                <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center">
+                      <span className="text-zinc-500">{member?.name[0]}</span>
+                    </div>
+                    <div>
+                      <p className="text-md font-bold">{member?.name}</p>
+                      <p className="text-zinc-500 text-sm">{member?.email}</p>
+                    </div>
+                  </div>
+                  <Button
+                    variant={null}
+                    onClick={() => handleAddMember(member?._id)}
+                  >
+                    <PersonAddIcon className="ml-2" />
+                  </Button>
+                </div>
+              ))
+            ) : (
+              <div className="flex items-center ml-8">
+                <p className="text-zinc-500">No members to add - Invite more members to this event</p>
+              </div>
+            )}
+          </div>
         </ScrollArea>
       </DialogContent>
     </Dialog>

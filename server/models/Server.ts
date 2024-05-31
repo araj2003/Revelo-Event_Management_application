@@ -24,6 +24,12 @@ const ServerSchema = new mongoose.Schema<IServer>({
       ref: "User",
     },
   ],
+  vendors: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
+  ],
   //subEvents
   subEvents: [
     {

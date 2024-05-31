@@ -4,6 +4,7 @@ import User from "../models/User";
 import Event from "../models/Server";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import { StatusCodes } from "http-status-codes";
+import { ISubEvent } from "../types/models";
 
 const createEvent = async (req: Request, res: Response) => {
   const { serverName, description } = req.body;
@@ -57,8 +58,22 @@ const getAllEvent = async (req: Request, res: Response) => {
     $or: [{ host: userId }, { users: userId }],
   });
 
+  // role vendor, host or user
+  const role = events.map((event) => {
+    if (event.host.includes(userId)) {
+      return "host";
+    }
+    if (event.users.includes(userId)) {
+      return "user";
+    }
+    if (event.vendors.includes(userId)) {
+      return "vendor";
+    }
+  });
+
   res.status(StatusCodes.OK).json({
     events,
+    role,
     msg: "list of all the events",
   });
 };
@@ -135,9 +150,40 @@ const getAllSubEvent = async (req: Request, res: Response) => {
     throw new BadRequestError("event not found");
   }
 
+  // only get subevents which the user is part of as user host or vendor
+  const subEvents = event[0].subEvents.filter((subEvent: any) => {
+    if (
+      subEvent.admin.some(
+        (admin: any) => admin.toString() === userId.toString(),
+      ) ||
+      subEvent.users.some((user: any) => user.toString() === userId.toString())
+      // subEvent.vendors.includes(userId)
+    ) {
+      return subEvent;
+    }
+  });
+
+  // console.log(subEvents);
+
+  // role vendor, host or user
+  const role = event.map((event) => {
+    if (event.host.includes(userId)) {
+      return "host";
+    }
+    if (event.users.includes(userId)) {
+      return "user";
+    }
+    if (event.vendors.includes(userId)) {
+      return "vendor";
+    }
+  });
+
+  // console.log(role[0]);
+
   return res.status(StatusCodes.OK).json({
     event: event[0],
-    subEvents: event[0].subEvents,
+    role: role[0],
+    subEvents,
     msg: "subevents fetched successfully",
   });
 };
@@ -160,6 +206,45 @@ const searchUser = async (req: Request, res: Response) => {
   return res.status(200).json({ users, msg: "list of searched users" });
 };
 
+const getEventMembers = async (req: Request, res: Response) => {
+  const { id: eventId } = req.params;
+  const userId = req.user.userId;
+  const event = await Event.findById(eventId);
+
+
+  if (!event) {
+    throw new BadRequestError("event not found");
+  }
+
+  const users = await User.find({
+    _id: {
+      $in: [...event.host, ...event.users]
+    }
+  });
+
+  return res.status(StatusCodes.OK).json({
+    event,
+    msg: "User Found",
+    users,
+  });
+};
+
+
+const getMyEvent = async (req: Request, res: Response) => {
+  const userId = req.user.userId;
+
+  const events = await Event.find(
+    { host: userId },
+  );
+
+  res.status(StatusCodes.OK).json({
+    events,
+    msg: "list of my events",
+  });
+};
+
+
+
 export {
   getAllSubEvent,
   deleteEvent,
@@ -169,4 +254,6 @@ export {
   createEvent,
   getAllEvent,
   searchUser,
+  getEventMembers,
+  getMyEvent
 };

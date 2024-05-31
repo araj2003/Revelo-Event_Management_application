@@ -24,6 +24,7 @@ export interface IServer {
   host: mongoose.Types.ObjectId[];
   subEvents: mongoose.Types.ObjectId[];
   description: string;
+  vendors: mongoose.Types.ObjectId[];
 }
 
 export interface IChat {

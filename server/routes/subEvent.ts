@@ -12,9 +12,10 @@ import {
   getAllChannels,
   updateSubEvent,
   addUserToSubEvent,
-  removeUsersFromSubEvent,
+  removeUserFromSubEvent,
   getUsersNotInSubEvent,
   addRSVP,
+  getRSVPList,
   acceptRejectRSVP,
   hasAcceptedRSVP,
 } from "../controllers/subEvent";
@@ -43,10 +44,10 @@ router.get("/updateSubEvent", authMiddleWare, updateSubEvent);
 
 router.patch("/addUser/:subEventId", authMiddleWare, addUserToSubEvent);
 
-router.delete(
-  "/removeUsers/:subEventId",
+router.patch(
+  "/removeUser/:subEventId",
   authMiddleWare,
-  removeUsersFromSubEvent,
+  removeUserFromSubEvent,
 );
 
 router.get(
@@ -61,6 +62,8 @@ router.post(
   upload.single("rsvpImage"),
   addRSVP,
 );
+
+router.get("/getRSVPList/:subEventId", authMiddleWare, getRSVPList);
 
 router.put("/acceptRejectRSVP/:subEventId", authMiddleWare, acceptRejectRSVP);
 router.get("/hasAccepted/:subEventId", authMiddleWare, hasAcceptedRSVP);

@@ -129,7 +129,7 @@ const getAllChannels = async (req: Request, res: Response) => {
   }).populate("channels");
 
   if (!subEvent) {
-    throw new BadRequestError("event not found");
+    throw new BadRequestError("You are not a part of this subevent");
   }
 
   return res.status(200).json({
@@ -171,9 +171,7 @@ const addUserToSubEvent = async (req: Request, res: Response) => {
 
   subEvent.users.push(userId);
 
-  
   const channels = await Channel.find({ _id: { $in: subEvent.channels } });
-
 
   for (const channel of channels) {
     const chat = await Chat.findById(channel.chatId);
@@ -188,9 +186,11 @@ const addUserToSubEvent = async (req: Request, res: Response) => {
   return res.status(200).json({ subEvent, msg: "User added to subEvent" });
 };
 
-const removeUsersFromSubEvent = async (req: Request, res: Response) => {
+const removeUserFromSubEvent = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
-  const { userIds } = req.body;
+  const { userId: rmUserId } = req.body;
+
+  console.log(subEventId, rmUserId);
 
   // Find the subEvent
   const subEvent = await SubEvent.findById(subEventId);
@@ -198,13 +198,11 @@ const removeUsersFromSubEvent = async (req: Request, res: Response) => {
     throw new BadRequestError("SubEvent not found");
   }
 
-  // Convert string user IDs to ObjectId instances
-  const usersToRemove = userIds.map(
-    (userId: string) => new mongoose.Types.ObjectId(userId),
-  );
-
   subEvent.users = subEvent.users.filter(
-    (userId) => !usersToRemove.includes(userId),
+    (userId) => userId.toString() !== rmUserId,
+  );
+  subEvent.admin = subEvent.admin.filter(
+    (userId) => userId.toString() !== rmUserId,
   );
   await subEvent.save();
 
@@ -233,32 +231,40 @@ const getUsersNotInSubEvent = async (req: Request, res: Response) => {
   const usersNotInSubEvent = eventUserIds.filter(
     (userId) => !subEventUserIds.includes(userId),
   );
-  const array = await User.find({ _id: { $in: usersNotInSubEvent } });
+
+  const usersInSubEvent = eventUserIds.filter(
+    (userId) =>
+      userId !== req.user.userId.toString() && subEventUserIds.includes(userId),
+  );
+
+  const notInSubEvent = await User.find({ _id: { $in: usersNotInSubEvent } });
+  const inSubEvent = await User.find({ _id: { $in: usersInSubEvent } });
   return res.status(200).json({
-    usersNotInSubEvent: array,
+    usersNotInSubEvent: notInSubEvent,
+    usersInSubEvent: inSubEvent,
     msg: "users you want to add in subevebnt",
   });
 };
 
 const addRSVP = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
-  const {title,description} = req.body;
-  if(!title || !description){
-    throw new BadRequestError("Please provide title and description")
+  const { title, description } = req.body;
+  if (!title || !description) {
+    throw new BadRequestError("Please provide title and description");
   }
   const userId = req.user.userId;
   const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");
   }
-  console.log(subEvent)
-  if(subEvent.rsvp?.title){
-    throw new BadRequestError("RSVP already present")
+  console.log(subEvent);
+  if (subEvent.rsvp?.title) {
+    throw new BadRequestError("RSVP already present");
   }
-  if(!subEvent.admin.includes(userId)){
-    throw new BadRequestError("You are not an admin")
+  if (!subEvent.admin.includes(userId)) {
+    throw new BadRequestError("You are not an admin");
   }
-  const cloudinary_url = await uploadRSVPImage(req,subEvent._id);
+  const cloudinary_url = await uploadRSVPImage(req, subEvent._id);
   subEvent.rsvp = {
     title,
     description,
@@ -281,14 +287,36 @@ const addRSVP = async (req: Request, res: Response) => {
     });
   });
 
-
   return res.status(200).json({ subEvent, msg: "RSVP added" });
-}
+};
+
+const getRSVPList = async (req: Request, res: Response) => {
+  const { userId } = req.user;
+  const { subEventId } = req.params;
+  const subEvent = await SubEvent.findById(subEventId);
+  if (!subEvent) {
+    throw new BadRequestError("SubEvent not found");
+  }
+  if (!subEvent.rsvp) {
+    throw new BadRequestError("RSVP not found");
+  }
+  if (!subEvent.admin.includes(req.user.userId)) {
+    throw new UnauthenticatedError("You are not an admin");
+  }
+  const users = await User.find({
+    _id: { $in: subEvent.users, $nin: [userId] },
+  });
+
+  return res.status(200).json({
+    users,
+    msg: "RSVP list",
+  });
+};
 
 const acceptRejectRSVP = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
   const { status } = req.body;
-  const userId = req.user.userId; 
+  const userId = req.user.userId;
   const subEvent = await SubEvent.findById(subEventId);
   if (!subEvent) {
     throw new BadRequestError("SubEvent not found");
@@ -311,7 +339,7 @@ const acceptRejectRSVP = async (req: Request, res: Response) => {
   }
   await subEvent.save();
   return res.status(200).json({ subEvent, msg: "RSVP updated" });
-}
+};
 
 const hasAcceptedRSVP = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
@@ -325,8 +353,11 @@ const hasAcceptedRSVP = async (req: Request, res: Response) => {
   }
   const hasAccepted = subEvent.rsvp.userIds.accepted.includes(userId);
   const hasRejected = subEvent.rsvp.userIds.rejected.includes(userId);
-  return res.status(200).json({ status:hasAccepted?"accept":hasRejected?"reject":"pending", msg: "RSVP status" });
-}
+  return res.status(200).json({
+    status: hasAccepted ? "accept" : hasRejected ? "reject" : "pending",
+    msg: "RSVP status",
+  });
+};
 
 export {
   getAllChannels,
@@ -337,9 +368,10 @@ export {
   deleteSubEvent,
   updateSubEvent,
   addUserToSubEvent,
-  removeUsersFromSubEvent,
+  removeUserFromSubEvent,
   getUsersNotInSubEvent,
   addRSVP,
+  getRSVPList,
   acceptRejectRSVP,
-  hasAcceptedRSVP
+  hasAcceptedRSVP,
 };
