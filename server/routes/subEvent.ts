@@ -12,7 +12,7 @@ import {
   getAllChannels,
   updateSubEvent,
   addUserToSubEvent,
-  removeUsersFromSubEvent,
+  removeUserFromSubEvent,
   getUsersNotInSubEvent,
   addRSVP,
   acceptRejectRSVP,
@@ -43,10 +43,10 @@ router.get("/updateSubEvent", authMiddleWare, updateSubEvent);
 
 router.patch("/addUser/:subEventId", authMiddleWare, addUserToSubEvent);
 
-router.delete(
-  "/removeUsers/:subEventId",
+router.patch(
+  "/removeUser/:subEventId",
   authMiddleWare,
-  removeUsersFromSubEvent,
+  removeUserFromSubEvent,
 );
 
 router.get(

@@ -161,7 +161,7 @@ const getAllSubEvent = async (req: Request, res: Response) => {
     }
   });
 
-  console.log(subEvents);
+  // console.log(subEvents);
 
   // role vendor, host or user
   const role = event.map((event) => {
@@ -176,7 +176,7 @@ const getAllSubEvent = async (req: Request, res: Response) => {
     }
   });
 
-  console.log(role[0]);
+  // console.log(role[0]);
 
   return res.status(StatusCodes.OK).json({
     event: event[0],
