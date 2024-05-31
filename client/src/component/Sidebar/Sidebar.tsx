@@ -52,9 +52,11 @@ const Sidebar = () => {
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
     console.log(event);
-    fetchAllSubEvents();
+    if(eventId)
+      fetchAllSubEvents();
   }, [eventId]);
 
+  if(!eventId) return <div></div>;
   return (
     <div className="sidebar">
       <div className="sidebar__header">

@@ -10,7 +10,7 @@ function Signup() {
     name: "",
     email: "",
     password: "",
-    role:"",
+    role:"regular",
     subroll:""
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
