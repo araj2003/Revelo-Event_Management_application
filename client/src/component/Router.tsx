@@ -17,20 +17,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      {
-        path: "/",
-        element: <Home />,
-        children: [
-          {
-            path: "room/:roomId",
-            element: <Chat />,
-          },
-        ],
-      },
-      {
-        path: "/myevents",
-        element: <MyEvent />,
-      },
+      
       
       {
         path: "/landing",
@@ -40,6 +27,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <ProtectedRoute />,
         children: [
+          {
+            path: "/myevents",
+            element: <MyEvent />,
+          },
           {
             path: "profile",
             element: <Profile />,
@@ -63,6 +54,16 @@ const router = createBrowserRouter([
           {
             path: "join/:inviteId",
             element: <AcceptInvite />,
+          },
+          {
+            path: "/",
+            element: <Home />,
+            children: [
+              {
+                path: "room/:roomId",
+                element: <Chat />,
+              },
+            ],
           },
         ],
       },

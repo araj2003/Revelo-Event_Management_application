@@ -45,7 +45,14 @@ API.interceptors.response.use(
     } else console.log(error);
 
     if (error.response) {
-      toast.error(error.response.data?.msg);
+      console.log(error.response)
+      if(error?.response?.request.responseURL == `${URL}/auth`){
+        
+      }
+      else{
+
+        toast.error(error.response.data?.msg);
+      }
     } else {
       toast.error("Network Error: Please try again later.");
     }
