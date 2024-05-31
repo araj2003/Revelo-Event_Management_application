@@ -15,6 +15,7 @@ import {
   removeUserFromSubEvent,
   getUsersNotInSubEvent,
   addRSVP,
+  getRSVPList,
   acceptRejectRSVP,
   hasAcceptedRSVP,
 } from "../controllers/subEvent";
@@ -61,6 +62,8 @@ router.post(
   upload.single("rsvpImage"),
   addRSVP,
 );
+
+router.get("/getRSVPList/:subEventId", authMiddleWare, getRSVPList);
 
 router.put("/acceptRejectRSVP/:subEventId", authMiddleWare, acceptRejectRSVP);
 router.get("/hasAccepted/:subEventId", authMiddleWare, hasAcceptedRSVP);

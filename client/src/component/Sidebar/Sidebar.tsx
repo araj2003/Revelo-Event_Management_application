@@ -52,7 +52,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
-    console.log(event);
+    // console.log(event);
     fetchAllSubEvents();
   }, [eventId]);
 

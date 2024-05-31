@@ -52,7 +52,7 @@ export const EventProvider: any = ({ children }: { children: any }) => {
   const fetchAllSubEvents = async () => {
     try {
       const data: any = await getSubEvents(eventId);
-      console.log(data);
+      // console.log(data);
       if (data.event) {
         setEvent(data.event);
         setRole(data.role);

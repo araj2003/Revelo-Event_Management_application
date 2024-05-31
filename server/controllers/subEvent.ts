@@ -188,7 +188,7 @@ const addUserToSubEvent = async (req: Request, res: Response) => {
 
 const removeUserFromSubEvent = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
-  const { userId:rmUserId } = req.body;
+  const { userId: rmUserId } = req.body;
 
   console.log(subEventId, rmUserId);
 
@@ -290,6 +290,29 @@ const addRSVP = async (req: Request, res: Response) => {
   return res.status(200).json({ subEvent, msg: "RSVP added" });
 };
 
+const getRSVPList = async (req: Request, res: Response) => {
+  const { userId } = req.user;
+  const { subEventId } = req.params;
+  const subEvent = await SubEvent.findById(subEventId);
+  if (!subEvent) {
+    throw new BadRequestError("SubEvent not found");
+  }
+  if (!subEvent.rsvp) {
+    throw new BadRequestError("RSVP not found");
+  }
+  if (!subEvent.admin.includes(req.user.userId)) {
+    throw new UnauthenticatedError("You are not an admin");
+  }
+  const users = await User.find({
+    _id: { $in: subEvent.users, $nin: [userId] },
+  });
+
+  return res.status(200).json({
+    users,
+    msg: "RSVP list",
+  });
+};
+
 const acceptRejectRSVP = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
   const { status } = req.body;
@@ -330,12 +353,10 @@ const hasAcceptedRSVP = async (req: Request, res: Response) => {
   }
   const hasAccepted = subEvent.rsvp.userIds.accepted.includes(userId);
   const hasRejected = subEvent.rsvp.userIds.rejected.includes(userId);
-  return res
-    .status(200)
-    .json({
-      status: hasAccepted ? "accept" : hasRejected ? "reject" : "pending",
-      msg: "RSVP status",
-    });
+  return res.status(200).json({
+    status: hasAccepted ? "accept" : hasRejected ? "reject" : "pending",
+    msg: "RSVP status",
+  });
 };
 
 export {
@@ -350,6 +371,7 @@ export {
   removeUserFromSubEvent,
   getUsersNotInSubEvent,
   addRSVP,
+  getRSVPList,
   acceptRejectRSVP,
   hasAcceptedRSVP,
 };

@@ -153,8 +153,10 @@ const getAllSubEvent = async (req: Request, res: Response) => {
   // only get subevents which the user is part of as user host or vendor
   const subEvents = event[0].subEvents.filter((subEvent: any) => {
     if (
-      subEvent.admin.some((admin:any) => admin.toString()===userId.toString()) ||
-      subEvent.users.some((user:any) => user.toString()===userId.toString())
+      subEvent.admin.some(
+        (admin: any) => admin.toString() === userId.toString(),
+      ) ||
+      subEvent.users.some((user: any) => user.toString() === userId.toString())
       // subEvent.vendors.includes(userId)
     ) {
       return subEvent;

@@ -40,7 +40,8 @@ const SidebarOption = ({
       setOpen(!open);
     }
   };
-  console.log(role, "role");
+  // console.log(role, "role");
+  console.log(subEvent, "subevent");
   useEffect(() => {
     const fetchChannels = async () => {
       const response: any = await getAllChannels(id);
@@ -143,7 +144,7 @@ const SidebarOption = ({
               </button>
             )
           )}
-          {console.log(channels, "asdfghjkl")}
+          {/* {console.log(channels, "asdfghjkl")} */}
           {channels.length > 0 ? (
             channels.map((channel: any) => {
               // <h4>{channel?.channelName}</h4>

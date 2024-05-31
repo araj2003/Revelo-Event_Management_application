@@ -9,22 +9,23 @@ import {
 import { Input } from "../components/ui/input";
 import { useModal } from "@/hooks/user-modal";
 import { useContext, useEffect, useState } from "react";
-import { acceptRejectRsvp, hasAccepted } from "@/api";
+import { acceptRejectRsvp, getRSVPList, hasAccepted } from "@/api";
 import { Button } from "../components/ui/button";
-// import { EventContext } from "@/context/EventContext";
-
-// const {eventId} = useContext(EventContext)
+import { EventContext } from "@/context/EventContext";
 
 const ShowRSVPModal = () => {
   const { isOpen, onClose, type, subEventId, subEvent } = useModal();
   const [accepted, setAccepted] = useState(null);
-  // const { eventId, fetchAllSubEvents } = useContext(EventContext);
+  const { role } = useContext(EventContext);
+  const [listType, setListType] = useState("accepted"); // ["pending", "accepted", "rejected"]
+  const [rsvpList, setRsvpList] = useState<any[]>([]);
+  const [currentList, setCurrentList] = useState<any[]>([]);
 
   const isModalOpen = isOpen && type === "showRSVP";
 
   const handleReq = async (e: any) => {
     const response = await acceptRejectRsvp(subEventId, e.target.value);
-    console.log(response);
+    // console.log(response);
     setAccepted(e.target.value);
   };
 
@@ -34,14 +35,43 @@ const ShowRSVPModal = () => {
 
   useEffect(() => {
     if (subEvent?.rsvp) {
-      const hasAcceptedRSVP = async () => {
-        const response: any = await hasAccepted(subEventId);
-        console.log(response);
-        setAccepted(response.status);
-      };
-      hasAcceptedRSVP();
+      if (role === "host") {
+        const getList = async () => {
+          const response: any = await getRSVPList(subEventId);
+          // console.log(response);
+          if (response.users) {
+            setRsvpList(response.users);
+          }
+        };
+        getList();
+      } else {
+        const hasAcceptedRSVP = async () => {
+          const response: any = await hasAccepted(subEventId);
+          setAccepted(response.status);
+        };
+        hasAcceptedRSVP();
+      }
     }
-  }, [subEvent,isModalOpen]);
+  }, [subEvent, isModalOpen]);
+
+  useEffect(() => {
+    console.log(rsvpList);
+    const list = rsvpList.filter((user) => {
+      switch (listType) {
+        case "accepted":
+          return subEvent?.rsvp?.userIds?.accepted.includes(user._id);
+        case "rejected":
+          return subEvent?.rsvp?.userIds?.rejected.includes(user._id);
+        default:
+          return (
+            !subEvent?.rsvp?.userIds?.accepted.includes(user._id) &&
+            !subEvent?.rsvp?.userIds?.rejected.includes(user._id)
+          );
+      }
+    });
+    console.log(list);
+    setCurrentList(list);
+  }, [listType, rsvpList]);
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -65,36 +95,91 @@ const ShowRSVPModal = () => {
           alt="rsvp"
           className="w-[30rem] object-cover mx-auto rounded-lg"
         />
-        <div className="ml-4 mb-4 gap-4">
-          {!accepted || accepted === "pending" ? (
-            <>
+        {role === "host" ? (
+          <div>
+            <div className="ml-4 mb-4 flex gap-1">
               <Button
-                className={`bg-green-600`}
+                className={` ${
+                  listType === "accepted" ? "bg-green-100 text-green-700" : "bg-green-700 text-green-100"
+                }`}
                 variant={null}
-                onClick={handleReq}
-                value={"accept"}
+                onClick={() => setListType("accepted")}
               >
-                Accept
+                Accepted
               </Button>
               <Button
-                className="bg-red-500"
+                // className="bg-red-600 text-red-100"
+                className={` ${
+                  listType === "rejected" ? "bg-red-100 text-red-600" : "bg-red-600 text-red-100"
+                }`}
                 variant={null}
-                onClick={handleReq}
-                value={"reject"}
+                onClick={() => setListType("rejected")}
               >
-                Deny
+                Rejected
               </Button>
-            </>
-          ) : accepted === "accept" ? (
-            <Button className="bg-green-600" variant={null}>
-              Accepted
-            </Button>
-          ) : accepted === "reject" ? (
-            <Button className="bg-red-500" variant={null}>
-              Rejected
-            </Button>
-          ) : <h2>Loading...</h2>}
-        </div>
+              <Button
+                // className="bg-blue-600 text-blue-100"
+                className={` ${
+                  listType === "pending" ? "bg-blue-100 text-blue-600" : "bg-blue-600 text-blue-100"
+                }`}
+                variant={null}
+                onClick={() => setListType("pending")}
+              >
+                Pending
+              </Button>
+            </div>
+            <div className="">
+              {currentList.map((user: any) => (
+                <div className="flex items-center p-2 gap-4 bg-slate-200 rounded-lg m-2">
+                  <img
+                    src={user.profilePicture}
+                    alt="user"
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <p>{user.name}</p>
+                </div>
+              ))}
+              {currentList.length === 0 && (
+                <div className="flex items-center p-2 gap-4 bg-slate-200 rounded-lg m-2">
+                  <p>No users found - Invite more people to this sub-event</p>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="ml-4 mb-4 gap-4">
+            {!accepted || accepted === "pending" ? (
+              <>
+                <Button
+                  className={`bg-green-700 text-green-100`}
+                  variant={null}
+                  onClick={handleReq}
+                  value={"accept"}
+                >
+                  Accept
+                </Button>
+                <Button
+                  className="bg-red-600 text-red-100"
+                  variant={null}
+                  onClick={handleReq}
+                  value={"reject"}
+                >
+                  Deny
+                </Button>
+              </>
+            ) : accepted === "accept" ? (
+              <Button className="bg-green-700 text-green-100" variant={null}>
+                Accepted
+              </Button>
+            ) : accepted === "reject" ? (
+              <Button className="bg-red-600 text-red-100" variant={null}>
+                Rejected
+              </Button>
+            ) : (
+              <h2>Loading...</h2>
+            )}
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );

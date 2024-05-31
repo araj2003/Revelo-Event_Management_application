@@ -190,7 +190,7 @@ const MembersModal = () => {
               ))
             ) : (
               <div className="flex items-center ml-8">
-                <p className="text-zinc-500">No members to add</p>
+                <p className="text-zinc-500">No members to add - Invite more members to this event</p>
               </div>
             )}
           </div>
