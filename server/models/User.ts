@@ -43,6 +43,7 @@ const UserSchema = new mongoose.Schema<IUser>(
       enum: ["vendor", "regular"],
       default: "regular",
     },
+    
     subroll: {
       type: String,
       required: function () {
