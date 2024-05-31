@@ -27,7 +27,7 @@ const SideBarIcon = ({setIsDm,isDm}:{
         const data: any = await getAllEvent();
         console.log(data);
         if (data.events) {
-          console.log("abcd");
+          // console.log("abcd");
           setEvents(data.events);
         }
       } catch (error) {

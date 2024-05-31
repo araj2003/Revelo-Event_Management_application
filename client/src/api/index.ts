@@ -99,6 +99,7 @@ export const addChannelInSubEvent = (channelData:any) => API.post(`/channel/crea
 
 //search users
 export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
+export const searchVendorRoll = (subroll:any) => API.get(`/event/vendor/searchVendor?query=${subroll}`)
 
 //chats:-
 export const getSingleChat = () => API.get("/group/getSingleChats")
@@ -117,3 +118,12 @@ export const sentMessage = (content:any,chatId:any) => API.post(`/message/sendMe
 })
 
 export const getMessage = (chatId:any) => API.get(`/message/getMessage/${chatId}`)
+
+//meeting
+export const createMeeting = (meetingData:any) => API.post(`/meeting/createMeeting`,{meetingData})
+
+export const getMeeting = (meetingId:any) => API.post(`/meeting/getMeeting/${meetingId}`)
+
+export const updateMeeting = () => API.post(`/meeting/updateMeeting`)
+
+export const getUserMeeting = (userId:any) => API.get(`/meeting/getUserMeeting/${userId}`)

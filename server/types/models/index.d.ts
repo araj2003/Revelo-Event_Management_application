@@ -11,6 +11,7 @@ export interface IUser {
   createdAt?: Date;
   updatedAt?: Date;
   role?: string;
+  subroll:string;
   joinedEvents: mongoose.Types.ObjectId[];
   createJWT: () => string;
   comparePassword: (candidatePassword: string) => Promise<Boolean>;
@@ -82,9 +83,10 @@ export interface IServerInvite {
 
 export interface IMeeting {
   _id?: mongoose.Types.ObjectId;
-  channelId: mongoose.Types.ObjectId;
+  
   topic: string;
   startDate: Date;
   startTime: Date;
   description: string;
+  userId:mongoose.Types.ObjectId[];
 }

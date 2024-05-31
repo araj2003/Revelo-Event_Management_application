@@ -6,19 +6,26 @@ import Message from "../models/Message";
 import Meeting from "../models/meeting";
 
 const createMeeting = async (req: Request, res: Response) => {
-  const { channelId, topic, startTime, startDate, description } = req.body;
-
-  if (!channelId || !topic || !startTime || !startDate) {
+  const {meetingData} = req.body;
+  // console.log(meetingData)
+  if (!meetingData) { 
     throw new BadRequestError("Please provide complete imformation");
   }
 
+  const userId = req.user.userId
+
   const meeting = new Meeting({
-    channelId,
-    topic,
-    startTime,
-    startDate,
-    description,
+    
+    topic:meetingData.topic,
+    startTime:meetingData.startTime,
+    startDate:meetingData.startDate,
+    description:meetingData.description,
+    userId:[userId]
   });
+
+
+  meeting.userId.push(meetingData.guestId);
+  
 
   await meeting.save();
 
@@ -37,7 +44,7 @@ const updateMeeting = async (req: Request, res: Response) => {
   if (!meetingId) {
     throw new BadRequestError("Please provide complete imformation");
   }
-  const { channelId, topic, startTime, startDate, description } = req.body;
+  const {  topic, startTime, startDate, description } = req.body;
 
   const meeting = await Meeting.findById(meetingId);
 
@@ -45,7 +52,6 @@ const updateMeeting = async (req: Request, res: Response) => {
     throw new BadRequestError("meeting cannot be Updated");
   }
 
-  if (channelId) meeting.channelId = channelId;
   if (topic) meeting.topic = topic;
   if (startTime) meeting.startTime = startTime;
   if (startDate) meeting.startDate = startDate;
@@ -76,4 +82,25 @@ const getMeeting = async (req: Request, res: Response) => {
   });
 };
 
-export { createMeeting, getMeeting, updateMeeting };
+const getMeetingsByUserId = async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+
+  try {
+    const meetings = await Meeting.find({ userId: { $in: [userId] } })
+      .populate('channelId', 'name')
+      .exec();
+
+    if (!meetings || meetings.length === 0) {
+      return res.status(404).json({ message: 'No meetings found for the provided user ID' });
+    }
+
+    res.status(200).json(meetings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred while fetching meetings' });
+  }
+};
+
+
+
+export { createMeeting, getMeeting, updateMeeting ,getMeetingsByUserId};

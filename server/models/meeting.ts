@@ -4,11 +4,11 @@ import { IMeeting } from "../types/models";
 
 const MeetingSchema = new mongoose.Schema<IMeeting>(
   {
-    channelId: {
+    
+    userId:[{
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Channel",
-      //   required: [true, "Channel name required"],
-    },
+      ref: "User",
+    }],
     topic: {
       type: String,
       required: [true, "please provide topic"],
