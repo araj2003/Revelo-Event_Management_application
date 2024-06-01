@@ -4,7 +4,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Install pnpm
-RUN npm install -g pnpm
+RUN npm install -g pnpm@9.1.0
 
 # Install app dependencies
 COPY package.json .
