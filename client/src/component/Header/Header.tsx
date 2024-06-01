@@ -11,7 +11,9 @@ import MessageIcon from "@mui/icons-material/Message";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import { logout } from "@/store/userSlice";
 import { useAppDispatch } from "@/hooks";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch();
   const [input, setInput] = useState("");
   const [data, setData] = useState<any>([]);
@@ -49,6 +51,15 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+  }
+
+  const openEvents = () => {
+    navigate("/myEvents")
+  }
+
+  const openProfile = () => {
+    navigate("/myProfile")
+
   }
   return (
     <div className="header ">
@@ -240,7 +251,7 @@ const Header = () => {
             aria-labelledby="dropdownDelayButton"
           >
             <li>
-              <a
+              <a onClick={openEvents}
                 href="#"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
@@ -265,6 +276,7 @@ const Header = () => {
             </li> */}
             <li>
               <a
+                onClick={openProfile}
                 href="#"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
