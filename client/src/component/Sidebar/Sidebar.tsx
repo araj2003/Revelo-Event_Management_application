@@ -73,7 +73,7 @@ const Sidebar = () => {
         onClick={() => {
           onOpen("showCalendar");
         }}
-        className="m-2 mr-3 p-2 pl-20  rounded-lg cursor-pointer text-sm flex justify-start gap-4 bg-[#00000039]"
+        className="m-2 mr-3 p-2 rounded-lg cursor-pointer text-sm flex justify-start gap-4 bg-[#00000039]"
       >
         Calendar
         <EventIcon fontSize="small" />
