@@ -83,7 +83,7 @@ const SidebarOption = ({
   return (
     <>
       <div
-        className="sidebarOption"
+        className="sidebarOption mt-3"
         onClick={addChanneloption ? addSubevent : selectSubEvent}
       >
         {showIcon && type == "subevent" ? (

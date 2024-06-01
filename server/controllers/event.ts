@@ -199,6 +199,7 @@ const searchUser = async (req: Request, res: Response) => {
     $or: [
       { name: { $regex: query, $options: "i" } },
       { email: { $regex: query, $options: "i" } },
+      {subroll:{$regex: query, $options: "i" }}
     ],
   });
 

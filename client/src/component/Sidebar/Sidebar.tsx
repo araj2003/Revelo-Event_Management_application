@@ -52,10 +52,14 @@ const Sidebar = () => {
 
   useEffect(() => {
     // eventId = "664b2b8a05eea2de292c2bd8";
-    // console.log(event);
-    fetchAllSubEvents();
+
+    console.log(event);
+    if(eventId)
+      fetchAllSubEvents();
+
   }, [eventId]);
 
+  if(!eventId) return <div></div>;
   return (
     <div className="sidebar">
       <div className="sidebar__header">
@@ -101,7 +105,7 @@ const Sidebar = () => {
             type="subevent"
             subEvent={subEvent}
           />
-          <hr />
+          {/* <hr /> */}
           {/* </div> */}
         </>
       ))}
@@ -112,7 +116,7 @@ const Sidebar = () => {
             title="Add Subevent"
             addChanneloption={true}
           />
-          <hr />
+          {/* <hr /> */}
         </>
       )}
       {/*  connect to db and list all the channels */}

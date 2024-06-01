@@ -17,8 +17,10 @@ function Home() {
       <Header />
       <div className="app__body">
         {/* <SideBarIcon setIsDm = {setIsDm} isDm = {isDm} /> */}
-        {isDesktopOrLaptop && <SideBarIcon setIsDm={setIsDm} isDm={isDm} />}
-        {isDesktopOrLaptop && (isDm ? <DirectMessages /> : <Sidebar />)}
+        {/* {isDesktopOrLaptop && <SideBarIcon setIsDm={setIsDm} isDm={isDm} />}
+        {isDesktopOrLaptop && (isDm ? <DirectMessages /> : <Sidebar />)} */}
+        {<SideBarIcon setIsDm={setIsDm} isDm={isDm} />}
+        {(isDm ? <DirectMessages /> : <Sidebar />)}
         <Chat />
         <ModalProvider/>
       </div>

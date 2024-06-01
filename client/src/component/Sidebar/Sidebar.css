@@ -1,9 +1,10 @@
 .sidebar {
-  background-color: var(--slack-color);
-  border-top: 1px solid #49274b;
-  max-width: 260px;
+  /* background-color: var(--slack-color); */
+  background-color: #4a1c4b;
+  /* border-top: 1px solid #49274b; */
+  width: 260px;
   color: #fff;
-  flex: 0.3;
+  /* flex: 0.3; */
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -12,7 +13,7 @@
 
 .sidebar__header {
   display: flex;
-  border-bottom: 1px solid #49274b;
+  /* border-bottom: 1px solid #49274b; */
   padding: 13px;
   padding-bottom: 10px;
 }
