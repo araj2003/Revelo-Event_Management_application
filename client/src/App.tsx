@@ -13,7 +13,7 @@ import { ChatProvider } from "./context/ChatContext";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { isAuthenticated,isDarkMode, loadingUser } = useAppSelector((state) => state.user);
+  const { isDarkMode, loadingUser } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     

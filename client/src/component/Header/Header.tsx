@@ -1,11 +1,8 @@
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import CloseIcon from "@mui/icons-material/Close";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./Header.css";
 import { searchUsers } from "@/api";

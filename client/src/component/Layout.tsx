@@ -1,12 +1,12 @@
-import { Outlet, useLocation, Navigate } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 // import Navbar from "./Navbar.tsx";
 import { useAppSelector } from "../hooks";
 import { toast } from "react-toastify";
 
 const Layout = () => {
-  const location = useLocation();
-  const hideNavbarRoutes = ["/verify", "/forgot-password", "/"];
-  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
+  // const location = useLocation();
+  // const hideNavbarRoutes = ["/verify", "/forgot-password", "/"];
+  // const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
   return (
     <div>
       {/* {!shouldHideNavbar && <Navbar />} */}

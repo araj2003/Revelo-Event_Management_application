@@ -27,7 +27,7 @@ const SidebarOption = ({
   addChanneloption?: boolean;
   showIcon?: boolean;
   type?: string;
-  subEvent: any;
+  subEvent?: any;
 }) => {
   const { onOpen } = useModal();
   const { role } = useContext(EventContext);
