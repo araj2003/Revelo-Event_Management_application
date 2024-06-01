@@ -49,7 +49,7 @@ const SideBarIcon = ({setIsDm,isDm}:{
           !isDm?<SideBar
           icon={
             <span className="transition-transform duration-300 ease-in hover:scale-125" onClick={() => setIsDm((prev)=>!prev) }>
-              <ForwardToInboxIcon size="22" />
+              <ForwardToInboxIcon />
             </span>
           }
         />:

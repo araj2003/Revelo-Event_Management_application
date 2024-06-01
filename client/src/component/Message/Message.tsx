@@ -1,6 +1,6 @@
 import "./Message.css";
 
-const Message = ({ message, sender, time, userImage, userId }) => {
+const Message = ({ message, sender, time, userId }:any) => {
   return (
     <div
       className={`w-full flex ${sender?._id == userId ? "": ""}`}
