@@ -103,6 +103,9 @@ const Header = () => {
                   <button onClick={() => openMeetingModal(user._id)}>
                     <EditCalendarIcon />
                   </button>
+                  {user?.role == "vendor"&& <div>
+                    vendor category: {user?.subroll}
+                  </div>}
                 </div>
               ))}
             </div>
