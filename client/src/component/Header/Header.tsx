@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import CloseIcon from "@mui/icons-material/Close";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import Drawer from '@mui/material/Drawer';
+import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./Header.css";
 import { searchUsers } from "@/api";
@@ -13,13 +13,16 @@ import { useModal } from "@/hooks/user-modal";
 import MessageIcon from "@mui/icons-material/Message";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import { logout } from "@/store/userSlice";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useNavigate } from "react-router-dom";
+
 const Header = () => {
-  const navigate = useNavigate()
+  const { profilePicture } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [input, setInput] = useState("");
   const [data, setData] = useState<any>([]);
+  const [openMenu, setOpenMenu] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [timeoutId, setTimeoutId] = useState<ReturnType<
@@ -54,32 +57,36 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-  }
+  };
 
   const openEvents = () => {
-    navigate("/myEvents")
-  }
+    navigate("/myEvents");
+  };
 
   const openProfile = () => {
-    navigate("/myProfile")
-
-  }
+    navigate("/myProfile");
+  };
   return (
     <div className="header ">
       <div className="header__left">
         <div className=" sm:hidden">
+          {openMenu ? (
+            <CloseIcon
+              className="cursor-pointer"
+              onClick={() => setOpenMenu((prev) => !prev)}
+            />
+          ) : (
+            <MenuIcon
+              className="cursor-pointer"
+              onClick={() => setOpenMenu((prev) => !prev)}
+            />
+          )}
 
-        {openMenu ? (
-          <CloseIcon className="cursor-pointer" onClick={()=>setOpenMenu((prev)=>!prev)}/>
-        ) : (
-          <MenuIcon className="cursor-pointer" onClick={()=>setOpenMenu((prev)=>!prev)} />
-        )}
-
-      {/* <Button onClick={toggleDrawer(true)}>Open drawer</Button> */}
-      {/* <Drawer open={openMenu} onClose={()=>setOpenMenu(false)}>
+          {/* <Button onClick={toggleDrawer(true)}>Open drawer</Button> */}
+          {/* <Drawer open={openMenu} onClose={()=>setOpenMenu(false)}>
         {DrawerList}
       </Drawer> */}
-      </div>
+        </div>
       </div>
       <div className="header__middle">
         <div className="header__search max-sm:max-w-36 max-sm:pl-0">
@@ -111,17 +118,15 @@ const Header = () => {
                   <button onClick={() => openMeetingModal(user._id)}>
                     <EditCalendarIcon />
                   </button>
-                  {user?.role == "vendor"&& <div>
-                    vendor category: {user?.subroll}
-                  </div>}
+                  {user?.role == "vendor" && (
+                    <div>vendor category: {user?.subroll}</div>
+                  )}
                 </div>
               ))}
             </div>
           </>
         )}
       </div>
-
-      
 
       <div className="">
         <button
@@ -263,7 +268,8 @@ const Header = () => {
             aria-labelledby="dropdownDelayButton"
           >
             <li>
-              <a onClick={openEvents}
+              <a
+                onClick={openEvents}
                 href="#"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
