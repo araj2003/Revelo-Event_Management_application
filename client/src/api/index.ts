@@ -4,7 +4,6 @@ import { ProfileType, SignInType, SignUpType } from "../types";
 import { logout } from "../store/userSlice";
 import store from "../store";
 
-
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const URL = `${BASE_URL ? BASE_URL : ""}/api/v1`;
 
@@ -45,7 +44,7 @@ API.interceptors.response.use(
     } else console.log(error);
 
     if (error.response) {
-      console.log(error.response)
+      console.log(error.response,`${URL}/auth`);
       if(error?.response?.request.responseURL == `${URL}/auth`){
         
       }
