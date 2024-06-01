@@ -3,7 +3,7 @@ import "./Message.css";
 const Message = ({ message, sender, time, userImage, userId }) => {
   return (
     <div
-      className={`w-full flex ${sender?._id == userId ? "justify-end" : ""}`}
+      className={`w-full flex ${sender?._id == userId ? "": ""}`}
     >
       <div className="message">
         <img
