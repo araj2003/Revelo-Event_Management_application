@@ -89,7 +89,7 @@ const Header = () => {
         </div>
       </div>
       <div className="header__middle">
-        <div className="header__search max-sm:max-w-36 max-sm:pl-0">
+        <div className=" w-96 header__search max-sm:max-w-36 max-sm:pl-0">
           <Input
             placeholder="Search"
             value={input}
@@ -101,25 +101,29 @@ const Header = () => {
 
         {data.length > 0 && (
           <>
-            <div className="header__searchResults">
-              {data.length} users found
+            <div className="header__searchResults bg-white p-4 rounded shadow-lg">
+              <h2 className="text-lg font-bold mb-4">
+                {data.length} users found
+              </h2>
               {data.map((user: any) => (
-                <div className="flex">
-                  <div
-                    key={user._id}
-                    className="bg-gray-50 border-gray-600 border-[0.5px]"
-                  >
-                    {user.name}
-                  </div>
-                  <button>
+                <div
+                  key={user._id}
+                  className="flex flex-col sm:flex-row items-start sm:items-center bg-gray-50 hover:bg-purple-400 cursor-pointer border-gray-600 border-[0.5px] p-2 rounded mb-2 transition-colors duration-200"
+                >
+                  <div className="mr-4 mb-2 sm:mb-0">{user.name}</div>
+                  <button className="mr-2 mb-2 sm:mb-0">
                     <MessageIcon />
                   </button>
-
-                  <button onClick={() => openMeetingModal(user._id)}>
+                  <button
+                    onClick={() => openMeetingModal(user._id)}
+                    className="mr-2 mb-2 sm:mb-0"
+                  >
                     <EditCalendarIcon />
                   </button>
                   {user?.role == "vendor" && (
-                    <div>vendor category: {user?.subroll}</div>
+                    <div className="text-xs text-gray-500 bg-gray-200 rounded p-2 ">
+                      #vendor : {user?.subroll}
+                    </div>
                   )}
                 </div>
               ))}
