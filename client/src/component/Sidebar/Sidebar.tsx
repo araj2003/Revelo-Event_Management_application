@@ -133,6 +133,9 @@ const Sidebar = () => {
           <Button className="m-4" onClick={openInviteMemberModal}>
             Invite Member
           </Button>
+          <Button className="m-4 mt-0" onClick={openInviteMemberModal}>
+            Invite Vendor
+          </Button>
         </div>
       )}
     </div>

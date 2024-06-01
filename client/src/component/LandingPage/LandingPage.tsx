@@ -85,7 +85,7 @@ const LandingPage = () => {
               </h1>
               <p className="mt-2 md:pr-10 pb-10">
                 Connect the right people, find anything that you need and
-                automate the rest. That’s work in Slack, your productivity
+                automate the rest. That’s work in Revelo, your productivity
                 platform.
               </p>
 
@@ -104,7 +104,7 @@ const LandingPage = () => {
               </div>
 
               <p className="mt-4">
-                <span className="font-semibold">Slack is free to try for </span>
+                <span className="font-semibold">Revelo is free to try for </span>
                 as long as you like
               </p>
             </div>
@@ -174,13 +174,13 @@ const LandingPage = () => {
                 <p className="max-w-[28rem] text-base">
                   Automate away routine tasks with the power of generative AI
                   and simplify your workflow with all your favourite apps ready
-                  to go in Slack.
+                  to go in Revelo.
                 </p>
                 <a
                   href="#"
                   className="text-base max-w-[34rem] text-blue-400 hover:underline transition-all"
                 >
-                  Learn more about the Slack platform{" "}
+                  Learn more about the Revelo platform{" "}
                   <i className="fa-solid fa-arrow-right"></i>
                 </a>
               </div>
@@ -194,7 +194,7 @@ const LandingPage = () => {
                   Choose how you want to work
                 </h2>
                 <p className="max-w-[28rem] text-base">
-                  In Slack, you’ve got all the flexibility to work when, where
+                  In Revelo, you’ve got all the flexibility to work when, where
                   and how it’s best for you. You can easily chat, send audio and
                   video clips, or join a huddle to talk things through live.
                 </p>
@@ -234,7 +234,7 @@ const LandingPage = () => {
                   Bring your team together
                 </h2>
                 <p className="max-w-[28rem] text-base">
-                  At the heart of Slack are channels: organised spaces for
+                  At the heart of Revelo are channels: organised spaces for
                   everyone and everything that you need for work. In channels,
                   it’s easier to connect across departments, offices, time zones
                   and even other companies.
@@ -257,10 +257,10 @@ const LandingPage = () => {
         <section className="flex justify-center">
           <div className="py-20 md:py-24 w-full max-w-[1400px] text-center px-6 relative">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">
-              Teams large and small rely on Slack
+              Teams large and small rely on Revelo
             </h1>
             <p className="text-base mt-6">
-              Slack securely scales up to support collaboration at the world’s
+              Revelo securely scales up to support collaboration at the world’s
               biggest companies.
             </p>
             <div className="flex flex-col md:flex-row mt-6 gap-3 justify-center">
@@ -301,7 +301,7 @@ const LandingPage = () => {
                 85%
               </h1>
               <p className="text-sm">
-                of users say that Slack has improved communication*
+                of users say that Revelo has improved communication*
               </p>
             </div>
             <div className="p-2 w-56">
@@ -347,7 +347,7 @@ const LandingPage = () => {
               <div className="w-full md:w-[48%] flex flex-col justify-center p-2 px-6 md:px-0">
                 <h1 className="text-2xl lg:text-3xl font-sans italic font-light">
                   ‘Many technology employees were gravitating naturally to
-                  Slack. So we followed our users to what has become one of our
+                  Revelo. So we followed our users to what has become one of our
                   most important tools.’
                 </h1>
                 <div className="mt-5">
@@ -368,7 +368,7 @@ const LandingPage = () => {
 
             <p className="mt-16 mb-4 text-center text-gray-600 mx-6">
               * Weighted average. Based on 2,707 survey responses from weekly
-              Slack users in the US, UK, Australia and Canada with a ± 2% margin
+              Revelo users in the US, UK, Australia and Canada with a ± 2% margin
               of error at 95% CI (December 2021).
             </p>
           </div>
@@ -379,7 +379,7 @@ const LandingPage = () => {
         <section className="flex justify-center bg-secondary py-12">
           <div className="px-6 md:px-0 max-w-[1400px]">
             <h1 className="text-2xl md:text-3xl font-semibold text-center">
-              Teams large and small rely on Slack
+              Teams large and small rely on Revelo
             </h1>
             <div className="grid grid-rows-4 md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-4 px-6 md:px-16 py-8 gap-7">
               {/* <!-- card one  --> */}
@@ -395,7 +395,7 @@ const LandingPage = () => {
                   <div className="flex flex-col gap-2 mt-4">
                     <p className="text-sm text-gray-700">Event</p>
                     <h3 className="text-2xl font-semibold">
-                      Ready for the future of AI in Slack?
+                      Ready for the future of AI in Revelo?
                     </h3>
                   </div>
                 </div>
@@ -442,7 +442,7 @@ const LandingPage = () => {
                   <div className="flex flex-col gap-2 mt-4">
                     <p className="text-sm text-gray-700">Customer story</p>
                     <h3 className="text-2xl font-semibold">
-                      How OpenAI expands ChatGPT with Slack.
+                      How OpenAI expands ChatGPT with Revelo.
                     </h3>
                   </div>
                 </div>
@@ -465,7 +465,7 @@ const LandingPage = () => {
                   <div className="flex flex-col gap-2 mt-4">
                     <p className="text-sm text-gray-700">Event</p>
                     <h3 className="text-2xl font-semibold">
-                      Ready for the future of AI in Slack?
+                      Ready for the future of AI in Revelo?
                     </h3>
                   </div>
                 </div>
@@ -483,7 +483,7 @@ const LandingPage = () => {
         <section className="flex justify-center text-center bg-primary py-24 text-white mb-10 overflow-hidden shape-box">
           <div className="px-6 md:px-0 w-screen max-w-[1400px]">
             <h1 className="text-3xl md:text-[2.5rem] font-semibold px-2">
-              See all that you can accomplish with Slack
+              See all that you can accomplish with Revelo
             </h1>
             <div className="flex flex-col md:flex-row gap-4 justify-center mt-12">
               <button className=" outline outline-1 outline-white hover:outline-primary  transition-all bg-white text-primary font-semibold py-4 px-12 rounded-sm">
@@ -510,7 +510,7 @@ const LandingPage = () => {
                   <li className="text-lg font-semibold">WHY SLACK?</li>
                   <li>
                     <a className="text-gray-600 hover:text-blue-900" href="#">
-                      Slack vs email
+                      Revelo vs email
                     </a>
                   </li>
                   <li>
@@ -642,7 +642,7 @@ const LandingPage = () => {
                   </li>
                   <li>
                     <a className="text-gray-600 hover:text-blue-900" href="#">
-                      Slack shop
+                      Revelo shop
                     </a>
                   </li>
                 </ul>
