@@ -4,6 +4,7 @@ import { signIn } from "../store/userSlice";
 import { useAppDispatch } from "../hooks";
 import { Link } from "react-router-dom";
 import GoogleSigninButton from "../component/GoogleSigninButton";
+import logo from "@/../assets/logo.png"
 
 function Signin() {
   const dispatch = useAppDispatch();
@@ -29,19 +30,19 @@ function Signin() {
           /> */}
 
           <h1 className="mt-3 text-3xl font-bold   text-center text-gray-800 capitalize sm:text-5xl dark:text-black">
-            <div className="flex items-center justify-center pb-5">
+            <div className="flex items-center justify-center pb-4">
               <img
-                src="https://www.pngall.com/wp-content/uploads/13/Slack-Logo-PNG-Cutout.png"
+                src={logo}
                 alt="Slack Logo"
-                width={150}
-                height={150}
+                width={200}
+                height={200}
               />
             </div>
-            sign in to Slack
+            sign in
           </h1>
 
           <h1 className="mt-4 text-lg text-center text-gray-800">
-            We suggest using the email address you use at work.
+            Sign in to your account
           </h1>
 
           <div className="relative flex items-center mt-8">

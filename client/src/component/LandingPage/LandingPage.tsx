@@ -12,7 +12,7 @@ const LandingPage = () => {
             {/* <!-- navbar left section --> */}
             <div className="flex gap-6">
               <div className="flex items-center">
-                <img src="./assets/logo.svg" alt="website logo" />
+                <img src="./assets/logo.svg" alt="website logo" className="h-10"/>
               </div>
               <ul className=" hidden lg:flex gap-6">
                 <li className="flex items-center">
