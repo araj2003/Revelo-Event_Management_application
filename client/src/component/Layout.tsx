@@ -33,7 +33,7 @@ const AntiProtectedRoute = () => {
   const { isAuthenticated } = useAppSelector((state) => state.user);
   // console.log(token);
 
-  if (isAuthenticated) return <Navigate to="/dashboard" />;
+  if (isAuthenticated) return <Navigate to="/" />;
   return <Outlet />;
 };
 

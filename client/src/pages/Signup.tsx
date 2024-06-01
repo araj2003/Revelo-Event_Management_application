@@ -3,6 +3,7 @@ import { useAppDispatch } from "../hooks";
 import { signUp } from "../store/userSlice";
 import { SignUpType } from "../types";
 import { Link } from "react-router-dom";
+import logo from "@/../assets/logo.png"
 
 function Signup() {
   const dispatch = useAppDispatch();
@@ -31,19 +32,19 @@ function Signup() {
           /> */}
 
           <h1 className="mt-3 text-2xl font-bold text-center text-gray-800 capitalize sm:text-4xl">
-            <div className="flex items-center justify-center pb-2">
+            <div className="flex items-center justify-center pb-4">
               <img
-                src="https://www.pngall.com/wp-content/uploads/13/Slack-Logo-PNG-Cutout.png"
+                src={logo}
                 alt="Slack Logo"
-                width={150}
-                height={150}
+                width={200}
+                height={200}
               />
             </div>
-            sign up to Slack
+            sign up
           </h1>
 
           <h1 className="mt-4 text-lg text-center text-gray-800">
-            We suggest using the email address you use at work.
+            Sign up to your account
           </h1>
 
           {/* <label className="block mt-4 text-sm">
@@ -146,13 +147,13 @@ function Signup() {
           <div className="relative flex items-center mt-4">
             <select
               name="role"
-              className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="block appearance-none w-full border cursor-pointer text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none bg-white border-gray-500"
               onChange={(e) => {
                 setSignUpValues({ ...signUpValues, role:e.target.value });
               }}
             >
               
-              <option value="regular">Customer</option>
+              <option value="regular">Individual</option>
               <option value="vendor">Vendor</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
