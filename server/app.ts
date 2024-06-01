@@ -48,7 +48,7 @@ app.use(
   }),
 );
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
+const allowedOrigins = ["http://localhost:5173", "http://localhost:3000", "https://scaling-octo-enigma.onrender.com"];
 
 app.use(
   cors({
@@ -111,7 +111,7 @@ const start = async () => {
     const io = new Server(server, {
       pingTimeout: 60000,
       cors: {
-        origin: ["http://localhost:3000", "http://localhost:5173"]
+        origin: ["http://localhost:3000", "http://localhost:5173", "https://scaling-octo-enigma.onrender.com"]
       },
     });
 
