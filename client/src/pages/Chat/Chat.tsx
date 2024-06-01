@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import io from "socket.io-client";
 import placeholder from "../../../assets/no-chat-placeholder.png"
 
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = import.meta.env.VITE_API_BASE_URL;
 var socket: any, selectedChatCompare;
 
 const Chat = () => {
