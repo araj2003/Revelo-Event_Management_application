@@ -104,7 +104,7 @@ const Chat = () => {
   // console.log(newMessage)
   // console.log(messages);
   if (!channelId || !chatId)
-    return <div className="h-full w-full flex flex-col items-center justify-center"><img src={placeholder} className="h-2/3 object-scale-down"/>
+    return <div className="h-full w-full flex flex-col items-center justify-center chat"><img src={placeholder} className="h-2/3 object-scale-down"/>
     <p className="text-2xl font-bold">Select or Join an event</p></div>;
   return (
     <>
