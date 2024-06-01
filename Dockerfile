@@ -13,7 +13,7 @@ COPY pnpm-workspace.yaml .
 COPY client/package.json ./client/package.json
 COPY client/pnpm-lock.yaml ./client/pnpm-lock.yaml
 COPY server/package.json ./server/package.json
-COPY server/pnpm-lock.yaml ./server/pnpm-lock.yaml
+# COPY server/pnpm-lock.yaml ./server/pnpm-lock.yaml
 
 RUN pnpm install
 
