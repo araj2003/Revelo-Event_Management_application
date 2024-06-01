@@ -13,9 +13,10 @@ import { ChatProvider } from "./context/ChatContext";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { isDarkMode, loadingUser } = useAppSelector((state) => state.user);
+  const { isAuthenticated,isDarkMode, loadingUser } = useAppSelector((state) => state.user);
 
   useEffect(() => {
+    
     dispatch(getUserData());
   }, []);
 

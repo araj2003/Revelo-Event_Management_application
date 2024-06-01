@@ -16,10 +16,7 @@ export interface LoginState {
 const initialState: LoginState = {
   loadingUser: true,
   isAuthenticated: false,
-  isDarkMode:
-    localStorage.getItem("isDarkMode") !== null
-      ? localStorage.getItem("isDarkMode") === "true"
-      : window.matchMedia("(prefers-color-scheme: dark)").matches,
+  isDarkMode:true,
   name: "",
   profilePicture: "",
   isAdministrator: false,
