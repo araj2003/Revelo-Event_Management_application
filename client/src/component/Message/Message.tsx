@@ -14,7 +14,9 @@ const Message = ({ message, sender, time, userImage, userId }) => {
         <div className="message__info">
           <h4>
             {sender?.name}
-            <span className="message__time">{time}</span>
+            <span className="message__time">
+              {new Date(time).toLocaleString()}
+            </span>
           </h4>
           <p>Message : {message} </p>
         </div>

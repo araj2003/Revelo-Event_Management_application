@@ -16,6 +16,8 @@ import AllMessages from "./AllMessages";
 import ScrollableFeed from "react-scrollable-feed";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import io from "socket.io-client";
+import placeholder from "../../../assets/no-chat-placeholder.png"
+
 const ENDPOINT = "http://localhost:3000";
 var socket: any, selectedChatCompare;
 
@@ -102,7 +104,8 @@ const Chat = () => {
   // console.log(newMessage)
   // console.log(messages);
   if (!channelId || !chatId)
-    return <div>Click a channel to show its chats</div>;
+    return <div className="h-full w-full flex flex-col items-center justify-center"><img src={placeholder} className=""/>
+    <p className="text-2xl font-bold">Select or Join an event</p></div>;
   return (
     <>
       <div className="chat">
@@ -110,7 +113,7 @@ const Chat = () => {
           <div className="chat__headerLeft">
             <h4 className="chat_channelName">
               <strong>{data?.channelName}</strong>
-              <StarBorderIcon />
+              {/* <StarBorderIcon /> */}
             </h4>
           </div>
           {/* <div className="chat__headerRight">
@@ -119,7 +122,7 @@ const Chat = () => {
             </p>
           </div> */}
         </div>
-        <div className="chat__messages">
+        <div className="overflow-y-scroll">
           <ScrollableFeed>
             {messages?.map((message: any, index: number) => (
               <Message
@@ -134,7 +137,7 @@ const Chat = () => {
           </ScrollableFeed>
         </div>
         <div className="chatInput">
-          <form onSubmit={sendMessage}>
+          <form onSubmit={sendMessage} className="flex">
             <input
               type="text"
               placeholder="Enter a message"

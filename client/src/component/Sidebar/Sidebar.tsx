@@ -105,7 +105,7 @@ const Sidebar = () => {
             type="subevent"
             subEvent={subEvent}
           />
-          <hr />
+          {/* <hr /> */}
           {/* </div> */}
         </>
       ))}
@@ -116,7 +116,7 @@ const Sidebar = () => {
             title="Add Subevent"
             addChanneloption={true}
           />
-          <hr />
+          {/* <hr /> */}
         </>
       )}
       {/*  connect to db and list all the channels */}

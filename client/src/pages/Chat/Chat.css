@@ -2,7 +2,9 @@
   flex: 0.7;
   flex-grow: 1;
   overflow-y: scroll;
-  padding-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  /* padding-bottom: 150px; */
 }
 
 .chat__header {
