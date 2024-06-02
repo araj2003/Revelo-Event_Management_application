@@ -4,11 +4,13 @@ import { Button } from "@/components/ui/button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UserList from "../UserList";
 import { Link } from "react-router-dom";
-import { getEventMembers, getMyEvents } from "@/api";
+import { getAllEvent, getEventMembers, getMyEvents } from "@/api";
 import { useEffect, useState } from "react";
+import EventCard from "./EventCard";
 const MyEvent = () => {
   const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
+  const [showMembers,setShowMembers] = useState(false)
   const getMembers = async (eventId: string) => {
     try {
       const response: any = await getEventMembers(eventId);
@@ -22,8 +24,9 @@ const MyEvent = () => {
 
   const getEvents = async () => {
     try {
-      const response: any = await getMyEvents();
-      console.log(response);
+      const response: any = await getAllEvent();
+      setEvents(response?.events);
+      // console.log(response);
     } catch (error: any) {
       console.log(error.message);
     }
@@ -33,33 +36,33 @@ const MyEvent = () => {
     getEvents();
   }, []);
 
-
-//   const events = [
-//     {
-//       id: 1,
-//       title: "Art Exhibition",
-//       description:
-//         "Experience a captivating collection of contemporary artworks by renowned artists.",
-//       date: "June 15, 2023",
-//       time: "6:00 PM - 9:00 PM",
-//     },
-//     {
-//       id: 2,
-//       title: "Music Festival",
-//       description:
-//         "Join us for a weekend of live music, food trucks, and outdoor fun.",
-//       date: "July 20-22, 2023",
-//       time: "All Day",
-//     },
-//     {
-//       id: 3,
-//       title: "Tech Conference",
-//       description:
-//         "Learn about the latest innovations and network with industry experts.",
-//       date: "August 10, 2023",
-//       time: "9:00 AM - 5:00 PM",
-//     },
-//   ];
+  console.log(events);
+  //   const events = [
+  //     {
+  //       id: 1,
+  //       title: "Art Exhibition",
+  //       description:
+  //         "Experience a captivating collection of contemporary artworks by renowned artists.",
+  //       date: "June 15, 2023",
+  //       time: "6:00 PM - 9:00 PM",
+  //     },
+  //     {
+  //       id: 2,
+  //       title: "Music Festival",
+  //       description:
+  //         "Join us for a weekend of live music, food trucks, and outdoor fun.",
+  //       date: "July 20-22, 2023",
+  //       time: "All Day",
+  //     },
+  //     {
+  //       id: 3,
+  //       title: "Tech Conference",
+  //       description:
+  //         "Learn about the latest innovations and network with industry experts.",
+  //       date: "August 10, 2023",
+  //       time: "9:00 AM - 5:00 PM",
+  //     },
+  //   ];
 
   return (
     <div>
@@ -70,33 +73,24 @@ const MyEvent = () => {
           </div>
         </Link>
       </div>
-      <div className="event-page py-16 ml-20 flex gap-16 font-robo">
-        <div className="event-list w-[50%]">
-          <h1 className="text-center font-semibold text-lg">Upcoming Events</h1>
-          {events.map((event:any) => (
-            <div key={event._id} className="event-card">
-              <h2>{event.title}</h2>
-              <p>{event.description}</p>
-              <p>
-                <strong>Date:</strong> {event.date}
-              </p>
-              <p>
-                <strong>Time:</strong> {event.time}
-              </p>
-              <Button
-                variant={null}
-                className="mt-2 bg-purple-600 text-white hover:bg-purple-800"
-              >
-                <PeopleIcon className="mr-2" />
-                View Members
-              </Button>
-            </div>
-          ))}
-        </div>
-        <UserList />
+      <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-center">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 ">
+          My Events
+        </span>{" "}
+      </h1>
+      <div className="event-page py-16 ml-12 mr-12 flex gap-16 font-robo flex-col  sm:flex-row">
+        {events.map((event: any) => {
+          return (
+            <EventCard event ={event}/>
+          );
+        })}
+        {/* <UserList /> */}
       </div>
     </div>
   );
 };
 
 export default MyEvent;
+
+
+

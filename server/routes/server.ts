@@ -49,7 +49,7 @@ router.get("/vendor/searchVendor", authMiddleWare, searchVendorRoll);
 
 router.get('/:id/members', authMiddleWare, getEventMembers);
 
-router.get('/my', authMiddleWare, getMyEvent);
+router.get('/myEvents', authMiddleWare, getMyEvent);
 
 
 export default router;

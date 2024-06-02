@@ -87,7 +87,7 @@ export const changePassword = (passwordData: {
 export const createEvent = (eventData: any) => API.post("/event/createEvent", eventData);
 export const getEvent = (eventId: string) => API.get(`/event/${eventId}`);
 export const getAllEvent = () => API.get("/event/all");
-export const getMyEvents = () => API.get("/event/my");
+export const getMyEvents = () => API.get("/event/myEvents");
 export const getSubEvents = (eventId: string) => API.get(`/event/${eventId}/subevents`);
 export const getEventMembers = (eventId: string) => API.get(`/event/${eventId}/members`);
 

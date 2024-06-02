@@ -5,7 +5,7 @@ import Event from "../models/Server";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 import { ISubEvent } from "../types/models";
-
+import mongoose from "mongoose";
 const createEvent = async (req: Request, res: Response) => {
   const { serverName, description } = req.body;
   const userId = req.user.userId;
@@ -56,7 +56,7 @@ const getAllEvent = async (req: Request, res: Response) => {
 
   const events = await Event.find({
     $or: [{ host: userId }, { users: userId }],
-  });
+  }).populate("users").populate("subEvents");
 
   // role vendor, host or user
   const role = events.map((event) => {
@@ -231,11 +231,9 @@ const getEventMembers = async (req: Request, res: Response) => {
 
 
 const getMyEvent = async (req: Request, res: Response) => {
-  const userId = req.user.userId;
-
-  const events = await Event.find(
-    { host: userId },
-  );
+  const userId = new mongoose.Types.ObjectId(req.user.userId);
+  console.log(userId)
+  const events = await Event.find({ users: { $in: [userId] } });
 
   res.status(StatusCodes.OK).json({
     events,
