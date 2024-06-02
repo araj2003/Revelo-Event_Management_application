@@ -105,7 +105,7 @@ const Header = () => {
               {data.map((user: any) => (
                 <div
                   key={user._id}
-                  className="flex flex-col sm:flex-row items-start sm:items-center bg-gray-50 hover:bg-purple-500 cursor-pointer border-gray-600 border-[0.5px] p-2 rounded mb-2 transition-colors duration-200"
+                  className="flex flex-col sm:flex-row items-start sm:items-center bg-purple-50 hover:bg-purple-600 hover:text-white cursor-pointer border-gray-600 border-[0.5px] p-2 rounded mb-2 transition-colors duration-200"
                 >
                   <div className="mr-4 mb-2 sm:mb-0">{user.name}</div>
                   <button className="mr-2 mb-2 sm:mb-0">
@@ -119,10 +119,10 @@ const Header = () => {
                   </button>
                   {user?.role == "vendor" && (
                     <div className="flex gap-2">
-                      <div className="text-xs text-gray-500 bg-gray-200 rounded p-2 ">
+                      <div className="text-xs text-gray-100 bg-purple-500 rounded p-2 ">
                         vendor
                       </div>
-                      <div className="text-xs text-gray-500 bg-gray-200 rounded p-2 ">
+                      <div className="text-xs text-gray-100 bg-purple-500 rounded p-2 ">
                         {user?.subroll}
                       </div>
                     </div>
