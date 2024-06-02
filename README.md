@@ -1,1 +1,1 @@
-# scaling-octo-enigma
+# Revelo: Event Manager
