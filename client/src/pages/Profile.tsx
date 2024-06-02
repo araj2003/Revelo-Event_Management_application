@@ -116,7 +116,7 @@ function Profile() {
               <div>
                 <label
                   htmlFor="profileImage"
-                  className="block text-sm text-gray-500 dark:text-gray-300"
+                  className="block text-sm text-gray-500"
                 >
                   Change Image
                 </label>
@@ -125,7 +125,7 @@ function Profile() {
                   type="file"
                   accept="image/png, image/jpeg, image/jpg, image/webp"
                   multiple={false}
-                  className="block w-96 max-w-[80vw] px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300"
+                  className="block w-96 max-w-[80vw] px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full placeholder-gray-400/70 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
                   onChange={(e) => {
                     if (
                       e.currentTarget.files &&
@@ -142,7 +142,7 @@ function Profile() {
                 />
                 <button
                   onClick={uploadImage}
-                  className="text-white mt-3 bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                  className="text-white mt-3 bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-auto px-5 py-2.5 text-center"
                 >
                   Upload Image
                 </button>
@@ -160,14 +160,14 @@ function Profile() {
             <div className="mb-5">
               <label
                 htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
                 Your name
               </label>
               <input
                 type="text"
                 id="name"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block0 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[30rem] max-w-[80vw]"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block0 p-2.5  w-[30rem] max-w-[80vw]"
                 value={editProfileData.name}
                 disabled={!edit}
                 onChange={(e) =>
@@ -181,7 +181,7 @@ function Profile() {
             <div className="mb-5">
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
                 Your email (Read only)
               </label>
@@ -189,7 +189,7 @@ function Profile() {
                 type="email"
                 id="email"
                 disabled
-                className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-500 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[30rem] max-w-[80vw]"
+                className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  w-[30rem] max-w-[80vw]"
                 placeholder={editProfileData.email}
               />
             </div>
@@ -232,7 +232,7 @@ function Profile() {
               <input
                 type="password"
                 id="current-password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[30rem] max-w-[80vw]"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  w-[30rem] max-w-[80vw]"
                 placeholder="Enter current password"
                 value={passwordChange.currentPassword}
                 onChange={(e) =>
@@ -253,7 +253,7 @@ function Profile() {
               <input
                 type="password"
                 id="new-password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[30rem] max-w-[80vw]"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  w-[30rem] max-w-[80vw]"
                 placeholder="Enter new password"
                 value={passwordChange.newPassword}
                 onChange={(e) =>
@@ -267,14 +267,14 @@ function Profile() {
             <div className="mb-5">
               <label
                 htmlFor="confirm-password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
                 Confirm new password
               </label>
               <input
                 type="password"
                 id="confirm-password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[30rem] max-w-[80vw]"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  w-[30rem] max-w-[80vw]"
                 placeholder="Confirm new password"
                 value={passwordChange.confirmPassword}
                 onChange={(e) =>
