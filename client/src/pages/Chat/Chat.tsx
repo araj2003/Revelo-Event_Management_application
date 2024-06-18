@@ -108,7 +108,7 @@ const Chat = () => {
     <p className="text-2xl font-bold">Select or Join an event</p></div>;
   return (
     <>
-      <div className="chat">
+      <div className="chat relative">
         <div className="chat__header">
           <div className="chat__headerLeft">
             <h4 className="chat_channelName">
@@ -122,7 +122,7 @@ const Chat = () => {
             </p>
           </div> */}
         </div>
-        <div className="overflow-y-scroll">
+        <div className="sidebar__icon">
           <ScrollableFeed>
             {messages?.map((message: any, index: number) => (
               <Message
@@ -136,7 +136,7 @@ const Chat = () => {
             ))}
           </ScrollableFeed>
         </div>
-        <div className="chatInput">
+        <div className="chatInput static">
           <form onSubmit={sendMessage} className="flex">
             <input
               type="text"
