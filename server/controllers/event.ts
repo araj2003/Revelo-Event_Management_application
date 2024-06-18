@@ -55,26 +55,19 @@ const getAllEvent = async (req: Request, res: Response) => {
   const userId = req.user.userId;
 
   const events = await Event.find({
-    $or: [{ host: userId }, { users: userId }],
-  }).populate("users").populate("subEvents");
+    $or: [{ host: userId }, { users: userId },{vendors:userId}],
+  }).populate("users").populate("subEvents").populate("vendors").populate("host");
 
   // role vendor, host or user
-  const role = events.map((event) => {
-    if (event.host.includes(userId)) {
-      return "host";
-    }
-    if (event.users.includes(userId)) {
-      return "user";
-    }
-    if (event.vendors.includes(userId)) {
-      return "vendor";
-    }
-  });
-
+  const hostEvents = events.filter(event => event.host.includes(userId));
+  const guestEvents = events.filter(event => event.users.includes(userId));
+  const vendorEvents = events.filter(event => event.vendors.includes(userId));
   res.status(StatusCodes.OK).json({
     events,
-    role,
-    msg: "list of all the events",
+    hostEvents,
+    guestEvents,
+    vendorEvents,
+    msg: "list of all events categorized by user role",
   });
 };
 
@@ -241,6 +234,34 @@ const getMyEvent = async (req: Request, res: Response) => {
   });
 };
 
+const getMyEventAsHost = async (req: Request, res: Response) => {
+  // const userId = req.user.userId;
+  // console.log(userId)
+  // const events = await Event.find({ host: { $in: [userId] } });
+
+  res.status(StatusCodes.OK).json({
+    // events,
+    msg: "list of my events",
+  });
+};
+
+const getMyEventAsGuest = async (req: Request, res: Response) => {
+  const userId = req.user.userId
+  console.log(userId)
+  const events = await Event.find({
+    host: { $ne: userId },
+    $or: [
+      { users: userId },
+    ]
+  }).populate('users host vendors subEvents')
+
+  res.status(StatusCodes.OK).json({
+    events,
+    msg: "list of my events",
+  });
+};
+
+
 
 
 export {
@@ -253,5 +274,7 @@ export {
   getAllEvent,
   searchUser,
   getEventMembers,
-  getMyEvent
+  getMyEvent,
+  getMyEventAsHost,
+  getMyEventAsGuest
 };

@@ -15,6 +15,8 @@ import {
   searchUser,
   getEventMembers,
   getMyEvent,
+  getMyEventAsGuest,
+  getMyEventAsHost,
 } from "../controllers/event";
 import { searchVendorRoll } from "../controllers/vendor";
 
@@ -50,6 +52,9 @@ router.get("/vendor/searchVendor", authMiddleWare, searchVendorRoll);
 router.get('/:id/members', authMiddleWare, getEventMembers);
 
 router.get('/myEvents', authMiddleWare, getMyEvent);
+
+router.get('/myHostEvents',authMiddleWare, getMyEventAsHost);
+router.get('/myGuestEvents',authMiddleWare, getMyEventAsGuest);
 
 
 export default router;

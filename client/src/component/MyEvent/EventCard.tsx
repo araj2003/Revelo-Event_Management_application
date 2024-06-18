@@ -1,7 +1,14 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 
-const EventCard = ({event}:any) => {
-    const [showMembers,setShowMembers] = useState(false)
+const EventCard = ({ event }: any) => {
+  console.log(event);
+  const [showMembers, setShowMembers] = useState(false);
+  //   const [guests,setGuests] = useState([])
+  // const [hosts,setHosts] = useState([])
+  // const [vendors,setVendors] = useState([])
+  // setGuests(event?.users)
+  // setHosts(event?.host)
+  // setVendors(event?.vendors)
   return (
     <div className="event-list  ">
       <a
@@ -47,7 +54,46 @@ const EventCard = ({event}:any) => {
             className="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200"
             aria-labelledby="dropdownUsersButton"
           >
+              <p className="ml-3">Members</p>
             {event?.users.map((user: any) => {
+              return (
+                <li>
+                  <a
+                    href="#"
+                    className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    <img
+                      className="w-6 h-6 me-2 rounded-full"
+                      src={user?.profilePicture}
+                      alt="Jese image"
+                    />
+
+                    {user?.name}
+                  </a>
+                </li>
+              );
+            })}
+            <p className="ml-3">Hosts</p>
+            {event?.host.map((user: any) => {
+              return (
+                <li>
+                  <a
+                    href="#"
+                    className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    <img
+                      className="w-6 h-6 me-2 rounded-full"
+                      src={user?.profilePicture}
+                      alt="Jese image"
+                    />
+
+                    {user?.name}
+                  </a>
+                </li>
+              );
+            })}
+             <p className="ml-3">Vendors</p>
+            {event?.vendors.map((user: any) => {
               return (
                 <li>
                   <a

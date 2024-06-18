@@ -4,36 +4,53 @@ import { Button } from "@/components/ui/button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UserList from "../UserList";
 import { Link } from "react-router-dom";
-import { getAllEvent, getEventMembers, getMyEvents } from "@/api";
+import { getAllEvent, getEventMembers, getMyEvents,getMyGuestEvents,getMyHostEvents } from "@/api";
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 const MyEvent = () => {
   const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
   const [showMembers,setShowMembers] = useState(false)
-  const getMembers = async (eventId: string) => {
-    try {
-      const response: any = await getEventMembers(eventId);
-      if (response.users) {
-        setUsers(response.users);
-      }
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  };
+  
+
+
 
   const getEvents = async () => {
     try {
       const response: any = await getAllEvent();
       setEvents(response?.events);
-      // console.log(response);
+      
+      // console.log(response?.events[0]?.host);
     } catch (error: any) {
       console.log(error.message);
     }
   };
 
+  // const getHostEvents = () => { 
+  //   try {
+  //     const response: any = getMyHostEvents();
+  //     // setEvents(response?.events);
+  //     console.log(response)
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //   } 
+  // };
+
+  // const getGuestEvents = () => { 
+  //   try {
+  //     const response: any = getMyGuestEvents();
+  //     // setEvents(response?.events);
+  //     console.log(response)
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //   } 
+  // };  
+  
+
   useEffect(() => {
     getEvents();
+    // getHostEvents() 
+    // getGuestEvents()
   }, []);
 
   console.log(events);

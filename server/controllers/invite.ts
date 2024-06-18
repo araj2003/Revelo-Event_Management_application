@@ -105,12 +105,19 @@ const joinInvite = async (req: Request, res: Response) => {
   if (userAlreadyJoined) {
     throw new BadRequestError("user already joined");
   }
-  event.users.push(userId);
-  await event.save();
   const user = await User.findById(userId);
   if (!user) {
     throw new UnauthenticatedError("user not found");
   }
+
+  if(user.role === "vendor" && !event.vendors.includes(userId)){
+
+    event.vendors.push(userId);
+  }
+  else{
+    event.users.push(userId); 
+  }
+  await event.save();
   user.joinedEvents.push(invite.eventId);
   await user.save();
 
