@@ -81,6 +81,14 @@ export interface IServerInvite {
   expired: Boolean;
 }
 
+export interface IPersonalInvite {
+  _id?: mongoose.Types.ObjectId;
+  eventId: mongoose.Types.ObjectId;
+  createdBy: mongoose.Types.ObjectId;
+  userId: mongoose.Types.ObjectId;
+  response: string;
+}
+
 export interface IMeeting {
   _id?: mongoose.Types.ObjectId;
   

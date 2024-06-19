@@ -99,6 +99,7 @@ export const getMyHostEvents = () => API.get("/event/myHostEvents");
 /* Invite API */
 export const createInvite = (inviteData: any) => API.post("/invite/create", inviteData);
 export const acceptInvite = (inviteId:string) => API.post("/invite/join", {inviteCode:inviteId});
+export const sendPersonalInvite = (inviteData: any) => API.post("/invite/sendPersonalInvite", inviteData);
 
 /* subEvent API */
 export const createSubEvent = (subEventData:any) => API.post("/subEvent/createSubEvent",subEventData)
