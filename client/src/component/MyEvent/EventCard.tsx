@@ -21,6 +21,9 @@ const EventCard = ({ event }: any) => {
         <p className="font-normal text-gray-700 dark:text-gray-400">
           {event?.description}
         </p>
+        <p className="font-normal ">
+          you are a <span>{event?.role}</span>
+        </p>
         <button
           id="dropdownUsersButton"
           data-dropdown-toggle="dropdownUsers"

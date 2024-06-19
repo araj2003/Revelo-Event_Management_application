@@ -12,6 +12,7 @@ import Calender from "./calender/Calender";
 import MyEvents from "@/pages/MyEvents";
 import FloorPlan from "@/pages/FloorPlan";
 import MyEvent from "./MyEvent/MyEvent";
+import Main from "./Sidebar/Main";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <ProtectedRoute />,
         children: [
+          {
+            path: "/sidebar",
+            element: <Main />,
+          },
           {
             path: "/myevents",
             element: <MyEvent />,

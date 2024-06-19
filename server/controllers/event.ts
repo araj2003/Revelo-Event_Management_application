@@ -55,18 +55,26 @@ const getAllEvent = async (req: Request, res: Response) => {
   const userId = req.user.userId;
 
   const events = await Event.find({
-    $or: [{ host: userId }, { users: userId },{vendors:userId}],
+    $or: [{ host: userId }, { users: userId }, { vendors: userId }],
   }).populate("users").populate("subEvents").populate("vendors").populate("host");
 
-  // role vendor, host or user
-  const hostEvents = events.filter(event => event.host.includes(userId));
-  const guestEvents = events.filter(event => event.users.includes(userId));
-  const vendorEvents = events.filter(event => event.vendors.includes(userId));
+  // Add role of the user in each event
+  const eventsWithRole = events.map(event => {
+    let role = '';
+    // Assuming userId is already a string. If not, ensure it's converted to a string where it's defined.
+    if (event.host.some(host => host._id.equals(userId))) {
+      role = 'Host';
+    } else if (event.vendors.some(vendor => vendor._id.equals(userId))) {
+      role = 'Vendor';
+    }
+     else if (event.users.some(user => user._id.equals(userId))) {
+      role = 'Guest';
+    }
+    return { ...event.toObject(), role }; // Convert Mongoose document to object and add role
+  });
+
   res.status(StatusCodes.OK).json({
-    events,
-    hostEvents,
-    guestEvents,
-    vendorEvents,
+    events: eventsWithRole,
     msg: "list of all events categorized by user role",
   });
 };

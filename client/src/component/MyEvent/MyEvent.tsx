@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { getAllEvent, getEventMembers, getMyEvents,getMyGuestEvents,getMyHostEvents } from "@/api";
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
+import { useModal } from "@/hooks/user-modal";
+
 const MyEvent = () => {
   const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
@@ -45,7 +47,12 @@ const MyEvent = () => {
   //     console.log(error.message);
   //   } 
   // };  
+  const { onOpen } = useModal();
   
+  const addServer = () => {
+    console.log("clicked");
+    onOpen("createEvent");
+  };
 
   useEffect(() => {
     getEvents();
@@ -103,6 +110,7 @@ const MyEvent = () => {
         })}
         {/* <UserList /> */}
       </div>
+      <button onClick={addServer} className="hover:bg-slate-400 p-2 bg-slate-500 text-white m-20 rounded-xl">Create a Event</button>
     </div>
   );
 };
