@@ -1,20 +1,23 @@
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Input } from "@/components/ui/input";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./Header.css";
-import { searchUsers } from "@/api";
+import { searchUsers, sendPersonalInvite } from "@/api";
 import { useModal } from "@/hooks/user-modal";
 import MessageIcon from "@mui/icons-material/Message";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import { logout } from "@/store/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { EventContext } from "@/context/EventContext";
 
 const Header = () => {
   const { profilePicture } = useAppSelector((state) => state.user);
+  const {eventId} = useContext(EventContext);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [input, setInput] = useState("");
@@ -63,6 +66,21 @@ const Header = () => {
   const openProfile = () => {
     navigate("/myProfile");
   };
+
+  const personalInviteToEvent = async (userId:string) => {
+    if(!eventId){
+      toast.error("Please select an event to invite");
+      return;
+    }
+    const inviteData = {
+      eventId,
+      userId,
+    };
+    const response:any = await sendPersonalInvite(inviteData);
+    if(!response.error){
+      toast.success(response.msg);
+    }
+  }
   return (
     <div className="header ">
       <div className="header__left">
@@ -127,6 +145,11 @@ const Header = () => {
                       </div>
                     </div>
                   )}
+                  <button className="bg-purple-500 text-white ml-1 px-2 rounded"
+                  onClick={()=>personalInviteToEvent(user._id)}
+                  >
+                    Invite
+                  </button>
                 </div>
               ))}
             </div>

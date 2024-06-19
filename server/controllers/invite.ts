@@ -4,6 +4,7 @@ import Event from "../models/Server";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 import ServerInvite from "../models/ServerInvite";
+import PersonalInvite from "../models/PersonalInvite";
 import mongoose from "mongoose";
 import User from "../models/User";
 
@@ -44,6 +45,101 @@ const createInvite = async (req: Request, res: Response) => {
   return res.status(StatusCodes.CREATED).json({
     invite,
     msg: "new invite created",
+  });
+};
+
+const sendPersonalInvite = async (req: Request, res: Response) => {
+  const { eventId, userId } = req.body;
+  const createdBy = req.user.userId;
+
+  const event = await Event.findById(eventId);
+  if (!event) {
+    throw new BadRequestError("Event not found");
+  }
+  if (!event.host.includes(createdBy)) {
+    throw new BadRequestError("Only host can send personal invites");
+  }
+  if (
+    event.users.includes(userId) ||
+    event.host.includes(userId) ||
+    event.vendors.includes(userId)
+  ) {
+    throw new BadRequestError("User already joined the event");
+  }
+
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new BadRequestError("User not found");
+  }
+
+  const personalInvite = await PersonalInvite.create({
+    eventId,
+    createdBy,
+    userId,
+  });
+  personalInvite.save();
+
+  return res.status(StatusCodes.CREATED).json({
+    personalInvite,
+    msg: "personal invite sent",
+  });
+};
+
+const getAllPersonalInvitesReceived = async (req: Request, res: Response) => {
+  const userId = req.user.userId;
+  const personalInvites = await PersonalInvite.find({ userId });
+
+  return res.status(StatusCodes.OK).json({
+    personalInvites,
+    msg: "list of all the personal invites",
+  });
+};
+
+const getAllPersonalInvitesSent = async (req: Request, res: Response) => {
+  const createdBy = req.user.userId;
+  const personalInvites = await PersonalInvite.find({ createdBy });
+
+  return res.status(StatusCodes.OK).json({
+    personalInvites,
+    msg: "list of all the personal invites",
+  });
+};
+
+const respondToPersonalInvite = async (req: Request, res: Response) => {
+  const { personalInviteId, response } = req.body;
+  const userId = req.user.userId;
+
+  const personalInvite = await PersonalInvite.findById(personalInviteId);
+  if (!personalInvite) {
+    throw new BadRequestError("personal invite not found");
+  }
+  if (personalInvite.userId !== userId) {
+    throw new BadRequestError("user not authorized to respond to this invite");
+  }
+
+  if (response !== "accepted" && response !== "rejected") {
+    throw new BadRequestError("invalid response");
+  }
+
+  const event = await Event.findById(personalInvite.eventId);
+  if (!event) {
+    throw new BadRequestError("event not found");
+  }
+
+  personalInvite.response = response;
+  await personalInvite.save();
+
+  if (response === "accepted") {
+    if (event.users.includes(userId)) {
+      throw new BadRequestError("user already joined the event");
+    }
+    event.users.push(userId);
+    await event.save();
+  }
+
+  return res.status(StatusCodes.OK).json({
+    personalInvite,
+    msg: "You have joined the event",
   });
 };
 
@@ -110,12 +206,10 @@ const joinInvite = async (req: Request, res: Response) => {
     throw new UnauthenticatedError("user not found");
   }
 
-  if(user.role === "vendor" && !event.vendors.includes(userId)){
-
+  if (user.role === "vendor" && !event.vendors.includes(userId)) {
     event.vendors.push(userId);
-  }
-  else{
-    event.users.push(userId); 
+  } else {
+    event.users.push(userId);
   }
   await event.save();
   user.joinedEvents.push(invite.eventId);
@@ -133,4 +227,13 @@ const joinInvite = async (req: Request, res: Response) => {
   });
 };
 
-export { createInvite, getInvite, getAllInvites, joinInvite };
+export {
+  createInvite,
+  getInvite,
+  getAllInvites,
+  joinInvite,
+  sendPersonalInvite,
+  getAllPersonalInvitesReceived,
+  getAllPersonalInvitesSent,
+  respondToPersonalInvite,
+};
