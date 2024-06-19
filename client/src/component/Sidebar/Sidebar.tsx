@@ -15,10 +15,12 @@ import { useContext, useEffect, useState } from "react";
 import { EventContext } from "@/context/EventContext";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/user-modal";
+import { useParams } from "react-router-dom";
 
 const Sidebar = () => {
   const {
     eventId,
+    setEventId,
     subEvents,
     setSubEvents,
     setEvent,
@@ -27,6 +29,7 @@ const Sidebar = () => {
     role,
   } = useContext(EventContext);
   const { onOpen } = useModal();
+  // const {eventId} = useParams()
   const [channels, setChannels] = useState([
     // {
     //   id: 1,
@@ -55,8 +58,8 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    // eventId = "664b2b8a05eea2de292c2bd8";
-
+    // = "664b2b8a05eea2de292c2bd8";
+    setEventId(eventId);
     console.log(event);
     if(eventId)
       fetchAllSubEvents();

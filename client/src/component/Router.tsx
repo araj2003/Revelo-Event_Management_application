@@ -13,6 +13,7 @@ import MyEvents from "@/pages/MyEvents";
 import FloorPlan from "@/pages/FloorPlan";
 import MyEvent from "./MyEvent/MyEvent";
 import Main from "./Sidebar/Main";
+import EventPage from "@/pages/EventPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <ProtectedRoute />,
         children: [
+          {
+            path: "/eventPage/:eventId",
+            element: <EventPage />,
+          },
           {
             path: "/sidebar",
             element: <Main />,

@@ -8,6 +8,7 @@ import { getAllEvent, getEventMembers, getMyEvents,getMyGuestEvents,getMyHostEve
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import { useModal } from "@/hooks/user-modal";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const MyEvent = () => {
   const [users, setUsers] = useState([]);
@@ -90,6 +91,7 @@ const MyEvent = () => {
 
   return (
     <div>
+      <ModalProvider/>
       <div>
         <Link to="/">
           <div className="bg-purple-600 rounded-full w-10 h-10 flex items-center justify-center text-white ml-6 mt-4 ">
@@ -105,7 +107,7 @@ const MyEvent = () => {
       <div className="event-page py-16 ml-12 mr-12 flex gap-16 font-robo flex-col  sm:flex-row">
         {events.map((event: any) => {
           return (
-            <EventCard event ={event}/>
+            <EventCard event ={event} />
           );
         })}
         {/* <UserList /> */}

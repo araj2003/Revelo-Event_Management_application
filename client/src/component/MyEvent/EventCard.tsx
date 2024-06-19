@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Link, useNavigate } from "react-router-dom";  
+import { EventContext } from "@/context/EventContext";
 
 const EventCard = ({ event }: any) => {
   console.log(event);
@@ -9,6 +12,12 @@ const EventCard = ({ event }: any) => {
   // setGuests(event?.users)
   // setHosts(event?.host)
   // setVendors(event?.vendors)
+  const { setEventId } = useContext(EventContext);
+  const navigate = useNavigate();
+  const handleEvent = () => {
+    setEventId(event._id);
+    navigate(`/eventPage/${event._id}`);
+  };  
   return (
     <div className="event-list  ">
       <a
@@ -115,6 +124,12 @@ const EventCard = ({ event }: any) => {
               );
             })}
           </ul>
+        </div>
+        
+      <div onClick={handleEvent}>
+          <div className="bg-purple-600 rounded-full w-10 h-10 flex items-center justify-center text-white ml-6 mt-4 ">
+            <ArrowBackIcon className="cursor-pointer" />
+          </div>
         </div>
       </a>
     </div>
