@@ -89,7 +89,10 @@ const sendPersonalInvite = async (req: Request, res: Response) => {
 
 const getAllPersonalInvitesReceived = async (req: Request, res: Response) => {
   const userId = req.user.userId;
-  const personalInvites = await PersonalInvite.find({ userId, response: "pending" })
+  const personalInvites = await PersonalInvite.find({
+    userId,
+    response: "pending",
+  })
     .populate({ path: "eventId", select: "serverName description" })
     .populate({ path: "createdBy", select: "name -_id" });
   return res.status(StatusCodes.OK).json({
@@ -101,7 +104,10 @@ const getAllPersonalInvitesReceived = async (req: Request, res: Response) => {
 const getAllPersonalInvitesSent = async (req: Request, res: Response) => {
   const createdBy = req.user.userId;
   // get eventName and createdBy user name
-  const personalInvites = await PersonalInvite.find({ createdBy, response: "pending" });
+  const personalInvites = await PersonalInvite.find({
+    createdBy,
+    response: "pending",
+  });
 
   return res.status(StatusCodes.OK).json({
     personalInvites,
@@ -114,7 +120,7 @@ const respondToPersonalInvite = async (req: Request, res: Response) => {
   const userId = req.user.userId;
 
   const personalInvite = await PersonalInvite.findById(inviteId);
-  console.log(personalInvite);
+  // console.log(personalInvite);
   if (!personalInvite) {
     throw new BadRequestError("personal invite not found");
   }
@@ -134,11 +140,21 @@ const respondToPersonalInvite = async (req: Request, res: Response) => {
   personalInvite.response = response;
   await personalInvite.save();
 
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new UnauthenticatedError("User not found");
+  }
   if (response === "accept") {
-    if (event.users.includes(userId)) {
-      throw new BadRequestError("user already joined the event");
+    const userAlreadyJoined = event.users.includes(userId);
+    const vendorAlreadyJoined = event.vendors.includes(userId);
+    if (userAlreadyJoined || vendorAlreadyJoined) {
+      throw new BadRequestError("User already joined the event");
     }
-    event.users.push(userId);
+    if (user.role === "vendor") {
+      event.vendors.push(userId);
+    } else {
+      event.users.push(userId);
+    }
     await event.save();
   }
 
@@ -203,12 +219,13 @@ const joinInvite = async (req: Request, res: Response) => {
     throw new BadRequestError("event not found");
   }
   const userAlreadyJoined = event.users.includes(userId);
-  if (userAlreadyJoined) {
-    throw new BadRequestError("user already joined");
+  const vendorAlreadyJoined = event.vendors.includes(userId);
+  if (userAlreadyJoined || vendorAlreadyJoined) {
+    throw new BadRequestError("User already joined the event");
   }
   const user = await User.findById(userId);
   if (!user) {
-    throw new UnauthenticatedError("user not found");
+    throw new UnauthenticatedError("User not found");
   }
 
   if (user.role === "vendor" && !event.vendors.includes(userId)) {
