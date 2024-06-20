@@ -72,6 +72,8 @@ const sendPersonalInvite = async (req: Request, res: Response) => {
     throw new BadRequestError("User not found");
   }
 
+  await PersonalInvite.deleteMany({ eventId, userId });
+
   const personalInvite = await PersonalInvite.create({
     eventId,
     createdBy,
@@ -87,8 +89,9 @@ const sendPersonalInvite = async (req: Request, res: Response) => {
 
 const getAllPersonalInvitesReceived = async (req: Request, res: Response) => {
   const userId = req.user.userId;
-  const personalInvites = await PersonalInvite.find({ userId });
-
+  const personalInvites = await PersonalInvite.find({ userId, response: "pending" })
+    .populate({ path: "eventId", select: "serverName description" })
+    .populate({ path: "createdBy", select: "name -_id" });
   return res.status(StatusCodes.OK).json({
     personalInvites,
     msg: "list of all the personal invites",
@@ -97,7 +100,8 @@ const getAllPersonalInvitesReceived = async (req: Request, res: Response) => {
 
 const getAllPersonalInvitesSent = async (req: Request, res: Response) => {
   const createdBy = req.user.userId;
-  const personalInvites = await PersonalInvite.find({ createdBy });
+  // get eventName and createdBy user name
+  const personalInvites = await PersonalInvite.find({ createdBy, response: "pending" });
 
   return res.status(StatusCodes.OK).json({
     personalInvites,
@@ -106,18 +110,19 @@ const getAllPersonalInvitesSent = async (req: Request, res: Response) => {
 };
 
 const respondToPersonalInvite = async (req: Request, res: Response) => {
-  const { personalInviteId, response } = req.body;
+  const { inviteId, response } = req.body;
   const userId = req.user.userId;
 
-  const personalInvite = await PersonalInvite.findById(personalInviteId);
+  const personalInvite = await PersonalInvite.findById(inviteId);
+  console.log(personalInvite);
   if (!personalInvite) {
     throw new BadRequestError("personal invite not found");
   }
-  if (personalInvite.userId !== userId) {
+  if (personalInvite.userId.toString() !== userId.toString()) {
     throw new BadRequestError("user not authorized to respond to this invite");
   }
 
-  if (response !== "accepted" && response !== "rejected") {
+  if (response !== "accept" && response !== "reject") {
     throw new BadRequestError("invalid response");
   }
 
@@ -129,7 +134,7 @@ const respondToPersonalInvite = async (req: Request, res: Response) => {
   personalInvite.response = response;
   await personalInvite.save();
 
-  if (response === "accepted") {
+  if (response === "accept") {
     if (event.users.includes(userId)) {
       throw new BadRequestError("user already joined the event");
     }
@@ -139,7 +144,7 @@ const respondToPersonalInvite = async (req: Request, res: Response) => {
 
   return res.status(StatusCodes.OK).json({
     personalInvite,
-    msg: "You have joined the event",
+    msg: response === "accept" ? "invite accepted" : "invite rejected",
   });
 };
 
