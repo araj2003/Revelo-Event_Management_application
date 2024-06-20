@@ -52,9 +52,13 @@ export const EventProvider: any = ({ children }: { children: any }) => {
   const [role, setRole] = useState(null);
 
   const [subEvents, setSubEvents] = useState<any[]>(defaultSubEvents);
-  const fetchAllSubEvents = async () => {
+  const fetchAllSubEvents = async (eid:string) => {
     try {
-      const data: any = await getSubEvents(eventId);
+      let data: any;
+      if(eid)
+        data = await getSubEvents(eid);
+      else 
+        data = await getSubEvents(eventId);
       // console.log(data);
       if (data.event) {
         setEvent(data.event);
