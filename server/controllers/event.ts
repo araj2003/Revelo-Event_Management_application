@@ -88,11 +88,30 @@ const createHost = async (req: Request, res: Response) => {
   if (!event) {
     throw new BadRequestError("event not found");
   }
-  event?.host?.push(hostId);
-  return res.status(StatusCodes.CREATED).json({
-    event,
-    msg: "new host is created",
-  });
+
+  // Check if user is already a host
+  if (!event.host.includes(hostId)) {
+    // Add user to host array
+    event.host.push(hostId);
+
+    // Remove user from users array if present
+    const userIndex = event.users.indexOf(hostId);
+    if (userIndex > -1) {
+      event.users.splice(userIndex, 1);
+    }
+
+    // Save the updated event
+    await event.save();
+
+    return res.status(StatusCodes.CREATED).json({
+      event,
+      msg: "New host added successfully",
+    });
+  } else {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "User is already a host",
+    });
+  }
 };
 
 // const addMember = async(req: Request,res:Response) => {
@@ -101,22 +120,25 @@ const createHost = async (req: Request, res: Response) => {
 
 const removeHost = async (req: Request, res: Response) => {
   const { hostId, eventId } = req.body;
-  if (!hostId || !eventId) {
-    throw new BadRequestError("Please provide hostId and eventId");
-  }
+  // Find the event
   const event = await Event.findById(eventId);
   if (!event) {
-    throw new BadRequestError("event not found");
+    return res.status(404).json({ msg: "Event not found" });
   }
-
-  event.host = event.host.filter((id) => id.toString() !== hostId);
-
-  await event.save();
-
-  return res.status(StatusCodes.CREATED).json({
-    event,
-    msg: "host is removed",
-  });
+  // Check if the user is a host
+  const index = event.host.indexOf(hostId);
+  if (index > -1) {
+    // Remove the user from the host list
+    event.host.splice(index, 1);
+    // Optionally, add the user back to the general event user list if not already present
+    if (!event.users.includes(hostId)) {
+      event.users.push(hostId);
+    }
+    await event.save();
+    return res.status(200).json({ msg: "Host removed and user added back to the event" });
+  } else {
+    return res.status(400).json({ msg: "User is not a host" });
+  }
 };
 
 const deleteEvent = async (req: Request, res: Response) => {
@@ -207,26 +229,57 @@ const searchUser = async (req: Request, res: Response) => {
   return res.status(200).json({ users, msg: "list of searched users" });
 };
 
+// Define interfaces for better type checking
+interface IUser {
+  _id: mongoose.Types.ObjectId;
+  name: string;
+  email: string;
+  role: string;
+  subroll?: string; // Assuming subroll is optional
+}
+
+interface ICategorizedUsers {
+  hosts: IUser[];
+  vendors: IUser[];
+  guests: IUser[];
+}
+
 const getEventMembers = async (req: Request, res: Response) => {
   const { id: eventId } = req.params;
-  const userId = req.user.userId;
   const event = await Event.findById(eventId);
-
 
   if (!event) {
     throw new BadRequestError("event not found");
   }
 
-  const users = await User.find({
+  // Fetch all users related to the event
+  const users: any = await User.find({
     _id: {
-      $in: [...event.host, ...event.users]
+      $in: [...event.host, ...event.users, ...event.vendors]
+    }
+  }).populate('name email role subroll');
+
+  // Categorize users into hosts, vendors, and guests
+  const categorizedUsers: ICategorizedUsers = {
+    hosts: [],
+    vendors: [],
+    guests: []
+  };
+
+  users.forEach((user:any) => {
+    if (event.host.some(hostId => hostId.equals(user._id))) {
+      categorizedUsers.hosts.push(user);
+    } else if (event.vendors.some(vendorId => vendorId.equals(user._id))) {
+      categorizedUsers.vendors.push(user);
+    } else {
+      categorizedUsers.guests.push(user);
     }
   });
 
   return res.status(StatusCodes.OK).json({
     event,
-    msg: "User Found",
-    users,
+    msg: "Users categorized by role",
+    users: categorizedUsers,
   });
 };
 

@@ -54,7 +54,7 @@ const Sidebar = () => {
   };
 
   const openEventMembersModal  = () => {
-    // onOpen("");
+    onOpen("eventMemberModal");
   };
 
   useEffect(() => {
@@ -144,7 +144,7 @@ const Sidebar = () => {
             Invite Vendor
           </Button>
           <Button className="m-4 mt-0" onClick={openEventMembersModal}>
-            Create Host
+            SHOW MEMBER LIST
           </Button>
         </div>
       )}
