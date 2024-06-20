@@ -91,6 +91,8 @@ export const getMyEvents = () => API.get("/event/myEvents");
 export const getSubEvents = (eventId: string) => API.get(`/event/${eventId}/subevents`);
 export const getEventMembers = (eventId: string) => API.get(`/event/${eventId}/members`);
 export const createHost = (eventId: string, userId: string) => API.put(`/event/createHost`, {hostId: userId ,eventId:eventId});
+export const removeHost = (eventId: string, userId: string) => API.put(`/event/removeHost`, {hostId: userId ,eventId:eventId});
+
 // export const getMyHostEvents = () => API.get("/event/myHostEvents");
 // export const getMyGuestEvents = () => API.get("/event/myGuestEvents");
 export const getMyGuestEvents = () => API.get("/event/myGuestEvents");

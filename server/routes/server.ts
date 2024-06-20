@@ -34,7 +34,7 @@ router.get("/:id", authMiddleWare, getEvent);
 router.put("/createHost", authMiddleWare, createHost);
 
 //remove from host ..
-router.put("removeHost", authMiddleWare, removeHost);
+router.put("/removeHost", authMiddleWare, removeHost);
 
 //cancel event
 router.delete("deleteEvent", authMiddleWare, deleteEvent);

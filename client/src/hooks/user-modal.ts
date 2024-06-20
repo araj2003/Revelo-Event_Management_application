@@ -9,7 +9,8 @@ export type ModalType =
   | "addRSVP"
   | "showRSVP"
   | "showCalendar"
-  | "meetingModal";
+  | "meetingModal"
+  |  "eventMemberModal";
 
 interface Modalstore {
   type: ModalType | null;
