@@ -19,14 +19,18 @@ import {
 } from "../components/ui/form";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/components/ui/textarea";
 
 import { useModal } from "@/hooks/user-modal";
 import { EventContext } from "@/context/EventContext";
 import { useContext, useEffect, useState } from "react";
 // import { createInvite } from "@/api";
 // import { toast } from "react-toastify";
-import { addChannelInSubEvent, addMember, getMembersNotInSubEvent } from "@/api";
+import {
+  addChannelInSubEvent,
+  addMember,
+  getMembersNotInSubEvent,
+} from "@/api";
 
 const formSchema = z.object({
   channelName: z.string().nonempty("Channel name is required"),
@@ -63,9 +67,9 @@ const AddChannelModal = () => {
 
   const onSubmit = async (values: FormValues) => {
     console.log(values);
-    const response:any = await addChannelInSubEvent({...values,subEventId});
-    console.log(response)
-    if(response.channel) {
+    const response: any = await addChannelInSubEvent({ ...values, subEventId });
+    console.log(response);
+    if (response.channel) {
       handleClose();
     }
   };
@@ -83,8 +87,8 @@ const AddChannelModal = () => {
             Create a Channel
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Channel are where your members communicate. They’re best when organized
-            around a topic.
+            Channel are where your members communicate. They’re best when
+            organized around a topic.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

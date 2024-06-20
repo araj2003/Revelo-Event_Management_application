@@ -48,7 +48,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const SubEventModal = () => {
   const { isOpen, onClose, type } = useModal();
-  const { eventId,fetchAllSubEvents } = useContext(EventContext);
+  const { eventId, fetchAllSubEvents } = useContext(EventContext);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -65,14 +65,14 @@ const SubEventModal = () => {
   const onSubmit = async (values: FormValues) => {
     // console.log(values);
     const data = {
-      subEventName : values.name,
-      subEventDate : values.startDate,
+      subEventName: values.name,
+      subEventDate: values.startDate,
       subEventTime: values.endDate,
-      eventId:eventId
-    }
-    console.log(data)
-    const result = await createSubEvent(data)
-    console.log(result)
+      eventId: eventId,
+    };
+    console.log(data);
+    const result = await createSubEvent(data);
+    console.log(result);
     if (result) {
       form.reset();
       onClose();

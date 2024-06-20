@@ -35,7 +35,7 @@
   border-radius: 10px;
   border: 1px solid #c0c0c0;
   position: relative;
-  top: 0px
+  top: 0px;
 }
 
 .header__search > input {

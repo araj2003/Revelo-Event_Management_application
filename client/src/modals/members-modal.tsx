@@ -100,10 +100,10 @@ const MembersModal = () => {
     if (response.msg) {
       // remove user from not in subevent and add to in subevent
       const user = membersNotInSubEvent.find(
-        (user: any) => user._id === userId
+        (user: any) => user._id === userId,
       );
       setMembersNotInSubevent((prev: any) =>
-        prev.filter((user: any) => user._id !== userId)
+        prev.filter((user: any) => user._id !== userId),
       );
       setMembersInSubevent((prev: any) => [...prev, user]);
     }
@@ -118,7 +118,7 @@ const MembersModal = () => {
       // remove user from not in subevent and add to in subevent
       const user = membersInSubEvent.find((user: any) => user._id === userId);
       setMembersInSubevent((prev: any) =>
-        prev.filter((user: any) => user._id !== userId)
+        prev.filter((user: any) => user._id !== userId),
       );
       setMembersNotInSubevent((prev: any) => [...prev, user]);
     }
@@ -190,7 +190,9 @@ const MembersModal = () => {
               ))
             ) : (
               <div className="flex items-center ml-8">
-                <p className="text-zinc-500">No members to add - Invite more members to this event</p>
+                <p className="text-zinc-500">
+                  No members to add - Invite more members to this event
+                </p>
               </div>
             )}
           </div>

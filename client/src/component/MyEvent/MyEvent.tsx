@@ -4,7 +4,13 @@ import { Button } from "@/components/ui/button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UserList from "../UserList";
 import { Link } from "react-router-dom";
-import { getAllEvent, getEventMembers, getMyEvents,getMyGuestEvents,getMyHostEvents } from "@/api";
+import {
+  getAllEvent,
+  getEventMembers,
+  getMyEvents,
+  getMyGuestEvents,
+  getMyHostEvents,
+} from "@/api";
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import { useModal } from "@/hooks/user-modal";
@@ -13,43 +19,40 @@ import { ModalProvider } from "@/providers/modal-provider";
 const MyEvent = () => {
   const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
-  const [showMembers,setShowMembers] = useState(false)
-  
-
-
+  const [showMembers, setShowMembers] = useState(false);
 
   const getEvents = async () => {
     try {
       const response: any = await getAllEvent();
       setEvents(response?.events);
-      
+
       // console.log(response?.events[0]?.host);
     } catch (error: any) {
       console.log(error.message);
     }
   };
 
-  // const getHostEvents = () => { 
+  // const getHostEvents = () => {
   //   try {
   //     const response: any = getMyHostEvents();
   //     // setEvents(response?.events);
   //     console.log(response)
   //   } catch (error: any) {
   //     console.log(error.message);
-  //   } 
+  //   }
   // };
 
-  // const getGuestEvents = () => { 
+  // const getGuestEvents = () => {
   //   try {
   //     const response: any = getMyGuestEvents();
   //     // setEvents(response?.events);
   //     console.log(response)
   //   } catch (error: any) {
   //     console.log(error.message);
-  //   } 
-  // };  
+  //   }
+  // };
   const { onOpen } = useModal();
-  
+
   const addServer = () => {
     console.log("clicked");
     onOpen("createEvent");
@@ -57,7 +60,7 @@ const MyEvent = () => {
 
   useEffect(() => {
     getEvents();
-    // getHostEvents() 
+    // getHostEvents()
     // getGuestEvents()
   }, []);
 
@@ -91,7 +94,7 @@ const MyEvent = () => {
 
   return (
     <div>
-      <ModalProvider/>
+      <ModalProvider />
       <div>
         <Link to="/">
           <div className="bg-purple-600 rounded-full w-10 h-10 flex items-center justify-center text-white ml-6 mt-4 ">
@@ -100,24 +103,22 @@ const MyEvent = () => {
         </Link>
       </div>
       <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-center">
-        <span className="text-purple-600">
-          My Events
-        </span>{" "}
+        <span className="text-purple-600">My Events</span>{" "}
       </h1>
       <div className="event-page py-16 ml-12 mr-12 flex gap-16 font-robo flex-col  sm:flex-row">
         {events.map((event: any) => {
-          return (
-            <EventCard event ={event} />
-          );
+          return <EventCard event={event} />;
         })}
         {/* <UserList /> */}
       </div>
-      <button onClick={addServer} className="hover:bg-slate-400 p-2 bg-slate-500 text-white m-20 rounded-xl">Create a Event</button>
+      <button
+        onClick={addServer}
+        className="hover:bg-slate-400 p-2 bg-slate-500 text-white m-20 rounded-xl"
+      >
+        Create a Event
+      </button>
     </div>
   );
 };
 
 export default MyEvent;
-
-
-

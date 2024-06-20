@@ -1,6 +1,6 @@
 import { BsPlus, BsFillLightningFill } from "react-icons/bs";
 import { FaFire } from "react-icons/fa";
-import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
+import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import { IoHome } from "react-icons/io5";
 import { IoIosMore } from "react-icons/io";
 import { useModal } from "@/hooks/user-modal";
@@ -9,9 +9,12 @@ import { getAllEvent } from "../../api";
 import { EventContext } from "@/context/EventContext";
 import "./SideBarIcon.css";
 
-const SideBarIcon = ({setIsDm,isDm}:{
-  setIsDm:React.Dispatch<React.SetStateAction<boolean>>,
-  isDm:boolean
+const SideBarIcon = ({
+  setIsDm,
+  isDm,
+}: {
+  setIsDm: React.Dispatch<React.SetStateAction<boolean>>;
+  isDm: boolean;
 }) => {
   const [events, setEvents] = useState([]);
   const { setEventId } = useContext(EventContext);
@@ -45,22 +48,29 @@ const SideBarIcon = ({setIsDm,isDm}:{
     <div className="  flex  flex-col w-20 bg-slack space-y-3 ">
       {/* <Divider /> */}
       <div className="sidebar__icon">
-        {
-          !isDm?<SideBar
-          icon={
-            <span className="transition-transform duration-300 ease-in hover:scale-125" onClick={() => setIsDm((prev)=>!prev) }>
-              <ForwardToInboxIcon />
-            </span>
-          }
-        />:
-        <SideBar
-          icon={
-            <span className="transition-transform duration-300 ease-in hover:scale-125" onClick={() => setIsDm((prev)=>!prev) }>
-              <IoHome size="22" />
-            </span>
-          }
-        />
-        }
+        {!isDm ? (
+          <SideBar
+            icon={
+              <span
+                className="transition-transform duration-300 ease-in hover:scale-125"
+                onClick={() => setIsDm((prev) => !prev)}
+              >
+                <ForwardToInboxIcon />
+              </span>
+            }
+          />
+        ) : (
+          <SideBar
+            icon={
+              <span
+                className="transition-transform duration-300 ease-in hover:scale-125"
+                onClick={() => setIsDm((prev) => !prev)}
+              >
+                <IoHome size="22" />
+              </span>
+            }
+          />
+        )}
         {}
         {events?.map((event: any) => (
           <SideBar
@@ -68,7 +78,7 @@ const SideBarIcon = ({setIsDm,isDm}:{
             icon={event.serverName.charAt(0)}
             setEventId={setEventId}
             id={event._id}
-            fnc={()=>setIsDm(false)}
+            fnc={() => setIsDm(false)}
           />
         ))}
         <SideBar
@@ -112,10 +122,9 @@ const SideBar = ({
       onClick={() => {
         if (setEventId) {
           setEventId(id);
-
         }
-        if(fnc){
-          fnc()
+        if (fnc) {
+          fnc();
         }
       }}
     >

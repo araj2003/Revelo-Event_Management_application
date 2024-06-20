@@ -24,25 +24,25 @@ const createChannel = async (req: Request, res: Response) => {
   if (!subEvent) {
     throw new BadRequestError("subEvent not found");
   }
-//users
-  const channel: any = new Channel({ 
-    channelName:channelName,
-   });
+  //users
+  const channel: any = new Channel({
+    channelName: channelName,
+  });
   if (!channel) {
     throw new BadRequestError("cannot create channel");
   }
-  
+
   await channel.save();
-  const chatId = channel.chatId
-  const chat:any= await Chat.findById(chatId)
-  chat.users = subEvent.users
-  chat.groupAdmin = subEvent.admin
+  const chatId = channel.chatId;
+  const chat: any = await Chat.findById(chatId);
+  chat.users = subEvent.users;
+  chat.groupAdmin = subEvent.admin;
   await chat.save();
 
   const updatedSubEvent = await SubEvent.findOneAndUpdate(
     { _id: subEventId },
     { $push: { channels: channel._id } },
-    { new: true }
+    { new: true },
   );
 
   return res.status(StatusCodes.CREATED).json({
@@ -54,14 +54,16 @@ const createChannel = async (req: Request, res: Response) => {
 
 const getChannel = async (req: Request, res: Response) => {
   const { channelId } = req.params;
-  const channel :any= await Channel.findById(channelId);
+  const channel: any = await Channel.findById(channelId);
   // const channel :any= await Channel.findById(channelId).populate("chatId");
 
   if (!channel) {
     throw new BadRequestError("channel not found");
   }
   // console.log(channel.chatId)
-  const messages = await Message.find({chat:channel.chatId}).populate("sender").sort({ createdAt: 1 });
+  const messages = await Message.find({ chat: channel.chatId })
+    .populate("sender")
+    .sort({ createdAt: 1 });
   // console.log(msg)
   return res.status(StatusCodes.OK).json({
     channel,

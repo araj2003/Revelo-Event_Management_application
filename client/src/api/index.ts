@@ -44,12 +44,9 @@ API.interceptors.response.use(
     } else console.log(error);
 
     if (error.response) {
-      console.log(error.response,`${URL}/auth`);
-      if(error?.response?.request.responseURL == `${URL}/auth`){
-        
-      }
-      else{
-
+      console.log(error.response, `${URL}/auth`);
+      if (error?.response?.request.responseURL == `${URL}/auth`) {
+      } else {
         toast.error(error.response.data?.msg);
       }
     } else {
@@ -84,14 +81,19 @@ export const changePassword = (passwordData: {
 // export const checkAuth = () => API.get("/auth/check");
 
 /* Event API */
-export const createEvent = (eventData: any) => API.post("/event/createEvent", eventData);
+export const createEvent = (eventData: any) =>
+  API.post("/event/createEvent", eventData);
 export const getEvent = (eventId: string) => API.get(`/event/${eventId}`);
 export const getAllEvent = () => API.get("/event/all");
 export const getMyEvents = () => API.get("/event/myEvents");
-export const getSubEvents = (eventId: string) => API.get(`/event/${eventId}/subevents`);
-export const getEventMembers = (eventId: string) => API.get(`/event/${eventId}/members`);
-export const createHost = (eventId: string, userId: string) => API.put(`/event/createHost`, {hostId: userId ,eventId:eventId});
-export const removeHost = (eventId: string, userId: string) => API.put(`/event/removeHost`, {hostId: userId ,eventId:eventId});
+export const getSubEvents = (eventId: string) =>
+  API.get(`/event/${eventId}/subevents`);
+export const getEventMembers = (eventId: string) =>
+  API.get(`/event/${eventId}/members`);
+export const createHost = (eventId: string, userId: string) =>
+  API.put(`/event/createHost`, { hostId: userId, eventId: eventId });
+export const removeHost = (eventId: string, userId: string) =>
+  API.put(`/event/removeHost`, { hostId: userId, eventId: eventId });
 
 // export const getMyHostEvents = () => API.get("/event/myHostEvents");
 // export const getMyGuestEvents = () => API.get("/event/myGuestEvents");
@@ -99,47 +101,72 @@ export const getMyGuestEvents = () => API.get("/event/myGuestEvents");
 export const getMyHostEvents = () => API.get("/event/myHostEvents");
 
 /* Invite API */
-export const createInvite = (inviteData: any) => API.post("/invite/create", inviteData);
-export const acceptInvite = (inviteId:string) => API.post("/invite/join", {inviteCode:inviteId});
-export const sendPersonalInvite = (inviteData: any) => API.post("/invite/sendPersonalInvite", inviteData);
-export const getAllPersonalInvites = () => API.get("/invite/getAllPersonalInvitesReceived");
-export const respondToPersonalInvite = (inviteId: string, response: string) => API.post("/invite/respondToPersonalInvite", {inviteId, response});
+export const createInvite = (inviteData: any) =>
+  API.post("/invite/create", inviteData);
+export const acceptInvite = (inviteId: string) =>
+  API.post("/invite/join", { inviteCode: inviteId });
+export const sendPersonalInvite = (inviteData: any) =>
+  API.post("/invite/sendPersonalInvite", inviteData);
+export const getAllPersonalInvites = () =>
+  API.get("/invite/getAllPersonalInvitesReceived");
+export const respondToPersonalInvite = (inviteId: string, response: string) =>
+  API.post("/invite/respondToPersonalInvite", { inviteId, response });
 
 /* subEvent API */
-export const createSubEvent = (subEventData:any) => API.post("/subEvent/createSubEvent",subEventData)
-export const getAllChannels = (subEventId: any) => API.get(`/subEvent/${subEventId}/getAllChannels`)
-export const addMember = (subEventId:any,userId:any) => API.patch(`/subEvent/addUser/${subEventId}`,{userId})
-export const removeMember = (subEventId:any,userId:any) => API.patch(`/subEvent/removeUser/${subEventId}`,{userId})
-export const getMembersNotInSubEvent = (eventId:any,subEventId:any) => API.get(`/subEvent/getMembersNotInSubEvent/${eventId}/${subEventId}`)
-export const addChannelInSubEvent = (channelData:any) => API.post(`/channel/createChannel`,channelData)
-export const createAdmin = (subEventId:any,userId:any) => API.put(`/subEvent/addAdmin`,{adminId:userId,subEventId:subEventId})
+export const createSubEvent = (subEventData: any) =>
+  API.post("/subEvent/createSubEvent", subEventData);
+export const getAllChannels = (subEventId: any) =>
+  API.get(`/subEvent/${subEventId}/getAllChannels`);
+export const addMember = (subEventId: any, userId: any) =>
+  API.patch(`/subEvent/addUser/${subEventId}`, { userId });
+export const removeMember = (subEventId: any, userId: any) =>
+  API.patch(`/subEvent/removeUser/${subEventId}`, { userId });
+export const getMembersNotInSubEvent = (eventId: any, subEventId: any) =>
+  API.get(`/subEvent/getMembersNotInSubEvent/${eventId}/${subEventId}`);
+export const addChannelInSubEvent = (channelData: any) =>
+  API.post(`/channel/createChannel`, channelData);
+export const createAdmin = (subEventId: any, userId: any) =>
+  API.put(`/subEvent/addAdmin`, { adminId: userId, subEventId: subEventId });
 //search users
-export const searchUsers = (searchUser:any) => API.get(`/event/users/search?query=${searchUser}`)
-export const searchVendorRoll = (subroll:any) => API.get(`/event/vendor/searchVendor?query=${subroll}`)
+export const searchUsers = (searchUser: any) =>
+  API.get(`/event/users/search?query=${searchUser}`);
+export const searchVendorRoll = (subroll: any) =>
+  API.get(`/event/vendor/searchVendor?query=${subroll}`);
 
 //chats:-
-export const getSingleChat = () => API.get("/group/getSingleChats")
-export const getGroupChat = () => API.get("getGroupChats")
+export const getSingleChat = () => API.get("/group/getSingleChats");
+export const getGroupChat = () => API.get("getGroupChats");
 
 //rsvp
-export const acceptRejectRsvp = (subEventId:any,status:any) => API.put(`/subEvent/acceptRejectRSVP/${subEventId}`,{status:status});
-export const hasAccepted = (subEventId:any) => API.get(`/subEvent/hasAccepted/${subEventId}`)
-export const addRSVP = (subEventId:any, rsvpData:any) => API.post(`/subEvent/addRSVP/${subEventId}`,rsvpData)//channels:-
-export const getRSVPList = (subEventId:any) => API.get(`/subEvent/getRSVPList/${subEventId}`)
-export const getSingleChannel = (channelId:any) => API.get(`/channel/getChannel/${channelId}`)
+export const acceptRejectRsvp = (subEventId: any, status: any) =>
+  API.put(`/subEvent/acceptRejectRSVP/${subEventId}`, { status: status });
+export const hasAccepted = (subEventId: any) =>
+  API.get(`/subEvent/hasAccepted/${subEventId}`);
+export const addRSVP = (subEventId: any, rsvpData: any) =>
+  API.post(`/subEvent/addRSVP/${subEventId}`, rsvpData); //channels:-
+export const getRSVPList = (subEventId: any) =>
+  API.get(`/subEvent/getRSVPList/${subEventId}`);
+export const getSingleChannel = (channelId: any) =>
+  API.get(`/channel/getChannel/${channelId}`);
 
 //message:-
-export const sentMessage = (content:any,chatId:any) => API.post(`/message/sendMessage`,{
-  content:content,chatId:chatId
-})
+export const sentMessage = (content: any, chatId: any) =>
+  API.post(`/message/sendMessage`, {
+    content: content,
+    chatId: chatId,
+  });
 
-export const getMessage = (chatId:any) => API.get(`/message/getMessage/${chatId}`)
+export const getMessage = (chatId: any) =>
+  API.get(`/message/getMessage/${chatId}`);
 
 //meeting
-export const createMeeting = (meetingData:any) => API.post(`/meeting/createMeeting`,{meetingData})
+export const createMeeting = (meetingData: any) =>
+  API.post(`/meeting/createMeeting`, { meetingData });
 
-export const getMeeting = (meetingId:any) => API.post(`/meeting/getMeeting/${meetingId}`)
+export const getMeeting = (meetingId: any) =>
+  API.post(`/meeting/getMeeting/${meetingId}`);
 
-export const updateMeeting = () => API.post(`/meeting/updateMeeting`)
+export const updateMeeting = () => API.post(`/meeting/updateMeeting`);
 
-export const getUserMeeting = (userId:any) => API.get(`/meeting/getUserMeeting/${userId}`)
+export const getUserMeeting = (userId: any) =>
+  API.get(`/meeting/getUserMeeting/${userId}`);

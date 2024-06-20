@@ -48,7 +48,11 @@ app.use(
   }),
 );
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:3000", "https://scaling-octo-enigma.onrender.com"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://scaling-octo-enigma.onrender.com",
+];
 
 app.use(
   cors({
@@ -86,7 +90,6 @@ app.use("/api/v1/group", groupRouter);
 app.use("/api/v1/calender", calenderRouter);
 app.use("/api/v1/message", messageRouter);
 
-
 app.use("*", express.static("../client/dist/index.html"));
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
@@ -111,7 +114,11 @@ const start = async () => {
     const io = new Server(server, {
       pingTimeout: 60000,
       cors: {
-        origin: ["http://localhost:3000", "http://localhost:5173", "https://scaling-octo-enigma.onrender.com"]
+        origin: [
+          "http://localhost:3000",
+          "http://localhost:5173",
+          "https://scaling-octo-enigma.onrender.com",
+        ],
       },
     });
 
@@ -127,7 +134,7 @@ const start = async () => {
         console.log("user joined room", room);
       });
 
-      socket.on("new-message", (newMessageRecieved: any, chatId:any) => {
+      socket.on("new-message", (newMessageRecieved: any, chatId: any) => {
         // console.log(newMessageRecieved,abc);
         socket.in(chatId).emit("message-received", newMessageRecieved);
       });

@@ -6,26 +6,23 @@ import Message from "../models/Message";
 import Meeting from "../models/meeting";
 
 const createMeeting = async (req: Request, res: Response) => {
-  const {meetingData} = req.body;
+  const { meetingData } = req.body;
   // console.log(meetingData)
-  if (!meetingData) { 
+  if (!meetingData) {
     throw new BadRequestError("Please provide complete imformation");
   }
 
-  const userId = req.user.userId
+  const userId = req.user.userId;
 
   const meeting = new Meeting({
-    
-    topic:meetingData.topic,
-    startTime:meetingData.startTime,
-    startDate:meetingData.startDate,
-    description:meetingData.description,
-    userId:[userId]
+    topic: meetingData.topic,
+    startTime: meetingData.startTime,
+    startDate: meetingData.startDate,
+    description: meetingData.description,
+    userId: [userId],
   });
 
-
   meeting.userId.push(meetingData.guestId);
-  
 
   await meeting.save();
 
@@ -44,7 +41,7 @@ const updateMeeting = async (req: Request, res: Response) => {
   if (!meetingId) {
     throw new BadRequestError("Please provide complete imformation");
   }
-  const {  topic, startTime, startDate, description } = req.body;
+  const { topic, startTime, startDate, description } = req.body;
 
   const meeting = await Meeting.findById(meetingId);
 
@@ -87,20 +84,22 @@ const getMeetingsByUserId = async (req: Request, res: Response) => {
 
   try {
     const meetings = await Meeting.find({ userId: { $in: [userId] } })
-      .populate('channelId', 'name')
+      .populate("channelId", "name")
       .exec();
 
     if (!meetings || meetings.length === 0) {
-      return res.status(404).json({ message: 'No meetings found for the provided user ID' });
+      return res
+        .status(404)
+        .json({ message: "No meetings found for the provided user ID" });
     }
 
     res.status(200).json(meetings);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'An error occurred while fetching meetings' });
+    res
+      .status(500)
+      .json({ message: "An error occurred while fetching meetings" });
   }
 };
 
-
-
-export { createMeeting, getMeeting, updateMeeting ,getMeetingsByUserId};
+export { createMeeting, getMeeting, updateMeeting, getMeetingsByUserId };

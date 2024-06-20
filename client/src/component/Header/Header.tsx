@@ -17,7 +17,7 @@ import { EventContext } from "@/context/EventContext";
 
 const Header = () => {
   const { profilePicture } = useAppSelector((state) => state.user);
-  const {eventId} = useContext(EventContext);
+  const { eventId } = useContext(EventContext);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [input, setInput] = useState("");
@@ -67,8 +67,8 @@ const Header = () => {
     navigate("/myProfile");
   };
 
-  const personalInviteToEvent = async (userId:string) => {
-    if(!eventId){
+  const personalInviteToEvent = async (userId: string) => {
+    if (!eventId) {
       toast.error("Please select an event to invite");
       return;
     }
@@ -76,11 +76,11 @@ const Header = () => {
       eventId,
       userId,
     };
-    const response:any = await sendPersonalInvite(inviteData);
-    if(!response.error){
+    const response: any = await sendPersonalInvite(inviteData);
+    if (!response.error) {
       toast.success(response.msg);
     }
-  }
+  };
   return (
     <div className="header ">
       <div className="header__left">
@@ -145,8 +145,9 @@ const Header = () => {
                       </div>
                     </div>
                   )}
-                  <button className="bg-purple-500 text-white ml-1 px-2 rounded"
-                  onClick={()=>personalInviteToEvent(user._id)}
+                  <button
+                    className="bg-purple-500 text-white ml-1 px-2 rounded"
+                    onClick={() => personalInviteToEvent(user._id)}
                   >
                     Invite
                   </button>

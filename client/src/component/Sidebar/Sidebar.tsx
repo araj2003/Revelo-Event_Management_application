@@ -29,7 +29,7 @@ const Sidebar = () => {
     role,
   } = useContext(EventContext);
   const { onOpen } = useModal();
-  const {eventId:eid} = useParams()
+  const { eventId: eid } = useParams();
   const [channels, setChannels] = useState([
     // {
     //   id: 1,
@@ -53,19 +53,17 @@ const Sidebar = () => {
     onOpen("inviteMember");
   };
 
-  const openEventMembersModal  = () => {
+  const openEventMembersModal = () => {
     onOpen("eventMemberModal");
   };
 
   useEffect(() => {
     // = "664b2b8a05eea2de292c2bd8";
     setEventId(eid);
-    if(eid)
-      fetchAllSubEvents(eid);
-
+    if (eid) fetchAllSubEvents(eid);
   }, [eid]);
 
-  if(!eventId) return <div></div>;
+  if (!eventId) return <div></div>;
   return (
     <div className="sidebar">
       <div className="sidebar__header">

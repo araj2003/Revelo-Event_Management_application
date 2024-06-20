@@ -1,5 +1,5 @@
-import Header from '@/component/Header/Header'
-import React from 'react'
+import Header from "@/component/Header/Header";
+import React from "react";
 
 import Sidebar from "../component/Sidebar/Sidebar";
 import Chat from "./Chat/Chat";
@@ -13,18 +13,18 @@ const EventPage = () => {
 
   return (
     <div>
-        <Header/>
-        <div className="app__body">
+      <Header />
+      <div className="app__body">
         {/* <SideBarIcon setIsDm = {setIsDm} isDm = {isDm} /> */}
         {/* {isDesktopOrLaptop && <SideBarIcon setIsDm={setIsDm} isDm={isDm} />}
         {isDesktopOrLaptop && (isDm ? <DirectMessages /> : <Sidebar />)} */}
         {/* {<SideBarIcon setIsDm={setIsDm} isDm={isDm} />} */}
         <Sidebar />
         <Chat />
-        <ModalProvider/>
+        <ModalProvider />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EventPage
+export default EventPage;

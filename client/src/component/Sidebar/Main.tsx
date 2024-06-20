@@ -13,7 +13,7 @@ const Main = () => {
     },
     {
       name: "Calender",
-      element: <Calender />,    
+      element: <Calender />,
       icon: "",
     },
     {
@@ -32,28 +32,26 @@ const Main = () => {
   console.log(selected);
   useEffect(() => {
     setSelected(data[id]);
-  },[id])
+  }, [id]);
   return (
     <div className="flex">
-    <div className="p-8 bg-slate-500 h-screen w-72 ">
-      <div className="">
-        <h2>Sidebar</h2>
-      </div>
-      {data.map((item, index) => (
-        <div
-          className={(index == id) ? "bg-slate-600" : `hover:bg-slate-400`}
-          onClick={() => {
-            setId(index)
-            setSelected(data[id]);
-          }}
-        >
-          {item.name}
+      <div className="p-8 bg-slate-500 h-screen w-72 ">
+        <div className="">
+          <h2>Sidebar</h2>
         </div>
-      ))}
-    </div>
-    <div>
-      {selected.element}
-    </div>
+        {data.map((item, index) => (
+          <div
+            className={index == id ? "bg-slate-600" : `hover:bg-slate-400`}
+            onClick={() => {
+              setId(index);
+              setSelected(data[id]);
+            }}
+          >
+            {item.name}
+          </div>
+        ))}
+      </div>
+      <div>{selected.element}</div>
     </div>
   );
 };

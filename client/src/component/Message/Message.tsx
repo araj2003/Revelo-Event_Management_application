@@ -1,10 +1,8 @@
 import "./Message.css";
 
-const Message = ({ message, sender, time, userId }:any) => {
+const Message = ({ message, sender, time, userId }: any) => {
   return (
-    <div
-      className={`w-full flex ${sender?._id == userId ? "": ""}`}
-    >
+    <div className={`w-full flex ${sender?._id == userId ? "" : ""}`}>
       <div className="message">
         <img
           src={sender?.profilePicture}

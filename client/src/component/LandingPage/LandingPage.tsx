@@ -12,7 +12,11 @@ const LandingPage = () => {
             {/* <!-- navbar left section --> */}
             <div className="flex gap-6">
               <div className="flex items-center">
-                <img src="./assets/logo.svg" alt="website logo" className="h-10"/>
+                <img
+                  src="./assets/logo.svg"
+                  alt="website logo"
+                  className="h-10"
+                />
               </div>
               <ul className=" hidden lg:flex gap-6">
                 <li className="flex items-center">
@@ -58,9 +62,13 @@ const LandingPage = () => {
                   <i className="fa-solid fa-bars text-lg"></i>
                 </a>
               </div>
-              <a className="hidden lg:inline-block hover:underline" href="#" onClick={()=>{
-                navigate("/signin");
-              }}>
+              <a
+                className="hidden lg:inline-block hover:underline"
+                href="#"
+                onClick={() => {
+                  navigate("/signin");
+                }}
+              >
                 Sign in
               </a>
               <button className="hidden lg:inline-block outline outline-1 hover:outline-2 transition-all  py-[0.8rem] px-4 rounded-sm">
@@ -90,9 +98,12 @@ const LandingPage = () => {
               </p>
 
               <div className="grid min-[1150px]:grid-flow-col w-full gap-4 grid-flow-row">
-                <button className="uppercase outline outline-1 outline-white hover:outline-primary  transition-all bg-white text-primary text-sm py-4 font-semibold rounded-sm" onClick={()=>{
-                  navigate("/signup");
-                }}>
+                <button
+                  className="uppercase outline outline-1 outline-white hover:outline-primary  transition-all bg-white text-primary text-sm py-4 font-semibold rounded-sm"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                >
                   Sign Up With Email address
                 </button>
                 <button className="flex items-center uppercase font-semibold p-[3px] outline outline-1 outline-blue-500 bg-blue-500 rounded-sm text-sm w-full h-[3.2rem] min-[1150px]:w-[85%]">
@@ -104,7 +115,9 @@ const LandingPage = () => {
               </div>
 
               <p className="mt-4">
-                <span className="font-semibold">Revelo is free to try for </span>
+                <span className="font-semibold">
+                  Revelo is free to try for{" "}
+                </span>
                 as long as you like
               </p>
             </div>
@@ -334,10 +347,7 @@ const LandingPage = () => {
                   muted
                   className="w-full rounded-e-full overflow-hidden h-56 sm:h-80 mr-4 md:mr-0 md:h-64 lg:h-80 object-cover"
                 >
-                  <source
-                    src="./assets/sample.webm"
-                    type="video/webm"
-                  />
+                  <source src="./assets/sample.webm" type="video/webm" />
                 </video>
                 <div className="px-9 rounded-md absolute top-[46%] right-[50%]  py-4 bg-blue-400 text-white inline-block group-hover:bg-blue-600">
                   <i className="fa-solid fa-play text-xl"></i>
@@ -368,8 +378,8 @@ const LandingPage = () => {
 
             <p className="mt-16 mb-4 text-center text-gray-600 mx-6">
               * Weighted average. Based on 2,707 survey responses from weekly
-              Revelo users in the US, UK, Australia and Canada with a ± 2% margin
-              of error at 95% CI (December 2021).
+              Revelo users in the US, UK, Australia and Canada with a ± 2%
+              margin of error at 95% CI (December 2021).
             </p>
           </div>
         </section>

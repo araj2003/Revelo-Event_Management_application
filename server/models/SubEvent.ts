@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { ISubEvent } from "../types/models";
 
 const SubEventSchema = new mongoose.Schema<ISubEvent>({
-// const SubEventSchema = new mongoose.Schema<any>({
+  // const SubEventSchema = new mongoose.Schema<any>({
   //server == wedding
   subEventName: {
     type: String,

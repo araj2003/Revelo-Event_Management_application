@@ -45,17 +45,14 @@ router.get("/:id/subevents", authMiddleWare, getAllSubEvent);
 //search user
 router.get("/users/search", authMiddleWare, searchUser);
 
-
 router.get("/vendor/searchVendor", authMiddleWare, searchVendorRoll);
 
+router.get("/:id/members", authMiddleWare, getEventMembers);
 
-router.get('/:id/members', authMiddleWare, getEventMembers);
+router.get("/myEvents", authMiddleWare, getMyEvent);
 
-router.get('/myEvents', authMiddleWare, getMyEvent);
-
-router.get('/myHostEvents',authMiddleWare, getMyEventAsHost);
-router.get('/myGuestEvents',authMiddleWare, getMyEventAsGuest);
-
+router.get("/myHostEvents", authMiddleWare, getMyEventAsHost);
+router.get("/myGuestEvents", authMiddleWare, getMyEventAsGuest);
 
 export default router;
 

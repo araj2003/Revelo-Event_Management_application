@@ -56,19 +56,22 @@ const getAllEvent = async (req: Request, res: Response) => {
 
   const events = await Event.find({
     $or: [{ host: userId }, { users: userId }, { vendors: userId }],
-  }).populate("users").populate("subEvents").populate("vendors").populate("host");
+  })
+    .populate("users")
+    .populate("subEvents")
+    .populate("vendors")
+    .populate("host");
 
   // Add role of the user in each event
-  const eventsWithRole = events.map(event => {
-    let role = '';
+  const eventsWithRole = events.map((event) => {
+    let role = "";
     // Assuming userId is already a string. If not, ensure it's converted to a string where it's defined.
-    if (event.host.some(host => host._id.equals(userId))) {
-      role = 'Host';
-    } else if (event.vendors.some(vendor => vendor._id.equals(userId))) {
-      role = 'Vendor';
-    }
-     else if (event.users.some(user => user._id.equals(userId))) {
-      role = 'Guest';
+    if (event.host.some((host) => host._id.equals(userId))) {
+      role = "Host";
+    } else if (event.vendors.some((vendor) => vendor._id.equals(userId))) {
+      role = "Vendor";
+    } else if (event.users.some((user) => user._id.equals(userId))) {
+      role = "Guest";
     }
     return { ...event.toObject(), role }; // Convert Mongoose document to object and add role
   });
@@ -135,7 +138,9 @@ const removeHost = async (req: Request, res: Response) => {
       event.users.push(hostId);
     }
     await event.save();
-    return res.status(200).json({ msg: "Host removed and user added back to the event" });
+    return res
+      .status(200)
+      .json({ msg: "Host removed and user added back to the event" });
   } else {
     return res.status(400).json({ msg: "User is not a host" });
   }
@@ -222,7 +227,7 @@ const searchUser = async (req: Request, res: Response) => {
     $or: [
       { name: { $regex: query, $options: "i" } },
       { email: { $regex: query, $options: "i" } },
-      {subroll:{$regex: query, $options: "i" }}
+      { subroll: { $regex: query, $options: "i" } },
     ],
   });
 
@@ -255,21 +260,21 @@ const getEventMembers = async (req: Request, res: Response) => {
   // Fetch all users related to the event
   const users: any = await User.find({
     _id: {
-      $in: [...event.host, ...event.users, ...event.vendors]
-    }
-  }).populate('name email role subroll');
+      $in: [...event.host, ...event.users, ...event.vendors],
+    },
+  }).populate("name email role subroll");
 
   // Categorize users into hosts, vendors, and guests
   const categorizedUsers: ICategorizedUsers = {
     hosts: [],
     vendors: [],
-    guests: []
+    guests: [],
   };
 
-  users.forEach((user:any) => {
-    if (event.host.some(hostId => hostId.equals(user._id))) {
+  users.forEach((user: any) => {
+    if (event.host.some((hostId) => hostId.equals(user._id))) {
       categorizedUsers.hosts.push(user);
-    } else if (event.vendors.some(vendorId => vendorId.equals(user._id))) {
+    } else if (event.vendors.some((vendorId) => vendorId.equals(user._id))) {
       categorizedUsers.vendors.push(user);
     } else {
       categorizedUsers.guests.push(user);
@@ -283,10 +288,9 @@ const getEventMembers = async (req: Request, res: Response) => {
   });
 };
 
-
 const getMyEvent = async (req: Request, res: Response) => {
   const userId = new mongoose.Types.ObjectId(req.user.userId);
-  console.log(userId)
+  console.log(userId);
   const events = await Event.find({ users: { $in: [userId] } });
 
   res.status(StatusCodes.OK).json({
@@ -307,23 +311,18 @@ const getMyEventAsHost = async (req: Request, res: Response) => {
 };
 
 const getMyEventAsGuest = async (req: Request, res: Response) => {
-  const userId = req.user.userId
-  console.log(userId)
+  const userId = req.user.userId;
+  console.log(userId);
   const events = await Event.find({
     host: { $ne: userId },
-    $or: [
-      { users: userId },
-    ]
-  }).populate('users host vendors subEvents')
+    $or: [{ users: userId }],
+  }).populate("users host vendors subEvents");
 
   res.status(StatusCodes.OK).json({
     events,
     msg: "list of my events",
   });
 };
-
-
-
 
 export {
   getAllSubEvent,
@@ -337,5 +336,5 @@ export {
   getEventMembers,
   getMyEvent,
   getMyEventAsHost,
-  getMyEventAsGuest
+  getMyEventAsGuest,
 };

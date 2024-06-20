@@ -2,14 +2,13 @@
   /* background-color: var(--slack-color); */
   background-color: #4a1c4b;
   /* border-top: 1px solid #49274b; */
-  width:350px;
+  width: 350px;
   color: #fff;
   /* flex: 0.3; */
   overflow-y: scroll;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-
 
 .sidebar__header {
   display: flex;

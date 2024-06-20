@@ -16,7 +16,7 @@ import AllMessages from "./AllMessages";
 import ScrollableFeed from "react-scrollable-feed";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import io from "socket.io-client";
-import placeholder from "../../../assets/no-chat-placeholder.png"
+import placeholder from "../../../assets/no-chat-placeholder.png";
 
 const ENDPOINT = import.meta.env.VITE_API_BASE_URL;
 var socket: any, selectedChatCompare;
@@ -104,8 +104,12 @@ const Chat = () => {
   // console.log(newMessage)
   // console.log(messages);
   if (!channelId || !chatId)
-    return <div className="h-full w-full flex flex-col items-center justify-center chat"><img src={placeholder} className="h-2/3 object-scale-down"/>
-    <p className="text-2xl font-bold">Select or Join an event</p></div>;
+    return (
+      <div className="h-full w-full flex flex-col items-center justify-center chat">
+        <img src={placeholder} className="h-2/3 object-scale-down" />
+        <p className="text-2xl font-bold">Select or Join an event</p>
+      </div>
+    );
   return (
     <>
       <div className="chat relative">

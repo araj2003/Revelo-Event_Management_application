@@ -9,8 +9,8 @@ import { useMediaQuery } from "react-responsive";
 
 function Home() {
   const isDesktopOrLaptop = useMediaQuery({
-    minDeviceWidth:640
-  })
+    minDeviceWidth: 640,
+  });
   const [isDm, setIsDm] = useState(false);
   return (
     <div>
@@ -20,9 +20,9 @@ function Home() {
         {/* {isDesktopOrLaptop && <SideBarIcon setIsDm={setIsDm} isDm={isDm} />}
         {isDesktopOrLaptop && (isDm ? <DirectMessages /> : <Sidebar />)} */}
         {<SideBarIcon setIsDm={setIsDm} isDm={isDm} />}
-        {(isDm ? <DirectMessages /> : <Sidebar />)}
+        {isDm ? <DirectMessages /> : <Sidebar />}
         <Chat />
-        <ModalProvider/>
+        <ModalProvider />
       </div>
     </div>
   );

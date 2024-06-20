@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
     // 'node_modules/flowbite-react/lib/esm/**/*.js'
   ],
   prefix: "",
@@ -18,8 +18,8 @@ module.exports = {
       },
     },
     extend: {
-      scale:{
-        '125':'1.25',
+      scale: {
+        125: "1.25",
       },
       fontFamily: {
         robo: ["Roboto"],
@@ -27,15 +27,15 @@ module.exports = {
       },
       colors: {
         slack: "var(--slack-color)",
-        slack_dark:"#2C0A2C",
+        slack_dark: "#2C0A2C",
         primary: "#541554",
         secondary: "#F4EDE4",
         primaryDark: "#4a154b",
       },
       // borderRadius: {
-        // lg: "var(--radius)",
-        // md: "calc(var(--radius) - 2px)",
-        // sm: "calc(var(--radius) - 4px)",
+      // lg: "var(--radius)",
+      // md: "calc(var(--radius) - 2px)",
+      // sm: "calc(var(--radius) - 4px)",
       // },
       keyframes: {
         "accordion-down": {
@@ -54,6 +54,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
- 
-
-}
+};

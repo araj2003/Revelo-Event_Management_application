@@ -8,7 +8,7 @@ import sendMail from "../utils/sendMail";
 import multer from "multer";
 
 function isMongoError(error: any): error is MongoServerError {
-  return error.name === 'MongoServerError';
+  return error.name === "MongoServerError";
 }
 
 const errorHandlerMiddleware = (

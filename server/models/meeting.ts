@@ -4,11 +4,12 @@ import { IMeeting } from "../types/models";
 
 const MeetingSchema = new mongoose.Schema<IMeeting>(
   {
-    
-    userId:[{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    }],
+    userId: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     topic: {
       type: String,
       required: [true, "please provide topic"],

@@ -8,7 +8,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-} 
+}
 
 .min-h-section {
   min-height: calc(100vh - 5rem);
@@ -19,8 +19,6 @@
   height: 100%;
 }
 
-
-
 @layer components {
   .sidebar-icon {
     @apply relative flex items-center justify-center 
@@ -29,9 +27,8 @@
   text-white hover:text-purple-400
     hover:rounded-xl rounded-3xl
     transition-all duration-300 ease-linear
-    cursor-pointer shadow-lg ;
+    cursor-pointer shadow-lg;
   }
-
 
   .sidebar-hr {
     @apply bg-gray-200 dark:bg-gray-800 

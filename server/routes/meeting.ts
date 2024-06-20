@@ -21,5 +21,4 @@ router.put("/updateMeeting/:meetingId", authMiddleWare, updateMeeting);
 //get all meetings by user id
 router.put("/getUserMeeting/:userId", authMiddleWare, updateMeeting);
 
-
 export default router;

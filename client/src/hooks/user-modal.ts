@@ -10,7 +10,7 @@ export type ModalType =
   | "showRSVP"
   | "showCalendar"
   | "meetingModal"
-  |  "eventMemberModal";
+  | "eventMemberModal";
 
 interface Modalstore {
   type: ModalType | null;
@@ -22,7 +22,7 @@ interface Modalstore {
     type: ModalType,
     subEventId?: any,
     subEvent?: any,
-    meetingUserId?: string
+    meetingUserId?: string,
   ) => void;
   onClose: () => void;
 }

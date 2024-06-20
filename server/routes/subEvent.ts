@@ -44,11 +44,7 @@ router.get("/updateSubEvent", authMiddleWare, updateSubEvent);
 
 router.patch("/addUser/:subEventId", authMiddleWare, addUserToSubEvent);
 
-router.patch(
-  "/removeUser/:subEventId",
-  authMiddleWare,
-  removeUserFromSubEvent,
-);
+router.patch("/removeUser/:subEventId", authMiddleWare, removeUserFromSubEvent);
 
 router.get(
   "/getMembersNotInSubEvent/:eventId/:subEventId",

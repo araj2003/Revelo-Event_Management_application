@@ -12,11 +12,11 @@ const ChannelSchema = new mongoose.Schema<IChannel>(
     },
     chatId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"Chat"
-      },
+      ref: "Chat",
     },
-  
-  { timestamps: true }
+  },
+
+  { timestamps: true },
 );
 
 const preSave = async function (this: any, next: (err?: Error) => void) {
@@ -26,14 +26,14 @@ const preSave = async function (this: any, next: (err?: Error) => void) {
       channelId: this._id,
       isGroupChat: true,
     });
-    await chat.save()
-    console.log(chat)
+    await chat.save();
+    console.log(chat);
     this.chatId = chat._id;
   }
   next();
-}
+};
 
-ChannelSchema.pre("save",preSave);
+ChannelSchema.pre("save", preSave);
 
 const Channel = mongoose.model("Channel", ChannelSchema);
 export default Channel;

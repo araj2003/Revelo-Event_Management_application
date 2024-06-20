@@ -16,7 +16,6 @@ function App() {
   const { isDarkMode, loadingUser } = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    
     dispatch(getUserData());
   }, []);
 
@@ -32,20 +31,20 @@ function App() {
       <div className={isDarkMode ? "dark" : ""}>
         <EventProvider>
           <ChatProvider>
-          <ToastContainer
-            position="top-center"
-            autoClose={2000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss={false}
-            draggable
-            pauseOnHover
-            toastClassName="bg-white text-gray-800 dark:bg-gray-800 dark:text-white"
-            theme={isDarkMode ? "dark" : "light"}
-          />
-          <RouterProvider router={router} />
+            <ToastContainer
+              position="top-center"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss={false}
+              draggable
+              pauseOnHover
+              toastClassName="bg-white text-gray-800 dark:bg-gray-800 dark:text-white"
+              theme={isDarkMode ? "dark" : "light"}
+            />
+            <RouterProvider router={router} />
           </ChatProvider>
         </EventProvider>
       </div>

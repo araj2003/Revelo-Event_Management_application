@@ -17,12 +17,10 @@ import {
   FormLabel,
   FormMessage,
   FormItem,
-  
 } from "../components/ui/form";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Textarea } from "@/components/ui/textarea"
-
+import { Textarea } from "@/components/ui/textarea";
 
 import { useModal } from "@/hooks/user-modal";
 import { createEvent } from "@/api";
@@ -31,7 +29,7 @@ const formSchema = z.object({
   serverName: z.string().min(1, {
     message: "Channel name is required",
   }),
-  description:z.string().min(6, {
+  description: z.string().min(6, {
     message: "description is required",
   }),
 });
@@ -45,7 +43,7 @@ const CreateEventModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       serverName: "",
-      description:""
+      description: "",
     },
   });
 
@@ -54,8 +52,8 @@ const CreateEventModal = () => {
 
   const onSubmit = async (values: FormValues) => {
     console.log(values);
-    const response:any = await createEvent(values)
-    console.log(response)
+    const response: any = await createEvent(values);
+    console.log(response);
   };
 
   const handleClose = () => {
@@ -63,7 +61,7 @@ const CreateEventModal = () => {
     onClose();
   };
   // console.log('a');
-  
+
   return (
     <>
       <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -86,27 +84,21 @@ const CreateEventModal = () => {
                   // channelName="name"
                   render={({ field }) => (
                     <>
-                    <FormItem>
-
-                      <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
-                        Event Name
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          disabled={isLoading}
-                          className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                          placeholder="Enter Event name"
-                          {...field}
-                        />
-                        
-                      </FormControl>
-                      <FormMessage />
-
-                    </FormItem>
-                   
-
+                      <FormItem>
+                        <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
+                          Event Name
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            disabled={isLoading}
+                            className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                            placeholder="Enter Event name"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     </>
-                    
                   )}
                 />
                 <FormField
@@ -115,30 +107,27 @@ const CreateEventModal = () => {
                   // channelName="name"
                   render={({ field }) => (
                     <>
-                    <FormItem>
-
-                      <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
-                        Description
-                      </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          disabled={isLoading}
-                          className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                          placeholder="Description of the event"
-                          {...field}
-                        />
-                        
-                      </FormControl>
-                      <FormMessage />
-
-                    </FormItem>
+                      <FormItem>
+                        <FormLabel className="uppercase text-zinc-500 font-bold text-xs">
+                          Description
+                        </FormLabel>
+                        <FormControl>
+                          <Textarea
+                            disabled={isLoading}
+                            className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                            placeholder="Description of the event"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     </>
                   )}
                 />
               </div>
               <DialogFooter className="bg-gray-100 px-6 py-6">
                 <Button
-                  variant={null}  
+                  variant={null}
                   disabled={isLoading}
                   className="bg-purple-500 text-white"
                 >

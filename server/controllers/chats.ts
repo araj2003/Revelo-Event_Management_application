@@ -54,12 +54,11 @@ const createGroupChat = async (req: Request, res: Response) => {
     throw new BadRequestError("Please add more than one user");
   }
 
-  const channel:any = Channel.findById(channelId)
+  const channel: any = Channel.findById(channelId);
 
-  if(!channel){
-    throw new BadRequestError("chanel not found")
+  if (!channel) {
+    throw new BadRequestError("chanel not found");
   }
-
 
   // Extract user IDs and add them to the array
   users.push(req.user.userId);
@@ -74,7 +73,7 @@ const createGroupChat = async (req: Request, res: Response) => {
 
   channel.chatId = groupChat._id;
 
-  await channel.save()
+  await channel.save();
 
   const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
     .populate("users", "-password")

@@ -3,7 +3,7 @@ import { getSubEvents } from "../api";
 // Create the context
 export const EventContext = createContext<any>(null);
 
-const defaultEvents:any = [
+const defaultEvents: any = [
   // {
   //   _id: "1",
   //   name: "Event 1",
@@ -21,25 +21,23 @@ const defaultEvents:any = [
   // },
 ];
 
-
-const defaultSubEvents:any = [
-    // {
-    //   _id: "1",
-    //   name: "Sub Event 1",
-    //   description: "Sub Event 1 Description",
-    // },
-    // {
-    //   _id: "2",
-    //   name: "Sub Event 2",
-    //   description: "Sub Event 2 Description",
-    // },
-    // {
-    //   _id: "3",
-    //   name: "Sub Event 3",
-    //   description: "Sub Event 3 Description",
-    // },
-  ];
-  
+const defaultSubEvents: any = [
+  // {
+  //   _id: "1",
+  //   name: "Sub Event 1",
+  //   description: "Sub Event 1 Description",
+  // },
+  // {
+  //   _id: "2",
+  //   name: "Sub Event 2",
+  //   description: "Sub Event 2 Description",
+  // },
+  // {
+  //   _id: "3",
+  //   name: "Sub Event 3",
+  //   description: "Sub Event 3 Description",
+  // },
+];
 
 // Create a provider component
 export const EventProvider: any = ({ children }: { children: any }) => {
@@ -52,13 +50,11 @@ export const EventProvider: any = ({ children }: { children: any }) => {
   const [role, setRole] = useState(null);
 
   const [subEvents, setSubEvents] = useState<any[]>(defaultSubEvents);
-  const fetchAllSubEvents = async (eid:string) => {
+  const fetchAllSubEvents = async (eid: string) => {
     try {
       let data: any;
-      if(eid)
-        data = await getSubEvents(eid);
-      else 
-        data = await getSubEvents(eventId);
+      if (eid) data = await getSubEvents(eid);
+      else data = await getSubEvents(eventId);
       // console.log(data);
       if (data.event) {
         setEvent(data.event);
@@ -70,7 +66,7 @@ export const EventProvider: any = ({ children }: { children: any }) => {
       console.log(error);
     }
   };
-  
+
   return (
     <EventContext.Provider
       value={{

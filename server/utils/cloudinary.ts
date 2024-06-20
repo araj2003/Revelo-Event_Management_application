@@ -29,7 +29,7 @@ const uploadProfileImage = async (req: Request) => {
   return result.secure_url;
 };
 
-const uploadRSVPImage = async (req: Request, subEventId:any) => {
+const uploadRSVPImage = async (req: Request, subEventId: any) => {
   const { file } = req;
   if (!file) throw new BadRequestError("Please provide an image file");
   const result = await cloudinary.uploader.upload(
@@ -42,6 +42,6 @@ const uploadRSVPImage = async (req: Request, subEventId:any) => {
     },
   );
   return result.secure_url;
-}
+};
 
 export { uploadProfileImage, uploadRSVPImage };

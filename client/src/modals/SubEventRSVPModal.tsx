@@ -44,7 +44,7 @@ type FormValues = z.infer<typeof formSchema>;
 const SubEventRSVPModal = () => {
   const { isOpen, onClose, type, subEventId } = useModal();
   const [image, setImage] = useState<File | null>(null);
-  const { eventId,fetchAllSubEvents } = useContext(EventContext);
+  const { eventId, fetchAllSubEvents } = useContext(EventContext);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -66,7 +66,7 @@ const SubEventRSVPModal = () => {
     formData.append("rsvpImage", image as Blob);
 
     const result = await addRSVP(subEventId, formData);
-    console.log(result)
+    console.log(result);
     if (result) {
       toast.success("RSVP sent to all guests' email.");
       form.reset();

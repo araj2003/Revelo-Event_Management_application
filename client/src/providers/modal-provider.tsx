@@ -32,8 +32,8 @@ export const ModalProvider = () => {
       <SubEventRSVPModal />
       <ShowRSVPModal />
       <CalendarModal />
-      <ScheduleMeeting/>
-      <EventMemberModal/>
+      <ScheduleMeeting />
+      <EventMemberModal />
     </>
   );
 };

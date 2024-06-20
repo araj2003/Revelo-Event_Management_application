@@ -7,8 +7,8 @@ export interface SignUpType {
   name: string;
   email: string;
   password: string;
-  role?:string;
-  subroll?:string
+  role?: string;
+  subroll?: string;
 }
 
 export interface ProfileType {

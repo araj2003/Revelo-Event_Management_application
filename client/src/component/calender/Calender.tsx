@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "./calender.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { getSubEvents ,getAllEvent} from "@/api";
+import { getSubEvents, getAllEvent } from "@/api";
 import { EventContext } from "@/context/EventContext";
 // import { date } from 'zod';
 const Calender = () => {
@@ -18,7 +18,6 @@ const Calender = () => {
       // setData(response?.subEvents);
       response?.events?.forEach((event: any) => {
         event?.subEvents?.forEach((subEvent: any) => {
-          
           setMyEventList((prev: any) => [
             ...prev,
             {
@@ -27,7 +26,7 @@ const Calender = () => {
               end: new Date(subEvent.subEventTime) || new Date(),
             },
           ]);
-        })
+        });
       });
     };
 
@@ -44,7 +43,7 @@ const Calender = () => {
           events={myEventList}
           startAccessor="start"
           endAccessor="end"
-          style={{ height: 500}}
+          style={{ height: 500 }}
         />
       </div>
     </div>

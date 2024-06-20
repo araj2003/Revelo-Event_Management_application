@@ -8,7 +8,7 @@ export interface LoginState {
   isAuthenticated: boolean;
   isDarkMode: boolean;
   name?: string;
-  userId?:string;
+  userId?: string;
   profilePicture?: string;
   isAdministrator?: boolean;
 }
@@ -16,11 +16,11 @@ export interface LoginState {
 const initialState: LoginState = {
   loadingUser: true,
   isAuthenticated: false,
-  isDarkMode:true,
+  isDarkMode: true,
   name: "",
   profilePicture: "",
   isAdministrator: false,
-  userId:""
+  userId: "",
 };
 
 const userSlice = createSlice({
@@ -32,7 +32,7 @@ const userSlice = createSlice({
       localStorage.setItem("isDarkMode", state.isDarkMode.toString());
     },
     SET_USER_DATA(state, action) {
-      const { name, isAdministrator, profilePicture,id } = action.payload;
+      const { name, isAdministrator, profilePicture, id } = action.payload;
       // console.log(name, isAdministrator,profilePicture);
       state.isAuthenticated = true;
       state.name = name;

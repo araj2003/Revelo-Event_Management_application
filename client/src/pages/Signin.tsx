@@ -4,7 +4,7 @@ import { signIn } from "../store/userSlice";
 import { useAppDispatch } from "../hooks";
 import { Link } from "react-router-dom";
 import GoogleSigninButton from "../component/GoogleSigninButton";
-import logo from "@/../assets/logo.png"
+import logo from "@/../assets/logo.png";
 
 function Signin() {
   const dispatch = useAppDispatch();
@@ -31,12 +31,7 @@ function Signin() {
 
           <h1 className="mt-3 text-3xl font-bold   text-center text-gray-800 capitalize sm:text-5xl dark:text-black">
             <div className="flex items-center justify-center pb-4">
-              <img
-                src={logo}
-                alt="Slack Logo"
-                width={200}
-                height={200}
-              />
+              <img src={logo} alt="Slack Logo" width={200} height={200} />
             </div>
             sign in
           </h1>
@@ -102,7 +97,7 @@ function Signin() {
               placeholder="Password"
             />
           </div>
-          
+
           <div className="flex items-center mt-4">
             <input
               type="checkbox"

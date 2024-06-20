@@ -20,8 +20,20 @@ router.post("/get", getInvite);
 router.post("/getAll", getAllInvites);
 router.post("/join", authMiddleWare, joinInvite);
 router.post("/sendPersonalInvite", authMiddleWare, sendPersonalInvite);
-router.get("/getAllPersonalInvitesReceived", authMiddleWare, getAllPersonalInvitesReceived);
-router.get("/getAllPersonalInvitesSent", authMiddleWare, getAllPersonalInvitesSent);
-router.post("/respondToPersonalInvite", authMiddleWare, respondToPersonalInvite);
+router.get(
+  "/getAllPersonalInvitesReceived",
+  authMiddleWare,
+  getAllPersonalInvitesReceived,
+);
+router.get(
+  "/getAllPersonalInvitesSent",
+  authMiddleWare,
+  getAllPersonalInvitesSent,
+);
+router.post(
+  "/respondToPersonalInvite",
+  authMiddleWare,
+  respondToPersonalInvite,
+);
 
 export default router;

@@ -91,7 +91,7 @@ const InviteMemberModal = () => {
                 disabled={isLoading}
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `${window.location.origin}/join/${inviteCode}`
+                    `${window.location.origin}/join/${inviteCode}`,
                   );
                   toast.success("Invite link copied to clipboard");
                 }}

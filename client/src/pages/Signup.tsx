@@ -3,7 +3,7 @@ import { useAppDispatch } from "../hooks";
 import { signUp } from "../store/userSlice";
 import { SignUpType } from "../types";
 import { Link } from "react-router-dom";
-import logo from "@/../assets/logo.png"
+import logo from "@/../assets/logo.png";
 
 function Signup() {
   const dispatch = useAppDispatch();
@@ -11,8 +11,8 @@ function Signup() {
     name: "",
     email: "",
     password: "",
-    role:"regular",
-    subroll:""
+    role: "regular",
+    subroll: "",
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -33,12 +33,7 @@ function Signup() {
 
           <h1 className="mt-3 text-2xl font-bold text-center text-gray-800 capitalize sm:text-4xl">
             <div className="flex items-center justify-center pb-4">
-              <img
-                src={logo}
-                alt="Slack Logo"
-                width={200}
-                height={200}
-              />
+              <img src={logo} alt="Slack Logo" width={200} height={200} />
             </div>
             sign up
           </h1>
@@ -149,10 +144,9 @@ function Signup() {
               name="role"
               className="block appearance-none w-full border cursor-pointer text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none bg-white border-gray-500"
               onChange={(e) => {
-                setSignUpValues({ ...signUpValues, role:e.target.value });
+                setSignUpValues({ ...signUpValues, role: e.target.value });
               }}
             >
-              
               <option value="regular">Individual</option>
               <option value="vendor">Vendor</option>
             </select>
@@ -166,31 +160,34 @@ function Signup() {
               </svg>
             </div>
           </div>
-          {
-            signUpValues.role === "vendor" && (
-              <div className="relative flex items-center mt-4">
-            <span className="absolute">
-            
-<svg className="h-5 w-5 ml-3" fill = "currentColor"  viewBox="0 0 52 52" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M38.3,27.2A11.4,11.4,0,1,0,49.7,38.6,11.46,11.46,0,0,0,38.3,27.2Zm2,12.4a2.39,2.39,0,0,1-.9-.2l-4.3,4.3a1.39,1.39,0,0,1-.9.4,1,1,0,0,1-.9-.4,1.39,1.39,0,0,1,0-1.9l4.3-4.3a2.92,2.92,0,0,1-.2-.9,3.47,3.47,0,0,1,3.4-3.8,2.39,2.39,0,0,1,.9.2c.2,0,.2.2.1.3l-2,1.9a.28.28,0,0,0,0,.5L41.1,37a.38.38,0,0,0,.6,0l1.9-1.9c.1-.1.4-.1.4.1a3.71,3.71,0,0,1,.2.9A3.57,3.57,0,0,1,40.3,39.6Z" />
-  <circle cx="21.7" cy="14.9" r="12.9" />
-  
-  <path d="M25.2,49.8c2.2,0,1-1.5,1-1.5h0a15.44,15.44,0,0,1-3.4-9.7,15,15,0,0,1,1.4-6.4.77.77,0,0,1,.2-.3c.7-1.4-.7-1.5-.7-1.5h0a12.1,12.1,0,0,0-1.9-.1A19.69,19.69,0,0,0,2.4,47.1c0,1,.3,2.8,3.4,2.8H24.9C25.1,49.8,25.1,49.8,25.2,49.8Z" />
-</svg>
-            </span>
+          {signUpValues.role === "vendor" && (
+            <div className="relative flex items-center mt-4">
+              <span className="absolute">
+                <svg
+                  className="h-5 w-5 ml-3"
+                  fill="currentColor"
+                  viewBox="0 0 52 52"
+                  data-name="Layer 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M38.3,27.2A11.4,11.4,0,1,0,49.7,38.6,11.46,11.46,0,0,0,38.3,27.2Zm2,12.4a2.39,2.39,0,0,1-.9-.2l-4.3,4.3a1.39,1.39,0,0,1-.9.4,1,1,0,0,1-.9-.4,1.39,1.39,0,0,1,0-1.9l4.3-4.3a2.92,2.92,0,0,1-.2-.9,3.47,3.47,0,0,1,3.4-3.8,2.39,2.39,0,0,1,.9.2c.2,0,.2.2.1.3l-2,1.9a.28.28,0,0,0,0,.5L41.1,37a.38.38,0,0,0,.6,0l1.9-1.9c.1-.1.4-.1.4.1a3.71,3.71,0,0,1,.2.9A3.57,3.57,0,0,1,40.3,39.6Z" />
+                  <circle cx="21.7" cy="14.9" r="12.9" />
 
-            <input
-              type="subroll"
-              name="subroll"
-              onChange={(e) => {
-                setSignUpValues({ ...signUpValues, subroll: e.target.value });
-              }}
-              className="block w-full py-3 text-black bg-white border rounded-lg px-11  dark:text-black dark:border-gray-600 focus:border-purple-400 dark:focus:border-purple-400 focus:ring-purple-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              placeholder="Category eg. Photographer,decoration etc"
-            />
-          </div>
-            )
-          }
+                  <path d="M25.2,49.8c2.2,0,1-1.5,1-1.5h0a15.44,15.44,0,0,1-3.4-9.7,15,15,0,0,1,1.4-6.4.77.77,0,0,1,.2-.3c.7-1.4-.7-1.5-.7-1.5h0a12.1,12.1,0,0,0-1.9-.1A19.69,19.69,0,0,0,2.4,47.1c0,1,.3,2.8,3.4,2.8H24.9C25.1,49.8,25.1,49.8,25.2,49.8Z" />
+                </svg>
+              </span>
+
+              <input
+                type="subroll"
+                name="subroll"
+                onChange={(e) => {
+                  setSignUpValues({ ...signUpValues, subroll: e.target.value });
+                }}
+                className="block w-full py-3 text-black bg-white border rounded-lg px-11  dark:text-black dark:border-gray-600 focus:border-purple-400 dark:focus:border-purple-400 focus:ring-purple-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                placeholder="Category eg. Photographer,decoration etc"
+              />
+            </div>
+          )}
 
           <div className="flex items-center mt-4">
             <input
