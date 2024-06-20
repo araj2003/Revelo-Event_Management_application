@@ -171,7 +171,7 @@ const getAllSubEvent = async (req: Request, res: Response) => {
 
   // console.log(eventId);
   const event = await Event.find({
-    $and: [{ _id: eventId }, { $or: [{ host: userId }, { users: userId }] }],
+    $and: [{ _id: eventId }, { $or: [{ host: userId }, { users: userId }, {vendors: userId}] }],
   }).populate("subEvents");
 
   if (!event || event.length === 0) {
