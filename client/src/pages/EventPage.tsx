@@ -20,7 +20,7 @@ const EventPage = () => {
         {isDesktopOrLaptop && (isDm ? <DirectMessages /> : <Sidebar />)} */}
         {/* {<SideBarIcon setIsDm={setIsDm} isDm={isDm} />} */}
         <Sidebar />
-        <Chat />
+        <Chat isDm = {isDm} />
         <ModalProvider />
       </div>
     </div>
