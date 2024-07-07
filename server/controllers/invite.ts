@@ -7,6 +7,7 @@ import ServerInvite from "../models/ServerInvite";
 import PersonalInvite from "../models/PersonalInvite";
 import mongoose from "mongoose";
 import User from "../models/User";
+import Notification from "../models/Notification";
 
 const createInvite = async (req: Request, res: Response) => {
   let { eventId, oneTimeUse, expiryDateb } = req.body;
@@ -80,6 +81,12 @@ const sendPersonalInvite = async (req: Request, res: Response) => {
     userId,
   });
   personalInvite.save();
+
+  const notifications = await Notification.create({
+    userId: userId,
+    message: `You have been invited to the event ${event?.serverName}`,
+    url: `/event`,
+  });
 
   return res.status(StatusCodes.CREATED).json({
     personalInvite,

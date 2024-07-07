@@ -11,6 +11,8 @@ import { IServer, ISubEvent } from "../types/models";
 import mongoose from "mongoose";
 import { uploadRSVPImage } from "../utils/cloudinary";
 import sendMail from "../utils/sendMail";
+import Notification from "../models/Notification";
+
 
 const createSubEvent = async (req: Request, res: Response) => {
   const { subEventName, eventId, subEventDate, subEventTime } = req.body;
@@ -28,10 +30,17 @@ const createSubEvent = async (req: Request, res: Response) => {
     throw new BadRequestError("event not found");
   }
 
-  const subEvent: any = new SubEvent({
+  const hosts = event.hosts || [];
+  if (!hosts.includes(userId)) {
+    hosts.push(userId);
+  }
+
+  console.log(hosts);
+
+  const subEvent = new SubEvent({
     subEventName: subEventName,
-    users: [userId],
-    admin: [userId],
+    users: hosts, 
+    admin: [userId], 
     subEventDate: subEventDate,
     subEventTime: subEventTime,
   });
@@ -158,6 +167,7 @@ const updateSubEvent = async (req: Request, res: Response) => {
 
 const addUserToSubEvent = async (req: Request, res: Response) => {
   const { subEventId } = req.params;
+  const {eventId} = req.params
   const { userId } = req.body;
 
   const subEvent = await SubEvent.findById(subEventId);
@@ -181,12 +191,22 @@ const addUserToSubEvent = async (req: Request, res: Response) => {
     }
   }
 
+  
+
   await subEvent.save();
+  const notifications = await Notification.create({
+    userId: userId,
+    message: `You have been added to subevent ${subEvent?.subEventName}`,
+    url: `event/${eventId}`,
+  });
+
+  console.log(notifications);
 
   return res.status(200).json({ subEvent, msg: "User added to subEvent" });
 };
 
 const removeUserFromSubEvent = async (req: Request, res: Response) => {
+  const { eventId } = req.params;
   const { subEventId } = req.params;
   const { userId: rmUserId } = req.body;
 
@@ -206,44 +226,61 @@ const removeUserFromSubEvent = async (req: Request, res: Response) => {
   );
   await subEvent.save();
 
+  const notifications = await Notification.create({
+    userId: rmUserId,
+    message: `You have been removed from subevent ${subEvent?.subEventName}`,
+    url: `event/${eventId}`,
+  });
+
   return res.status(200).json({ subEvent, msg: "Users removed from subEvent" });
 };
 
 const getUsersNotInSubEvent = async (req: Request, res: Response) => {
-  const eventId = req.params.eventId;
-  const subEventId = req.params.subEventId;
+  const { eventId, subEventId } = req.params;
 
-  // Find the event by its ID and populate the users field
-  const event = await Event.findById(eventId);
+  try {
+    // Fetch event and subevent in parallel
+    const [event, subEvent] = await Promise.all([
+      Event.findById(eventId).populate('users vendors host'),
+      SubEvent.findById(subEventId).populate('users'),
+    ]);
 
-  // Find the subevent by its ID and populate the users field
-  const subEvent = await SubEvent.findById(subEventId);
+    if (!event || !subEvent) {
+      return res.status(404).json({ message: "Event or SubEvent not found" });
+    }
 
-  if (!event || !subEvent) {
-    throw new BadRequestError("Event or SubEvent not found");
+    // Consolidate all user IDs from the event
+    const eventUserIds = new Set([
+      ...event.users.map(user => user._id.toString()),
+      ...event.vendors.map(vendor => vendor._id.toString()),
+      ...event.host.map(host => host._id.toString()),
+    ]);
+
+    // Get user IDs from the subevent
+    const subEventUserIds = new Set(subEvent.users.map(user => user._id.toString()));
+
+    // Determine users not in subevent
+    const usersNotInSubEventIds = [...eventUserIds].filter(id => !subEventUserIds.has(id));
+
+    // Determine users in subevent
+    const usersInSubEventIds = [...eventUserIds].filter(id => subEventUserIds.has(id));
+
+    // Fetch user details for both sets in parallel
+    const [usersNotInSubEvent, usersInSubEvent] = await Promise.all([
+      User.find({ _id: { $in: usersNotInSubEventIds } }),
+      User.find({ _id: { $in: usersInSubEventIds } }),
+    ]);
+
+    // Return the response
+    return res.status(200).json({
+      usersNotInSubEvent,
+      usersInSubEvent,
+      message: "Users in and not in the subevent retrieved successfully",
+    });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
-
-  // Get the user IDs from the event
-  const eventUserIds = event.users.map((user) => user._id.toString());
-  // Get the user IDs from the subevent
-  const subEventUserIds = subEvent.users.map((user) => user._id.toString());
-  // Find users present in the event but not in the subevent
-  const usersNotInSubEvent = eventUserIds.filter(
-    (userId) => !subEventUserIds.includes(userId),
-  );
-
-  const usersInSubEvent = eventUserIds.filter(
-    (userId) =>
-      userId !== req.user.userId.toString() && subEventUserIds.includes(userId),
-  );
-
-  const notInSubEvent = await User.find({ _id: { $in: usersNotInSubEvent } });
-  const inSubEvent = await User.find({ _id: { $in: usersInSubEvent } });
-  return res.status(200).json({
-    usersNotInSubEvent: notInSubEvent,
-    usersInSubEvent: inSubEvent,
-    msg: "users you want to add in subevebnt",
-  });
 };
 
 const addRSVP = async (req: Request, res: Response) => {
@@ -285,6 +322,14 @@ const addRSVP = async (req: Request, res: Response) => {
       subject: `RSVP for ${subEvent.subEventName}`,
       text: `Please RSVP for the event ${subEvent.subEventName}.`,
     });
+
+    const event = await Event.find({subEvents: subEvent._id});
+    const notifications = await Notification.create({
+      userId: user._id,
+      message: `Please RSVP for the event ${subEvent.subEventName}`,
+      url: `/event/${event[0]._id}`,
+    });
+
   });
 
   return res.status(200).json({ subEvent, msg: "RSVP added" });

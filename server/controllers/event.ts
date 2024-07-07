@@ -6,6 +6,8 @@ import { BadRequestError, UnauthenticatedError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 import { ISubEvent } from "../types/models";
 import mongoose from "mongoose";
+import Notification from "../models/Notification";
+
 const createEvent = async (req: Request, res: Response) => {
   const { serverName, description } = req.body;
   const userId = req.user.userId;
@@ -106,6 +108,14 @@ const createHost = async (req: Request, res: Response) => {
     // Save the updated event
     await event.save();
 
+    const notifications = await Notification.create({
+      userId: hostId,
+      message: `You have been added as a host to the event ${event?.serverName}`,
+      url: `/event/${eventId}`,
+    });
+
+    console.log(notifications);
+
     return res.status(StatusCodes.CREATED).json({
       event,
       msg: "New host added successfully",
@@ -138,6 +148,14 @@ const removeHost = async (req: Request, res: Response) => {
       event.users.push(hostId);
     }
     await event.save();
+
+    const notifications = await Notification.create({
+      userId: hostId,
+      message: `You have been removed as a host to the event ${event?.serverName}`,
+      url: `/event/${eventId}`,
+    });
+
+    console.log(notifications);
     return res
       .status(200)
       .json({ msg: "Host removed and user added back to the event" });
