@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import { useModal } from "@/hooks/user-modal";
 import { ModalProvider } from "@/providers/modal-provider";
+import Notifaction from "../Notifaction";
 
 const MyEvent = () => {
   const [users, setUsers] = useState([]);
@@ -31,6 +32,8 @@ const MyEvent = () => {
       console.log(error.message);
     }
   };
+
+  console.log(events);
 
   // const getHostEvents = () => {
   //   try {
@@ -93,30 +96,35 @@ const MyEvent = () => {
   //   ];
 
   return (
-    <div>
+    <div className="">
       <ModalProvider />
+      <div className="flex items-center">
+      </div>
       <div>
-        <Link to="/">
-          <div className="bg-purple-600 rounded-full w-10 h-10 flex items-center justify-center text-white ml-6 mt-4 ">
-            <ArrowBackIcon className="cursor-pointer" />
-          </div>
-        </Link>
+        <div>
+          <Link to="/">
+            <div className="bg-purple-600 rounded-full w-10 h-10 flex items-center justify-center text-white ml-6 mt-4 ">
+              <ArrowBackIcon className="cursor-pointer" />
+            </div>
+          </Link>
+            <Notifaction />
+        </div>
+        <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-center">
+          <span className="text-purple-600">My Events</span>{" "}
+        </h1>
+        <div className="event-page py-16 ml-12 mr-12 flex gap-16 font-robo flex-col  sm:flex-row">
+          {events.map((event: any) => {
+            return <EventCard event={event} />;
+          })}
+          {/* <UserList /> */}
+        </div>
+        <button
+          onClick={addServer}
+          className="hover:bg-slate-400 p-2 bg-slate-500 text-white m-20 rounded-xl"
+        >
+          Create a Event
+        </button>
       </div>
-      <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-center">
-        <span className="text-purple-600">My Events</span>{" "}
-      </h1>
-      <div className="event-page py-16 ml-12 mr-12 flex gap-16 font-robo flex-col  sm:flex-row">
-        {events.map((event: any) => {
-          return <EventCard event={event} />;
-        })}
-        {/* <UserList /> */}
-      </div>
-      <button
-        onClick={addServer}
-        className="hover:bg-slate-400 p-2 bg-slate-500 text-white m-20 rounded-xl"
-      >
-        Create a Event
-      </button>
     </div>
   );
 };

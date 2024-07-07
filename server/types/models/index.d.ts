@@ -98,3 +98,14 @@ export interface IMeeting {
   description: string;
   userId: mongoose.Types.ObjectId[];
 }
+
+export interface INotification {
+  _id?: mongoose.Types.ObjectId;
+
+  userId: mongoose.Types.ObjectId;
+  message: string;
+  seen: Boolean;
+  createdAt: Date;
+  url: string;
+  type:string
+}

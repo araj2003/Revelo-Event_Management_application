@@ -57,8 +57,9 @@ const MembersModal = () => {
       }
     };
     if (isModalOpen && subEventId) getUsers();
-  }, [isModalOpen]);
 
+  }, [isModalOpen]);
+  console.log(membersNotInSubEvent, membersInSubEvent);
   const handleClose = () => {
     form.reset();
     onClose();
@@ -95,7 +96,7 @@ const MembersModal = () => {
 
   const handleAddMember = async (userId: any) => {
     console.log(userId);
-    const response: any = await addMember(subEventId, userId);
+    const response: any = await addMember(eventId,subEventId, userId);
     console.log(response);
     if (response.msg) {
       // remove user from not in subevent and add to in subevent
@@ -111,7 +112,7 @@ const MembersModal = () => {
 
   const handleRemoveMember = async (userId: any) => {
     console.log(userId);
-    const response: any = await removeMember(subEventId, userId);
+    const response: any = await removeMember(eventId,subEventId, userId);
     console.log(response);
     // console.log(response.);
     if (response.msg) {
@@ -148,14 +149,16 @@ const MembersModal = () => {
                     <div>
                       <p className="text-md font-bold">{member?.name}</p>
                       <p className="text-zinc-500 text-sm">{member?.email}</p>
+                      {member?.role == 'vendor' &&  <p className="text-zinc-500 text-sm">Vendor</p> }
+
                     </div>
                   </div>
-                  <Button
+                  {membersInSubEvent.length > 1 && <Button
                     variant={null}
                     onClick={() => handleRemoveMember(member?._id)}
                   >
                     <PersonRemoveIcon className="ml-2" />
-                  </Button>
+                  </Button>}
                 </div>
               ))
             ) : (
@@ -178,6 +181,7 @@ const MembersModal = () => {
                     <div>
                       <p className="text-md font-bold">{member?.name}</p>
                       <p className="text-zinc-500 text-sm">{member?.email}</p>
+                      {member?.role == 'vendor' &&  <p className="text-zinc-500 text-sm">Vendor</p> }
                     </div>
                   </div>
                   <Button
