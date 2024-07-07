@@ -108,9 +108,9 @@ const SidebarOption = ({
               </h3>
               {role === "host" && (
                 <div className="flex gap-2">
-                  <button onClick={() => openMembersModal(id)}>
+                  {<button onClick={() => openMembersModal(id)}>
                     <PeopleIcon fontSize="small" />
-                  </button>
+                  </button>}
                   <button onClick={() => addChannelModal(id)}>
                     <AddCommentIcon fontSize="small" />
                   </button>

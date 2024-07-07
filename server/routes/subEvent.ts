@@ -42,9 +42,9 @@ router.get("/:subEventId/getAllChannels", authMiddleWare, getAllChannels);
 
 router.get("/updateSubEvent", authMiddleWare, updateSubEvent);
 
-router.patch("/addUser/:subEventId", authMiddleWare, addUserToSubEvent);
+router.patch("/addUser/:subEventId/:eventId", authMiddleWare, addUserToSubEvent);
 
-router.patch("/removeUser/:subEventId", authMiddleWare, removeUserFromSubEvent);
+router.patch("/removeUser/:subEventId/:eventId", authMiddleWare, removeUserFromSubEvent);
 
 router.get(
   "/getMembersNotInSubEvent/:eventId/:subEventId",

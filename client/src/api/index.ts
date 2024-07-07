@@ -117,10 +117,10 @@ export const createSubEvent = (subEventData: any) =>
   API.post("/subEvent/createSubEvent", subEventData);
 export const getAllChannels = (subEventId: any) =>
   API.get(`/subEvent/${subEventId}/getAllChannels`);
-export const addMember = (subEventId: any, userId: any) =>
-  API.patch(`/subEvent/addUser/${subEventId}`, { userId });
-export const removeMember = (subEventId: any, userId: any) =>
-  API.patch(`/subEvent/removeUser/${subEventId}`, { userId });
+export const addMember = (eventId:any,subEventId: any, userId: any) =>
+  API.patch(`/subEvent/addUser/${subEventId}/${eventId}`, { userId });
+export const removeMember = (eventId:any,subEventId: any, userId: any) =>
+  API.patch(`/subEvent/removeUser/${subEventId}/${eventId}`, { userId });
 export const getMembersNotInSubEvent = (eventId: any, subEventId: any) =>
   API.get(`/subEvent/getMembersNotInSubEvent/${eventId}/${subEventId}`);
 export const addChannelInSubEvent = (channelData: any) =>
@@ -170,3 +170,8 @@ export const updateMeeting = () => API.post(`/meeting/updateMeeting`);
 
 export const getUserMeeting = (userId: any) =>
   API.get(`/meeting/getUserMeeting/${userId}`);
+
+
+//notifications (user id)
+export const getNotifications = () => API.get(`/notification/getNotifications`);
+export const readNotification = (notificationId:any) => API.patch(`/notification/markNotificationAsRead/${notificationId}`);
