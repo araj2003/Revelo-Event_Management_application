@@ -65,11 +65,21 @@ const router = createBrowserRouter([
           },
           {
             path: "/",
-            element: <Home />,
+            element: <Home isDm={false} />,
             children: [
               {
                 path: "room/:roomId",
-                element: <Chat />,
+                element: <Chat isDm={false} />,
+              },
+            ],
+          },
+          {
+            path: "/dms",
+            element: <Home isDm={true} />,
+            children: [
+              {
+                path: ":roomId",
+                element: <Chat isDm={true} />,
               },
             ],
           },

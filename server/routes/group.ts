@@ -7,6 +7,7 @@ import {
   createGroupChat,
   createSingleChat,
   getAllChats,
+  getSingleChats,
   getSingleChat,
   getGroupChat,
 } from "../controllers/chats";
@@ -22,8 +23,11 @@ router.post("/createSingleChat", authMiddleWare, createSingleChat);
 //get all channels
 router.get("/getAllChats", authMiddleWare, getAllChats);
 
-//get Single chats
-router.get("/getSingleChats", authMiddleWare, getSingleChat);
+// get Single chats
+router.get("/getSingleChats", authMiddleWare, getSingleChats);
+
+// get Single chat
+router.get("/getSingleChat/:otherUserId", authMiddleWare, getSingleChat);
 
 //get group chats
 router.get("/getGroupChats", authMiddleWare, getGroupChat);

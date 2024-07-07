@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { EventContext } from "@/context/EventContext";
 
 const EventCard = ({ event }: any) => {
-  console.log(event);
+  // console.log(event);
   const [showMembers, setShowMembers] = useState(false);
   //   const [guests,setGuests] = useState([])
   // const [hosts,setHosts] = useState([])

@@ -134,7 +134,9 @@ export const searchVendorRoll = (subroll: any) =>
   API.get(`/event/vendor/searchVendor?query=${subroll}`);
 
 //chats:-
-export const getSingleChat = () => API.get("/group/getSingleChats");
+export const getSingleChats = () => API.get("/group/getSingleChats");
+export const getSingleChat = (otherUserId: any) =>
+  API.get(`/group/getSingleChat/${otherUserId}`);
 export const getGroupChat = () => API.get("getGroupChats");
 
 //rsvp

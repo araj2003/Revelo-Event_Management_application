@@ -5,6 +5,7 @@ import { BadRequestError } from "../errors";
 import { StatusCodes } from "http-status-codes";
 import Channel from "../models/Channel";
 import { group } from "console";
+import Message from "../models/Message";
 
 //single chat
 const createSingleChat = async (req: Request, res: Response) => {
@@ -107,26 +108,52 @@ const getAllChats = async (req: Request, res: Response) => {
     });
 };
 
-const getSingleChat = async (req: Request, res: Response) => {
+const getSingleChats = async (req: Request, res: Response) => {
   const userId = req.user.userId;
-  if (!userId) {
-    throw new BadRequestError("please provide user");
-  }
   const nonGroupChats = await Chat.find({
     isGroupChat: false,
     users: userId,
   })
     .populate("users", "-password")
     .populate("latestMessage");
+  // console.log(nonGroupChats);
+  return res
+    .status(StatusCodes.OK)
+    .json({ nonGroupChats, msg: "list of single chats" });
+};
 
-  return res.status(200).json({ nonGroupChats, msg: "list of single chats" });
+const getSingleChat = async (req: Request, res: Response) => {
+  const userId = req.user.userId;
+  const { otherUserId } = req.params;
+  if (userId.toString() === otherUserId) {
+    throw new BadRequestError("You can't chat with yourself");
+  }
+  let chat = await Chat.findOne({
+    isGroupChat: false,
+    users: { $all: [userId, otherUserId], $size: 2 },
+  })
+    .populate("users", "-password")
+    .populate("latestMessage");
+  if (!chat) {
+    const user1 = await User.findById(userId).select("name");
+    const user2 = await User.findById(otherUserId).select("name");
+    chat = await Chat.create({
+      chatName: `${user1?.name} and ${user2?.name} chat`,
+      users: [userId, otherUserId],
+      isGroupChat: false,
+    });
+  }
+  const messages = await Message.find({ chat: chat._id })
+    .populate("sender")
+    .sort({ createdAt: 1 });
+  console.log(chat);
+  return res
+    .status(StatusCodes.OK)
+    .json({ chat, messages, msg: "list of single chats" });
 };
 
 const getGroupChat = async (req: Request, res: Response) => {
   const userId = req.user.userId;
-  if (!userId) {
-    throw new BadRequestError("please provide user");
-  }
   const GroupChats = await Chat.find({
     isGroupChat: true,
     users: userId,
@@ -134,13 +161,16 @@ const getGroupChat = async (req: Request, res: Response) => {
     .populate("users", "-password")
     .populate("latestMessage")
     .populate("channelId");
-  return res.status(200).json({ GroupChats, msg: "list of group chats" });
+  return res
+    .status(StatusCodes.OK)
+    .json({ GroupChats, msg: "list of group chats" });
 };
 
 export {
   createGroupChat,
   createSingleChat,
   getAllChats,
-  getSingleChat,
+  getSingleChats,
   getGroupChat,
+  getSingleChat,
 };

@@ -7,11 +7,10 @@ import { useState } from "react";
 import DirectMessages from "@/component/DirectMessages/DirectMessages";
 import { useMediaQuery } from "react-responsive";
 
-function Home() {
+function Home({ isDm }: { isDm: boolean }) {
   const isDesktopOrLaptop = useMediaQuery({
     minDeviceWidth: 640,
   });
-  const [isDm, setIsDm] = useState(false);
   return (
     <div>
       <Header />
@@ -19,9 +18,9 @@ function Home() {
         {/* <SideBarIcon setIsDm = {setIsDm} isDm = {isDm} /> */}
         {/* {isDesktopOrLaptop && <SideBarIcon setIsDm={setIsDm} isDm={isDm} />}
         {isDesktopOrLaptop && (isDm ? <DirectMessages /> : <Sidebar />)} */}
-        {<SideBarIcon setIsDm={setIsDm} isDm={isDm} />}
+        {/* {<SideBarIcon setIsDm={setIsDm} isDm={isDm} />} */}
         {isDm ? <DirectMessages /> : <Sidebar />}
-        <Chat />
+        <Chat isDm={isDm} />
         <ModalProvider />
       </div>
     </div>

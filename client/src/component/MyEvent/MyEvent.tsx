@@ -54,7 +54,7 @@ const MyEvent = () => {
   const { onOpen } = useModal();
 
   const addServer = () => {
-    console.log("clicked");
+    // console.log("clicked");
     onOpen("createEvent");
   };
 

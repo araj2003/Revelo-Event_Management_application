@@ -11,7 +11,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import { logout } from "@/store/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { EventContext } from "@/context/EventContext";
 
@@ -126,9 +126,9 @@ const Header = () => {
                   className="flex flex-col sm:flex-row items-start sm:items-center bg-purple-50 hover:bg-purple-600 hover:text-white cursor-pointer border-gray-600 border-[0.5px] p-2 rounded mb-2 transition-colors duration-200"
                 >
                   <div className="mr-4 mb-2 sm:mb-0">{user.name}</div>
-                  <button className="mr-2 mb-2 sm:mb-0">
+                  <Link className="mr-2 mb-2 sm:mb-0" to={`/dms/${user._id}`}>
                     <MessageIcon />
-                  </button>
+                  </Link>
                   <button
                     onClick={() => openMeetingModal(user._id)}
                     className="mr-2 mb-2 sm:mb-0"
