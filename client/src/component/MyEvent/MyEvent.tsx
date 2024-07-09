@@ -98,17 +98,18 @@ const MyEvent = () => {
   return (
     <div className="">
       <ModalProvider />
-      <div className="flex items-center">
-      </div>
+      <div className="flex items-center"></div>
       <div>
-        <div>
+        {/* <div className="flex">
           <Link to="/">
             <div className="bg-purple-600 rounded-full w-10 h-10 flex items-center justify-center text-white ml-6 mt-4 ">
               <ArrowBackIcon className="cursor-pointer" />
             </div>
           </Link>
+          <div className="">
             <Notifaction />
-        </div>
+          </div>
+        </div> */}
         <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-center">
           <span className="text-purple-600">My Events</span>{" "}
         </h1>

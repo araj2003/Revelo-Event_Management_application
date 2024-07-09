@@ -15,7 +15,7 @@ const Main = () => {
       icon: "",
     },
     {
-      name: "Calender",
+      name: "Calendar",
       element: <Calender />,
       icon: "",
     },
@@ -40,32 +40,29 @@ const Main = () => {
 
   return (
     <>
-    
-    <div className="flex">
-      <div className="p-8 bg-slate-500 h-screen w-72 ">
-        <div className="">
-          <h2>Sidebar</h2>
+      <div className="flex w-full">
+        <div className="p-8  flex flex-col gap-3 h-screen w-72 shadow-xl">
+          {data.map((item, index) => (
+            <div
+              key={item.name}
+              className={`${index == id ? "bg-[#584ED8] text-white" : `hover:bg-[#776CFE] hover:text-[#F0EFFF] hover:font-medium`}  p-4 rounded-md cursor-pointer`}
+              onClick={() => {
+                setId(index);
+                setSelected(data[id]);
+                if (item.name === "Dms") {
+                  navigate("/dms");
+                }
+              }}
+            >
+              {item.name}
+            </div>
+          ))}
         </div>
-        {data.map((item, index) => (
-          <div
-            className={`${index == id ? "bg-slate-600" : `hover:bg-slate-400`} cursor-pointer`}
-            onClick={() => {
-              setId(index);
-              setSelected(data[id]);
-              if(item.name === "Dms"){
-                navigate("/dms");
-              }
-            }}
-          >
-            {item.name}
-          </div>
-        ))}
+        <div style={{ width: `calc( 100vw - 18rem )` }}>
+          <Header />
+          {selected.element}
+        </div>
       </div>
-      <div className="w-full">
-        <Header/>
-        {selected.element}
-      </div>
-    </div>
     </>
   );
 };
