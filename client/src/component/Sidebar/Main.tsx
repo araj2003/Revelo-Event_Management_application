@@ -4,6 +4,7 @@ import DirectMessages from "../DirectMessages/DirectMessages";
 import Invites from "@/pages/invites";
 import Calender from "../calender/Calender";
 import { useNavigate } from "react-router-dom";
+import Header from "../Header/Header";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -38,6 +39,8 @@ const Main = () => {
   }, [id]);
 
   return (
+    <>
+    
     <div className="flex">
       <div className="p-8 bg-slate-500 h-screen w-72 ">
         <div className="">
@@ -58,8 +61,12 @@ const Main = () => {
           </div>
         ))}
       </div>
-      <div>{selected.element}</div>
+      <div className="w-full">
+        <Header/>
+        {selected.element}
+      </div>
     </div>
+    </>
   );
 };
 
