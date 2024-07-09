@@ -111,7 +111,7 @@ const MyEvent = () => {
           </div>
         </div> */}
         <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-center">
-          <span className="text-purple-600">My Events</span>{" "}
+          <span className="text-black">My Events</span>{" "}
         </h1>
         <div className="event-page py-16 ml-12 mr-12 flex gap-16 font-robo flex-col  sm:flex-row">
           {events.map((event: any) => {
