@@ -40,6 +40,7 @@ const Main = () => {
 
   return (
     <>
+      <Header />
       <div className="flex w-full">
         <div className="p-8  flex flex-col gap-3 h-screen w-72 shadow-xl">
           {data.map((item, index) => (
@@ -59,7 +60,6 @@ const Main = () => {
           ))}
         </div>
         <div style={{ width: `calc( 100vw - 18rem )` }}>
-          <Header />
           {selected.element}
         </div>
       </div>

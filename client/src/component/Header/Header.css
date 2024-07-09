@@ -4,8 +4,9 @@
   height: 60px;
   justify-content: space-between;
   padding: 10px 0;
-  background-color: var(--slack-color);
-  color: #fff;
+  background-color: white;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
+  color: black;
 }
 
 .header__left {
@@ -27,13 +28,13 @@
 
 .header__search {
   flex: 0.4;
-  background-color: #421f44;
+  background-color: white;
   text-align: center;
   display: flex;
   padding: 0px 20px;
-  color: #c0c0c0;
-  border-radius: 10px;
-  border: 1px solid #c0c0c0;
+  color: black;
+  border-radius: 20px;
+  border: 2px solid black;
   position: relative;
   top: 0px;
 }
@@ -43,7 +44,7 @@
   border: none;
   text-align: center;
   /* min-width: 30vw; */
-  color: #fff;
+  color: black;
   text-transform: capitalize;
 }
 

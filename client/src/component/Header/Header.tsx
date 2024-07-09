@@ -82,7 +82,8 @@ const Header = () => {
       toast.success(response.msg);
       
     }
-  };
+  }
+  console.log(eventId)
   return (
     <div className="header ">
       <div className="header__left">
@@ -106,12 +107,12 @@ const Header = () => {
         </div>
       </div>
       <div className="header__middle">
-        <div className=" w-96 header__search max-sm:max-w-36 max-sm:pl-0">
+        <div className=" w-96 header__search max-sm:max-w-36 max-sm:pl-0 ">
           <Input
             placeholder="Search"
             value={input}
             onChange={handleInputChange}
-            className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+            className="border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
           />
           <SearchIcon className="mt-2 ml-4 cursor-pointer" />
         </div>
@@ -147,12 +148,12 @@ const Header = () => {
                       </div>
                     </div>
                   )}
-                  <button
-                    className="bg-purple-500 text-white ml-1 px-2 rounded"
+                  {eventId != '' ? <button
+                    className="font-medium text-black ml-1 px-2 rounded"
                     onClick={() => personalInviteToEvent(user._id)}
                   >
                     Invite
-                  </button>
+                  </button> : <div></div>}
                 </div>
               ))}
             </div>
