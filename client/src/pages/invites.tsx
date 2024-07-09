@@ -24,26 +24,26 @@ const Invites = () => {
 
   return (
     <div>
-      <h1>My Invites</h1>
-      <div className="flex">
+      <h1 className="text-4xl font-medium p-10">My Invites</h1>
+      <div className="flex m-5">
         {data.map((invite: any) => {
           return (
             <div
-              className="flex flex-col border-4 m-5 bg-slate-200"
+              className="flex flex-col shadow-lg m-5 border-2 border-black rounded-lg p-5 text-black bg-white hover:cursor-pointer hover:shadow-md hover:shadow-slate-600"
               key={invite._id}
             >
-              <p>{invite.eventId.serverName}</p>
-              <p>{invite.eventId.description}</p>
-              <p>Invited By: {invite.createdBy.name}</p>
-              <div className="flex flex-row">
+              <p className="font-medium text-2xl">{invite.eventId.serverName}</p>
+              <p className=""> {invite.eventId.description}</p>
+              <p>Invited By: <span className="text-slate-500">{invite.createdBy.name}</span></p>
+              <div className="flex flex-row ">
                 <button
-                  className="m-2 bg-green-500 text-white p-2 hover:bg-green-600"
+                  className="m-2  bg-green-500 text-white p-2 hover:bg-green-600  rounded-xl"
                   onClick={() => inviteAcceptOrReject(invite._id, "accept")}
                 >
                   Accept
                 </button>
                 <button
-                  className="m-2 bg-red-500 text-white hover:bg-red-600"
+                  className="m-2 bg-red-500 text-white hover:bg-red-600  rounded-xl p-2"
                   onClick={() => inviteAcceptOrReject(invite._id, "reject")}
                 >
                   Reject
