@@ -11,17 +11,19 @@ import {
   getMyGuestEvents,
   getMyHostEvents,
 } from "@/api";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import EventCard from "./EventCard";
 import { useModal } from "@/hooks/user-modal";
 import { ModalProvider } from "@/providers/modal-provider";
 import Notifaction from "../Notifaction";
+import { EventContext } from "@/context/EventContext";
+
 
 const MyEvent = () => {
   const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
   const [showMembers, setShowMembers] = useState(false);
-
+  const { eventId ,setEventId} = useContext(EventContext);
   const getEvents = async () => {
     try {
       const response: any = await getAllEvent();
@@ -63,6 +65,7 @@ const MyEvent = () => {
 
   useEffect(() => {
     getEvents();
+    setEventId("")
     // getHostEvents()
     // getGuestEvents()
   }, []);
