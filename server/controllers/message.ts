@@ -3,6 +3,7 @@ import User from "../models/User";
 import Chat from "../models/Chat";
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import Message from "../models/Message";
+import Notification from "../models/Notification";
 
 const sendMessage = async (req: Request, res: Response) => {
   const { content, chatId } = req.body;
@@ -25,7 +26,18 @@ const sendMessage = async (req: Request, res: Response) => {
     });
 
     await populatedMessage.save();
-    await Chat.findByIdAndUpdate(chatId, { latestMessage: populatedMessage });
+    const chat = await Chat.findByIdAndUpdate(chatId, { latestMessage: populatedMessage });
+    const sender = await User.findById(req.user.userId).populate("name");
+    chat?.users.forEach(async (user) => {
+      if(user.toString() === req.user.userId.toString()) return; 
+
+      const notifications = await Notification.create({
+        userId: user,
+        message: `New message from ${sender?.name} `,
+        url: `${chat.isGroupChat ? `#` : `/dms`}`,
+      });
+      
+    })
     return res.status(200).json(populatedMessage);
   } catch (error) {
     console.log(error);

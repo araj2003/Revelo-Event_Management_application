@@ -111,7 +111,7 @@ const createHost = async (req: Request, res: Response) => {
     const notifications = await Notification.create({
       userId: hostId,
       message: `You have been added as a host to the event ${event?.serverName}`,
-      url: `/event/${eventId}`,
+      url: `/eventPage/${eventId}`,
     });
 
     console.log(notifications);
@@ -152,7 +152,7 @@ const removeHost = async (req: Request, res: Response) => {
     const notifications = await Notification.create({
       userId: hostId,
       message: `You have been removed as a host to the event ${event?.serverName}`,
-      url: `/event/${eventId}`,
+      url: `/eventPage/${eventId}`,
     });
 
     console.log(notifications);

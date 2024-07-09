@@ -9,8 +9,10 @@ import MessageIcon from "@mui/icons-material/Message";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import { Link, useParams } from "react-router-dom";
 import { useAppSelector } from "@/hooks";
+import { useNavigate } from "react-router-dom";
 
 const DirectMessages = () => {
+  const navigate = useNavigate();
   const { roomId } = useParams<{ roomId: string }>();
   const { userId } = useAppSelector((state) => state.user);
   const [data, setData] = useState([]);
@@ -21,13 +23,13 @@ const DirectMessages = () => {
     typeof setTimeout
   > | null>(null);
   const { onOpen } = useModal();
-
+  const getChat = async () => {
+    const response: any = await getSingleChats();
+    console.log(response);
+    setUsers(response?.nonGroupChats);
+  };
   useEffect(() => {
-    const getChat = async () => {
-      const response: any = await getSingleChats();
-      console.log(response);
-      setUsers(response?.nonGroupChats);
-    };
+    
     getChat();
   }, [roomId]);
 
@@ -57,6 +59,11 @@ const DirectMessages = () => {
     onOpen("meetingModal", null, null, userId);
   };
 
+
+  const handleDm = (chatId:any) => {  
+    navigate(`/dms/${chatId}`);
+    getChat();
+  }
   return (
     <div className="sidebar ">
       <div className="flex flex-col border-b border-[#49274b] p-[13px] pb-[10px]">
@@ -72,9 +79,9 @@ const DirectMessages = () => {
                   className="flex flex-col sm:flex-row items-start sm:items-center bg-purple-50 hover:bg-purple-600 hover:text-white cursor-pointer border-gray-600 border-[0.5px] p-2 rounded mb-2 transition-colors duration-200"
                 >
                   <div className="mr-4 mb-2 sm:mb-0">{user.name}</div>
-                  <Link className="mr-2 mb-2 sm:mb-0" to={`/dms/${user._id}`}>
+                  <button onClick={() => handleDm(user._id)} className="mr-2 mb-2 sm:mb-0" >
                     <MessageIcon />
-                  </Link>
+                  </button>
                   <button
                     onClick={() => openMeetingModal(user._id)}
                     className="mr-2 mb-2 sm:mb-0"

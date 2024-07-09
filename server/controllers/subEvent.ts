@@ -197,7 +197,7 @@ const addUserToSubEvent = async (req: Request, res: Response) => {
   const notifications = await Notification.create({
     userId: userId,
     message: `You have been added to subevent ${subEvent?.subEventName}`,
-    url: `event/${eventId}`,
+    url: `/eventPage/${eventId}`,
   });
 
   console.log(notifications);
@@ -229,7 +229,7 @@ const removeUserFromSubEvent = async (req: Request, res: Response) => {
   const notifications = await Notification.create({
     userId: rmUserId,
     message: `You have been removed from subevent ${subEvent?.subEventName}`,
-    url: `event/${eventId}`,
+    url: `/eventPage/${eventId}`,
   });
 
   return res.status(200).json({ subEvent, msg: "Users removed from subEvent" });
@@ -327,7 +327,7 @@ const addRSVP = async (req: Request, res: Response) => {
     const notifications = await Notification.create({
       userId: user._id,
       message: `Please RSVP for the event ${subEvent.subEventName}`,
-      url: `/event/${event[0]._id}`,
+      url: `/eventPage/${event[0]._id}`,
     });
 
   });
