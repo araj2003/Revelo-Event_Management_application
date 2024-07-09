@@ -99,9 +99,9 @@ const MyEvent = () => {
   //   ];
 
   return (
-    <div className="">
+    <div className="h-full">
       <ModalProvider />
-      <div className="flex items-center"></div>
+      {/* <div className="flex items-center"></div> */}
       <div>
         {/* <div className="flex">
           <Link to="/">
@@ -113,7 +113,7 @@ const MyEvent = () => {
             <Notifaction />
           </div>
         </div> */}
-        <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-center">
+        <h1 className="mt-12 ml-12 text-4xl font-extrabold text-gray-900">
           <span className="text-black">My Events</span>{" "}
         </h1>
         <div className="event-page py-16 ml-12 mr-12 flex gap-16 font-robo flex-col  sm:flex-row">
@@ -124,9 +124,9 @@ const MyEvent = () => {
         </div>
         <button
           onClick={addServer}
-          className="hover:bg-slate-400 p-2 bg-slate-500 text-white m-20 rounded-xl"
+          className="hover:bg-[#776CFE] p-2 bg-[#584ED8] text-white m-20 rounded-lg"
         >
-          Create a Event
+          Create an Event
         </button>
       </div>
     </div>

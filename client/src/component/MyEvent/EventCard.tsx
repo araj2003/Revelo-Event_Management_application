@@ -36,7 +36,7 @@ const EventCard = ({ event }: any) => {
             id="dropdownUsersButton"
             data-dropdown-toggle="dropdownUsers"
             data-dropdown-placement="bottom"
-            className="text-[#685cfe] bg-white h-fit font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+            className="text-[#685cfe] bg-white hover:bg-gray-100 h-fit font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
             type="button"
             onClick={() => setShowMembers(!showMembers)}
           >
@@ -70,11 +70,17 @@ const EventCard = ({ event }: any) => {
   );
 };
 
-const EventMembersDropdown = ({event, showMembers}) => {
+const EventMembersDropdown = ({
+  event,
+  showMembers,
+}: {
+  event: any;
+  showMembers: boolean;
+}) => {
   return (
     <div
       id="dropdownUsers"
-      className={`z-10 ${showMembers ? "absolute" : "hidden"} bg-white rounded-lg shadow w-60`}
+      className={`z-10 ${showMembers ? "absolute" : "hidden"} bg-white rounded-lg shadow-lg w-60`}
     >
       <ul
         className="h-48 py-2 overflow-y-auto text-gray-700"
