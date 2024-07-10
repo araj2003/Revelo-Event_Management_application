@@ -119,14 +119,14 @@ const Header = () => {
 
         {data.length > 0 && (
           <>
-            <div className="header__searchResults bg-white p-4 rounded shadow-lg">
+            <div className="border-0 shadow-xl header__searchResults  bg-white p-4 rounded ">
               <h2 className="text-lg font-bold mb-4">
                 {data.length} users found
               </h2>
               {data.map((user: any) => (
                 <div
                   key={user._id}
-                  className="flex flex-col sm:flex-row items-start sm:items-center hover:bg-[#776CFE] hover:text-white cursor-pointer border-gray-600 border-[0.5px] p-2 rounded mb-2 transition-colors duration-200"
+                  className="flex flex-col sm:flex-row items-start sm:items-center hover:bg-[#776CFE] group hover:text-white cursor-pointer border-gray-600  p-2 rounded mb-2 transition-colors duration-200"
                 >
                   <div className="mr-4 mb-2 sm:mb-0">{user.name}</div>
                   <Link className="mr-2 mb-2 sm:mb-0" to={`/dms/${user._id}`}>
@@ -140,16 +140,16 @@ const Header = () => {
                   </button>
                   {user?.role == "vendor" && (
                     <div className="flex gap-2">
-                      <div className="text-xs text-gray-100 bg-purple-500 rounded p-2 ">
+                      <div className="text-xs text-white bg-[#776CFE] rounded   group-hover:bg-white group-hover:text-[#776CFE] font-medium">
                         vendor
                       </div>
-                      <div className="text-xs text-gray-100 bg-purple-500 rounded p-2 ">
+                      <div className="mr-4 mb-2 sm:mb-0 text-md font-medium">
                         {user?.subroll}
                       </div>
                     </div>
                   )}
                   {eventId != '' ? <button
-                    className="font-medium text-black ml-1 px-2 rounded"
+                    className="text-xs text-white bg-[#776CFE] rounded p-2  group-hover:bg-white group-hover:text-[#776CFE] font-medium hover:bg-slate-500"
                     onClick={() => personalInviteToEvent(user._id)}
                   >
                     Invite
