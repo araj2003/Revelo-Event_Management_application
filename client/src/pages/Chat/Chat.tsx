@@ -136,7 +136,7 @@ const Chat = ({ isDm }: { isDm: boolean }) => {
     );
   return (
     <>
-      <div className="chat overflow-scroll flex h-full">
+      <div className="chat flex h-full">
         <div className="chat__header">
           <div className="chat__headerLeft">
             <h4 className="chat_channelName">
@@ -150,7 +150,7 @@ const Chat = ({ isDm }: { isDm: boolean }) => {
             </p>
           </div> */}
         </div>
-        <div className="sidebar__icon">
+        <div className="sidebar__icon overflow-y-scroll">
           <ScrollableFeed>
             {messages?.map((message: any, index: number) => (
               <Message
