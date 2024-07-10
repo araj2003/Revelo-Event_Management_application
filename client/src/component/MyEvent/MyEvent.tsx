@@ -17,6 +17,7 @@ import { useModal } from "@/hooks/user-modal";
 import { ModalProvider } from "@/providers/modal-provider";
 import Notifaction from "../Notifaction";
 import { EventContext } from "@/context/EventContext";
+import { Add, AddBox } from "@mui/icons-material";
 
 
 const MyEvent = () => {
@@ -99,10 +100,10 @@ const MyEvent = () => {
   //   ];
 
   return (
-    <div className="h-full">
+    <div className="h-full pt-12 pl-12 flex flex-col">
       <ModalProvider />
       {/* <div className="flex items-center"></div> */}
-      <div>
+      {/* <div> */}
         {/* <div className="flex">
           <Link to="/">
             <div className="bg-purple-600 rounded-full w-10 h-10 flex items-center justify-center text-white ml-6 mt-4 ">
@@ -111,24 +112,25 @@ const MyEvent = () => {
           </Link>
           <div className="">
             <Notifaction />
-          </div>
-        </div> */}
-        <h1 className="mt-12 ml-12 text-4xl font-extrabold text-gray-900">
-          <span className="text-black">My Events</span>{" "}
+            </div>
+            </div> */}
+        <h1 className="flex">
+          <span className="text-4xl font-extrabold text-black">My Events</span>{" "}
+            <button
+              onClick={addServer}
+              className="hover:bg-[#776CFE] px-3 py-2 bg-[#584ED8]  ml-auto mr-20 flex gap-1 h-fit w-fit text-white rounded-lg"
+            >
+              Create an Event
+              <Add/>
+            </button>
         </h1>
-        <div className="event-page py-16 ml-12 mr-12 flex gap-16 font-robo flex-col  sm:flex-row">
+        <div className="event-page py-12 mr-12 flex gap-16 font-robo flex-col  sm:flex-row">
           {events.map((event: any) => {
             return <EventCard event={event} />;
           })}
           {/* <UserList /> */}
         </div>
-        <button
-          onClick={addServer}
-          className="hover:bg-[#776CFE] p-2 bg-[#584ED8] text-white m-20 rounded-lg"
-        >
-          Create an Event
-        </button>
-      </div>
+      {/* </div> */}
     </div>
   );
 };

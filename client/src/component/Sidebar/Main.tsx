@@ -42,7 +42,7 @@ const Main = () => {
     <>
       <Header />
       <div className="flex w-full">
-        <div className="p-8  flex flex-col gap-3 h-screen w-72 shadow-xl">
+        <div className="p-8 flex flex-col gap-3 min-h-section w-72 shadow-xl">
           {data.map((item, index) => (
             <div
               key={item.name}
