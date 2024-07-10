@@ -136,7 +136,7 @@ const Chat = ({ isDm }: { isDm: boolean }) => {
     );
   return (
     <>
-      <div className="chat overflow-scroll">
+      <div className="chat overflow-scroll flex h-full">
         <div className="chat__header">
           <div className="chat__headerLeft">
             <h4 className="chat_channelName">
@@ -164,7 +164,7 @@ const Chat = ({ isDm }: { isDm: boolean }) => {
             ))}
           </ScrollableFeed>
         </div>
-        <div className="chatInput static">
+        <div className="chatInput mt-auto">
           <form onSubmit={sendMessage} className="flex">
             <input
               type="text"

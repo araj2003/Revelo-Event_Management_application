@@ -2,7 +2,6 @@
   flex: 0.7;
   flex-grow: 1;
   /* overflow-y: scroll; */
-  display: flex;
   flex-direction: column;
   /* padding-bottom: 150px; */
 }
