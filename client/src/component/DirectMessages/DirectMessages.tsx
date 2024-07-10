@@ -65,11 +65,11 @@ const DirectMessages = () => {
     getChat();
   }
   return (
-    <div className="flex  p-8   flex-col gap-3 h-screen w-72 shadow-xl">
+    <div className="flex  p-8  shadow-xl flex-col gap-3 h-screen w-72  bg-white">
       <div className="flex flex-col  border-[#49274b] p-[13px] pb-[10px]">
         <div className="flex-1">
           <h2>Direct Messages</h2>
-          <div className="mt-2 ">
+          <div className="mt-2 flex flex-col gap-3">
             {users?.map((member: any,index) => {
               const otherUser = member.users.filter((user: any) => {
                 return user._id !== userId;
@@ -77,9 +77,9 @@ const DirectMessages = () => {
               if (otherUser.length > 0) {
                 return (
                   <NavLink to={`/dms/${otherUser[0]._id}`} className={({ isActive }) =>
-                    ` ${isActive ? "bg-black" : "bg-pink"}`
+                    ` rounded-xl  ${isActive ? "bg-[#584ED8] text-white" : "hover:bg-[#776CFE] hover:text-[#F0EFFF] hover:font-medium"} `
                   }>
-                        <div className=" flex flex-row p-2  hover:bg-[#776CFE] hover:text-white hover:rounded-xl">
+                        <div className=" flex flex-row p-2   ">
                           <div className="">
                            <img src={otherUser[0]?.profilePicture} alt="" className="rounded-full w-8 h-8"/>
                           </div>
