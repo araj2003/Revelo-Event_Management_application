@@ -126,7 +126,7 @@ const Header = () => {
               {data.map((user: any) => (
                 <div
                   key={user._id}
-                  className="flex flex-col sm:flex-row items-start sm:items-center bg-purple-50 hover:bg-purple-600 hover:text-white cursor-pointer border-gray-600 border-[0.5px] p-2 rounded mb-2 transition-colors duration-200"
+                  className="flex flex-col sm:flex-row items-start sm:items-center hover:bg-[#776CFE] hover:text-white cursor-pointer border-gray-600 border-[0.5px] p-2 rounded mb-2 transition-colors duration-200"
                 >
                   <div className="mr-4 mb-2 sm:mb-0">{user.name}</div>
                   <Link className="mr-2 mb-2 sm:mb-0" to={`/dms/${user._id}`}>
