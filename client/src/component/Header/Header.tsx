@@ -203,7 +203,7 @@ const Header = () => {
               <li>
                 <a
                   onClick={openEvents}
-                  href="#"
+                  href="/"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                   My Events

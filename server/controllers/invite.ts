@@ -85,7 +85,7 @@ const sendPersonalInvite = async (req: Request, res: Response) => {
   const notifications = await Notification.create({
     userId: userId,
     message: `You have been invited to the event ${event?.serverName}`,
-    url: `/sidebar`,
+    url: `/`,
   });
 
   return res.status(StatusCodes.CREATED).json({

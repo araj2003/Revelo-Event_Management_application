@@ -31,10 +31,7 @@ const router = createBrowserRouter([
             path: "/eventPage/:eventId",
             element: <EventPage />,
           },
-          {
-            path: "/sidebar",
-            element: <Main />,
-          },
+          
           {
             path: "/myevents",
             element: <MyEvent />,
@@ -65,7 +62,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/",
-            element: <Home isDm={false} />,
+            element: <Main/>,
             children: [
               {
                 path: "room/:roomId",

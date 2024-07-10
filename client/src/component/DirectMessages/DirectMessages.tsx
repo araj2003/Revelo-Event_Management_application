@@ -70,7 +70,7 @@ const DirectMessages = () => {
         <div className="flex-1">
           <div className="flex flex-row p-2 gap-4 items-center">
             <ArrowBack
-              onClick={() => navigate("/sidebar")}
+              onClick={() => navigate("/")}
               className="cursor-pointer bg-[#776CFE] text-white text- box-content p-1 rounded-full"
             />
             <h2 className="text-xl font-bold">Direct Messages</h2>
