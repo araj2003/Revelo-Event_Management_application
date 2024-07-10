@@ -10,6 +10,8 @@ import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { useAppSelector } from "@/hooks";
 import { useNavigate } from "react-router-dom";
+import { ArrowBack } from "@mui/icons-material";
+
 
 const DirectMessages = () => {
   const navigate = useNavigate();
@@ -68,7 +70,12 @@ const DirectMessages = () => {
     <div className="flex min-h-section p-8  shadow-xl flex-col gap-3  w-72  bg-white">
       <div className="flex flex-col  border-[#49274b] p-[13px] pb-[10px]">
         <div className="flex-1">
-          <h2>Direct Messages</h2>
+          <div className="flex flex-row p-2">
+            <div >
+              <ArrowBack onClick={() => navigate('/sidebar')} className="cursor-pointer bg-[#776CFE] text-white  rounded-full" />
+            </div>
+            <h2>Direct Messages</h2>
+          </div>
           <div className="mt-2 flex flex-col gap-3">
             {users?.map((member: any,index) => {
               const otherUser = member.users.filter((user: any) => {
