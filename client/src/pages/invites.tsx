@@ -29,21 +29,21 @@ const Invites = () => {
         {data.map((invite: any) => {
           return (
             <div
-              className="flex flex-col shadow-lg m-5 border-2 border-black rounded-lg p-5 text-black bg-white hover:cursor-pointer hover:shadow-md hover:shadow-slate-600"
+              className=" flex flex-col shadow-lg m-5 border-0 bg-[#584ED8] rounded-xl px-5 py-5 text-white  hover:cursor-pointer hover:shadow-md hover:shadow-slate-600"
               key={invite._id}
             >
-              <p className="font-medium text-2xl">{invite.eventId.serverName}</p>
-              <p className=""> {invite.eventId.description}</p>
-              <p>Invited By: <span className="text-slate-500">{invite.createdBy.name}</span></p>
+              <p className="capitalize font-medium text-2xl ">{invite.eventId.serverName}</p>
+              <p className="my-1"> {invite.eventId.description}</p>
+              <p>Invited By: <span className="text-slate-300">{invite.createdBy.name}</span></p>
               <div className="flex flex-row ">
                 <button
-                  className="m-2  bg-green-500 text-white p-2 hover:bg-green-600  rounded-xl"
+                  className="m-2  bg-white text-green-500  p-2 hover:bg-green-500  rounded-xl  hover:shadow-md hover:shadow-slate-600   hover:text-white"
                   onClick={() => inviteAcceptOrReject(invite._id, "accept")}
                 >
                   Accept
                 </button>
                 <button
-                  className="m-2 bg-red-500 text-white hover:bg-red-600  rounded-xl p-2"
+                  className="m-2  bg-white text-red-500   rounded-xl p-2  hover:shadow-md hover:shadow-slate-600 hover:bg-red-500 hover:text-white"
                   onClick={() => inviteAcceptOrReject(invite._id, "reject")}
                 >
                   Reject
