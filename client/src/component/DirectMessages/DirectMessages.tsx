@@ -12,7 +12,6 @@ import { useAppSelector } from "@/hooks";
 import { useNavigate } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
 
-
 const DirectMessages = () => {
   const navigate = useNavigate();
   const { roomId } = useParams<{ roomId: string }>();
@@ -31,7 +30,6 @@ const DirectMessages = () => {
     setUsers(response?.nonGroupChats);
   };
   useEffect(() => {
-    
     getChat();
   }, [roomId]);
 
@@ -61,44 +59,51 @@ const DirectMessages = () => {
     onOpen("meetingModal", null, null, userId);
   };
 
-
-  const handleDm = (chatId:any) => {  
+  const handleDm = (chatId: any) => {
     navigate(`/dms/${chatId}`);
     getChat();
-  }
+  };
+
   return (
     <div className="flex min-h-section p-8  shadow-xl flex-col gap-3  w-72  bg-white">
       <div className="flex flex-col  border-[#49274b]">
         <div className="flex-1">
-          <div className="flex flex-row p-2">
-            <div >
-              <ArrowBack onClick={() => navigate('/sidebar')} className="cursor-pointer bg-[#776CFE] text-white  rounded-full" />
-            </div>
-            <h2>Direct Messages</h2>
+          <div className="flex flex-row p-2 gap-4 items-center">
+            <ArrowBack
+              onClick={() => navigate("/sidebar")}
+              className="cursor-pointer bg-[#776CFE] text-white text- box-content p-1 rounded-full"
+            />
+            <h2 className="text-xl font-bold">Direct Messages</h2>
           </div>
           <div className="mt-2 flex flex-col gap-3">
-            {users?.map((member: any,index) => {
+            {users?.map((member: any, index) => {
               const otherUser = member.users.filter((user: any) => {
                 return user._id !== userId;
               });
               if (otherUser.length > 0) {
                 return (
-                  <NavLink to={`/dms/${otherUser[0]._id}`} className={({ isActive }) =>
-                    ` rounded-xl  ${isActive ? "bg-[#584ED8] text-white" : "hover:bg-[#776CFE] hover:text-[#F0EFFF] hover:font-medium"} `
-                  }>
-                        <div className=" flex flex-row p-2   ">
-                          <div className="">
-                           <img src={otherUser[0]?.profilePicture} alt="" className="rounded-full w-8 h-8"/>
-                          </div>
-                          <p className="mx-2">{otherUser[0]?.name}</p>
-                        </div>
+                  <NavLink
+                    to={`/dms/${otherUser[0]._id}`}
+                    className={({ isActive }) =>
+                      ` rounded-xl  ${isActive ? "bg-[#584ED8] text-white" : "hover:bg-[#776CFE] hover:text-[#F0EFFF] hover:font-medium"} `
+                    }
+                  >
+                    <div className=" flex flex-row p-2   ">
+                      <div className="">
+                        <img
+                          src={otherUser[0]?.profilePicture}
+                          alt=""
+                          className="rounded-full w-8 h-8"
+                        />
+                      </div>
+                      <p className="mx-2">{otherUser[0]?.name}</p>
+                    </div>
                   </NavLink>
                 );
               }
             })}
           </div>
         </div>
-        {/* <Add className="cursor-pointer" /> */}
       </div>
     </div>
   );

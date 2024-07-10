@@ -34,7 +34,7 @@
   padding: 0px 20px;
   color: black;
   border-radius: 20px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   position: relative;
   top: 0px;
 }

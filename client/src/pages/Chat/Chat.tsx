@@ -131,7 +131,7 @@ const Chat = ({ isDm }: { isDm: boolean }) => {
     return (
       <div className="h-full w-full flex flex-col items-center justify-center chat">
         <img src={placeholder} className="h-2/3 object-scale-down" />
-        <p className="text-2xl font-bold">Select or Join an event</p>
+        <p className="text-2xl font-bold">Select a {isDm?'chat':'channel'}</p>
       </div>
     );
   return (

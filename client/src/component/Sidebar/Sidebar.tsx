@@ -65,7 +65,7 @@ const Sidebar = () => {
 
   if (!eventId) return <div></div>;
   return (
-    <div className="sidebar">
+    <div className="sidebar shadow-xl">
       <div className="sidebar__header">
         <div className="sidebar__info">
           <h2>{event?.serverName}</h2>
@@ -134,13 +134,13 @@ const Sidebar = () => {
       ))}
       {role === "host" && (
         <div className="flex flex-col ">
-          <Button className="m-4" onClick={openInviteMemberModal}>
+          <Button className="m-4 text-white" onClick={openInviteMemberModal}>
             Invite Member
           </Button>
-          <Button className="m-4 mt-0" onClick={openInviteMemberModal}>
+          <Button className="m-4 mt-0 text-white" onClick={openInviteMemberModal}>
             Invite Vendor
           </Button>
-          <Button className="m-4 mt-0" onClick={openEventMembersModal}>
+          <Button className="m-4 mt-0 text-white" onClick={openEventMembersModal}>
             SHOW MEMBER LIST
           </Button>
         </div>

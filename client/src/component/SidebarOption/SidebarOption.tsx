@@ -31,7 +31,7 @@ const SidebarOption = ({
 }) => {
   const { onOpen } = useModal();
   const { role } = useContext(EventContext);
-  const { selectSingleChannel } = useContext(ChatContext);
+  const { channelId, selectSingleChannel } = useContext(ChatContext);
   const [open, setOpen] = useState(false);
   const [channels, setChannels] = useState<any>([]);
   // const navigate = useNavigate();
@@ -83,7 +83,7 @@ const SidebarOption = ({
   return (
     <>
       <div
-        className="sidebarOption mt-3"
+        className={`sidebarOption mt-3 hover:bg-[#776CFE] hover:text-white rounded-md ${open ? "bg-[#776CFE] text-white" : "text-slate-800"}`}
         onClick={addChanneloption ? addSubevent : selectSubEvent}
       >
         {showIcon && type == "subevent" ? (
@@ -96,7 +96,7 @@ const SidebarOption = ({
           Icon && <Icon className="sidebarOption__icon" />
         )}
         {Icon ? (
-          <h3>{title}</h3>
+          <h3 className="">{title}</h3>
         ) : (
           <>
             <div className="flex w-full justify-between mr-4">
@@ -108,11 +108,13 @@ const SidebarOption = ({
               </h3>
               {role === "host" && (
                 <div className="flex gap-2">
-                  {<button onClick={() => openMembersModal(id)}>
-                    <PeopleIcon fontSize="small" />
-                  </button>}
+                  {
+                    <button onClick={() => openMembersModal(id)}>
+                      <PeopleIcon fontSize="small"/>
+                    </button>
+                  }
                   <button onClick={() => addChannelModal(id)}>
-                    <AddCommentIcon fontSize="small" />
+                    <AddCommentIcon fontSize="small"/>
                   </button>
                 </div>
               )}
@@ -125,7 +127,7 @@ const SidebarOption = ({
           {subEvent?.rsvp.title ? (
             <button
               // size={null}
-              className="h-10 mx-2 px-2 mr-4 flex items-center  justify-start gap-2  mb-2 bg-[#ffffff0e] cursor-pointer w-[99%] rounded-lg hover:bg-[#ffffff52]"
+              className="h-10 mx-2 px-2 mr-4 flex items-center justify-start gap-2  mb-2 bg-[#ffffff0e] cursor-pointer w-[99%] rounded-lg hover:bg-[#776CFE38]"
               onClick={() => openShowRSVPModal(id)}
             >
               <RsvpIcon />
@@ -135,7 +137,7 @@ const SidebarOption = ({
             role == "host" && (
               <button
                 // size={null}
-                className="h-10 mx-2 px-2 mr-4 flex items-center  justify-start gap-2  mb-2 bg-[#ffffff0e] cursor-pointer w-[99%] rounded-lg hover:bg-[#ffffff52]"
+                className="h-10 mx-2 px-2 mr-4 flex items-center  justify-start gap-2  mb-2 bg-[#ffffff0e] cursor-pointer w-[99%] rounded-lg hover:bg-[#776CFE38]"
                 onClick={() => openAddRSVPModal(id)}
               >
                 <PlusIcon size={16} />
@@ -154,7 +156,7 @@ const SidebarOption = ({
               return (
                 <h4
                   onClick={() => selectSingleChannel(channel._id)}
-                  className="sidebarOption__channel bg-[#ffffff0e] hover:bg-[#ffffff52] cursor-pointer w-[99%] mx-2 mr-4 mb-2 rounded-lg"
+                  className={`sidebarOption__channel hover:bg-[#776CFE38] cursor-pointer w-[99%] mx-2 mr-4 mb-2 rounded-lg ${channel._id === channelId ? "bg-[#776CFE38]" : ""}`}
                 >
                   <span className="sidebarOption__hash">#</span>
                   {channel?.channelName}

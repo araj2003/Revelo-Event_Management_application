@@ -28,7 +28,7 @@ module.exports = {
       colors: {
         slack: "var(--slack-color)",
         slack_dark: "#2C0A2C",
-        primary: "#541554",
+        primary: "#584ED8",
         secondary: "#F4EDE4",
         primaryDark: "#4a154b",
       },
