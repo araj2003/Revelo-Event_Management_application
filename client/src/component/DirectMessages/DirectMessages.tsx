@@ -66,7 +66,7 @@ const DirectMessages = () => {
   }
   return (
     <div className="flex min-h-section p-8  shadow-xl flex-col gap-3  w-72  bg-white">
-      <div className="flex flex-col  border-[#49274b] p-[13px] pb-[10px]">
+      <div className="flex flex-col  border-[#49274b]">
         <div className="flex-1">
           <h2>Direct Messages</h2>
           <div className="mt-2 flex flex-col gap-3">
