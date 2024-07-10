@@ -24,7 +24,7 @@ const Invites = () => {
 
   return (
     <div className="h-full pt-12 pl-12 flex flex-col">
-      <h1 className="text-4xl font-extrabold text-gray-900">My Invites</h1>
+      <h1 className="text-4xl font-bold text-gray-900">My Invites</h1>
       <div className="py-12 mr-12 flex gap-16">
         {data.map((invite: any) => {
           return (

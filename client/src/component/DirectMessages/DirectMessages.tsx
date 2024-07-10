@@ -65,7 +65,7 @@ const DirectMessages = () => {
     getChat();
   }
   return (
-    <div className="flex  p-8  shadow-xl flex-col gap-3 h-screen w-72  bg-white">
+    <div className="flex min-h-section p-8  shadow-xl flex-col gap-3  w-72  bg-white">
       <div className="flex flex-col  border-[#49274b] p-[13px] pb-[10px]">
         <div className="flex-1">
           <h2>Direct Messages</h2>

@@ -115,7 +115,7 @@ const MyEvent = () => {
             </div>
             </div> */}
         <h1 className="flex">
-          <span className="text-4xl font-extrabold text-black">My Events</span>{" "}
+          <span className="text-4xl font-bold text-black ">My Events</span>{" "}
             <button
               onClick={addServer}
               className="hover:bg-[#776CFE] px-3 py-2 bg-[#584ED8]  ml-auto mr-20 flex gap-1 h-fit w-fit text-white rounded-lg"
