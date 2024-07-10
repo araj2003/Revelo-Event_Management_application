@@ -7,7 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useModal } from "@/hooks/user-modal";
 import MessageIcon from "@mui/icons-material/Message";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { useAppSelector } from "@/hooks";
 import { useNavigate } from "react-router-dom";
 
@@ -65,69 +65,27 @@ const DirectMessages = () => {
     getChat();
   }
   return (
-    <div className="sidebar ">
-      <div className="flex flex-col border-b border-[#49274b] p-[13px] pb-[10px]">
-        {data?.length > 0 && (
-          <>
-            <div className="header__searchResults bg-white p-4 rounded shadow-lg z-10">
-              <h2 className="text-lg font-bold mb-4">
-                {data.length} users found
-              </h2>
-              {data.map((user: any) => (
-                <div
-                  key={user._id}
-                  className="flex flex-col sm:flex-row items-start sm:items-center bg-purple-50 hover:bg-purple-600 hover:text-white cursor-pointer border-gray-600 border-[0.5px] p-2 rounded mb-2 transition-colors duration-200"
-                >
-                  <div className="mr-4 mb-2 sm:mb-0">{user.name}</div>
-                  <button onClick={() => handleDm(user._id)} className="mr-2 mb-2 sm:mb-0" >
-                    <MessageIcon />
-                  </button>
-                  <button
-                    onClick={() => openMeetingModal(user._id)}
-                    className="mr-2 mb-2 sm:mb-0"
-                  >
-                    <EditCalendarIcon />
-                  </button>
-                  {user?.role == "vendor" && (
-                    <div className="flex gap-2">
-                      <div className="text-xs text-gray-100 bg-purple-500 rounded p-2 ">
-                        vendor
-                      </div>
-                      <div className="text-xs text-gray-100 bg-purple-500 rounded p-2 ">
-                        {user?.subroll}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+    <div className="flex  p-8   flex-col gap-3 h-screen w-72 shadow-xl">
+      <div className="flex flex-col  border-[#49274b] p-[13px] pb-[10px]">
         <div className="flex-1">
           <h2>Direct Messages</h2>
-          <div className="mt-2">
-            {users?.map((member: any) => {
+          <div className="mt-2 ">
+            {users?.map((member: any,index) => {
               const otherUser = member.users.filter((user: any) => {
                 return user._id !== userId;
               });
               if (otherUser.length > 0) {
                 return (
-                  <Link to={`/dms/${otherUser[0]._id}`} className="flex items-center justify-between px-2 py-3">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-6 h-6 bg-zinc-100 rounded-full flex items-center justify-center">
-                        <span className="text-zinc-500">
-                          {otherUser[0].name[0]}
-                        </span>
-                      </div>
-                      <div>
-                        <p className="text-md font-semibold text-sm">
-                          {
-                            otherUser[0].name
-                          }
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
+                  <NavLink to={`/dms/${otherUser[0]._id}`} className={({ isActive }) =>
+                    ` ${isActive ? "bg-black" : "bg-pink"}`
+                  }>
+                        <div className=" flex flex-row p-2  hover:bg-[#776CFE] hover:text-white hover:rounded-xl">
+                          <div className="">
+                           <img src={otherUser[0]?.profilePicture} alt="" className="rounded-full w-8 h-8"/>
+                          </div>
+                          <p className="mx-2">{otherUser[0]?.name}</p>
+                        </div>
+                  </NavLink>
                 );
               }
             })}
