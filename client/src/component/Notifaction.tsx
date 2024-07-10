@@ -24,7 +24,7 @@ const Notifaction = () => {
         onClick={() => setShowNotification(!showNotification)}
         id="dropdownNotificationButton"
         data-dropdown-toggle="dropdownNotification"
-        className="relative inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
+        className="relative inline-flex items-center text-sm font-medium text-center text-gray-500  focus:outline-none dark:text-white dark:hover:text-gray-300"
         type="button"
       >
         <svg
