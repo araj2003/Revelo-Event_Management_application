@@ -150,8 +150,8 @@ const Chat = ({ isDm }: { isDm: boolean }) => {
             </p>
           </div> */}
         </div>
-        <div className="sidebar__icon overflow-y-scroll">
-          <ScrollableFeed>
+        <div className="sidebar__icon overflow-y-scroll flex flex-col gap-10 p-10">
+          
             {messages?.map((message: any, index: number) => (
               <Message
                 key={index}
@@ -162,7 +162,7 @@ const Chat = ({ isDm }: { isDm: boolean }) => {
                 userId={userId}
               />
             ))}
-          </ScrollableFeed>
+          
         </div>
         <div className="chatInput mt-auto">
           <form onSubmit={sendMessage} className="flex">
@@ -173,7 +173,7 @@ const Chat = ({ isDm }: { isDm: boolean }) => {
               value={newMessage}
             />
             <button type="submit">
-              <SendIcon />
+              <SendIcon className="text-black"/>
             </button>
           </form>
         </div>
