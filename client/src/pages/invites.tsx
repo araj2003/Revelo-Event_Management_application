@@ -23,27 +23,27 @@ const Invites = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-4xl font-medium p-10">My Invites</h1>
-      <div className="flex m-5">
+    <div className="h-full pt-12 pl-12 flex flex-col">
+      <h1 className="text-4xl font-extrabold text-gray-900">My Invites</h1>
+      <div className="py-12 mr-12 flex gap-16">
         {data.map((invite: any) => {
           return (
             <div
-              className=" flex flex-col shadow-lg m-5 border-0 bg-[#584ED8] rounded-xl px-5 py-5 text-white  hover:cursor-pointer hover:shadow-md hover:shadow-slate-600"
+              className=" flex flex-col shadow-lg border-0 bg-[#685cfe] rounded-xl w-80 px-5 py-6 text-white  hover:cursor-pointer hover:shadow-md hover:shadow-slate-600"
               key={invite._id}
             >
-              <p className="capitalize font-medium text-2xl ">{invite.eventId.serverName}</p>
-              <p className="my-1"> {invite.eventId.description}</p>
+              <p className="capitalize font-medium text-2xl mb-2">{invite.eventId.serverName}</p>
+              <p className="capitalize"> {invite.eventId.description}</p>
               <p>Invited By: <span className="text-slate-300">{invite.createdBy.name}</span></p>
-              <div className="flex flex-row ">
+              <div className="flex flex-row mt-4 gap-4">
                 <button
-                  className="m-2  bg-white text-green-500  p-2 hover:bg-green-500  rounded-xl  hover:shadow-md hover:shadow-slate-600   hover:text-white"
+                  className="bg-white text-green-500  p-2 hover:bg-green-500  rounded-xl  hover:shadow-md hover:shadow-slate-600   hover:text-white"
                   onClick={() => inviteAcceptOrReject(invite._id, "accept")}
                 >
                   Accept
                 </button>
                 <button
-                  className="m-2  bg-white text-red-500   rounded-xl p-2  hover:shadow-md hover:shadow-slate-600 hover:bg-red-500 hover:text-white"
+                  className="bg-white text-red-500   rounded-xl p-2  hover:shadow-md hover:shadow-slate-600 hover:bg-red-500 hover:text-white"
                   onClick={() => inviteAcceptOrReject(invite._id, "reject")}
                 >
                   Reject
