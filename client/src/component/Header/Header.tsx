@@ -60,14 +60,6 @@ const Header = () => {
     dispatch(logout());
   };
 
-  const openEvents = () => {
-    navigate("/myEvents");
-  };
-
-  const openProfile = () => {
-    navigate("/myProfile");
-  };
-
   const personalInviteToEvent = async (userId: string) => {
     if (!eventId) {
       toast.error("Please select an event to invite");
@@ -140,10 +132,10 @@ const Header = () => {
                   </button>
                   {user?.role == "vendor" && (
                     <div className="flex gap-2">
-                      <div className="text-xs text-white bg-[#776CFE] rounded   group-hover:bg-white group-hover:text-[#776CFE] font-medium">
+                      <div className="mb-2 sm:mb-0 text-sm font-medium">
                         vendor
                       </div>
-                      <div className="mr-4 mb-2 sm:mb-0 text-md font-medium">
+                      <div className="mr-4 mb-2 sm:mb-0 text-sm font-medium">
                         {user?.subroll}
                       </div>
                     </div>
@@ -201,13 +193,12 @@ const Header = () => {
               aria-labelledby="dropdownDelayButton"
             >
               <li>
-                <a
-                  onClick={openEvents}
-                  href="/"
+                <Link
+                  to="/"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                   My Events
-                </a>
+                </Link>
               </li>
               {/* <li>
               <a
@@ -226,13 +217,12 @@ const Header = () => {
               </a>
             </li> */}
               <li>
-                <a
-                  onClick={openProfile}
-                  href="#"
+                <Link
+                  to="myProfile"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                   Profile
-                </a>
+                </Link>
               </li>
               <li>
                 <a
